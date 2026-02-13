@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成AIプロンプトエンジニアリング完全ガイド</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .video-link {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .video-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .executive-summary {
+            background: #f8f9fa;
+            padding: 30px;
+            margin: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+
+        .executive-summary h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .importance-section {
+            padding: 30px;
+            background: linear-gradient(to right, #fff5e6, #ffe6f0);
+            margin: 20px 30px;
+            border-radius: 15px;
+        }
+
+        .importance-section h2 {
+            color: #e74c3c;
+            margin-bottom: 15px;
+        }
+
+        .techniques-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .technique-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 3px solid transparent;
+        }
+
+        .technique-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border-color: #667eea;
+        }
+
+        .technique-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .technique-title {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .technique-description {
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .technique-details {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .technique-card.active .technique-details {
+            display: block;
+        }
+
+        .technique-bullet {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .technique-bullet:before {
+            content: "▶";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+        }
+
+        .process-flow {
+            padding: 30px;
+            background: #f0f4f8;
+        }
+
+        .process-flow h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .flow-step {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .flow-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .author-section {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 30px;
+            margin: 30px;
+            border-radius: 15px;
+        }
+
+        .author-section h2 {
+            margin-bottom: 15px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 15px;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .expand-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .expand-btn:hover {
+            background: #764ba2;
+        }
+
+        .key-principles {
+            background: #fff3cd;
+            padding: 20px;
+            margin: 20px 30px;
+            border-radius: 15px;
+            border: 2px dashed #ffc107;
+        }
+
+        .key-principles h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .principle-item {
+            background: white;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .principle-icon {
+            font-size: 1.5em;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .techniques-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 生成AIの回答精度を最大化する<br>プロンプトエンジニアリング戦略</h1>
+            <p style="font-size: 1.2em; margin-top: 10px;">ChatGPT、Claude、Gemini対応</p>
+            <a href="https://www.youtube.com/watch?v=iWz_WF-BNss&list=WL&index=15" target="_blank" class="video-link">
+                📺 【悪用厳禁】ChatGPTの回答精度を200%引き出すプロンプト10選
+            </a>
+        </div>
+
+        <div class="executive-summary">
+            <h2>📋 エグゼクティブサマリー</h2>
+            <p>本ガイドは、YouTubeチャンネル「かいちのAI大学」で公開された動画をもとに、生成AIの回答精度を飛躍的に向上させるための<strong>10のプロンプトエンジニアリング手法</strong>を統合・分析したものです。</p>
+            <p style="margin-top: 15px; font-weight: bold; color: #e74c3c;">核心的主張：「AIの命令次第で天才にもなれますし、AIは凡人にもなる」</p>
+            <p style="margin-top: 15px;">これらの手法は、曖昧さの排除、指示の構造化、思考プロセスの誘導、タスクの分割といった基本原則に基づいており、ChatGPT、Claude、Geminiなど、すべての大規模言語モデル（LLM）に普遍的に適用可能です。</p>
+        </div>
+
+        <div class="importance-section">
+            <h2>⚠️ プロンプトエンジニアリングの重要性</h2>
+            <p>AIの回答品質は依然として<strong>プロンプトの質</strong>に大きく依存しています。曖昧な指示ではありきたりな回答しか得られず、AIの能力を十分に引き出すことはできません。</p>
+            <p style="margin-top: 10px;">本稿で解説する10の手法は、Anthropic社やOpenAI社の公式ガイド、および実体験に基づいており、LLMの技術的特性を理解した上で構成されています。</p>
+        </div>
+
+        <div class="key-principles">
+            <h3>🎯 基本原則</h3>
+            <div class="principle-item">
+                <span class="principle-icon">🎪</span>
+                <div><strong>曖昧さの排除</strong> - 具体的で明確な指示を与える</div>
+            </div>
+            <div class="principle-item">
+                <span class="principle-icon">📐</span>
+                <div><strong>指示の構造化</strong> - XMLタグなどで情報を整理する</div>
+            </div>
+            <div class="principle-item">
+                <span class="principle-icon">🧠</span>
+                <div><strong>思考プロセスの誘導</strong> - ステップバイステップで考えさせる</div>
+            </div>
+            <div class="principle-item">
+                <span class="principle-icon">✂️</span>
+                <div><strong>タスクの分割</strong> - 複雑な作業を小さなステップに分ける</div>
+            </div>
+        </div>
+
+        <h2 style="text-align: center; padding: 30px; color: #2c3e50; font-size: 2em;">📚 10のプロンプト手法</h2>
+
+        <div class="techniques-grid">
+            <div class="technique-card" onclick="this.classList.toggle('active')">
+                <div class="technique-number">1</div>
+                <div class="technique-title">プロンプトジェネレーター発想支援</div>
+                <div class="technique-description">AI自身に最適なプロンプトを提案させる手法</div>
+                <button class="expand-btn">詳細を見る ▼</button>
+                <div class="technique-details">
+                    <div class="technique-bullet">「あなたは世界最高のプロンプトエンジニアです」と役割を与える</div>
+                    <div class="technique-bullet">特定のタスクに最適な質問文を複数パターン提案させる</div>
+                    <div class="technique-bullet">AIはプロンプトの最適な型を理解しているため、精度の高い提案が可能</div>
+                    <div class="technique-bullet">効率的に効果的な指示文を作成できる</div>
+                </div>
+            </div>
+
+            <div class="technique-card" onclick="this.classList.toggle('active')">
+                <div class="technique-number">2</div>
+                <div class="technique-title">明確で直接的な表現</div>
+                <div class="technique-description">曖昧さを排除し、具体的な指示を与える</div>
+                <button class="expand-btn">詳細を見る ▼</button>
+                <div class="technique-details">
+                    <div class="technique-bullet"><strong>4つの要素</strong>：背景、目的、ターゲット、手順を盛り込む</div>
+                    <div class="technique-bullet">曖昧な情報しかない場合は、その事実をAIに伝える</div>
+                    <div class="technique-bullet">「不足している事項を私に質問してください」と依頼</div>
+                    <div class="technique-bullet">対話を通じて要件を明確化し、指示の精度を高める</div>
+                </div>
+            </div>
+
+            <div class="technique-card" onclick="this.classList.toggle('active')">
+                <div class="technique-number">3</div>
+                <div class="technique-title">役割の付与</div>
+                <div class="technique-description">特定の専門家の視点を与える</div>
+                <button class="expand-btn">詳細を見る ▼</button>
+                <div class="technique-details">
+                    <div class="technique-bullet">法律専門家、マーケティングコンサルタント、小説家など</div>
+                    <div class="technique-bullet"><strong>有効なケース</strong>：短いプロンプト（2〜3行）、古いLLMモデル</div>
+                    <div class="technique-bullet"><strong>注意点</strong>：最新モデル（GPT-5、Gemini 2.5 Pro）では不要な場合も</div>
+                    <div class="technique-bullet">大量のコンテキストデータがある場合も役割付与は必須でない</div>
+                    <div class="technique-bullet">例：「あなたは大企業（Fortune 500）の法務部長です」</div>
+                </div>
+            </div>
+
+            <div class="technique-card" onclick="this.classList.toggle('active')">
+                <div class="technique-number">4</div>
+                <div class="technique-title">例の使用（フューショット）</div>
+                <div class="technique-description">具体的な入出力ペアを提示する</div>
+                <button class="expand-btn">詳細を見る ▼</button>
+                <div class="technique-details">
+                    <div class="technique-bullet">3〜5個程度の多様な例をプロンプトに含める</div>
+                    <div class="technique-bullet">AIは提示された例からパターンやフォーマットを学習</div>
+                    <div class="technique-bullet">複雑な要件や特定のフォーマットが必要な場合に特に有効</div>
+                    <div class="technique-bullet">例：「入力：[フィードバック文]」「カテゴリ：[期待される分類]」</div>
+                </div>
+            </div>
+
+            <div class="technique-card" onclick="this.classList.toggle('active')">
+                <div class="technique-number">5</div>
+                <div class="technique-title">XMLタグによる構造化</div>
+                <div class="technique-description">長文プロンプトを整理する</div>
+                <button class="expand-btn">詳細を見る ▼</button>
+                <div class="technique-details">
+                    <div class="technique-bullet">2000文字以上の長文プロンプトに有効</div>
+                    <div class="technique-bullet">&lt;instruction&gt;、&lt;document&gt;、&lt;data&gt;などのタグで区分け</div>
+                    <div class="technique-bullet">AIに対してプロンプトの構造を明確に伝える</div>
+                    <div class="technique-bullet">複数の依頼が混在する場合、AIのリソース分散を防ぐ</div>
+                    <div class="technique-bullet">主要な指示に集中できるようにする</div>
+                </div>
+            </div>
+
+            <div class="technique-card" onclick="this.classList.toggle('active')">
+                <div class="technique-number">6</div>
+                <div class="technique-title">思考の連鎖 (CoT)</div>
+                <div class="technique-description">思考プロセスも出力させる</div>
+                <button class="expand-btn">詳細を見る ▼</button>
+                <div class="technique-details">
+                    <div class="technique-bullet">「ステップバイステップで考えてください」と指示</div>
+                    <div class="technique-bullet">「段階的に考えてください」というフレーズも有効</div>
+                    <div class="technique-bullet">論理の飛躍や単純なミスを防ぐ</div>
+                    <div class="technique-bullet">&lt;thinking&gt;タグで思考プロセスを構造化</div>
+                    <div class="technique-bullet">より慎重で正確な回答を導き出す</div>
+                </div>
+            </div>
+
+            <div class="technique-card" onclick="this.classList.toggle('active')">
+                <div class="technique-number">7</div>
+                <div class="technique-title">応答の事前入力</div>
+                <div class="technique-description">出力の冒頭部分を指定する</div>
+                <button class="expand-btn">詳細を見る ▼</button>
+                <div class="technique-details">
+                    <div class="technique-bullet">JSONや特定のフォーマットでの出力を強制</div>
+                    <div class="technique-bullet">「承知いたしました」などの冗長な前置きを省略</div>
+                    <div class="technique-bullet">タスクの実行結果だけを直接出力させる</div>
+                    <div class="technique-bullet">例：プロンプトの最後に「[」や「{」を記述</div>
+                    <div class="technique-bullet">AIはその続きからJSONオブジェクトを生成</div>
+                </div>
+            </div>
+
+            <div class="technique-card" onclick="this.classList.toggle('active')">
+                <div class="technique-number">8</div>
+                <div class="technique-title">長文コンテキストの処理</div>
+                <div class="technique-description">数万トークンの文書を扱う</div>
+                <button class="expand-btn">詳細を見る ▼</button>
+                <div class="technique-details">
+                    <div class="technique-bullet"><strong>配置の原則</strong>：文書データは一番上、指示は一番下</div>
+                    <div class="technique-bullet">LLMは直前の文脈に強く影響される特性を利用</div>
+                    <div class="technique-bullet">指示を最後に置くことでタスクを正確に実行</div>
+                    <div class="technique-bullet">&lt;document&gt;タグで各文書を区切る</div>
+                    <div class="technique-bullet">事実（引用）と意見（分析）を明確に分離</div>
+                </div>
+            </div>
+
+            <div class="technique-card" onclick="this.classList.toggle('active')">
+                <div class="technique-number">9</div>
+                <div class="technique-title">プロンプトの連鎖</div>
+                <div class="technique-description">複雑なタスクを分割する</div>
+                <button class="expand-btn">詳細を見る ▼</button>
+                <div class="technique-details">
+                    <div class="technique-bullet"><strong>NG</strong>：「分析してリスクを特定し、メールを下書き」と一度に指示</div>
+                    <div class="technique-bullet"><strong>成功例</strong>：</div>
+                    <div class="technique-bullet">→ プロンプト1：契約書を分析、リスクをリストアップ</div>
+                    <div class="technique-bullet">→ プロンプト2：リスクに基づき交渉メールを下書き</div>
+                    <div class="technique-bullet">→ プロンプト3：メールをより説得力のある表現に修正</div>
+                </div>
+            </div>
+
+            <div class="technique-card" onclick="this.classList.toggle('active')">
+                <div class="technique-number">10</div>
+                <div class="technique-title">自己評価と改善</div>
+                <div class="technique-description">AIに自身の回答を評価させる</div>
+                <button class="expand-btn">詳細を見る ▼</button>
+                <div class="technique-details">
+                    <div class="technique-bullet"><strong>ステップ1（生成）</strong>：レポートを作成させる</div>
+                    <div class="technique-bullet"><strong>ステップ2（評価）</strong>：「辛口の編集長」として100点満点で採点</div>
+                    <div class="technique-bullet">減点理由と改善点を挙げさせる</div>
+                    <div class="technique-bullet"><strong>ステップ3（改善）</strong>：フィードバックに基づいて更新</div>
+                    <div class="technique-bullet">AIが自律的に情報を補完・修正、完成度が向上</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="process-flow">
+            <h2>🔄 プロンプトチェーンと自己評価の実践フロー</h2>
+            
+            <div class="flow-step">
+                <div class="flow-number">1</div>
+                <div>
+                    <strong>初回生成</strong><br>
+                    基本的なタスク実行（例：レポート作成、契約書分析）
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="flow-number">2</div>
+                <div>
+                    <strong>自己評価</strong><br>
+                    AIに辛口の評価者として採点・フィードバックを依頼
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="flow-number">3</div>
+                <div>
+                    <strong>改善実行</strong><br>
+                    評価結果に基づいて内容を更新・強化
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="flow-number">4</div>
+                <div>
+                    <strong>次のステップへ</strong><br>
+                    改善された出力を次のプロンプトのインプットとして使用
+                </div>
+            </div>
+        </div>
+
+        <div class="author-section">
+            <h2>👨‍💼 提唱者情報</h2>
+            <p><strong>かいち氏</strong>（株式会社サクセス 代表取締役）</p>
+            <p style="margin-top: 10px;">生成AIの法人向け研修および組織への導入を支援する伴走プロジェクトを提供</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">1,278時間</span>
+                    <span>月間業務時間削減</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">66%→100%</span>
+                    <span>週3日以上のAI利用率</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">70+</span>
+                    <span>創出されたユースケース</span>
+                </div>
+            </div>
+            
+            <p style="margin-top: 20px; text-align: center;">
+                <strong>目標：「全社員がAIを使いこなす組織」の実現</strong>
+            </p>
+        </div>
+
+        <div style="background: #f8f9fa; padding: 20px; margin: 30px; border-radius: 15px; text-align: center; color: #666;">
+            <p>⚠️ NotebookLM は不正確な場合があります。回答は再確認してください。</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">このガイドは「かいちのAI大学」の動画コンテンツをもとに作成されています</p>
+        </div>
+    </div>
+
+    <script>
+        // カードクリックでアニメーション効果
+        document.querySelectorAll('.technique-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const btn = this.querySelector('.expand-btn');
+                if (this.classList.contains('active')) {
+                    btn.textContent = '閉じる ▲';
+                } else {
+                    btn.textContent = '詳細を見る ▼';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

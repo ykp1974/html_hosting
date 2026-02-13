@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tldv AIツール図解ブリーフィング</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Mequiv, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .video-source {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .video-source a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            margin-bottom: 40px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        
+        .comparison-table td {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f5f7fa;
+        }
+        
+        .pros-cons-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .pros, .cons {
+            padding: 25px;
+            border-radius: 15px;
+        }
+        
+        .pros {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+        }
+        
+        .cons {
+            background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+            color: white;
+        }
+        
+        .pros h3, .cons h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .pros ul, .cons ul {
+            list-style: none;
+        }
+        
+        .pros li, .cons li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .pros li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .cons li:before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .step {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .step h3 {
+            margin-left: 30px;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .step p {
+            margin-left: 30px;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .highlight-box strong {
+            color: #856404;
+        }
+        
+        @media (max-width: 768px) {
+            .pros-cons-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 AI会議ツール「tldv」完全ガイド</h1>
+            <p style="font-size: 1.2em; margin-top: 10px;">会議の効率化を実現する生成AIツール</p>
+            <div class="video-source">
+                <p>📹 参考動画</p>
+                <a href="https://youtu.be/VuG0KaqaHrA?list=TLGGadxMN20F06MwNTAxMjAyNg" target="_blank">
+                    【2chお金スレ】最強のおすすめ副業を全て挙げていく。誰でも簡単にバレずに稼げるぞ【2ch有益スレ】
+                </a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- エグゼクティブサマリー -->
+            <div class="executive-summary">
+                <h2 style="color: #667eea; margin-bottom: 15px;">📊 エグゼクティブサマリー</h2>
+                <p><strong>tldv</strong>は、Web会議の録画、音声の自動文字起こし、議事録作成、AIによる要約といった機能を統合したツールであり、Google MeetやZoomなどの主要プラットフォームに対応しています。</p>
+                <br>
+                <p><strong>🌟 最大の特長:</strong> 録画、文字起こし、要約、翻訳といった中核機能の多くが<strong>無料プラン</strong>で利用可能。これにより、会議中のメモ取りから解放され、参加者は議論に集中できます。</p>
+                <br>
+                <p><strong>⚠️ 制約事項:</strong> 無料プランでは4日以上経過したデータへのアクセスに70分以上の待機時間が必要で、データの永久保存は不可。操作画面は英語のみ対応。</p>
+                <br>
+                <p><strong>💡 結論:</strong> 会議運営と議事録作成のプロセスを根本から効率化し、特に短期プロジェクトや一時的な記録用途において無料プランでも高い価値を提供します。</p>
+            </div>
+            
+            <!-- セクション1: 主要機能 -->
+            <div class="section">
+                <h2 class="section-title">1️⃣ tldvの主要機能</h2>
+                <p style="margin-bottom: 20px;">会議の録音・録画データから自動で文字起こしを行い、議事録を作成する生成AIツール。音声と映像の両方を記録するため、後から会議内容を詳細に確認できます。</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>🎥 会議の録画</h3>
+                        <p>音声と映像を録画しクラウド保存</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📝 自動文字起こし</h3>
+                        <p>録画音声をAIがテキスト化</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>⏱️ タイムスタンプ</h3>
+                        <p>発言者・発言時間を表示し該当箇所へジャンプ可能</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔍 キーワード検索</h3>
+                        <p>録画データ内の発言内容を検索</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🌐 翻訳</h3>
+                        <p>20以上の言語に翻訳</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🤖 AIによる要約</h3>
+                        <p>文字起こし内容を自動要約</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔗 共有</h3>
+                        <p>録画・議事録をリンクで共有</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <strong>✨ 重要:</strong> 上記のすべての機能が<strong>無料プラン</strong>で利用可能です!
+                </div>
+            </div>
+            
+            <!-- セクション2: 料金プラン比較 -->
+            <div class="section">
+                <h2 class="section-title">2️⃣ 料金プランの比較</h2>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>比較項目</th>
+                            <th>無料プラン</th>
+                            <th>プロプラン</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>過去データへのアクセス</strong></td>
+                            <td>4日以上経過したデータは<br>70分以上の待機が必要</td>
+                            <td>待機なしで即アクセス可能</td>
+                        </tr>
+                        <tr>
+                            <td><strong>発言者分析</strong></td>
+                            <td>利用不可</td>
+                            <td>利用可能</td>
+                        </tr>
+                        <tr>
+                            <td><strong>推奨用途</strong></td>
+                            <td>短期間の会議記録や議事録作成など、<br>一時的な利用に最適</td>
+                            <td>過去データを頻繁に<br>参照・分析する必要がある場合</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <strong>💰 プラン選択のポイント:</strong> 無料プランは「聞き漏らし防止」「メモ取り不要」といった基本ニーズを満たします。過去データの頻繁な参照が必要な場合のみプロプランを検討しましょう。
+                </div>
+            </div>
+            
+            <!-- セクション3: メリット・デメリット -->
+            <div class="section">
+                <h2 class="section-title">3️⃣ メリットとデメリットの分析</h2>
+                
+                <div class="pros-cons-container">
+                    <div class="pros">
+                        <h3>✅ メリット</h3>
+                        <ul>
+                            <li><strong>優れたコストパフォーマンス</strong><br>録画・文字起こし・要約・翻訳が無料で利用可能</li>
+                            <li><strong>会議への集中力向上</strong><br>メモ取り不要で議論に集中でき、人的リソースを有効活用</li>
+                            <li><strong>議事録作成の効率化</strong><br>高精度の文字起こしにより作業時間を大幅短縮。抜け漏れの心配も一切なし</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="cons">
+                        <h3>⚠️ デメリット</h3>
+                        <ul>
+                            <li><strong>リアルタイム性の欠如</strong><br>文字起こしは会議終了後に生成される</li>
+                            <li><strong>データ保存期間の制限</strong><br>無料プランでは一定期間後に自動削除。必要なら動画保存が推奨</li>
+                            <li><strong>日本語インターフェース非対応</strong><br>英語UIのみ。ただしブラウザ翻訳で対応可能</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- セクション4: 導入プロセス -->
+            <div class="section">
+                <h2 class="section-title">4️⃣ 導入と設定のプロセス</h2>
+                
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>アカウント開設</h3>
+                        <p>公式サイトでアカウント作成。GoogleまたはMicrosoftアカウントで登録可能です。</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>初期設定</h3>
+                        <p>職種、使用言語、会議の自動録画設定などを選択します。</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>コンピューター制御の許可</h3>
+                        <p><strong>Windows:</strong> 案内に従い設定<br>
+                        <strong>Mac:</strong> 「システム設定」→「プライバシーとセキュリティ」→「アクセシビリティ」でtldvを有効化</p>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>導入完了</h3>
+                        <p>設定完了後、tldvが利用可能となります。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

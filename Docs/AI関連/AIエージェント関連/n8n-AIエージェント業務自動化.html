@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>n8n: AIエージェント業務自動化 完全図解ガイド</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'メイリオ', Meiryo, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .video-link {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .video-link a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .video-link a:hover {
+            background: rgba(255,255,255,0.5);
+            transform: translateY(-2px);
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .point-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s;
+        }
+        
+        .point-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .point-card h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .feature-box {
+            background: #f8f9ff;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .feature-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            margin: 30px 0;
+            border-collapse: collapse;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9ff;
+        }
+        
+        .workflow-diagram {
+            background: #f8f9ff;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.4);
+        }
+        
+        .step-content {
+            margin-left: 20px;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            flex-grow: 1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .step-content h4 {
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .arrow-down {
+            text-align: center;
+            color: #667eea;
+            font-size: 2em;
+            margin: 10px 0;
+        }
+        
+        .level-card {
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .level-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: inline-block;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .node-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .node-item {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #667eea;
+            font-weight: bold;
+            color: #667eea;
+            transition: all 0.3s;
+        }
+        
+        .node-item:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .highlight-box strong {
+            color: #856404;
+        }
+        
+        .pricing-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .pricing-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .pricing-amount {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        
+        .quote {
+            background: #e8eaf6;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #333;
+            border-radius: 5px;
+        }
+        
+        .vs-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .vs-box {
+            background: white;
+            border: 3px solid #667eea;
+            padding: 30px;
+            border-radius: 15px;
+            width: 45%;
+            min-width: 250px;
+            margin: 10px;
+        }
+        
+        .vs-box h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .vs-separator {
+            font-size: 3em;
+            color: #764ba2;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .vs-box {
+                width: 100%;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 n8n: AIエージェント業務自動化</h1>
+            <div class="subtitle">完全図解ガイド</div>
+            <div class="video-link">
+                <div style="margin-bottom: 10px;">📺 元動画：ハム先生のAI教室</div>
+                <a href="https://youtu.be/QvEdfnr4ge4?list=TLGGHUIAFBKK4WYwNzAxMjAyNg" target="_blank">
+                    【1本で全て分かる】初心者でも簡単に自動化！究極のAIエージェント「n8n」の使い方・入門講座
+                </a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- エグゼクティブサマリー -->
+            <div class="section">
+                <h2 class="section-title">📋 エグゼクティブサマリー</h2>
+                <div class="quote">
+                    「あらゆる業務を自動化してくれるAI秘書」
+                </div>
+                
+                <div class="key-points">
+                    <div class="point-card">
+                        <h3>🎯 ノーコード/ローコード</h3>
+                        <p>プログラミング不要で視覚的にフローを構築</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>🧠 AI + 自動化</h3>
+                        <p>静的自動化と動的AIエージェントの両立</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>🚀 高い拡張性</h3>
+                        <p>1000種類以上のノード、API連携対応</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>⭐ 将来性</h3>
+                        <p>海外で人気急上昇、日本でも普及確実</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- n8nとは -->
+            <div class="section">
+                <h2 class="section-title">💡 n8nとは？</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-box">
+                        <h3>🎫 旅行プランナー</h3>
+                        <p>フライト料金や天気をチェックし、持ち物リストを提案</p>
+                    </div>
+                    <div class="feature-box">
+                        <h3>🔍 リサーチアシスタント</h3>
+                        <p>ニュースを取得・分析しSlackへ通知</p>
+                    </div>
+                    <div class="feature-box">
+                        <h3>📅 スケジュールアシスタント</h3>
+                        <p>メール内容を読み取り、Googleカレンダーに自動反映</p>
+                    </div>
+                    <div class="feature-box">
+                        <h3>📱 SNSマネージャー</h3>
+                        <p>コンテンツ生成から投稿まで自動化</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 主な特徴 -->
+            <div class="section">
+                <h2 class="section-title">✨ 主な特徴</h2>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>特徴</th>
+                            <th>詳細</th>
+                            <th>メリット</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>誰でも作れるAIエージェント</strong></td>
+                            <td>ノーコードでAIモデルを組み込める</td>
+                            <td>非エンジニアでも高度な自動化が可能</td>
+                        </tr>
+                        <tr>
+                            <td><strong>視覚的なワークフロー構築</strong></td>
+                            <td>ドラッグ＆ドロップで設計</td>
+                            <td>全体像が把握しやすく修正も容易</td>
+                        </tr>
+                        <tr>
+                            <td><strong>高い自由度と拡張性</strong></td>
+                            <td>API連携・JavaScript対応</td>
+                            <td>初心者〜上級者まで幅広く対応</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="highlight-box">
+                    <strong>💎 将来性：</strong> 今n8nを勉強しておけば間違いなく日本の中で先行者になれます
+                </div>
+            </div>
+            
+            <!-- 料金体系 -->
+            <div class="section">
+                <h2 class="section-title">💰 料金体系と利用開始</h2>
+                
+                <div class="pricing-box">
+                    <h3>クラウド版 / セルフホスト版</h3>
+                    <div class="pricing-amount">¥4,000〜5,000</div>
+                    <p style="font-size: 1.2em;">月額 / 14〜15日間無料トライアル</p>
+                </div>
+                
+                <div class="workflow-diagram">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">アカウント作成プロセス</h3>
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>公式サイトへアクセス</h4>
+                            <p>「Get Started」をクリック</p>
+                        </div>
+                    </div>
+                    <div class="arrow-down">↓</div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>必要情報を入力</h4>
+                            <p>メールアドレス、パスワード等</p>
+                        </div>
+                    </div>
+                    <div class="arrow-down">↓</div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>「Start Free」で開始</h4>
+                            <p>無料トライアル開始</p>
+                        </div>
+                    </div>
+                    <div class="arrow-down">↓</div>
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>アンケート回答</h4>
+                            <p>ダッシュボードへ移動</p>
+                        </div>
+                    </div>
+                    <div class="arrow-down">↓</div>
+                    <div class="workflow-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h4>「Create workflow」</h4>
+                            <p>開発画面で作成開始</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 推奨学習ステップ -->
+            <div class="section">
+                <h2 class="section-title">📚 推奨学習ステップ</h2>
+                
+                <div class="key-points">
+                    <div class="point-card">
+                        <h3>STEP 1</h3>
+                        <p>基礎を学ぶ<br>（API、JavaScript、ワークフロー、ノード）</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>STEP 2</h3>
+                        <p>実例を真似して操作する</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>STEP 3</h3>
+                        <p>自分の業務に合わせてワークフローを構築</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 自動化 vs AIエージェント -->
+            <div class="section">
+                <h2 class="section-title">⚖️ 「自動化」vs「AIエージェント」</h2>
+                
+                <div class="vs-diagram">
+                    <div class="vs-box">
+                        <h3>🔧 自動化 (Static)</h3>
+                        <p><strong>性質：</strong> 静的</p>
+                        <p><strong>処理：</strong> 固定ステップを実行</p>
+                        <p><strong>例：</strong> フォーム回答 → Slack通知</p>
+                    </div>
+                    
+                    <div class="vs-separator">VS</div>
+                    
+                    <div class="vs-box">
+                        <h3>🤖 AIエージェント (Dynamic)</h3>
+                        <p><strong>性質：</strong> 動的</p>
+                        <p><strong>処理：</strong> AIが推論し柔軟に行動</p>
+                        <p><strong>例：</strong> 内容に応じて最適なチャンネルをAIが選択</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <strong>共通構造：</strong> トリガー → アクション → 結果
+                </div>
+            </div>
+            
+            <!-- コア技術と用語 -->
+            <div class="section">
+                <h2 class="section-title">🔤 必須キーワード解説</h2>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>キーワード</th>
+                            <th>説明</th>
+                            <th>料理の例え</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>ワークフロー</strong></td>
+                            <td>自動化全体の流れ</td>
+                            <td>レシピ全体</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ノード</strong></td>
+                            <td>特定の処理ブロック</td>
+                            <td>調理工程</td>
+                        </tr>
+                        <tr>
+                            <td><strong>コネクション</strong></td>
+                            <td>ノード間の矢印</td>
+                            <td>調理の順序</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- ノードの種類 -->
+            <div class="section">
+                <h2 class="section-title">🧩 ノードの種類</h2>
+                
+                <div style="margin-bottom: 30px;">
+                    <h3 style="color: #667eea; margin-bottom: 15px;">🎬 トリガーノード（開始条件）</h3>
+                    <div class="node-grid">
+                        <div class="node-item">手動実行</div>
+                        <div class="node-item">アプリイベント</div>
+                        <div class="node-item">スケジュール</div>
+                        <div class="node-item">Webhook</div>
+                        <div class="node-item">フォーム送信</div>
+                        <div class="node-item">チャットメッセージ</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">⚡ アクションノード（処理）</h3>
+                    <div class="node-grid">
+                        <div class="node-item">AI (OpenAI)</div>
+                        <div class="node-item">AI Agent</div>
+                        <div class="node-item">Gmail</div>
+                        <div class="node-item">Slack</div>
+                        <div class="node-item">JavaScript</div>
+                        <div class="node-item">Python</div>
+                        <div class="node-item">IF</div>
+                        <div class="node-item">Loop</div>
+                        <div class="node-item">HTTP Request</div>
+                        <div class="node-item">人間の承認</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- レベル1 -->
+            <div class="section">
+                <h2 class="section-title">🎯 実践ハンズオン</h2>
+                
+                <div class="level-card">
+                    <div class="level-header">レベル1：基本操作</div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">Googleスプレッドシート自動作成</h3>
+                    
+                    <div class="workflow-diagram">
+                        <div class="workflow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>On Form Submission</h4>
+                                <p>フォームのタイトル・説明・入力項目を設定</p>
+                            </div>
+                        </div>
+                        <div class="arrow-down">↓</div>
+                        <div class="workflow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Google Sheets (Create Spreadsheet)</h4>
+                                <p>Google認証 + シート名にフォーム入力値を設定</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>習得ポイント：</strong> ノード追加・設定・認証・データ受け渡しなどの基本操作
+                    </div>
+                </div>
+                
+                <!-- レベル2 -->
+                <div class="level-card">
+                    <div class="level-header">レベル2：静的自動化</div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">天気予報ボット（固定ルート）</h3>
+                    
+                    <div class="workflow-diagram">
+                        <div class="workflow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>On Schedule (毎日9時)</h4>
+                                <p>定期実行トリガー</p>
+                            </div>
+                        </div>
+                        <div class="arrow-down">↓</div>
+                        <div class="workflow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>HTTP Request (Open-Meteo API)</h4>
+                                <p>渋谷の天気データを取得</p>
+                            </div>
+                        </div>
+                        <div class="arrow-down">↓</div>
+                        <div class="workflow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Code (JSON整形)</h4>
+                                <p>取得したJSONを読みやすく整形</p>
+                            </div>
+                        </div>
+                        <div class="arrow-down">↓</div>
+                        <div class="workflow-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Gmail / Slack</h4>
+                                <p>整形メッセージを送信</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>技術ポイント：</strong> API連携、HTTPリクエスト、JSON処理、ChatGPTでコード生成
+                    </div>
+                </div>
+                
+                <!-- レベル3 -->
+                <div class="level-card">
+                    <div class="level-header">レベル3：動的AIエージェント</div>
+                    <h3 style="color: #667eea; margin-bottom: 15px;">天気予報ボット（AI判断）</h3>
+                    
+                    <div class="workflow-diagram">
+                        <div class="workflow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>On Chat Message</h4>
+                                <p>自然言語での問い合わせを受付</p>
+                            </div>
+                        </div>
+                        <div class="arrow-down">↓</div>
+                        <div class="workflow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>AI Agent</h4>
+                                <p>🤖 モデル (ChatGPT)<br>
+                                💾 記憶 (Memory)<br>
+                                🔧 ツール (HTTP Request)</p>
+                            </div>
+                        </div>
+                        <div class="arrow-down">↓</div>
+                        <div class="workflow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Gmail / Slack</h4>
+                                <p>AIが生成した回答を送信</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>革新ポイント：</strong> AIが意図を理解し、必要なAPIを自律的に利用して回答する「真のAIエージェント」
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 結論 -->
+            <div class="section">
+                <h2 class="section-title">🎓 結論と今後の展望</h2>
+                
+                <div class="quote">
+                    n8nは、視覚的で直感的なインターフェースを持ちながら、静的自動化から動的AIエージェントまで構築できる強力なツールです
+                </div>
+                
+                <div class="features-grid">
+                    <div class="feature-box">
+                        <h3>📰 ニュース要約</h3>
+                        <p>最新情報を自動収集・分析</p>
+                    </div>
+                    <div class="feature-box">
+                        <h3>📊 市場データ分析</h3>
+                        <p>金融データの自動取得・レポート生成</p>
+                    </div>
+                    <div class="

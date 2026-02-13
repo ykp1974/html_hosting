@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotebookLM + Gemini 2.5 Pro 業務効率化</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.1"><circle cx="30" cy="30" r="4"/></g></svg>');
+            opacity: 0.3;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .video-source {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 4px solid #4285f4;
+            margin: 20px 40px;
+            border-radius: 8px;
+        }
+        
+        .video-source h3 {
+            color: #4285f4;
+            margin-bottom: 10px;
+        }
+        
+        .video-source a {
+            color: #ea4335;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .video-source a:hover {
+            text-decoration: underline;
+        }
+        
+        .main-content {
+            padding: 40px;
+        }
+        
+        .intro-section {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            color: #1565c0;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            text-align: center;
+            border: 3px solid #4285f4;
+        }
+        
+        .intro-section h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .tools-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-card.notebooklm {
+            border-color: #4285f4;
+        }
+        
+        .tool-card.notebooklm::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: #4285f4;
+        }
+        
+        .tool-card.gemini {
+            border-color: #34a853;
+        }
+        
+        .tool-card.gemini::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: #34a853;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .tool-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .tool-icon {
+            font-size: 2.5em;
+            margin-right: 15px;
+        }
+        
+        .tool-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .tool-subtitle {
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+        
+        .tool-section {
+            margin-bottom: 20px;
+        }
+        
+        .tool-section h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .tool-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .tool-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .tool-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00b894;
+            font-weight: bold;
+        }
+        
+        .attention-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .attention-box.notebooklm {
+            background: #e3f2fd;
+            border-color: #4285f4;
+        }
+        
+        .attention-box.gemini {
+            background: #fff3e0;
+            border-color: #ff9800;
+        }
+        
+        .attention-box strong {
+            color: #e65100;
+        }
+        
+        .examples-section {
+            margin-bottom: 40px;
+        }
+        
+        .examples-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .examples-header h2 {
+            color: #2c3e50;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .example-cards {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+        
+        .example-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-left: 5px solid #4285f4;
+        }
+        
+        .example-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .example-number {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            font-size: 1.2em;
+        }
+        
+        .example-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .problem-section {
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f44336;
+        }
+        
+        .problem-section h4 {
+            color: #c62828;
+            margin-bottom: 10px;
+        }
+        
+        .steps-section {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .steps-section h4 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        
+        .step-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+        
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #4caf50;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .features-section {
+            background: #f3e5f5;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #9c27b0;
+        }
+        
+        .features-section h4 {
+            color: #6a1b9a;
+            margin-bottom: 10px;
+        }
+        
+        .workflow-diagram {
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .workflow-step {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            min-width: 150px;
+            flex: 1;
+        }
+        
+        .workflow-step .step-number {
+            background: #4285f4;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+        }
+        
+        .workflow-arrow {
+            font-size: 2em;
+            color: #4285f4;
+        }
+        
+        .conclusion-section {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .conclusion-section h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+        
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .key-point {
+            background: rgba(255,255,255,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .key-point h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .usage-scenarios {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .usage-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px 25px;
+            border-radius: 25px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .final-message {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        
+        .final-message .quote {
+            font-size: 1.3em;
+            font-style: italic;
+            line-height: 1.6;
+            color: #ffcc02;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .tools-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .workflow-steps {
+                flex-direction: column;
+            }
+            
+            .workflow-arrow {
+                transform: rotate(90deg);
+            }
+            
+            .key-points {
+                grid-template-columns: 1fr;
+            }
+            
+            .usage-scenarios {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Google NotebookLM + Gemini 2.5 Pro</h1>
+            <p class="subtitle">業務効率化ブリーフィング資料 - AI活用専門家による解説に基づく業務生産性飛躍的向上手法</p>
+        </div>
+
+        <div class="video-source">
+            <h3>📺 参考動画</h3>
+            <p><strong>タイトル:</strong> <a href="https://youtu.be/Ef25Un9VHxM?list=TLGGENFO73cDyO8wMzA4MjAyNQ" target="_blank">【衝撃】NotebookLM + Gemini 2.5 Proを使って業務の生産性を爆上げする禁断テクニックを徹底解説【業務効率化】</a></p>
+            <p><small>※このドキュメントは上記動画の内容を基に作成されています</small></p>
+        </div>
+
+        <div class="main-content">
+            <div class="intro-section">
+                <h2>✨ はじめに</h2>
+                <p>本ブリーフィングは、AI活用専門家の大氏による解説に基づき、Googleの「NotebookLM」と「Gemini 2.5 Pro」を組み合わせることで業務生産性を飛躍的に向上させる手法をまとめたものです。両ツールの特徴と連携による相乗効果を詳細にレビューします。</p>
+            </div>
+
+            <h2 style="text-align: center; color: #2c3e50; margin-bottom: 30px; font-size: 2em;">1️⃣ NotebookLMとGeminiの役割と得意分野</h2>
+
+            <div class="tools-comparison">
+                <div class="tool-card notebooklm">
+                    <div class="tool-header">
+                        <div class="tool-icon">🔍</div>
+                        <div>
+                            <div class="tool-title">NotebookLM</div>
+                            <div class="tool-subtitle">資料の整理と要点抽出の専門家</div>
+                        </div>
+                    </div>
+
+                    <div class="tool-section">
+                        <h4>役割</h4>
+                        <p>資料の読み手・整理屋さん</p>
+                    </div>
+
+                    <div class="tool-section">
+                        <h4>得意なこと</h4>
+                        <ul class="tool-list">
+                            <li>資料の整理</li>
+                            <li>要点抽出</li>
+                            <li>Q&A生成</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-section">
+                        <h4>参照情報</h4>
+                        <p>アップロードされた情報のみ（外部混入防止）</p>
+                    </div>
+
+                    <div class="tool-section">
+                        <h4>向いている用途</h4>
+                        <ul class="tool-list">
+                            <li>ルール理解</li>
+                            <li>研修まとめ</li>
+                            <li>ナレッジチャットボット</li>
+                        </ul>
+                    </div>
+
+                    <div class="attention-box notebooklm">
+                        <strong>注意点：</strong>「与えた情報以外は基本的に使われない」
+                    </div>
+                </div>
+
+                <div class="tool-card gemini">
+                    <div class="tool-header">
+                        <div class="tool-icon">🎨</div>
+                        <div>
+                            <div class="tool-title">Gemini 2.5 Pro</div>
+                            <div class="tool-subtitle">アイデア発想と提案の専門家</div>
+                        </div>
+                    </div>
+
+                    <div class="tool-section">
+                        <h4>役割</h4>
+                        <p>発想屋・提案屋</p>
+                    </div>
+
+                    <div class="tool-section">
+                        <h4>得意なこと</h4>
+                        <ul class="tool-list">
+                            <li>ゼロから構成・文章を考案</li>
+                        </ul>
+                    </div>
+
+                    <div class="tool-section">
+                        <h4>参照情報</h4>
+                        <p>Webや学習済み知識（発想力が高い）</p>
+                    </div>
+
+                    <div class="tool-section">
+                        <h4>向いている用途</h4>
+                        <ul class="tool-list">
+                            <li>企画アイデア</li>
+                            <li>資料作成</li>
+                            <li>メール文章など提案型業務</li>
+                        </ul>
+                    </div>
+
+                    <div class="attention-box gemini">
+                        <strong>注意点：</strong>「ハルシネーション（誤情報）」への注意が必要
+                    </div>
+                </div>
+            </div>
+
+            <div class="examples-section">
+                <div class="examples-header">
+                    <h2>2️⃣ NotebookLMとGemini 2.5 Pro連携による具体例</h2>
+                </div>
+
+                <div class="example-cards">
+                    <div class="example-card">
+                        <div class="example-header">
+                            <div class="example-number">2.1</div>
+                            <div class="example-title">社内情報をeラーニングへ自動変換</div>
+                        </div>
+
+                        <div class="problem-section">
+                            <h4>💥 課題</h4>
+                            <ul class="tool-list">
+                                <li>読まれないマニュアル</li>
+                                <li>引き継ぎ資料が活用されない</li>
+                            </ul>
+                        </div>
+
+                        <div class="steps-section">
+                            <h4>📋 ステップ</h4>
+                            <ol class="step-list">
+                                <li>NotebookLMへ社内資料をアップロード（ルール集、Q&Aなど）</li>
+                                <li>質問＆選択肢付きクイズ生成をNotebookLMに指示</li>
+                                <li>Gemini 2.5 Proへクイズ内容を貼り付け</li>
+                                <li>Canvasモードでリッチeラーニング化（採点・再挑戦ボタン等）</li>
+                            </ol>
+                        </div>
+
+                        <div class="features-section">
+                            <h4>🚀 Geminiの拡張機能</h4>
+                            <ul class="tool-list">
+                                <li>PDF/CSV出力ボタンの追加</li>
+                                <li>Web共有ボタン作成</li>
+                                <li>学習進捗管理（ID入力で履歴確認）</li>
+                                <li>ゲーミフィケーション対応（RPG風UI、称号付与）</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="example-card">
+                        <div class="example-header">
+                            <div class="example-number">2.2</div>
+                            <div class="example-title">成功者の思考法を自分の成長に活用</div>
+                        </div>
+
+                        <div class="problem-section">
+                            <h4>💥 課題</h4>
+                            <p>成功者の思考を自分に活かせない</p>
+                        </div>
+
+                        <div class="steps-section">
+                            <h4>📋 ステップ</h4>
+                            <ol class="step-list">
+                                <li>NotebookLMで成功者の習慣や思考法を抽出</li>
+                                <li>Gemini 2.5 Proで自己分析（質問応答方式）</li>
+                                <li>成功者との比較分析（レーダーチャート可視化）</li>
+                                <li>成長戦略・行動計画の提案</li>
+                            </ol>
+                        </div>
+
+                        <div class="features-section">
+                            <h4>🚀 Gemini追加機能</h4>
+                            <ul class="tool-list">
+                                <li>新規事業アイデア提案</li>
+                                <li>コーチング支援（壁打ち、フィードバック）</li>
+                                <li>業務の仕組み化支援</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workflow-diagram">
+                <h3 style="color: #2e7d32; margin-bottom: 20px;">🔄 連携ワークフロー</h3>
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <h4>NotebookLM</h4>
+                        <p>情報整理・抽出</p>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <h4>データ転送</h4>
+                        <p>構造化された情報</p>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <h4>Gemini 2.5 Pro</h4>
+                        <p>創造・提案・拡張</p>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <h4>最終成果物</h4>
+                        <p>高品質なアウトプット</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conclusion-section">
+                <h2>3️⃣ 総括と重要ポイント</h2>
+                
+                <div class="key-points">
+                    <div class="key-point">
+                        <h3>🤝 ツール連携の力</h3>
+                        <p>NotebookLMの「情報整理」とGeminiの「創造・提案力」による相乗効果</p>
+                    </div>
+                    <div class="key-point">
+                        <h3>📈 Gemini 2.5 Proの進化性</h3>
+                        <p>「機能追加」ボタンにより長期的パートナーとして活躍</p>
+                    </div>
+                    <div class="key-point">
+                        <h3>🎯 自己現状の把握がカギ</h3>
+                        <p>「自分を正しく知る」ことが成長の出発点</p>
+                    </div>
+                    <div class="key-point">
+                        <h3>💡 プロンプト設計の重要性</h3>
+                        <p>的確な指示でパフォーマンス最大化</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 20px;">🎯 幅広い活用シーン</h3>
+                <div class="usage-scenarios">
+                    <div class="usage-item">📚 社内研修</div>
+                    <div class="usage-item">👥 若手育成</div>
+                    <div class="usage-item">💡 企画立案</div>
+                    <div class="usage-item">📈 スキルアップ</div>
+                </div>
+
+                <div class="final-message">
+                    <div class="quote">
+                        「間違ったAI活用で時間を無駄にしている人が多い今、NotebookLM × Gemini 2.5 Proの組み合わせは、明日から使える実務直結のAI活用術です」
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
