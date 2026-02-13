@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>サンリオ業績分析</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Yu Gothic', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe5f5 50%, #ffd4eb 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "🎀";
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.1;
+            top: -20px;
+            right: 50px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .video-link {
+            display: inline-block;
+            background: white;
+            color: #ff1493;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .video-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .executive-summary {
+            background: linear-gradient(to right, #fff0f5, #ffe4f0);
+            padding: 30px;
+            margin: 30px;
+            border-radius: 15px;
+            border-left: 5px solid #ff69b4;
+        }
+
+        .paradox-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 30px;
+            margin: 20px 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .metric-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .metric-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-box.positive {
+            border-top: 5px solid #4caf50;
+        }
+
+        .metric-box.negative {
+            border-top: 5px solid #f44336;
+        }
+
+        .big-number {
+            font-size: 3.5em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .positive .big-number {
+            color: #4caf50;
+        }
+
+        .negative .big-number {
+            color: #f44336;
+        }
+
+        .expectation-gap {
+            background: #fff3cd;
+            padding: 30px;
+            margin: 20px 30px;
+            border-radius: 15px;
+            border: 3px solid #ffc107;
+        }
+
+        .expectation-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .expectation-table th {
+            background: #ff69b4;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .expectation-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .expectation-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .regional-analysis {
+            padding: 30px;
+        }
+
+        .regional-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .region-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid #ff69b4;
+        }
+
+        .region-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #ff1493;
+            margin-bottom: 10px;
+        }
+
+        .region-sales {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .investment-section {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 40px;
+            margin: 30px;
+            border-radius: 15px;
+        }
+
+        .investment-highlight {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .investment-amount {
+            font-size: 4em;
+            font-weight: bold;
+            color: #2196f3;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .business-model-shift {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 20px;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .model-box {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .model-box.old {
+            border: 3px solid #9e9e9e;
+        }
+
+        .model-box.new {
+            border: 3px solid #ff69b4;
+        }
+
+        .arrow {
+            font-size: 3em;
+            color: #ff69b4;
+        }
+
+        .customer-price {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .price-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 10px;
+        }
+
+        .price-amount {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ff69b4;
+            margin: 10px 0;
+        }
+
+        .strategy-section {
+            padding: 30px;
+            background: #f0f4f8;
+        }
+
+        .character-diversification {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .percentage-bar {
+            height: 40px;
+            background: #e0e0e0;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .percentage-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff69b4, #ff1493);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .anniversary-timeline {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .key-points {
+            background: #fff3cd;
+            padding: 30px;
+            margin: 30px;
+            border-radius: 15px;
+            border: 3px dashed #ffc107;
+        }
+
+        .key-point-item {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #ff69b4;
+            display: flex;
+            align-items: start;
+            gap: 15px;
+        }
+
+        .point-number {
+            background: #ff69b4;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .concern-box {
+            background: #ffebee;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #f44336;
+        }
+
+        .opportunity-box {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #4caf50;
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ff69b4;
+        }
+
+        @media (max-width: 768px) {
+            .paradox-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .business-model-shift {
+                grid-template-columns: 1fr;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎀 サンリオ：業績好調下での株価下落と<br>ビジネスモデル変革に関する分析</h1>
+            <p style="font-size: 1.2em; margin-top: 10px;">100億円投資の衝撃とライセンスビジネス脱却の真相</p>
+            <a href="https://youtu.be/K0gXnA_XdeI?list=TLGGw9-b2cFSqRgxMTAyMjAyNg" target="_blank" class="video-link">
+                📺 【サンリオ】利益66%増でも暴落。100億円投資の衝撃。ライセンスビジネス脱却で今後どうなる？
+            </a>
+        </div>
+
+        <div class="executive-summary">
+            <h2 style="color: #ff1493; margin-bottom: 15px;">📋 エグゼクティブサマリー</h2>
+            <p>サンリオの直近の業績は、<strong>売上高が前年同期比39%増、営業利益が66%増</strong>と極めて好調に推移している。しかし、株価は決算発表後に大幅な下落を見せた。</p>
+            <p style="margin-top: 15px;">この乖離の主な要因は、<strong style="color: #f44336;">会社側が発表した上方修正後の業績予想が市場関係者の期待（コンセンサス予想）に届かなかった</strong>ことにある。</p>
+            <p style="margin-top: 15px;">現在、同社は従来の効率的なライセンスビジネスに依存したモデルから脱却し、<strong>テーマパークへの巨額投資（ハーモニーランドへの100億円規模の初期投資等）</strong>を含む「リアルな体験」への回帰を鮮明にしている。これはファンとのエンゲージメントを高め、高単価な顧客層を取り込むための長期的な戦略であるが、投資家からは資本効率の低下を懸念する声も上がっている。</p>
+        </div>
+
+        <h2 class="section-title" style="text-align: center; padding: 30px;">📊 業績のパラドックス</h2>
+        
+        <div class="paradox-section">
+            <div class="metric-box positive">
+                <div style="font-size: 1.2em; color: #666;">売上高</div>
+                <div class="big-number">+39%</div>
+                <div style="font-size: 1.1em; color: #4caf50;">前年同期比で大幅増</div>
+                <div style="margin-top: 15px;">✅ 歴史ある大企業としては<br>異例の成長率</div>
+            </div>
+
+            <div class="metric-box positive">
+                <div style="font-size: 1.2em; color: #666;">営業利益</div>
+                <div class="big-number">+66%</div>
+                <div style="font-size: 1.1em; color: #4caf50;">前年同期比で倍増近い伸び</div>
+                <div style="margin-top: 15px;">✅ 利益率も大幅に改善</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; font-size: 3em; margin: 20px; color: #f44336;">⬇️</div>
+
+        <div class="paradox-section">
+            <div class="metric-box negative">
+                <div style="font-size: 1.2em; color: #666;">株価</div>
+                <div class="big-number">暴落</div>
+                <div style="font-size: 1.1em; color: #f44336;">決算発表後に大幅下落</div>
+                <div style="margin-top: 15px;">❌ 市場の期待を下回る</div>
+            </div>
+
+            <div class="metric-box negative">
+                <div style="font-size: 1.2em; color: #666;">投資家心理</div>
+                <div class="big-number">失望</div>
+                <div style="font-size: 1.1em; color: #f44336;">期待値管理の失敗</div>
+                <div style="margin-top: 15px;">❌ コンセンサス未達</div>
+            </div>
+        </div>
+
+        <div class="expectation-gap">
+            <h2 style="color: #856404; margin-bottom: 15px;">⚠️ 期待値とコンセンサスの乖離</h2>
+            <p style="margin-bottom: 20px;"><strong>株価は将来への期待で形成される</strong>ため、上方修正がすでに織り込み済みであった場合、修正幅が市場予想を下回ると「期待外れ」と見なされ、売り材料となる。</p>
+            
+            <table class="expectation-table">
+                <thead>
+                    <tr>
+                        <th>指標</th>
+                        <th>数値</th>
+                        <th>背景・影響</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>前回予想（8月）</strong></td>
+                        <td style="font-size: 1.3em; font-weight: bold;">680億円</td>
+                        <td>当初の経常利益予想</td>
+                    </tr>
+                    <tr>
+                        <td><strong>修正後の会社予想</strong></td>
+                        <td style="font-size: 1.3em; font-weight: bold; color: #ff9800;">713億円</td>
+                        <td>上方修正されたものの、市場の期待には及ばず</td>
+                    </tr>
+                    <tr>
+                        <td><strong>コンセンサス予想</strong></td>
+                        <td style="font-size: 1.3em; font-weight: bold; color: #f44336;">713億円超</td>
+                        <td>アナリストの予測平均が会社予想を上回っていた</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                <strong style="color: #f44336;">株価下落の構造的要因：</strong><br>
+                上方修正 ≠ 株価上昇<br>
+                市場はすでに「713億円超」を織り込んでいたため、会社予想がそれに届かなかったことで「期待外れ」と判断された
+            </div>
+        </div>
+
+        <div class="regional-analysis">
+            <h2 class="section-title">🌍 地域別動向と市場の懸念</h2>
+            
+            <div class="regional-grid">
+                <div class="region-card">
+                    <div class="region-name">🇯🇵 日本</div>
+                    <div class="region-sales">675億円</div>
+                    <div style="color: #4caf50; font-weight: bold; margin: 10px 0;">✅ 最大の収益基盤</div>
+                    <p style="margin-top: 10px;">依然として同社の中核市場であり、安定した収益を生み出している</p>
+                </div>
+
+                <div class="region-card">
+                    <div class="region-name">🇺🇸 北米</div>
+                    <div style="color: #f44336; font-weight: bold; margin: 10px 0;">⚠️ 利益 前年比 -5.1%</div>
+                    <div class="concern-box">
+                        <strong>市場の懸念：</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>経済規模が大きく、高い成長が期待されていた地域</li>
+                            <li>急成長を続けてきた北米での伸びが鈍化</li>
+                            <li>「キャラクターブームの終焉」への警戒感</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="region-card">
+                    <div class="region-name">🌏 アジア</div>
+                    <div class="region-sales">202億円</div>
+                    <div style="color: #ff9800; font-weight: bold; margin: 10px 0;">⚠️ 成長継続も課題あり</div>
+                    <p style="margin-top: 10px;"><strong>リスク要因：</strong></p>
+                    <ul style="margin-top: 5px; padding-left: 20px;">
+                        <li>地政学的リスク</li>
+                        <li>競合キャラクターとの「推し」の奪い合い</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="investment-section">
+            <h2 class="section-title" style="border-color: #2196f3;">💰 100億円規模の設備投資とビジネスモデルの転換</h2>
+            
+            <div class="investment-highlight">
+                <h3 style="text-align: center; color: #2196f3; font-size: 1.5em;">ハーモニーランドへの巨額投資</h3>
+                <div class="investment-amount">100億円</div>
+                <p style="text-align: center; font-size: 1.1em; color: #666;">大分県のハーモニーランドに対する初期投資</p>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px;">
+                    <div class="opportunity-box">
+                        <strong>🎯 投資の目的</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>インバウンド需要の取り込み</li>
+                            <li>全世代を通じたファン・エンゲージメントの強化</li>
+                            <li>リアルな体験価値の提供</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="concern-box">
+                        <strong>⚠️ 市場の懸念</strong>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>ライセンスビジネスは原価がほとんどかからず資本効率が高い</li>
+                            <li>パーク投資は回収に時間がかかる</li>
+                            <li>撤退も困難</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3 style="text-align: center; font-size: 1.8em; color: #2c3e50; margin-bottom: 30px;">ビジネスモデルの転換</h3>
+                
+                <div class="business-model-shift">
+                    <div class="model-box old">
+                        <h4 style="color: #9e9e9e; font-size: 1.3em; margin-bottom: 15px;">従来モデル</h4>
+                        <div style="font-size: 2em; text-align: center; margin: 20px 0;">📄</div>
+                        <div style="font-weight: bold; text-align: center; font-size: 1.2em; color: #9e9e9e;">ライセンスビジネス</div>
+                        <ul style="margin-top: 15px; padding-left: 20px;">
+                            <li>キャラクターライセンスを貸与</li>
+                            <li>原価がほとんどかからない</li>
+                            <li>資本効率が極めて高い</li>
+                            <li>低リスク・安定収益</li>
+                        </ul>
+                    </div>
+
+                    <div class="arrow">→</div>
+
+                    <div class="model-box new">
+                        <h4 style="color: #ff69b4; font-size: 1.3em; margin-bottom: 15px;">新モデル</h4>
+                        <div style="font-size: 2em; text-align: center; margin: 20px 0;">🎡</div>
+                        <div style="font-weight: bold; text-align: center; font-size: 1.2em; color: #ff69b4;">設備投資型ビジネス</div>
+                        <ul style="margin-top: 15px; padding-left: 20px;">
+                            <li>自社でリスクを取る</li>
+                            <li>リアルな体験価値の提供</li>
+                            <li>ファンエンゲージメント強化</li>
+                            <li>高単価顧客層の取り込み</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3 style="text-align: center; font-size: 1.5em; color: #2c3e50; margin-bottom: 20px;">客単価の向上戦略</h3>
+                <p style="text-align: center; margin-bottom: 20px;">ターゲットを若年層から「購買力のある高年齢層」や「外国人観光客」へシフト</p>
+                
+                <div class="customer-price">
+                    <div class="price-card">
+                        <div style="font-size: 1.2em; color: #666;">サンリオピューロランド</div>
+                        <div class="price-amount">¥9,000</div>
+                        <div style="color: #4caf50; font-weight: bold;">📈 過去最高水準</div>
+                    </div>
+                    
+                    <div class="price-card">
+                        <div style="font-size: 1.2em; color: #666;">ハーモニーランド</div>
+                        <div class="price-amount">¥6,500</div>
+                        <div style="color: #4caf50; font-weight: bold;">📈 右肩上がりで推移</div>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 20px; border-radius: 10px; margin-top: 20px; text-align: center;">
+                    <strong style="color: #4caf50;">両パークともに客単価は右肩上がりで推移し、過去最高を達成</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="strategy-section">
+            <h2 class="section-title">🎯 将来的な成長ロードマップと戦略</h2>
+            
+            <div class="character-diversification">
+                <h3 style="color: #ff1493; font-size: 1.5em; margin-bottom: 20px;">🎀 脱「ハローキティ」依存</h3>
+                <p style="margin-bottom: 20px;">北米におけるハローキティの売上比率は低下し、キティ以外のキャラクター（クロミ等）の育成が順調に進行</p>
+                
+                <div style="margin: 20px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span><strong>前年同期</strong></span>
+                        <span><strong>64.2%</strong></span>
+                    </div>
+                    <div class="percentage-bar">
+                        <div class="percentage-fill" style="width: 64.2%;">ハローキティ 64.2%</div>
+                    </div>
+                </div>
+                
+                <div style="margin: 20px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span><strong>現在</strong></span>
+                        <span><strong>57.9%</strong></span>
+                    </div>
+                    <div class="percentage-bar">
+                        <div class="percentage-fill" style="width: 57.9%;">ハローキティ 57.9%</div>
+                    </div>
+                </div>
+                
+                <div class="opportunity-box">
+                    <strong>✅ リスク分散の進行</strong>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>キティ以外のキャラクターの育成が順調</li>
+                        <li>クロミなどの人気が上昇</li>
+                        <li>多角的なブランドコントロールを実現</li>
+                        <li>特定キャラクターへの依存度を低減</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="anniversary-timeline">
+                <h3 style="color: #ff1493; font-size: 1.5em; margin-bottom: 20px;">🎉 アニバーサリー戦略</h3>
+                <p style="margin-bottom: 20px;">周年行事を戦略的に活用し、継続的な収益機会を創出</p>
+                
+                <div style="background: linear-gradient(135deg, #ffeef8 0%, #ffe5f5 100%); padding: 25px; border-radius: 10px; margin: 20px 0;">
+                    <div style="text-align: center; font-size: 2em; margin-bottom: 10px;">⭐</div>
+                    <h4 style="text-align: center; font-size: 1.3em; color: #ff1493;">2026年3月期</h4>
+                    <div style="text-align: center; font-size: 2.5em; font-weight: bold; color: #ff69b4; margin: 15px 0;">リトルツインスターズ（キキララ）</div>
+                    <div style="text-align: center; font-size: 2em; font-weight: bold; color: #ff1493;">50周年</div>
+                </div

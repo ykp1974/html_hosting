@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>テスト・タイム・スケーリング（TTS）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Yu Gothic', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.7;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '🧠';
+            position: absolute;
+            font-size: 15em;
+            opacity: 0.1;
+            top: -50px;
+            right: -50px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header .subtitle {
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            opacity: 0.95;
+        }
+        
+        .video-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 12px 25px;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .video-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .content {
+            padding: 50px;
+        }
+        
+        .summary-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(240,147,251,0.3);
+        }
+        
+        .summary-box h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .summary-box p {
+            font-size: 1.15em;
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+        
+        .section {
+            margin: 50px 0;
+        }
+        
+        .section-title {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 30px;
+            align-items: center;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .comparison-box {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-box.old {
+            border-left: 5px solid #e74c3c;
+        }
+        
+        .comparison-box.new {
+            border-left: 5px solid #2ecc71;
+        }
+        
+        .comparison-box h3 {
+            margin-bottom: 20px;
+            font-size: 1.4em;
+        }
+        
+        .comparison-box.old h3 {
+            color: #e74c3c;
+        }
+        
+        .comparison-box.new h3 {
+            color: #2ecc71;
+        }
+        
+        .comparison-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .comparison-box li {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .comparison-box li:last-child {
+            border-bottom: none;
+        }
+        
+        .arrow {
+            font-size: 4em;
+            color: #667eea;
+        }
+        
+        .thinking-systems {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .system-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+        
+        .system-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .system-card.system1 {
+            border-top: 5px solid #3498db;
+        }
+        
+        .system-card.system2 {
+            border-top: 5px solid #e74c3c;
+        }
+        
+        .system-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .system-card.system1 h3 {
+            color: #3498db;
+        }
+        
+        .system-card.system2 h3 {
+            color: #e74c3c;
+        }
+        
+        .system-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .system-card .features {
+            margin-top: 20px;
+        }
+        
+        .system-card .features p {
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .strategy-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .strategy-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .strategy-table th {
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        
+        .strategy-table td {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .strategy-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .strategy-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .strategy-name {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #667eea;
+        }
+        
+        .highlight-box h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .performance-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 35px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #f39c12;
+        }
+        
+        .performance-box h3 {
+            color: #d35400;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 15px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card strong {
+            color: #27ae60;
+            font-size: 1.2em;
+        }
+        
+        .challenges {
+            background: #fff5f5;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #e74c3c;
+        }
+        
+        .challenges h3 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        
+        .challenge-item {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 3px solid #e74c3c;
+        }
+        
+        .challenge-item h4 {
+            color: #c0392b;
+            margin-bottom: 10px;
+        }
+        
+        .future-vision {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 15px;
+            margin: 50px 0;
+            text-align: center;
+        }
+        
+        .future-vision h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        
+        .future-vision .quote {
+            font-size: 1.8em;
+            font-weight: bold;
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .vision-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .vision-point {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        
+        .vision-point .icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .vision-point h4 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 5px;
+        }
+        
+        .badge.old-way {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .badge.new-way {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>テスト・タイム・スケーリング（TTS）</h1>
+            <div class="subtitle">AI開発における新たなパラダイム</div>
+            <a href="https://youtu.be/RnOSQJu5nXI?list=TLGGiTp173tfw0kxMjAyMjAyNg" target="_blank" class="video-link">
+                📺 Test Time Scaling
+            </a>
+        </div>
+        
+        <div class="content">
+            <!-- Executive Summary -->
+            <div class="summary-box">
+                <h2>📊 エグゼクティブ・サマリー</h2>
+                <p>
+                    長らくAI開発の主流であった<strong>「モデルの巨大化と学習データの増大」</strong>という戦略は、現在、収穫逓減の壁に直面している。
+                </p>
+                <p>
+                    これに対し、TTSは<strong>「推論時（テスト・タイム）に計算リソースを集中させ、AIに『考える時間』を与える」</strong>ことで、モデルサイズに依存せずに性能を飛躍的に向上させる手法である。
+                </p>
+                <p style="background: rgba(255,255,255,0.2); padding: 20px; border-radius: 10px; margin-top: 20px;">
+                    <strong>Google DeepMindの研究:</strong> TTSを活用した小規模モデルが、自身の<strong style="font-size: 1.3em;">14倍</strong>のサイズを持つ巨大モデルに匹敵、あるいは凌駕する成果を達成。
+                </p>
+            </div>
+            
+            <!-- Old vs New Paradigm -->
+            <div class="section">
+                <h2 class="section-title"><span>🔄</span>従来の開発手法の限界</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-box old">
+                        <h3>❌ 従来のアプローチ</h3>
+                        <div class="icon" style="font-size: 3em; margin-bottom: 15px;">📈</div>
+                        <h4 style="margin-bottom: 15px;">シンプルな拡大戦略</h4>
+                        <ul>
+                            <li><strong>モデルの巨大化</strong><br>パラメータ数を増やす</li>
+                            <li><strong>データ量の増大</strong><br>より膨大なデータセットで事前学習</li>
+                        </ul>
+                        <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 8px;">
+                            <strong style="color: #856404;">⚠️ 問題:</strong> 収穫逓減の壁<br>
+                            <span style="font-size: 0.95em;">モデルを大きくしても以前ほど性能が伸びない</span>
+                        </div>
+                    </div>
+                    
+                    <div class="arrow">→</div>
+                    
+                    <div class="comparison-box new">
+                        <h3>✅ テスト・タイム・スケーリング</h3>
+                        <div class="icon" style="font-size: 3em; margin-bottom: 15px;">🧠</div>
+                        <h4 style="margin-bottom: 15px;">エレガントな解決策</h4>
+                        <ul>
+                            <li><strong>推論時の計算投入</strong><br>問題に直面した瞬間により多くのパワーを投入</li>
+                            <li><strong>「考える時間」の提供</strong><br>モデルサイズに依存せず性能向上</li>
+                        </ul>
+                        <div style="margin-top: 20px; padding: 15px; background: #d4edda; border-radius: 8px;">
+                            <strong style="color: #155724;">✨ 効果:</strong> 飛躍的な性能向上<br>
+                            <span style="font-size: 0.95em;">小さなモデルでも高度な推論が可能</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- System 1 vs System 2 -->
+            <div class="section">
+                <h2 class="section-title"><span>🧩</span>「システム2」的思考の導入</h2>
+                <p style="font-size: 1.15em; margin-bottom: 30px; color: #555;">
+                    心理学における人間の思考モデルになぞらえると、TTSの役割が明確になる。
+                </p>
+                
+                <div class="thinking-systems">
+                    <div class="system-card system1">
+                        <div class="icon">⚡</div>
+                        <h3>システム1</h3>
+                        <p style="font-size: 1.1em; color: #7f8c8d; margin-bottom: 20px;">直感的で素早い反応</p>
+                        <div class="features">
+                            <p><strong>特徴:</strong> 即座に判断・反応</p>
+                            <p><strong>AI:</strong> 従来のAIの即時応答</p>
+                            <p><strong>例:</strong> 単純な質問への即答</p>
+                        </div>
+                        <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: 8px; text-align: center;">
+                            <span class="badge old-way">従来型</span>
+                        </div>
+                    </div>
+                    
+                    <div class="system-card system2">
+                        <div class="icon">🤔</div>
+                        <h3>システム2</h3>
+                        <p style="font-size: 1.1em; color: #7f8c8d; margin-bottom: 20px;">論理的でじっくり考える思考</p>
+                        <div class="features">
+                            <p><strong>特徴:</strong> 時間をかけて論理的に思考</p>
+                            <p><strong>AI:</strong> TTSが提供するプロセス</p>
+                            <p><strong>例:</strong> 複雑な問題の段階的解決</p>
+                        </div>
+                        <div style="margin-top: 20px; padding: 15px; background: #fce4ec; border-radius: 8px; text-align: center;">
+                            <span class="badge new-way">TTS型</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <h3>💡 TTSの核心</h3>
+                    <p style="font-size: 1.15em; line-height: 1.8;">
+                        事前学習で知識を詰め込むだけでなく、実行時に<strong>「じっくり考える時間」</strong>を与えることで、より高度な論理的帰結を導き出すことが可能となる。
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 4 Strategies -->
+            <div class="section">
+                <h2 class="section-title"><span>⚙️</span>実装における4つの主要戦略</h2>
+                <p style="font-size: 1.15em; margin-bottom: 30px; color: #555;">
+                    AIに「長く考えさせる」ための具体的なアプローチ
+                </p>
+                
+                <table class="strategy-table">
+                    <thead>
+                        <tr>
+                            <th>戦略</th>
+                            <th>内容</th>
+                            <th>アナロジー</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="strategy-name">並列スケーリング</span></td>
+                            <td>複数の回答候補を同時に生成し、最適なものを選択する</td>
+                            <td>💡 ブレインストーミング</td>
+                        </tr>
+                        <tr>
+                            <td><span class="strategy-name">逐次スケーリング</span></td>
+                            <td>1つの回答を何度も見直し、段階的に改善していく</td>
+                            <td>📝 文章の推敲</td>
+                        </tr>
+                        <tr>
+                            <td><span class="strategy-name">ハイブリッド</span></td>
+                            <td>並列生成と逐次的な改善を組み合わせる</td>
+                            <td>🔄 複合的な検討</td>
+                        </tr>
+                        <tr>
+                            <td><span class="strategy-name">内部スケーリング</span></td>
+                            <td>AI自身が問題の難易度を判断し、必要な計算量を調整する</td>
+                            <td>🎯 自己調整</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Performance Results -->
+            <div class="section">
+                <h2 class="section-title"><span>📈</span>性能実証と研究成果</h2>
+                
+                <div class="performance-box">
+                    <h3>🎯 実証された効果</h3>
+                    
+                    <div class="stat-card">
+                        <p style="margin-bottom: 10px;"><strong>数学的思考の向上</strong></p>
+                        <p>難しい数学の問題において、考える時間（トークン数）を増やすほど、正答率が明確に上昇する相関関係が確認された。</p>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <p style="margin-bottom: 10px;"><strong>リソース効率の劇的な改善</strong></p>
+                        <p style="font-size: 1.3em; color: #27ae60; font-weight: bold; margin: 15px 0;">
+                            小規模モデル = 14倍大きい巨大モデルと同等以上
+                        </p>
+                        <p>Google DeepMindの研究: TTSを適用した小さなモデルが、自分より14倍も大きい巨大モデルと同等以上の性能を発揮。</p>
+                        <p style="margin-top: 10px; padding: 15px; background: #d4edda; border-radius: 8px;">
+                            → <strong>少ない計算資源でより賢いAIを構築できる可能性を示唆</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Challenges -->
+            <div class="section">
+                <h2 class="section-title"><span>⚠️</span>現在の課題と限界</h2>
+                
+                <div class="challenges">
+                    <h3>🚧 実用化に向けた課題</h3>
+                    <p style="margin-bottom: 20px; font-size: 1.1em;">TTSは万能ではなく、以下の課題が存在する。</p>
+                    
+                    <div class="challenge-item">
+                        <h4>1. 逆スケーリング（Inverse Scaling）</h4>
+                        <p>人間が簡単な問題を考えすぎて間違えるのと同様に、AIも単純なタスクに対して時間をかけすぎると、かえって成績が悪化する現象が見られる。</p>
+                    </div>
+                    
+                    <div class="challenge-item">
+                        <h4>2. コストとレイテンシ</h4>
+                        <p>考える時間を増やすことは、そのまま<strong>計算コストの増大</strong>と、<strong>回答までの待ち時間の増加</strong>に直結する。</p>
+                    </div>
+                    
+                    <div class="challenge-item">
+                        <h4>3. 実用上のトレードオフ</h4>
+                        <p>リアルタイム性が求められる用途では、この遅延が大きな障壁となる。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Future Vision -->
+            <div class="future-vision">
+                <h2>🚀 未来への展望</h2>
+                <p style="font-size: 1.3em; margin-bottom: 30px;">
+                    力任せから「思慮深さ」へ
+                </p>
+                
+                <div class="quote">
+                    「事前学習の計算量を抑え、<br>その分を推論時の計算量に割り振る」
+                </div>
+                
+                <p style="font-size: 1.2em; margin: 30px 0;">
+                    — Google DeepMind研究者のビジョン
+                </p>
+                
+                <div class="vision-points">
+                    <div class="vision-point">
+                        <div class="icon">📊</div>
+                        <h4>モデルサイズから</h4>
+                        <p>単なる「モデルのサイズ」競争</p>
+                    </div>
+                    
+                    <div class="vision-point">
+                        <div class="icon">→</div>
+                        <h4>計算量の最適化へ</h4>
+                        <p>よりスマートな考え方へ移行</p>
+                    </div>
+                    
+                    <div class="vision-point">
+                        <div class="icon">🧠</div>
+                        <h4>思慮深いAI</h4>
+                        <p>状況に応じて賢く振る舞う</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 50px; padding: 30px; background: rgba(255,255,255,0.1); border-radius: 15px;">
+                    <h3 style="font-size: 1.8em; margin-bottom: 20px;">🎯 結論</h3>
+                    <p style="font-size: 1.2em; line-height: 1.8;">
+                        AI開発の焦点は、単なる<strong>「モデルのサイズ」</strong>から、<strong>「計算量の最適化」</strong>という、よりスマートな考え方へと移行しつつある。
+                    </p>
+                    <p style="font-size: 1.2em; line-height: 1.8; margin-top: 20px;">
+                        これからのAIは、力任せに巨大化を求める時代から、状況に応じて賢く振る舞い、必要なだけの努力を注ぐ<strong>「思慮深さ」</strong>を備えた時代へと進化していく。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

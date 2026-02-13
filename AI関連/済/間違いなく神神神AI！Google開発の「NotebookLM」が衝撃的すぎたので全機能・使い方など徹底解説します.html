@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotebookLM ブリーフィングドキュメント図解版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .video-source {
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.3);
+        }
+
+        .video-source h2 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .video-source a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .video-source a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section {
+            margin: 40px 0;
+            padding: 25px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3498db;
+        }
+
+        .section h2 {
+            color: #2980b9;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            color: #34495e;
+            margin: 20px 0 15px 0;
+            font-size: 1.3em;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+
+        .quote {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #495057;
+            box-shadow: 0 2px 10px rgba(40, 167, 69, 0.1);
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-card {
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .traditional-ai {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            border: 2px solid #ff6b9d;
+        }
+
+        .notebooklm {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            border: 2px solid #4facfe;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .feature-card h4 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        .interface-diagram {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px dashed #dee2e6;
+        }
+
+        .interface-panels {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .panel {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            border-top: 4px solid;
+        }
+
+        .panel.source {
+            border-top-color: #e74c3c;
+        }
+
+        .panel.chat {
+            border-top-color: #3498db;
+        }
+
+        .panel.studio {
+            border-top-color: #f39c12;
+        }
+
+        .usage-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .usage-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .usage-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .usage-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .pricing-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .pricing-card {
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-free {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+        }
+
+        .pricing-paid {
+            background: linear-gradient(135deg, #fd79a8, #e84393);
+        }
+
+        .pricing-card h4 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+
+        .pricing-feature {
+            margin: 10px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .source-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .source-type {
+            background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .source-type:hover {
+            transform: scale(1.05);
+            background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, #00b894, #00cec9);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 184, 148, 0.3);
+        }
+
+        .conclusion h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid,
+            .interface-panels,
+            .pricing-comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .container {
+                margin-top: 10px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="video-source">
+            <h2>🎥 ソース動画</h2>
+            <p><strong>間違いなく神神神AI！Google開発の「NotebookLM」が衝撃的すぎたので全機能・使い方など徹底解説します</strong></p>
+            <a href="https://youtu.be/rmpskn_owGY?list=TLGGgfsMtxnE_m4zMDA4MjAyNQ" target="_blank">🔗 動画を見る</a>
+        </div>
+
+        <h1>📋 NotebookLM ブリーフィングドキュメント</h1>
+
+        <div class="section">
+            <h2><span class="icon">📖</span>はじめに</h2>
+            <p>このブリーフィングドキュメントは、Googleが開発したAIツール「NotebookLM」に関する詳細なレビューを提供します。NotebookLMは、従来のAIチャットツールとは異なり、ユーザーが指定した情報源のみを分析・回答する「AIリサーチツール」として位置づけられています。</p>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">🔍</span>1. NotebookLMの概要と特徴</h2>
+            
+            <div class="quote">
+                「AIを搭載したノートアプリというよりかは、いわゆるAIリサーツールというものでたくさんの情報や複雑な情報を整理して理解するためのツールです」
+            </div>
+
+            <h3>従来のAIチャット（ChatGPTなど）との違い</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card traditional-ai">
+                    <h4>🤖 従来のAIチャット</h4>
+                    <p>学習データ全体から回答<br>ハルシネーションリスク有</p>
+                </div>
+                <div class="comparison-card notebooklm">
+                    <h4>📚 NotebookLM</h4>
+                    <p>指定した情報源のみから回答<br>誤情報リスクが低い</p>
+                </div>
+            </div>
+
+            <div class="quote">
+                「NotebookLMはそもそもの仕組みが違います。ユーザーである私たち自身がこの情報を使ってねと指示したものだけを情報のソースとして分析回答してくれるのです。」
+            </div>
+
+            <h3>対応する情報源の種類</h3>
+            <div class="source-types">
+                <div class="source-type">📄 PDF</div>
+                <div class="source-type">📝 テキスト</div>
+                <div class="source-type">📋 Google Docs</div>
+                <div class="source-type">🎞️ Google Slides</div>
+                <div class="source-type">🎵 MP3音声</div>
+                <div class="source-type">🌐 URL・YouTube</div>
+            </div>
+
+            <h3>主な機能の概要</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>📖 情報の要約</h4>
+                    <p>複雑な情報を分かりやすく整理</p>
+                </div>
+                <div class="feature-card">
+                    <h4>❓ 質問への回答</h4>
+                    <p>指定した情報源から的確に回答</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🗺️ マインドマップ</h4>
+                    <p>情報を視覚的に整理</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎙️ 会話機能</h4>
+                    <p>ポッドキャスト風に解説</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📚 複数情報処理</h4>
+                    <p>複数のソースを同時に分析</p>
+                </div>
+                <div class="feature-card">
+                    <h4>💰 無料利用</h4>
+                    <p>ほぼ全機能が無料で使用可能</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">💻</span>2. NotebookLMの基本的な使い方とメイン画面</h2>
+            
+            <div class="interface-diagram">
+                <h3>メイン画面の構成</h3>
+                <div class="interface-panels">
+                    <div class="panel source">
+                        <h4>📁 ソースパネル（左側）</h4>
+                        <p>資料の追加・管理</p>
+                    </div>
+                    <div class="panel chat">
+                        <h4>💬 チャットパネル（中央）</h4>
+                        <p>AIとの対話</p>
+                    </div>
+                    <div class="panel studio">
+                        <h4>🎨 スタジオパネル（右側）</h4>
+                        <p>補助機能の利用</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>情報追加の方法</h3>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>💻 PCからPDF、テキスト、MP3ファイルを追加</li>
+                <li>☁️ Googleドライブからドキュメント・スライドを追加</li>
+                <li>🔗 URL入力でWebサイトやYouTube動画を追加</li>
+                <li>📝 テキスト入力で情報追加（コピー＆ペースト）</li>
+            </ul>
+
+            <h3>チャット機能の利用</h3>
+            <ul style="list-style: none; padding-left: 0;">
+                <li>📊 追加した情報をもとにAIが概要を表示</li>
+                <li>💬 チャット形式で質問・指示が可能</li>
+                <li>💡 例：「この動画を分かりやすく要約して」「CPUとGPUの違いを教えて」</li>
+            </ul>
+
+            <h3>情報読み取り精度</h3>
+            <div class="quote">
+                筆者作成の動画を追加した際、AIの回答精度は「完璧」
+                参照元もワンクリックで確認可能
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">🛠️</span>3. NotebookLMの主要な補助機能</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h4>🗺️ マインドマップ機能</h4>
+                    <p>情報を視覚的に整理</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎙️ 会話機能</h4>
+                    <p>ポッドキャスト風に情報を解説</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📚 学習ガイド機能</h4>
+                    <p>小テストや用語集を自動生成</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📋 ブリーフィング機能</h4>
+                    <p>要約ドキュメントを作成</p>
+                </div>
+                <div class="feature-card">
+                    <h4>❓ FAQ機能</h4>
+                    <p>よくある質問を自動生成</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📅 タイムライン機能</h4>
+                    <p>情報を時系列で整理</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📝 メモ機能</h4>
+                    <p>自分でメモを追加可能</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔄 ソース変換機能</h4>
+                    <p>メモを新たな情報源に</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔍 ソース検索機能</h4>
+                    <p>Webから関連情報を検索・追加</p>
+                </div>
+            </div>
+
+            <div class="quote">
+                ※ 筆者は「信頼できる情報のみをソースにできるのが魅力」として、Web検索機能はあまり使用しないと述べています。
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">💡</span>4. NotebookLMの意外な活用法</h2>
+            
+            <div class="usage-examples">
+                <div class="usage-card">
+                    <h4>📔 日記データベース</h4>
+                    <p>毎日の日記をソースに追加し、AIが内容を把握</p>
+                    <div class="quote">
+                        「自分すら覚えていない過去の内容も即座に教えてくれたりします」
+                    </div>
+                </div>
+                
+                <div class="usage-card">
+                    <h4>📖 オリジナル学習教材</h4>
+                    <p>英語学習などに活用し、用語リストを自動生成</p>
+                </div>
+                
+                <div class="usage-card">
+                    <h4>🗓️ AI秘書</h4>
+                    <p>予定情報を保存して、AIが管理・通知</p>
+                </div>
+                
+                <div class="usage-card">
+                    <h4>🎬 YouTube動画要約</h4>
+                    <p>長時間の動画を短時間で理解</p>
+                </div>
+                
+                <div class="usage-card">
+                    <h4>📄 論文解説</h4>
+                    <p>難解な論文を分かりやすく解説</p>
+                </div>
+                
+                <div class="usage-card">
+                    <h4>📝 議事録作成</h4>
+                    <p>会議録音から自動で議事録を作成</p>
+                </div>
+                
+                <div class="usage-card">
+                    <h4>✍️ コンテンツ制作</h4>
+                    <p>ブログやYouTubeの台本作成</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="icon">💰</span>5. 料金プラン</h2>
+            
+            <div class="pricing-comparison">
+                <div class="pricing-card pricing-free">
+                    <h4>🆓 無料版</h4>
+                    <div class="pricing-feature">ノートブック：100件まで</div>
+                    <div class="pricing-feature">ソース：50個/ノートブック</div>
+                    <div class="pricing-feature">質問・音声生成：回数制限あり</div>
+                </div>
+                
+                <div class="pricing-card pricing-paid">
+                    <h4>💎 有料版（NotebookLM+）</h4>
+                    <div class="pricing-feature">Google One AIプレミアム加入が必要</div>
+                    <div class="pricing-feature">ノートブック：500件まで</div>
+                    <div class="pricing-feature">ソース：300個/ノートブック</div>
+                    <div class="pricing-feature">Google Workspace契約者は追加料金なし</div>
+                </div>
+            </div>
+
+            <div class="quote">
+                「まずは無料プランで試して、良ければプロ版に移行するのがオススメ」
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <h2>🎯 結論</h2>
+            <div class="quote" style="background: rgba(255, 255, 255, 0.2); border-left-color: white; color: white;">
+                「数あるAIサービスの中でもこれだけは絶対に使った方がいいと思う」
+            </div>
+            <p>NotebookLMは、ユーザーが指定した信頼できる情報源のみを分析・回答することで、ハルシネーションのリスクを抑えつつ、情報整理・要約・学習支援・パーソナルアシスタントとして幅広く活用できる革新的なAIツールです。</p>
+            
+            <div class="quote" style="background: rgba(255, 255, 255, 0.2); border-left-color: white; color: white; margin-top: 20px;">
+                「まずは騙されたと思ってでもいいので無料版をぜひぜひ使ってみ」
+            </div>
+        </div>
+    </div>
+</body>
+</html>

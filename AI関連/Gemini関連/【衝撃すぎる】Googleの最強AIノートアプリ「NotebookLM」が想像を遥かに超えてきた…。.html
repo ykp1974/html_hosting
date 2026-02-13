@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google NotebookLM ブリーフィングドキュメント</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc04 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .video-source {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .video-source a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .video-source a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .overview {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border-left: 5px solid #4285f4;
+        }
+        
+        .overview h2 {
+            color: #4285f4;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.5em;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #4285f4;
+            padding-bottom: 10px;
+        }
+        
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .comparison-card {
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .comparison-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gemini-card {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
+            color: white;
+        }
+        
+        .notebooklm-card {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .usage-scenarios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 20px 0;
+        }
+        
+        .scenario-card {
+            padding: 25px;
+            border-radius: 15px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .scenario-card:hover {
+            border-color: #4285f4;
+            box-shadow: 0 10px 30px rgba(66, 133, 244, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .scenario-card h3 {
+            color: #4285f4;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.2em;
+        }
+        
+        .scenario-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .scenario-card li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .scenario-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #34a853;
+            font-weight: bold;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .conclusion h2 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            border: none;
+            padding: 0;
+        }
+        
+        .data-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .flow-item {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+            position: relative;
+        }
+        
+        .flow-arrow {
+            font-size: 2em;
+            color: #4285f4;
+            margin: 0 10px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #fd79a8 0%, #fdcb6e 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flow-arrow {
+                display: none;
+            }
+            
+            .data-flow {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+        
+        .info-sources {
+            background: linear-gradient(135deg, #a8e6cf 0%, #7fcdcd 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        
+        .info-sources h3 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            text-align: center;
+        }
+        
+        .source-item {
+            background: rgba(255,255,255,0.3);
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #2d3436;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><span class="emoji">🧠</span>Google NotebookLM</h1>
+            <div class="subtitle">ブリーフィングドキュメント図解</div>
+            <div class="video-source">
+                <div>📺 ソース動画:</div>
+                <strong>【衝撃すぎる】Googleの最強AIノートアプリ「NotebookLM」が想像を遥かに超えてきた…。</strong>
+                <a href="https://youtu.be/Kw0U0bkDc0U?list=TLGGXGVThtGr5N4yOTA3MjAyNQ" target="_blank">動画を視聴する</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="overview">
+                <h2><span class="emoji">🧭</span>概要</h2>
+                <p>Googleの新しいAIノートアプリ「NotebookLM」は、ユーザーが信頼する情報を読み込ませることでパーソナライズされたAIアシスタントとして機能します。情報整理・要約・音声コンテンツ生成が可能で、AIの「ハルシネーション（誤情報生成）」を防止する画期的なツールです。</p>
+            </div>
+
+            <div class="section">
+                <h2><span class="emoji">🎯</span>主要テーマと重要ポイント</h2>
+                
+                <div class="highlight-box">
+                    <span class="emoji">📌</span>基本機能: ユーザー提供資料のみを分析対象にしてハルシネーションを防止
+                </div>
+
+                <h3 style="margin: 30px 0 20px 0; color: #4285f4;"><span class="emoji">🔍</span>Gemini vs NotebookLM 比較</h3>
+                <div class="comparison-grid">
+                    <div class="comparison-card gemini-card">
+                        <h3>🤖 Gemini</h3>
+                        <p><strong>情報源:</strong> ネット上の膨大な情報</p>
+                        <p><strong>リスク:</strong> 誤情報が混入する可能性</p>
+                        <p><strong>精度:</strong> 一般的</p>
+                    </div>
+                    <div class="comparison-card notebooklm-card">
+                        <h3>📚 NotebookLM</h3>
+                        <p><strong>情報源:</strong> 自分が信頼できる情報のみ</p>
+                        <p><strong>リスク:</strong> 誤答リスクを大幅低減</p>
+                        <p><strong>精度:</strong> 高精度</p>
+                    </div>
+                </div>
+
+                <div class="info-sources">
+                    <h3><span class="emoji">📁</span>対応する情報源の形式</h3>
+                    <div class="sources-grid">
+                        <div class="source-item">📄 PDF</div>
+                        <div class="source-item">🌐 Webサイト</div>
+                        <div class="source-item">📺 YouTubeリンク</div>
+                        <div class="source-item">📝 テキスト</div>
+                    </div>
+                    <p style="text-align: center; margin-top: 15px; font-weight: bold;">複数の信頼できる情報源を組み合わせることで精度が向上</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><span class="emoji">🧠</span>NotebookLMの主要機能</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <h3>💬 情報整理・要約</h3>
+                        <p>読み込んだ情報から自動で要約や質問応答を実施。チャット形式で対話的に操作可能。</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📖 引用元の明示</h3>
+                        <p>要約内容に対し、元データの出典を丸番号などで明示。信頼性を担保。</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎙️ スタジオ機能</h3>
+                        <p>読み込んだ情報からラジオのような音声コンテンツを自動作成。男女のナレーションもAI生成。</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🔗 音声共有</h3>
+                        <p>アプリを閉じても再生可能。共有リンクで他人との共有も容易。</p>
+                    </div>
+                </div>
+
+                <div class="data-flow">
+                    <div class="flow-item">
+                        <strong>📁 情報入力</strong><br>
+                        PDF・Web・YouTube等
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <strong>🔍 AI分析</strong><br>
+                        信頼情報のみ処理
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <strong>📝 要約生成</strong><br>
+                        引用元付き要約
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">
+                        <strong>🎙️ 音声化</strong><br>
+                        ラジオ形式コンテンツ
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2><span class="emoji">💡</span>NotebookLMの活用シーン</h2>
+                <div class="usage-scenarios">
+                    <div class="scenario-card">
+                        <h3><span class="emoji">🎓</span>学習用途</h3>
+                        <ul>
+                            <li>講義データ、論文、セミナー資料を学習ノート化</li>
+                            <li>録音データ → 文字起こし → NotebookLMへ追加</li>
+                            <li>紙資料はGeminiで写真→テキスト化</li>
+                            <li>音声化して「ながら聞き」スタイルに対応</li>
+                        </ul>
+                    </div>
+                    <div class="scenario-card">
+                        <h3><span class="emoji">🛍</span>製品比較・購入検討</h3>
+                        <ul>
+                            <li>家電・ガジェット・車の購入前比較</li>
+                            <li>信頼できる情報を読み込んで良し悪しを分析</li>
+                            <li>信頼性の高いレビューデータで選択判断</li>
+                        </ul>
+                    </div>
+                    <div class="scenario-card">
+                        <h3><span class="emoji">🧑‍💼</span>ビジネスシーン</h3>
+                        <ul>
+                            <li>会議音声、議事録の整理</li>
+                            <li>打ち合わせ内容をスケジュール立案に活用</li>
+                            <li>PC版も含めて業務効率化に貢献</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="conclusion">
+                <h2><span class="emoji">✅</span>結論</h2>
+                <p>NotebookLMは、信頼情報のみに基づくことで誤答のリスクを抑え、高精度な情報整理・分析を可能にする画期的なAIノートアプリです。特にスタジオ機能による音声コンテンツ生成は、学習・業務における情報処理効率を劇的に向上させると注目されています。</p>
+                <div style="margin-top: 20px; font-size: 1.2em; font-weight: bold;">
+                    「最強のAIアプリ」として期待される存在
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

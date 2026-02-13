@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeminiとNotebookLM活用ガイド</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Sans', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #1a237e 0%, #0d47a1 50%, #01579b 100%);
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 4px solid #4285f4;
+            position: relative;
+        }
+        
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, #ea4335, #fbbc05, #34a853, #4285f4);
+        }
+        
+        h1 {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: #666;
+            margin-top: 15px;
+        }
+        
+        .video-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #ea4335 0%, #fbbc05 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            margin-top: 20px;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(234, 67, 53, 0.3);
+        }
+        
+        .video-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(234, 67, 53, 0.4);
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            border-left: 6px solid #34a853;
+            box-shadow: 0 5px 20px rgba(52, 168, 83, 0.15);
+        }
+        
+        .executive-summary h2 {
+            color: #34a853;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .key-points {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .key-points ul {
+            list-style: none;
+        }
+        
+        .key-points li {
+            padding: 12px 0 12px 35px;
+            position: relative;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .key-points li:last-child {
+            border-bottom: none;
+        }
+        
+        .key-points li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #34a853;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .four-pillars {
+            margin: 50px 0;
+        }
+        
+        .pillars-title {
+            text-align: center;
+            color: #4285f4;
+            font-size: 2.2em;
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+        
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .pillar-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pillar-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+        }
+        
+        .pillar-card:nth-child(1)::before {
+            background: linear-gradient(90deg, #4285f4, #34a853);
+        }
+        
+        .pillar-card:nth-child(2)::before {
+            background: linear-gradient(90deg, #ea4335, #fbbc05);
+        }
+        
+        .pillar-card:nth-child(3)::before {
+            background: linear-gradient(90deg, #34a853, #4285f4);
+        }
+        
+        .pillar-card:nth-child(4)::before {
+            background: linear-gradient(90deg, #fbbc05, #ea4335);
+        }
+        
+        .pillar-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(66, 133, 244, 0.25);
+            border-color: #4285f4;
+        }
+        
+        .pillar-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .pillar-card h3 {
+            color: #1a237e;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .pillar-card .description {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 1.05em;
+        }
+        
+        .pillar-card .use-cases {
+            background: rgba(66, 133, 244, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #4285f4;
+        }
+        
+        .pillar-card .use-cases strong {
+            color: #4285f4;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .section {
+            margin: 60px 0;
+            background: #fafafa;
+            padding: 40px;
+            border-radius: 20px;
+        }
+        
+        .section-title {
+            color: #ea4335;
+            font-size: 2em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #ea4335;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-icon {
+            font-size: 1.2em;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .feature-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid #fbbc05;
+            transition: all 0.3s;
+        }
+        
+        .feature-box:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(251, 188, 5, 0.2);
+        }
+        
+        .feature-box h4 {
+            color: #fbbc05;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-box ul {
+            margin-left: 20px;
+        }
+        
+        .feature-box li {
+            margin: 10px 0;
+            color: #555;
+        }
+        
+        .notebooklm-section {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 50px 0;
+            border: 3px solid #ff9800;
+        }
+        
+        .notebooklm-section h2 {
+            color: #e65100;
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .process-step {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #ff9800;
+            font-weight: bold;
+        }
+        
+        .process-step:last-child::after {
+            display: none;
+        }
+        
+        .process-number {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .output-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .output-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid #ff9800;
+        }
+        
+        .output-card h4 {
+            color: #e65100;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .appsheet-section {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 50px 0;
+            border: 3px solid #2196f3;
+        }
+        
+        .use-case-list {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        
+        .use-case-item {
+            padding: 15px;
+            margin: 10px 0;
+            background: linear-gradient(90deg, #e3f2fd 0%, white 100%);
+            border-left: 4px solid #2196f3;
+            border-radius: 8px;
+        }
+        
+        .conclusion-section {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 25px;
+            margin: 60px 0 0 0;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(26, 35, 126, 0.3);
+        }
+        
+        .conclusion-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            color: white;
+        }
+        
+        .conclusion-highlight {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .conclusion-highlight strong {
+            color: #ffeb3b;
+            font-size: 1.3em;
+        }
+        
+        .human-value {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            padding: 35px;
+            border-radius: 20px;
+            margin-top: 30px;
+            font-size: 1.2em;
+            box-shadow: 0 8px 25px rgba(238, 90, 36, 0.3);
+        }
+        
+        .disclaimer {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            color: #856404;
+            text-align: center;
+            font-style: italic;
+        }
+        
+        @media (max-width: 1200px) {
+            .pillars-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .output-showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+            
+            .process-flow {
+                flex-direction: column;
+            }
+            
+            .process-step::after {
+                display: none;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 GeminiとNotebookLMの包括的活用ガイド</h1>
+            <p class="subtitle">2025年におけるAI活用の最前線</p>
+            <a href="https://youtu.be/bI1FA6actjg?list=TLGGAcbJj__Dgg0xMTAyMjAyNg" target="_blank" class="video-link">
+                ▶️ 【基本のき】Geminiの各機能とNotebookLMの特徴をまとめて大解説！
+            </a>
+        </div>
+        
+        <div class="executive-summary">
+            <h2>📊 エグゼクティブ・サマリー</h2>
+            <p>本資料は、GoogleのAIモデル「Gemini」および関連ツール「NotebookLM」の最新機能と、ビジネス現場における具体的な活用シナリオを網羅的にまとめたものである。2025年現在、AI活用は単なるテキスト生成の域を超え、企業の独自データ（スプレッドシートや資料）とリアルタイムに連動した高度な業務自動化・学習支援のフェーズに移行している。</p>
+            
+            <div class="key-points">
+                <ul>
+                    <li><strong>Geminiの4つの柱：</strong>Google Workspace連携、単体活用、NotebookLM、AppSheet連携の4カテゴリーを理解することが活用の鍵となる。</li>
+                    <li><strong>「Gem」による業務の定型化：</strong>特定の指示を固定したカスタムAI（Gem）を活用することで、実績値の自動集計や翻訳など、安定したアウトプットが可能になる。</li>
+                    <li><strong>NotebookLMによる学習の革新：</strong>資料を読み込ませるだけで、マインドマップ、クイズ、音声・動画解説を自動生成し、インプットの効率を劇的に向上させる。</li>
+                    <li><strong>人間固有の価値：</strong>AIによる情報の整理・解説が高度化する中で、最終的に求められるのは「人の心を動かす力」である。</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="four-pillars">
+            <h2 class="pillars-title">🏛️ Gemini活用の4大カテゴリー</h2>
+            <p style="text-align: center; font-size: 1.1em; color: #666; margin-bottom: 40px;">企業においてGeminiを導入・活用する際、以下の4つの利用形態を抑えることが重要である。</p>
+            
+            <div class="pillars-grid">
+                <div class="pillar-card">
+                    <span class="pillar-icon">📧</span>
+                    <h3>Workspace連携</h3>
+                    <p class="description">GmailやGoogleドキュメントに組み込まれたAI。</p>
+                    <div class="use-cases">
+                        <strong>主な利用シーン：</strong>
+                        <p>• サイドパネルからのメール作成<br>
+                        • 日程調整案の作成</p>
+                    </div>
+                </div>
+                
+                <div class="pillar-card">
+                    <span class="pillar-icon">💎</span>
+                    <h3>Gemini単体活用</h3>
+                    <p class="description">専用画面（gemini.google.com）での対話。</p>
+                    <div class="use-cases">
+                        <strong>主な利用シーン：</strong>
+                        <p>• プロンプト入力<br>
+                        • Gem（カスタムAI）の作成<br>
+                        • ファイル考察</p>
+                    </div>
+                </div>
+                
+                <div class="pillar-card">
+                    <span class="pillar-icon">📚</span>
+                    <h3>NotebookLM</h3>
+                    <p class="description">特定の情報源に基づく学習・分析ツール。</p>
+                    <div class="use-cases">
+                        <strong>主な利用シーン：</strong>
+                        <p>• 資料の要約<br>
+                        • マインドマップ作成<br>
+                        • テスト生成</p>
+                    </div>
+                </div>
+                
+                <div class="pillar-card">
+                    <span class="pillar-icon">🔧</span>
+                    <h3>AppSheet連携</h3>
+                    <p class="description">ノーコードアプリ開発へのAI介入。</p>
+                    <div class="use-cases">
+                        <strong>主な利用シーン：</strong>
+                        <p>• 問い合わせの感情分析<br>
+                        • カテゴリー分類<br>
+                        • 優先度判定</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-icon">⚡</span>
+                Gemini単体機能の高度な活用法
+            </h2>
+            <p style="font-size: 1.1em; margin-bottom: 30px;">単体で利用するGeminiは、従来のチャット形式から「ツール」としての進化を遂げている。</p>
+            
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <h4>🎯 モデルの選択と「Gem」の有用性</h4>
+                    <p><strong>モデル選択：</strong></p>
+                    <ul>
+                        <li><strong>Pro</strong>: 考察力に優れたモデル</li>
+                        <li><strong>Flash</strong>: レスポンス速度を重視</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Gem（カスタムAI）の特徴：</strong></p>
+                    <ul>
+                        <li>毎回同じ指示を入力する手間を省く</li>
+                        <li>特定の業務に特化したAIを作成</li>
+                        <li>YouTube台本の英語変換</li>
+                        <li>スプレッドシート形式での出力</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-box">
+                    <h4>🔄 リアルタイム連携</h4>
+                    <p>指示を出すタイミングで参照元のスプレッドシートを確認し、最新情報を回答する。</p>
+                    <ul>
+                        <li>実績数値の確認</li>
+                        <li>ミッション一覧の参照</li>
+                        <li>実績確認の自動化</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 style="color: #1a237e; font-size: 1.6em; margin: 40px 0 25px 0;">🛠️ 特化型ツール群</h3>
+            
+            <div class="feature-grid">
+                <div class="feature-box" style="border-left-color: #4285f4;">
+                    <h4 style="color: #4285f4;">🔍 ディープリサーチ</h4>
+                    <p>AIアシスタントが専門的な調査を代行。ソース（出典）を明示するため、補助金の調査や論文作成に適している。</p>
+                </div>
+                
+                <div class="feature-box" style="border-left-color: #34a853;">
+                    <h4 style="color: #34a853;">🎨 キャンバス</h4>
+                    <p>コーディングやプログラミング、チラシ画像からのランディングページ（LP）案の作成などが可能。</p>
+                </div>
+                
+                <div class="feature-box" style="border-left-color: #ea4335;">
+                    <h4 style="color: #ea4335;">📹 メディア生成</h4>
+                    <p>「ナノバナナ（Veo）」などのモデルを活用し、画像生成や数分程度の動画生成が可能。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="notebooklm-section">
+            <h2>📚 NotebookLMによる「学習・分析」の変革</h2>
+            <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px;">ユーザーが提供した情報源（ソース）のみに基づいて回答を生成するため、正確性が高く、学習ツールとして極めて強力である。</p>
+            
+            <h3 style="color: #e65100; font-size: 1.5em; margin: 30px 0 20px 0;">📥 インプットと自動解析</h3>
+            
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="process-number">1</div>
+                    <h4>資料アップロード</h4>
+                    <p>ドキュメント、スライド、URLなどをアップロード</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <h4>AI解析</h4>
+                    <p>AIが内容をロジックで分解</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-number">3</div>
+                    <h4>自動生成</h4>
+                    <p>多様な形式で瞬時にコンテンツ生成</p>
+                </div>
+            </div>
+            
+            <h3 style="color: #e65100; font-size: 1.5em; margin: 40px 0 20px 0;">📤 アウトプットの多様性</h3>
+            
+            <div class="output-showcase">
+                <div class="output-card">
+                    <h4>🗺️ マインドマップ</h4>
+                    <p>資料の構造を視覚的に整理し、全体像を把握しやすくする。</p>
+                </div>
+                
+                <div class="output-card">
+                    <h4>📄 レポート</h4>
+                    <p>重要なポイントをまとめた包括的な文書を自動生成。</p>
+                </div>
+                
+                <div class="output-card">
+                    <h4>🃏 フラッシュカード</h4>
+                    <p>単語帳形式で重要な概念を学習できるツールを作成。</p>
+                </div>
+                
+                <div class="output-card">
+                    <h4>📝 クイズ/テスト</h4>
+                    <p>資料内の重要箇所を問い、正解・不正解の理由まで解説。社員研修や自己学習に最適。</p>
+                </div>
+                
+                <div class="output-card">
+                    <h4>🎙️ 音声解説</h4>
+                    <p>AIキャラクターが対話形式で内容を解説する音声コンテンツを生成。</p>
+                </div>
+                
+                <div class="output-card">
+                    <h4>🎬 動画解説</h4>
+                    <p>複雑な情報を視覚・聴覚的に理解させる動画コンテンツを生成。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="appsheet-section">
+            <h2 style="color: #1565c0; text-align: center; font-size: 2em; margin-bottom: 30px;">🔧 AppSheet連携：アプリへのAI実装</h2>
+            <p style="text-align: center; font-size: 1.1em; margin-bottom: 30px;">ノーコード開発ツール「AppSheet」にGeminiを介在させることで、従来の関数では困難だった高度な処理が可能になる。</p>
+            
+            <div class="use-case-list">
+                <div class="use-case-item">
+                    <h4 style="color: #2196f3; margin-bottom: 10px;">📊 テキスト情報の構造化</h4>
+                    <p>請求書データから特定の項目（会社名など）を抜き出す。</p>
+                </div>
+                
+                <div class="use-case-item">
+                    <h4 style="color: #2196f3; margin-bottom: 10px;">😊 感情分析と分類</h4>
+                    <p>顧客からの問い合わせ内容を、AIが「要望」「クレーム」などに自動分類し、緊急度や優先度を判定。</p>
+                </div>
+                
+                <div class="use-case-item">
+                    <h4 style="color: #2196f3; margin-bottom: 10px;">🎯 担当チームの自動割り当て</h4>
+                    <p>入力された内容に基づき、適切な部署へ振り分ける。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="conclusion-section">
+            <h2>🌟 結論：AI時代の「壁打ち」と人間の役割</h2>
+            
+            <div class="conclusion-highlight">
+                <p>Geminiを効果的に活用する秘訣は、単なるテキスト入力ではなく、<strong>「複数のファイルを重ねて考察させること」</strong>にある。</p>
+                <p style="margin-top: 20px;">過去の議事録、実績データ、計画案を次々に投入し、それらを踏まえた「壁打ち」を繰り返すことで、AIとの共同思考が深まる。</p>
+            </div>
+            
+            <div class="human-value

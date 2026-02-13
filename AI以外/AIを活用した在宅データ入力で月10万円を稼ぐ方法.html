@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIを活用した在宅データ入力で月10万円を稼ぐ方法</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .overview {
+            background: #ecf0f1;
+            padding: 25px;
+            border-left: 5px solid #3498db;
+            margin: 0;
+        }
+        
+        .overview h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .main-content {
+            padding: 30px;
+        }
+        
+        .work-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .work-type {
+            background: #fff;
+            border: 2px solid #ddd;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .work-type:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-color: #3498db;
+        }
+        
+        .work-type h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .research .icon { background: #e74c3c; color: white; }
+        .transcription .icon { background: #9b59b6; color: white; }
+        .receipt .icon { background: #f39c12; color: white; }
+        
+        .tool-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #3498db;
+        }
+        
+        .tool-name {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .stat {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .pros, .cons {
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .pros {
+            background: #d5f4e6;
+            border-left: 4px solid #27ae60;
+        }
+        
+        .cons {
+            background: #fadbd8;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .pros h4, .cons h4 {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .pros h4 { color: #27ae60; }
+        .cons h4 { color: #e74c3c; }
+        
+        .comparison-chart {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-chart h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 25px;
+        }
+        
+        .chart-bars {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 250px;
+            margin: 20px 0;
+            background: linear-gradient(to top, #f8f9fa 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .chart-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .bar {
+            width: 60px;
+            border-radius: 5px 5px 0 0;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            padding-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .bar:hover {
+            transform: scale(1.05);
+        }
+        
+        .bar.research { background: linear-gradient(to top, #e74c3c, #c0392b); height: 180px; }
+        .bar.transcription { background: linear-gradient(to top, #9b59b6, #8e44ad); height: 220px; }
+        .bar.receipt { background: linear-gradient(to top, #f39c12, #d68910); height: 100px; }
+        
+        .bar-label {
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .conclusion h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .conclusion-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .conclusion-point {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .flow-chart {
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .flow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .flow-step {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            flex: 1;
+            min-width: 180px;
+            position: relative;
+        }
+        
+        .flow-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3498db;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .flow-step h4 {
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .pros-cons {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-bars {
+                height: 200px;
+            }
+            
+            .bar.research { height: 140px; }
+            .bar.transcription { height: 170px; }
+            .bar.receipt { height: 80px; }
+            
+            .flow-steps {
+                flex-direction: column;
+            }
+            
+            .flow-step:not(:last-child)::after {
+                content: '↓';
+                right: auto;
+                top: auto;
+                bottom: -25px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 AIを活用した在宅データ入力で月10万円を稼ぐ方法</h1>
+            <p>初心者向けの低単価作業を先端技術で効率化</p>
+            
+            <!-- 動画情報 -->
+            <div style="margin-top: 25px; padding: 20px; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); border-radius: 12px; color: white;">
+                <h3 style="margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <span class="emoji">🎥</span>ソース動画
+                </h3>
+                <p style="font-size: 1.1em; font-weight: bold; margin-bottom: 10px;">在宅データ入力をAIで高速で終わらせて月10万稼ぐ</p>
+                <a href="https://youtu.be/yigmKoPZE08?list=TLGG9pM31zXYv20yMDA3MjAyNQ" 
+                   target="_blank" 
+                   style="display: inline-block; background: rgba(255, 255, 255, 0.2); color: white; text-decoration: none; padding: 10px 20px; border-radius: 25px; border: 2px solid white; transition: all 0.3s ease; font-weight: bold;"
+                   onmouseover="this.style.background='white'; this.style.color='#ee5a24';"
+                   onmouseout="this.style.background='rgba(255, 255, 255, 0.2)'; this.style.color='white';">
+                    📺 YouTube動画を見る
+                </a>
+            </div>
+        </div>
+        
+        <div class="overview">
+            <h2>📝 概要</h2>
+            <p>このガイドでは、AIツールを活用してデータ入力の仕事を効率化し、月10万円の収入を目指す方法を解説しています。クラウドワークスやランサーズで需要の高い3つの主要分野について、具体的なツールと実践方法を紹介します。</p>
+        </div>
+        
+        <div class="main-content">
+            <h2 style="text-align: center; color: #2c3e50; margin-bottom: 30px;">💼 主要な在宅データ入力の種類</h2>
+            
+            <div class="work-types">
+                <div class="work-type research">
+                    <h3><span class="icon">🔍</span>リサーチ・データ収集</h3>
+                    <div class="tool-info">
+                        <div class="tool-name">🛠️ 推奨ツール: Octoparse</div>
+                        <p>ノーコードWebスクレイピングツール。テンプレートを使って自動的にデータ収集が可能。</p>
+                    </div>
+                    
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-value">7分</span>
+                            <span class="stat-label">100件収集時間</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">4秒</span>
+                            <span class="stat-label">1件あたり</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">133時間</span>
+                            <span class="stat-label">月10万円に必要</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✅ メリット</h4>
+                            <ul>
+                                <li>大幅な時間短縮</li>
+                                <li>高い収益性</li>
+                                <li>自動化可能</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>⚠️ 注意点</h4>
+                            <ul>
+                                <li>月額15,000円のツール費用</li>
+                                <li>データ確認作業必要</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="work-type transcription">
+                    <h3><span class="icon">🎵</span>動画の文字起こし</h3>
+                    <div class="tool-info">
+                        <div class="tool-name">🛠️ 推奨ツール: Gladia</div>
+                        <p>YouTubeのURLを貼るだけで自動文字起こし。特定部分の再生機能で修正も簡単。</p>
+                    </div>
+                    
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-value">1時間</span>
+                            <span class="stat-label">全工程時間</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">5,000円</span>
+                            <span class="stat-label">15分動画単価</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">1日1時間</span>
+                            <span class="stat-label">月10万円ペース</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✅ メリット</h4>
+                            <ul>
+                                <li>最高の時給効率</li>
+                                <li>短時間で高収入</li>
+                                <li>自動修正機能</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>⚠️ 注意点</h4>
+                            <ul>
+                                <li>音質による精度差</li>
+                                <li>最終チェック必要</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="work-type receipt">
+                    <h3><span class="icon">🧾</span>レシート・領収書入力</h3>
+                    <div class="tool-info">
+                        <div class="tool-name">🛠️ 推奨ツール: i-screen OCR</div>
+                        <p>画像から文字を自動抽出する無料ツール。手動より高速だが目視確認が必須。</p>
+                    </div>
+                    
+                    <div class="stats">
+                        <div class="stat">
+                            <span class="stat-value">10秒</span>
+                            <span class="stat-label">1件処理時間</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">58円</span>
+                            <span class="stat-label">1件単価</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">9.5時間</span>
+                            <span class="stat-label">1日必要時間</span>
+                        </div>
+                    </div>
+                    
+                    <div class="pros-cons">
+                        <div class="pros">
+                            <h4>✅ メリット</h4>
+                            <ul>
+                                <li>無料ツール使用可</li>
+                                <li>確定申告期に需要急増</li>
+                                <li>単純作業</li>
+                            </ul>
+                        </div>
+                        <div class="cons">
+                            <h4>⚠️ 注意点</h4>
+                            <ul>
+                                <li>時給効率が低い</li>
+                                <li>スキル習得に不向き</li>
+                                <li>長時間労働必要</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="comparison-chart">
+                <h2>📊 収益効率比較</h2>
+                <div class="chart-bars">
+                    <div class="chart-bar">
+                        <div class="bar research">高収益</div>
+                        <div class="bar-label">リサーチ<br>データ収集</div>
+                    </div>
+                    <div class="chart-bar">
+                        <div class="bar transcription">最高効率</div>
+                        <div class="bar-label">動画<br>文字起こし</div>
+                    </div>
+                    <div class="chart-bar">
+                        <div class="bar receipt">低効率</div>
+                        <div class="bar-label">レシート<br>入力</div>
+                    </div>
+                </div>
+                <p style="text-align: center; color: #666; margin-top: 20px;">
+                    ※ 時給効率と月10万円達成の難易度を総合評価
+                </p>
+            </div>
+            
+            <div class="flow-chart">
+                <h2 style="text-align: center; color: #2c3e50; margin-bottom: 25px;">🚀 成功への道のり</h2>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <h4>STEP 1</h4>
+                        <p>データ入力で<br>成功体験を積む</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>STEP 2</h4>
+                        <p>AIツールで<br>効率化を図る</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>STEP 3</h4>
+                        <p>スキル習得型<br>副業へ移行</p>
+                    </div>
+                    <div class="flow-step">
+                        <h4>GOAL</h4>
+                        <p>長期的な<br>収入安定化</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="conclusion">
+                <h2>✅ 重要ポイント</h2>
+                <div class="conclusion-points">
+                    <div class="conclusion-point">
+                        <h3>🎯 最優先</h3>
+                        <p><strong>Gladia</strong>を使った動画文字起こしが最も効率的。1日1時間で月10万円が現実的。</p>
+                    </div>
+                    <div class="conclusion-point">
+                        <h3>💰 高収益</h3>
+                        <p><strong>Octoparse</strong>によるデータ収集は初期費用がかかるが、大きな収益が期待できる。</p>
+                    </div>
+                    <div class="conclusion-point">
+                        <h3>⚠️ 注意</h3>
+                        <p>レシート入力は時給効率が低く、メイン業務としては推奨しない。</p>
+                    </div>
+                    <div class="conclusion-point">
+                        <h3>🎓 長期戦略</h3>
+                        <p>データ入力は第一歩。将来的にはより高度なスキルを身につける副業への移行が重要。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

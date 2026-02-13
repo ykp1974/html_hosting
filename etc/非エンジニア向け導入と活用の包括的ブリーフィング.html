@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code 非エンジニア向け完全ガイド</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Yu Gothic', 'Hiragino Sans', sans-serif;
+            line-height: 1.8;
+            color: #2d3748;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        header .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .video-link {
+            background: rgba(255,255,255,0.25);
+            padding: 18px 25px;
+            border-radius: 12px;
+            margin-top: 25px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255,255,255,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .video-link a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.15em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+        
+        .video-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            padding: 50px;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        h3 {
+            color: #f5576c;
+            font-size: 1.5em;
+            margin: 30px 0 20px 0;
+            padding-left: 15px;
+            border-left: 5px solid #f5576c;
+        }
+        
+        h4 {
+            color: #764ba2;
+            font-size: 1.2em;
+            margin: 20px 0 12px 0;
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            border-left: 6px solid #667eea;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .key-points {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        
+        .key-points ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .key-points li {
+            padding: 12px 0 12px 35px;
+            position: relative;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .key-points li:last-child {
+            border-bottom: none;
+        }
+        
+        .key-points li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .comparison-table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .comparison-table th {
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        
+        .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .comparison-table tbody tr:nth-child(even) {
+            background: #f7fafc;
+        }
+        
+        .comparison-table tbody tr:hover {
+            background: #edf2f7;
+            transition: 0.3s;
+        }
+        
+        .comparison-table tbody tr td:first-child {
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card h4 {
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .feature-card .icon {
+            font-size: 1.8em;
+        }
+        
+        .diagram-box {
+            background: #f7fafc;
+            border: 3px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 35px 0;
+            position: relative;
+        }
+        
+        .diagram-title {
+            text-align: center;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 30px;
+        }
+        
+        .flow-horizontal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+        }
+        
+        .flow-box {
+            background: white;
+            padding: 25px 35px;
+            border-radius: 12px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.12);
+            min-width: 200px;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+        }
+        
+        .flow-box.start {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            color: #2d3748;
+        }
+        
+        .flow-box.process {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #2d3748;
+        }
+        
+        .flow-box.end {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #2d3748;
+        }
+        
+        .arrow-right {
+            font-size: 2em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .roadmap {
+            position: relative;
+            padding: 30px 0 30px 60px;
+        }
+        
+        .roadmap::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #667eea 0%, #f5576c 100%);
+        }
+        
+        .roadmap-item {
+            position: relative;
+            margin-bottom: 35px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: -53px;
+            top: 25px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #667eea;
+            border: 4px solid white;
+            box-shadow: 0 0 0 4px #667eea;
+        }
+        
+        .roadmap-item h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: bold;
+            margin-right: 12px;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #48bb78;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #f5576c;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 5px solid #667eea;
+        }
+        
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .use-case-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .use-case-card .number {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+        
+        .tools-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .tool-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .tool-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+        }
+        
+        .tool-card .tool-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 12px;
+        }
+        
+        .tool-card .tool-desc {
+            color: #718096;
+            font-size: 0.95em;
+        }
+        
+        .command-list {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .command-list .command-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #4a5568;
+        }
+        
+        .command-list .command-item:last-child {
+            border-bottom: none;
+        }
+        
+        .command-list .command {
+            color: #48bb78;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        
+        .mode-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .mode-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .mode-card .mode-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .mode-card .mode-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 50px;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+        }
+        
+        .conclusion h3 {
+            color: white;
+            border: none;
+            padding: 0;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        
+        .conclusion p {
+            font-size: 1.15em;
+            line-height: 1.9;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 30px 20px;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .mode-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flow-horizontal {
+                flex-direction: column;
+            }
+            
+            .arrow-right {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Claude Code</h1>
+            <div class="subtitle">非エンジニア向け導入と活用の包括的ブリーフィング</div>
+            <div class="video-link">
+                📹 <a href="https://youtu.be/0jKHBND-auw?list=TLGGglwqdJCqriExMTAyMjAyNg" target="_blank">
+                    【非エンジニア向け】一番カンタンなClaude Codeの始め方
+                </a>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- エグゼクティブサマリー -->
+            <div class="executive-summary">
+                <h2>📋 エグゼクティブ・サマリー</h2>
+                <p>
+                    Claude Codeは、従来のターミナルやGit操作を必要とする高いハードルを排し、<strong>直感的なデスクトップインターフェース</strong>を通じて、コーディングのみならず<strong>文書作成やデータ整理、ブラウザ自動化などのあらゆるデジタル作業を自律的に遂行する「汎用エージェント」</strong>へと進化を遂げています。
+                </p>
+                
+                <div class="key-points">
+                    <h4>🎯 主要ポイント</h4>
+                    <ul>
+                        <li><strong>導入の容易化：</strong> デスクトップアプリにより、非エンジニアでもターミナル不要で利用可能</li>
+                        <li><strong>汎用性の高さ：</strong> コーディング以外にも文書作成、ファイル操作、ブラウザ自動化に対応</li>
+                        <li><strong>制御の柔軟性：</strong> プロンプト指示に加え、CLAUDE.mdやスキルによる自動化が可能</li>
+                        <li><strong>対話型プランニング：</strong> 実装前に仕様をAIと詰めることで成果物の精度向上</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- セクション1：概要と重要性 -->
+            <div class="section">
+                <h2>1️⃣ Claude Codeの概要と重要性</h2>
+                
+                <h3>コーディング・エージェントの現在地</h3>
+                <div class="highlight-box">
+                    <p style="font-size: 1.15em;">
+                        Claude Codeは、コーディング・エージェント界において<strong>極めて強力な存在（「五条悟」のような存在）</strong>と目されています。当初はコーディング支援を目的としていましたが、実際には<strong>あらゆるデジタル活動に利用可能な「汎用エージェント」</strong>としての特性を持っています。
+                    </p>
+                </div>
+
+                <h3>学習すべき理由</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><span class="icon">📂</span> デジタル作業の代行</h4>
+                        <p>ファイル操作、文書作成、ブラウザ自動化など、幅広いタスクを自動化</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">🚀</span> AI活用スキルの向上</h4>
+                        <p>最先端のAIエージェント技術を実践的に習得</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">⚡</span> 強力な制御機能</h4>
+                        <p>Claude Opusモデル + Hooks、Skills、サブエージェントによる高度な制御</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- セクション2：製品比較 -->
+            <div class="section">
+                <h2>2️⃣ 製品・機能の比較</h2>
+                
+                <h3>Claude Code vs Claude Co-work</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>特徴</th>
+                            <th>Claude Code (デスクトップ版)</th>
+                            <th>Claude Co-work</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>主な用途</td>
+                            <td>開発、高度な自動化、並列実行</td>
+                            <td>コーディング以外の一般タスク</td>
+                        </tr>
+                        <tr>
+                            <td>対象OS</td>
+                            <td>Windows, Mac（Arm64 Windows非対応）</td>
+                            <td>Mac OSのみ</td>
+                        </tr>
+                        <tr>
+                            <td>価格プラン</td>
+                            <td>有料版（20ドル/月）</td>
+                            <td>Maxプラン（100ドル/月以上）</td>
+                        </tr>
+                        <tr>
+                            <td>強み</td>
+                            <td>クラウド実行、スラッシュコマンド</td>
+                            <td>成果物が見やすいUI、進捗表示</td>
+                        </tr>
+                        <tr>
+                            <td>状況</td>
+                            <td>正式版に近い</td>
+                            <td>リサーチプレビュー</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>他ツールとの関係</h3>
+                <div class="tools-comparison">
+                    <div class="tool-card">
+                        <div class="tool-name">Cursor / Codex</div>
+                        <div class="tool-desc">UIや設計力に優れる</div>
+                        <p style="margin-top: 15px; color: #667eea; font-weight: 600;">
+                            Claude Code: エージェント制御機能で差別化
+                        </p>
+                    </div>
+                    <div class="tool-card">
+                        <div class="tool-name">Anti-gravity</div>
+                        <div class="tool-desc">無料で使える</div>
+                        <p style="margin-top: 15px; color: #667eea; font-weight: 600;">
+                            Claude Code: より高度なタスクに向く
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- セクション3：セットアップ -->
+            <div class="section">
+                <h2>3️⃣ セットアップと環境構築</h2>
+                
+                <div class="diagram-box">
+                    <div class="diagram-title">🔧 必須要件と推奨ツール</div>
+                    <div class="flow-horizontal">
+                        <div class="flow-box start">
+                            <strong>必須要件</strong><br>
+                            Claude有料版<br>
+                            （月額20ドル）
+                        </div>
+                        <span class="arrow-right">→</span>
+                        <div class="flow-box process">
+                            <strong>デスクトップアプリ</strong><br>
+                            Windows / Mac<br>
+                            ※Arm64 Windows非対応
+                        </div>
+                        <span class="arrow-right">→</span>
+                        <div class="flow-box end">
+                            <strong>推奨ツール</strong><br>
+                            VS Code<br>
+                            （ファイル確認・編集）
+                        </div>
+                    </div>
+                </div>
+
+                <h3>推奨される補助ツール</h3>
+                <div class="info-box">
+                    <h4>📝 VS Code（必須）</h4>
+                    <p>Claude Codeが書き換えたファイルの確認・編集に必須のエディター</p>
+                    
+                    <h4 style="margin-top: 20px;">🔧 その他エディター（任意）</h4>
+                    <p>Obsidian、Cursor、Anti-gravityなど、用途に応じて選択</p>
+                </div>
+            </div>
+
+            <!-- セクション4：UI・主要機能 -->
+            <div class="section">
+                <h2>4️⃣ ユーザーインターフェースと主要機能</h2>
+                
+                <h3>基本構成</h3>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4><span class="icon">📜</span> セッション履歴管理</h4>
+                        <p>過去の作業を簡単に振り返り・再利用</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">📁</span> フォルダー指定</h4>
+                        <p>作業範囲を限定してセキュリティを確保</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">☁️</span> ローカル/クラウド実行</h4>
+                        <p>実行環境を柔軟に選択</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4><span class="icon">🔐</span> 環境変数管理</h4>
+                        <p>機密情報を安全に管理</p>
+                    </div>
+                </div>
+
+                <h3>実行モードの使い分け</h3>
+                <div class="mode-grid">
+                    <div class="mode-card">
+                        <div class="mode-icon">✋</div>
+                        <div class="mode-name">確認モード</div>
+                        <p>初心者向け<br>都度許可が必要</p>
+                    </div>
+                    <div class="mode-card">
+                        <div class="mode-icon">⚡</div>
+                        <div class="mode-name">実行モード</div>
+                        <p>中級者向け<br>連続実行</p>
+                    </div>
+                    <div class="mode-card">
+                        <div class="mode-icon">📋</div>
+                        <div class="mode-name">プランモード</div>
+                        <p>上級者向け<br>実装前に仕様を詰める</p>
+                    </div>
+                </div>
+
+                <h3>スラッシュコマンド</h3>
+                <div class="command-list">
+                    <div class="command-item">
+                        <span class="command">/compact</span>
+                        <span>会話履歴の要約（コンテキスト圧縮）</span>
+                    </div>
+                    <div class="command-item">
+                        <span class="command">/[カスタムスキル名]</span>
+                        <span>定義したスキルの呼び出し</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- セクション5：実践的活用 -->
+            <div class="section">
+                <h2>5️⃣ 実践的な活用手法</h2>
+                
+                <h3>文書作成と「CLAUDE.md」の活用</h3>
+                <div class="highlight-box">
+                    <h4>📄 CLAUDE.mdとは</h4>
+                    <p>永続的な指示や文体ルールをマークダウンファイルに記述することで、<strong>新セッションでも自動的にルールが適用</strong>されます。</p>
+                    
+                    <div style="margin-top: 20px; background: white; padding: 20px; border-radius: 8px;">
+                        <strong>活用例：</strong>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>文体の統一（です・ます調など）</li>
+                            <li>コーディング規約の自動適用</li>
+                            <li>プロジェクト固有のルール設定</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>「スキル」による自動化</h3>
+                <div class="diagram-box">
+                    <div class="diagram-title">🎯 スキルの活用フロー</div>
+                    <div class="flow-horizontal">
+                        <div class="flow-box start">

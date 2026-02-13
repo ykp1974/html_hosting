@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini新機能無料開放 詳細図解</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc04 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '🚀';
+            font-size: 60px;
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .date-info {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            border-left: 5px solid #4285f4;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .section::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 0;
+            width: 15px;
+            height: 15px;
+            background: #4285f4;
+            border-radius: 50%;
+        }
+        
+        .section h2 {
+            color: #333;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4285f4, #34a853, #fbbc04, #ea4335);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .feature-title {
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .deep-research { --icon: '🔍'; }
+        .gems { --icon: '💎'; }
+        .personalization { --icon: '⚙️'; }
+        
+        .feature-title::before {
+            content: var(--icon);
+            font-size: 1.5em;
+        }
+        
+        .feature-list {
+            list-style: none;
+            margin: 15px 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #34a853;
+            font-weight: bold;
+        }
+        
+        .limitation-box {
+            background: #fef7e0;
+            border: 2px solid #fbbc04;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .limitation-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: #fef7e0;
+            padding: 0 10px;
+            font-size: 1.2em;
+        }
+        
+        .use-cases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .use-case {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .use-case:hover {
+            transform: scale(1.05);
+        }
+        
+        .use-case-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .gems-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .gems-table th,
+        .gems-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .gems-table th {
+            background: linear-gradient(135deg, #4285f4, #34a853);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .gems-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .gems-table tr:hover {
+            background: #e3f2fd;
+        }
+        
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #4285f4, #34a853, #fbbc04);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin: 30px 0;
+            padding-left: 60px;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: #4285f4;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #4285f4;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+            border-left: 5px solid #34a853;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .highlight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 20px;
+            left: -15px;
+            background: #34a853;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8em;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .conclusion h2 {
+            margin-bottom: 20px;
+            border-bottom: none;
+            color: white;
+        }
+        
+        .video-link {
+            background: #ff4444;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .video-link:hover {
+            background: #dd3333;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,68,68,0.3);
+        }
+        
+        .video-link::before {
+            content: '📺 ';
+            font-size: 1.2em;
+        }
+        
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .gems-table {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Gemini 新機能無料開放</h1>
+            <div class="date-info">
+                <strong>2024年3月13日（日本時間3月14日）</strong><br>
+                Google One AI Premium（月額2,900円）→ <strong style="color: #fbbc04;">完全無料</strong>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>無料開放された3つの主要機能</h2>
+                <div class="features-grid">
+                    <div class="feature-card deep-research">
+                        <div class="feature-title">Deep Research</div>
+                        <p><strong>AIによる主体的な情報収集</strong></p>
+                        <ul class="feature-list">
+                            <li>5〜10ページ以上の詳細レポート生成</li>
+                            <li>出典明示リンク付きでファクトチェック対応</li>
+                            <li>Gemini 2.0 Flash Thinking Experimentalで思考プロセス表示</li>
+                        </ul>
+                        <div class="limitation-box">
+                            <strong>制限事項：</strong>無料ユーザーは月5回まで
+                        </div>
+                        <div class="use-cases">
+                            <div class="use-case">
+                                <span class="use-case-icon">📊</span>
+                                マーケティング調査
+                            </div>
+                            <div class="use-case">
+                                <span class="use-case-icon">🏛️</span>
+                                自治体DX分析
+                            </div>
+                            <div class="use-case">
+                                <span class="use-case-icon">📺</span>
+                                YouTube企画
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card gems">
+                        <div class="feature-title">Gems</div>
+                        <p><strong>パーソナルAIアシスタントの作成</strong></p>
+                        <ul class="feature-list">
+                            <li>ユーザー指示でGeminiをカスタマイズ</li>
+                            <li>「指示コンシェルジュ」でプロンプト改善</li>
+                            <li>英語設定時はKnowledge Extension利用可能</li>
+                        </ul>
+                        <div class="limitation-box">
+                            <strong>課題：</strong>共有機能が未実装（手動コピー必要）
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card personalization">
+                        <div class="feature-title">パーソナライゼーション機能</div>
+                        <p><strong>Googleアクティビティとの連携強化</strong></p>
+                        <ul class="feature-list">
+                            <li>検索履歴、マップ、YouTubeと連携</li>
+                            <li>利用者の興味に合わせた最適提案</li>
+                            <li>旅行プラン作成等で効果発揮</li>
+                            <li>ON/OFF制御可能でプライバシー配慮</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>Gemsの活用例詳細</h2>
+                <table class="gems-table">
+                    <thead>
+                        <tr>
+                            <th>用途</th>
+                            <th>機能概要</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🔧 プロンプトジェネレーター</td>
+                            <td>単純な指示を高度なプロンプトに自動変換</td>
+                        </tr>
+                        <tr>
+                            <td>📧 メールコンシェルジュ</td>
+                            <td>Gmail要約／差出人分析など</td>
+                        </tr>
+                        <tr>
+                            <td>🏢 社内ボット／RAG型活用</td>
+                            <td>社内FAQ／問い合わせ応答</td>
+                        </tr>
+                        <tr>
+                            <td>🎭 シミュレーター</td>
+                            <td>営業／窓口などのロールプレイ支援</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="section">
+                <h2>Deep Research 利用時の注意点</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <h3>パーソナライゼーション機能との連携</h3>
+                        <p>過去履歴を基に情報が補正される場合があります</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>客観性重視の場合</h3>
+                        <p>パーソナライゼーション機能の接続解除を推奨</p>
+                    </div>
+                    <div class="timeline-item">
+                        <h3>今後の展開</h3>
+                        <p>モバイルアプリへの展開も予定</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>ユーザーの反応</h3>
+                <p>「本当にヤバい」「太っ腹すぎる」と絶賛されるこのアップデートにより、Geminiは日常と業務に欠かせない存在へ進化中。</p>
+            </div>
+            
+            <div class="conclusion">
+                <h2>総括と今後の展望</h2>
+                <p>今回の無料開放により、GeminiのAI機能へのアクセスが飛躍的に拡大。Deep ResearchとGemsの普及で、一般ユーザーでも高度なAI活用が可能になりました。</p>
+                <p>📲 今後、モバイルへの展開とさらに洗練されたパーソナライズにより、GeminiはあなたのAIライフの心強いパートナーになるでしょう。</p>
+                
+                <a href="https://youtu.be/JnQfFtm60zg?list=TLGG-64sVLCa0VEwMzA4MjAyNQ" class="video-link" target="_blank">
+                    【速報！】Geminiの「Deep Research」や「Gems」が無料開放！全員使え！
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
