@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>恋愛と人間関係の成否を決する「日常の在り方」</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.8;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .header::before {
+            content: "🙏";
+            position: absolute;
+            font-size: 15em;
+            opacity: 0.15;
+            right: -50px;
+            top: -50px;
+        }
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+        }
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-top: 10px;
+        }
+        .video-source {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        .video-source a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 2px solid white;
+        }
+        .content {
+            padding: 40px;
+        }
+        .executive-summary {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-left: 8px solid #f39c12;
+        }
+        .executive-summary h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #d35400;
+        }
+        .executive-summary p {
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+        .key-stat {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 40px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .key-stat-number {
+            font-size: 5em;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin: 20px 0;
+        }
+        .key-stat-text {
+            font-size: 1.4em;
+            line-height: 1.6;
+        }
+        .section {
+            margin: 50px 0;
+        }
+        .section-title {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        .mechanism-box {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+        .mechanism-item {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-left: 5px solid #f093fb;
+        }
+        .mechanism-item h4 {
+            color: #f093fb;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        .comparison-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .comparison-card {
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+        .comparison-card.surface {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+        }
+        .comparison-card.essence {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        .comparison-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        .comparison-card .icon {
+            font-size: 4em;
+            margin: 20px 0;
+        }
+        .comparison-card ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+        .comparison-card li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+        .comparison-card li:before {
+            content: "●";
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+        .evaluation-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 35px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        .evaluation-box h3 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            margin-bottom: 25px;
+        }
+        .evaluation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .evaluation-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        .evaluation-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        .buddhism-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 35px;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .buddhism-box h3 {
+            color: #d35400;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .principle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .principle-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid #f39c12;
+        }
+        .principle-card h4 {
+            color: #d35400;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+        .rokudo-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        .rokudo-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        .rokudo-table td {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+        .rokudo-table tr:hover {
+            background: #f5f5f5;
+        }
+        .rokudo-table tr:last-child td {
+            border-bottom: none;
+        }
+        .virtue-name {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+        .flow-diagram {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+        .flow-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2em;
+            flex-shrink: 0;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+        }
+        .flow-content {
+            flex: 1;
+            margin-left: 25px;
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #f093fb;
+        }
+        .flow-content h4 {
+            color: #f093fb;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+        .flow-arrow {
+            text-align: center;
+            color: #f093fb;
+            font-size: 2.5em;
+            margin: 15px 0;
+        }
+        .conclusion-box {
+            background: linear-gradient(135deg, #134e5e 0%, #71b280 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        .conclusion-box h3 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .conclusion-point {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            backdrop-filter: blur(10px);
+        }
+        .conclusion-point h4 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #ffd700;
+        }
+        .quote-box {
+            background: white;
+            color: #2c3e50;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 8px solid #f093fb;
+            font-size: 1.2em;
+            font-style: italic;
+            text-align: center;
+        }
+        .highlight {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: #d35400;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💝 恋愛と人間関係の成否を決する「日常の在り方」</h1>
+            <div class="subtitle">仏教の教えに基づく考察</div>
+            <div class="video-source">
+                📺 動画ソース: <a href="https://youtu.be/UQf0qc7QwEw?list=TLGGd2TVauPYZ2gxODAyMjAyNg" target="_blank">愛は会えない時に9割決まる【仏教の教え】</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="executive-summary">
+                <h2>📋 エグゼクティブ・サマリー</h2>
+                <p>恋愛やビジネス、あらゆる対人関係において、良好な関係を築けるかどうかは、対面している時間（デートや商談）ではなく、<span class="highlight">「会っていない時間」をどう過ごすか</span>によって9割が決まります。</p>
+                <p style="margin-top: 15px;">仏教の根幹である「因果の道理」に基づけば、日頃の隠れた言動や心の持ちようは、本人の意図にかかわらず、雰囲気や端々の言動として必ず表面化します。</p>
+                <p style="margin-top: 15px;">真の幸福や信頼を獲得するためには、日常から「六度万行」に代表される善い習慣を積み重ね、自身の本質を磨き続けることが不可欠です。</p>
+            </div>
+
+            <div class="key-stat">
+                <div class="key-stat-number">90%</div>
+                <div class="key-stat-text">
+                    恋愛やビジネスの成否は<br>
+                    「会っていない時間」の過ごし方で決まる
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">1️⃣ 「会っていない時」が結果を左右するメカニズム</div>
+
+                <p style="font-size: 1.1em; margin-bottom: 30px;">多くの人は、デートや面接といった「本番」の場では、身なりを整え、言動に細心の注意を払います。しかし、実際には<strong>「本番以外」の日常が結果に決定的な影響を及ぼします。</strong></p>
+
+                <div class="comparison-visual">
+                    <div class="comparison-card surface">
+                        <div class="icon">🎭</div>
+                        <h3>表面的な努力</h3>
+                        <ul>
+                            <li>デート時だけ身なりを整える</li>
+                            <li>本番だけ良い振る舞いをする</li>
+                            <li>会っている時だけ気をつける</li>
+                            <li>一時的に演技をする</li>
+                        </ul>
+                        <div style="margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.2); border-radius: 10px;">
+                            <strong>結果: ❌ 必ず破綻する</strong>
+                        </div>
+                    </div>
+
+                    <div class="comparison-card essence">
+                        <div class="icon">🌟</div>
+                        <h3>本質的な努力</h3>
+                        <ul>
+                            <li>日常から規律ある生活</li>
+                            <li>誰も見ていない時も自制</li>
+                            <li>会っていない時間を大切にする</li>
+                            <li>日頃から善い習慣を積む</li>
+                        </ul>
+                        <div style="margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.2); border-radius: 10px;">
+                            <strong>結果: ✅ 持続的な信頼</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mechanism-box">
+                    <h3 style="color: #2c3e50; font-size: 1.5em; margin-bottom: 25px;">💡 日常が表面化する3つのメカニズム</h3>
+                    
+                    <div class="mechanism-item">
+                        <h4>1. 不自然さの露呈</h4>
+                        <p>日常生活が乱れている（不摂生、自制心のない生活、SNSでの誹謗中傷など）場合、本番でどれだけ「素敵な自分」を演じようとしても、どこかに不自然さが生じます。</p>
+                    </div>
+
+                    <div class="mechanism-item">
+                        <h4>2. 非言語的な違和感</h4>
+                        <p>相手は、具体的な言葉にできなくとも、顔色、姿勢、醸し出す雰囲気から、その人の日頃の生活や性質を敏感に感じ取ります。</p>
+                    </div>
+
+                    <div class="mechanism-item">
+                        <h4>3. 「素」の流出</h4>
+                        <p>感情の制御ができていない人は、特定の相手には優しく接していても、店員への態度や予期せぬトラブルの際に、日頃の攻撃性や不遜さが露呈してしまいます。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">2️⃣ 本質を暴く「評価」の視点</div>
+
+                <p style="font-size: 1.1em; margin-bottom: 30px;">日常生活での在り方は、プロの視点や特定の状況下で容易に見抜かれます。</p>
+
+                <div class="evaluation-box">
+                    <h3>💼 就職活動における面接の事例</h3>
+                    
+                    <div class="evaluation-grid">
+                        <div class="evaluation-card">
+                            <h4>⏱️ 決着の早さ</h4>
+                            <p>熟練の面接官は、わずか<strong>2〜3分</strong>の会話や立ち振る舞いで、相手の採用可否をほぼ判断します。</p>
+                        </div>
+
+                        <div class="evaluation-card">
+                            <h4>🔍 深掘りによる真偽の確認</h4>
+                            <p>「なぜ？」という問いを繰り返すことで、借り物の言葉や嘘はボロが出ます。</p>
+                        </div>
+
+                        <div class="evaluation-card">
+                            <h4>⚾ 変化球の質問</h4>
+                            <p>「自分を家電に例えると？」「10億円手に入っても就活を続けるか？」といった、マニュアルにない質問への即答には、その人の素の生き方や価値観が反映されます。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="evaluation-box" style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);">
+                    <h3 style="color: white;">💑 長期的な関係（結婚・同棲）における課題</h3>
+                    
+                    <div style="background: rgba(255,255,255,0.2); padding: 25px; border-radius: 10px; color: white; margin: 20px 0; backdrop-filter: blur(10px);">
+                        <p style="font-size: 1.1em; margin-bottom: 15px;">短時間のデートであれば演技が可能ですが、生活を共にする結婚や同棲では「裏も表も」見せることになります。</p>
+                        <p style="font-size: 1.1em;">日頃から自分を磨いていない場合、時間の経過とともに本性が明らかになり、<strong>「こんなはずではなかった」という破綻（離婚等）</strong>を招く原因となります。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">3️⃣ 仏教の教え：因果の道理と「種まき」</div>
+
+                <p style="font-size: 1.1em; margin-bottom: 30px; text-align: center;">仏教では、私たちの運命や結果はすべて自らの<strong>「行い（種まき）」</strong>によって決まると説きます。</p>
+
+                <div class="buddhism-box">
+                    <h3>☸️ 因果の道理の基本原則</h3>
+
+                    <div class="principle-grid">
+                        <div class="principle-card">
+                            <h4>🌱 善因善果・悪因悪果</h4>
+                            <p>善い行いは善い結果を、悪い行いは悪い結果をもたらす。</p>
+                        </div>
+
+                        <div class="principle-card">
+                            <h4>🔄 自因自果</h4>
+                            <p>自分が撒いた種の結果は、すべて自分自身が刈り取らなければならない。</p>
+                        </div>
+
+                        <div class="principle-card">
+                            <h4>✨ 種は正直</h4>
+                            <p>「人が見ていようがいまいが、種を撒けば生え、撒かねば生えない」という原理。他人の目は関係なく、自身の行いは確実に自身の運命や人格として蓄積される。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flow-diagram">
+                    <h3 style="color: #2c3e50; font-size: 1.6em; margin-bottom: 30px; text-align: center;">因果の流れ</h3>
+                    
+                    <div class="flow-step">
+                        <div class="flow-icon">🌾</div>
+                        <div class="flow-content">
+                            <h4>日常の行い（種まき）</h4>
+                            <p>誰も見ていない時の言動、心の持ちよう、習慣</p>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">↓</div>
+
+                    <div class="flow-step">
+                        <div class="flow-icon">🌿</div>
+                        <div class="flow-content">
+                            <h4>人格の形成（成長）</h4>
+                            <p>雰囲気、立ち振る舞い、とっさの反応に表れる</p>
+                        </div>
+                    </div>
+
+                    <div class="flow-arrow">↓</div>
+
+                    <div class="flow-step">
+                        <div class="flow-icon">🌺</div>
+                        <div class="flow-content">
+                            <h4>結果の顕在化（収穫）</h4>
+                            <p>恋愛の成功、仕事での信頼、持続的な関係</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quote-box">
+                    「人が見ていようがいまいが、<br>
+                    種を撒けば生え、撒かねば生えない」<br>
+                    <span style="font-size: 0.9em; color: #7f8c8d; margin-top: 15px; display: block;">― 仏教の教え</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">4️⃣ 日常で実践すべき「善い行い」（六度万行）</div>
+
+                <p style="font-size: 1.1em; margin-bottom: 30px;">恋愛や人間関係で好かれ、信頼されるための具体的な指針として、仏教では<strong>「六度万行（ろくどまんぎょう）」</strong>という6つの善行が教えられています。</p>
+
+                <table class="rokudo-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">徳目</th>
+                            <th style="width: 45%;">現代的な解釈・具体的な内容</th>
+                            <th style="width: 35%;">欠如した場合の状態</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="virtue-name">布施<br>（ふせ）</div></td>
+                            <td>優しさ、思いやり。見返りを求めず他者に与えること。</td>
+                            <td><span style="color: #e74c3c; font-weight: bold;">自己中心的、冷淡。</span></td>
+                        </tr>
+                        <tr>
+                            <td><div class="virtue-name">持戒<br>（じかい）</div></td>
+                            <td>誠実さ、言行一致。嘘をつかず、規律を守ること。</td>
+                            <td><span style="color: #e74c3c; font-weight: bold;">不誠実、嘘つき。</span></td>
+                        </tr>
+                        <tr>
+                            <td><div class="virtue-name">忍辱<br>（にんにく）</div></td>
+                            <td>忍耐。感情的にならず、落ち着きを保つこと。</td>
+                            <td><span style="color: #e74c3c; font-weight: bold;">怒りっぽい、感情の起伏が激しい。</span></td>
+                        </tr>
+                        <tr>
+                            <td><div class="virtue-name">精進<br>（しょうじん）</div></td>
+                            <td>努力。常に向上心を持ち、怠けないこと。</td>
+                            <td><span style="color: #e74c3c; font-weight: bold;">怠惰、サボり癖がある。</span></td>
+                        </tr>
+                        <tr>
+                            <td><div class="virtue-name">禅定<br>（ぜんじょう）</div></td>
+                            <td>反省。過ちを認めて素直に謝罪できること。</td>
+                            <td><span style="color: #e74c3c; font-weight: bold;">謝れない、傲慢。</span></td>
+                        </tr>
+                        <tr>
+                            <td><div class="virtue-name">智慧<br>（ちえ）</div></td>
+                            <td>上記5つを統合した、適切な判断力と本質の理解。</td>
+                            <td><span style="color: #e74c3c; font-weight: bold;">独善的、本質を見誤る。</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); padding: 30px; border-radius: 15px; margin-top: 30px; text-align: center;">
+                    <h3 style="color: #2c3e50; font-size: 1.5em; margin-bottom: 20px;">💡 六度万行の相互関係</h3>
+                    <p style="color: #2c3e50; font-size: 1.1em; line-height: 2;">
+                        布施 + 持戒 + 忍辱 + 精進 + 禅定<br>
+                        <span style="font-size: 1.5em; margin: 15px 0; display: block;">⬇️</span>
+                        <strong style="font-size: 1.3em; color: #667eea;">智慧（総合的な判断力）</strong>
+                    </p>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">5️⃣ 結論：持続的な幸福へのアプローチ</div>
+
+                <div class="quote-box" style="background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); border-left: 8px solid #f39c12;">
+                    「会っている時」だけ自分を良く見せようとする行為は、<br>
+                    ドラえもんの道具「ハンサムになり」で外見だけを変えても、<br>
+                    中身とのギャップで崩壊していく物語のように、<br>
+                    <strong>長続きしない</strong>
+                </div>
+
+                <div class="conclusion-box">
+                    <h3>🎯 持続的な幸福を得るための3つの鍵</h3>
+
+                    <div class="conclusion-point">
+                        <h4>1️⃣ 日常の規律</h4>
+                        <p>正しい姿勢を保つ努力が、意識を解いた瞬間に崩れるのと同様、人格も日頃の鍛錬がなければ維持できません。</p>
+                    </div>
+
+                    <div class="conclusion-point">
+                        <h4>2️⃣ 因果の受容</h4>
+                        <p>「人知れず行う善行」も「誰も見ていないところでの悪行」も、すべては正直な「種」として自分に帰ってきます。</p>
+                    </div>
+
+                    <div class="conclusion-point">
+                        <h4>3️⃣ 本質の育成</h4>
+                        <p>恋愛やビジネスで成功し、持続的な関係を築くためには、会えない時間、すなわち自分一人の時間や日常生活における言動こそを律し、善い種を撒き続けることが唯一の道です。</p>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 35px; border-radius: 15px; margin-top: 40px; box-shadow: 0 8px 20px rgba(0,0,0,0.15); text-align: center;">
+                    <h3 style="color: #2c3e50; font-size: 1.8em; margin-bottom: 25px;">✨ 最も重要なメッセージ</h3>
+                    <p style="color: #2c3e50; font-size: 1.3em; line-height: 2; font-weight: bold;">
+                        真の幸福や信頼を獲得するためには、<br>
+                        <span style="color: #f093fb; font-size: 1.2em;">「会っていない時間」</span>をどう過ごすかが<br>
+                        すべてを決める
+                    </p>
+                    <div style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white;">
+                        <p style="font-size: 1.2em;">日常から「六度万行」を実践し、<br>自身の本質を磨き続けることが不可欠</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-top: 40px; text-align: center; font-style: italic; color: #7f8c8d;">
+                <p>💡 NotebookLM は不正確な場合があります。回答は再確認してください。</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
