@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>詐欺対策 by NTTタウンページ：包括的ブリーフィング</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Yu Gothic', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #1e3799 0%, #0c2461 50%, #1e3799 100%);
+            padding: 40px 20px;
+            line-height: 1.8;
+        }
+        
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 30px;
+            padding: 70px;
+            box-shadow: 0 30px 120px rgba(0,0,0,0.6);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 50px;
+            background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+            border-radius: 20px;
+            color: white;
+            box-shadow: 0 10px 40px rgba(0, 184, 148, 0.4);
+        }
+        
+        h1 {
+            font-size: 3em;
+            margin-bottom: 25px;
+            line-height: 1.3;
+            font-weight: 900;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.4em;
+            color: #ecf0f1;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+        
+        .trust-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px 35px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            margin-top: 20px;
+        }
+        
+        .video-source {
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 15px;
+            margin: 40px auto;
+            max-width: 1200px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(108, 92, 231, 0.4);
+        }
+        
+        .video-source a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.15em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .video-source a:hover {
+            text-decoration: underline;
+        }
+        
+        .video-icon {
+            font-size: 2em;
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 50px;
+            border-radius: 20px;
+            margin-bottom: 60px;
+            border-left: 12px solid #27ae60;
+            box-shadow: 0 10px 40px rgba(39, 174, 96, 0.2);
+        }
+        
+        .executive-summary h2 {
+            font-size: 2.5em;
+            color: #1b5e20;
+            margin-bottom: 30px;
+            font-weight: 900;
+        }
+        
+        .executive-summary p {
+            font-size: 1.2em;
+            color: #2d3436;
+            margin-bottom: 20px;
+            line-height: 1.9;
+        }
+        
+        .key-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .feature-badge {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 6px solid #00b894;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .feature-badge h3 {
+            font-size: 1.4em;
+            color: #00b894;
+            margin-bottom: 12px;
+            font-weight: 900;
+        }
+        
+        .feature-badge p {
+            font-size: 1.05em;
+            color: #4a5568;
+        }
+        
+        .sections-grid {
+            display: grid;
+            gap: 50px;
+            margin-top: 60px;
+        }
+        
+        .section-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 25px;
+            padding: 50px;
+            border-left: 15px solid;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+        }
+        
+        .section-card:nth-child(1) { border-left-color: #00b894; }
+        .section-card:nth-child(2) { border-left-color: #0984e3; }
+        .section-card:nth-child(3) { border-left-color: #6c5ce7; }
+        .section-card:nth-child(4) { border-left-color: #fdcb6e; }
+        
+        .section-icon {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1e3799, #0c2461);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 80px;
+            font-size: 2.5em;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        .section-title {
+            font-size: 2.4em;
+            color: #1a202c;
+            margin-bottom: 35px;
+            font-weight: 900;
+        }
+        
+        .subsection {
+            margin-bottom: 40px;
+        }
+        
+        .subsection-title {
+            font-size: 1.9em;
+            color: #2d3436;
+            margin-bottom: 25px;
+            font-weight: 800;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e2e8f0;
+        }
+        
+        .feature-list {
+            margin-bottom: 30px;
+        }
+        
+        .feature-item {
+            margin-bottom: 25px;
+            padding-left: 40px;
+            position: relative;
+        }
+        
+        .feature-item::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00b894;
+            font-size: 1.8em;
+            font-weight: bold;
+            top: 0;
+        }
+        
+        .feature-item-title {
+            font-size: 1.4em;
+            font-weight: 800;
+            color: #1a202c;
+            margin-bottom: 12px;
+        }
+        
+        .feature-item-desc {
+            color: #4a5568;
+            font-size: 1.15em;
+            line-height: 1.9;
+        }
+        
+        .data-highlight {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #fdcb6e;
+        }
+        
+        .data-highlight strong {
+            color: #856404;
+            font-size: 1.2em;
+        }
+        
+        .comparison-section {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 60px;
+            border-radius: 25px;
+            margin: 60px 0;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        
+        .comparison-section h2 {
+            font-size: 2.5em;
+            color: #1b5e20;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 900;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+            background: white;
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 25px;
+            text-align: left;
+            font-size: 1.3em;
+            font-weight: 800;
+        }
+        
+        .comparison-table td {
+            padding: 25px;
+            border-bottom: 2px solid #ecf0f1;
+            font-size: 1.1em;
+            vertical-align: top;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #ffffff;
+        }
+        
+        .comparison-table tr:nth-child(odd) {
+            background: #f8f9fa;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .app-name {
+            font-weight: 900;
+            color: #1a202c;
+            font-size: 1.15em;
+        }
+        
+        .highlight-cell {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            font-weight: 700;
+            color: #1b5e20;
+        }
+        
+        .setup-steps {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 100%);
+            padding: 50px;
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+        
+        .setup-steps h3 {
+            font-size: 2.2em;
+            color: #856404;
+            margin-bottom: 35px;
+            font-weight: 900;
+            text-align: center;
+        }
+        
+        .step {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 8px solid #fdcb6e;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #fdcb6e, #f39c12);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 45px;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-right: 15px;
+        }
+        
+        .step-title {
+            font-size: 1.5em;
+            font-weight: 800;
+            color: #1a202c;
+            margin-bottom: 15px;
+        }
+        
+        .step-desc {
+            color: #4a5568;
+            font-size: 1.1em;
+            line-height: 1.8;
+            margin-left: 60px;
+        }
+        
+        .info-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 8px solid #2196f3;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            font-size: 1.15em;
+        }
+        
+        .info-title {
+            font-weight: 900;
+            color: #0d47a1;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-left: 8px solid #ff9800;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            font-size: 1.15em;
+        }
+        
+        .warning-title {
+            font-weight: 900;
+            color: #e65100;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .limitations {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            padding: 50px;
+            border-radius: 20px;
+            margin-top: 60px;
+        }
+        
+        .limitations h2 {
+            font-size: 2.5em;
+            color: #4a148c;
+            margin-bottom: 35px;
+            font-weight: 900;
+            text-align: center;
+        }
+        
+        .limitation-item {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 6px solid #9c27b0;
+        }
+        
+        .limitation-item h3 {
+            font-size: 1.4em;
+            color: #4a148c;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+        
+        .limitation-item p {
+            font-size: 1.1em;
+            color: #4a5568;
+            line-height: 1.8;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .section-title {
+                font-size: 1.6em;
+            }
+            
+            .key-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-table {
+                font-size: 0.9em;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 15px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 詐欺対策 by NTTタウンページ</h1>
+            <p class="subtitle">機能・信頼性・導入手順に関する包括的ブリーフィング</p>
+            <div class="trust-badge">🛡️ 警察庁推奨認定アプリ</div>
+        </div>
+        
+        <div class="video-source">
+            <a href="https://youtu.be/C9_986kr1LU?list=TLGGj1_yKEAFPhgyMjAzMjAyNg" target="_blank">
+                <span class="video-icon">🎥</span>
+                <span>【3月5日～新アプリ】知らない番号からの着信に相手名を表示させる神アプリを紹介！</span>
+            </a>
+        </div>
+        
+        <div class="executive-summary">
+            <h2>📋 エグゼクティブ・サマリー</h2>
+            <p>本資料は、NTTタウンページ株式会社が提供するスマートフォン向けアプリ「詐欺対策 by NTTタウンページ」の機能、信頼性、および導入方法についてまとめたものである。</p>
+            <p>本アプリは、警察庁の推奨認定を受けた高い信頼性を持ち、約500万件の膨大なデータベースを活用して、着信時に発信元の事業者名を表示する。また、警察庁および民間専門企業のデータを組み合わせた、特殊詐欺や迷惑電話に対する高度な警告・遮断機能を備えている。</p>
+            
+            <div class="key-features">
+                <div class="feature-badge">
+                    <h3>🏢 運営主体</h3>
+                    <p>NTTグループの明確なバックグラウンド</p>
+                </div>
+                <div class="feature-badge">
+                    <h3>🛡️ 信頼性</h3>
+                    <p>警察庁の審査による圧倒的な信頼性</p>
+                </div>
+                <div class="feature-badge">
+                    <h3>💰 費用</h3>
+                    <p>完全無料で提供</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sections-grid">
+            <!-- Section 1 -->
+            <div class="section-card">
+                <div class="section-icon">🎯</div>
+                <h2 class="section-title">主要機能と技術的基盤</h2>
+                
+                <div class="info-box">
+                    <div class="info-title">3つの保護機能</div>
+                    「詐欺対策 by NTTタウンページ」は、主に<strong>「知る」「防ぐ」「調べる」</strong>の3つの側面からユーザーを保護する。
+                </div>
+                
+                <div class="subsection">
+                    <h3 class="subsection-title">1️⃣ 事業者名の自動表示</h3>
+                    
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-item-title">📞 リアルタイム表示</div>
+                            <div class="feature-item-desc">
+                                知らない番号からの着信時、スマートフォン画面に会社名・店舗名を瞬時に表示。
+                            </div>
+                        </div>
+                        
+                        <div class="data-highlight">
+                            <strong>📊 データベース規模：約500万件</strong><br>
+                            NTTタウンページが長年蓄積した全国の企業・店舗・公的機関の電話番号
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-item-title">✅ 情報の信頼性</div>
+                            <div class="feature-item-desc">
+                                全データの実在性が確認されており、精度が高い。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3 class="subsection-title">2️⃣ 迷惑電話・詐欺電話の警告と遮断</h3>
+                    
+                    <div class="feature-item">
+                        <div class="feature-item-title">🚨 自動対応</div>
+                        <div class="feature-item-desc">
+                            不審な番号からの着信に対し、警告表示や自動切断を実行。
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <div class="info-title">🔗 データソース</div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <strong style="color: #0d47a1; font-size: 1.2em;">🏛️ 警察庁連携</strong><br>
+                            特殊詐欺の犯行利用番号データを活用
+                        </div>
+                        
+                        <div>
+                            <strong style="color: #0d47a1; font-size: 1.2em;">🏢 扉システムズとの提携</strong><br>
+                            迷惑電話対策の専門企業
+                            <ul style="margin-left: 25px; margin-top: 10px; line-height: 1.9;">
+                                <li>月間約1500万人にサービス提供</li>
+                                <li>プロが毎日データ更新</li>
+                                <li>最新の詐欺番号にも迅速対応</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3 class="subsection-title">3️⃣ 安全性の事前検索</h3>
+                    
+                    <div class="feature-item">
+                        <div class="feature-item-title">🔍 事前確認機能</div>
+                        <div class="feature-item-desc">
+                            電話をかける前に番号の安全性をアプリ内で検索可能。
+                        </div>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-item-title">🛡️ リスク回避</div>
+                        <div class="feature-item-desc">
+                            初めて連絡する相手の信頼性を事前に確認できる。
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 2 -->
+            <div class="section-card">
+                <div class="section-icon">📊</div>
+                <h2 class="section-title">既存ソリューションとの比較分析</h2>
+                
+                <div class="comparison-section">
+                    <h2>🔍 競合アプリとの詳細比較</h2>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 20%;">比較項目</th>
+                                <th style="width: 30%;">詐欺対策 by NTTタウンページ</th>
+                                <th style="width: 25%;">電話帳ナビ</th>
+                                <th style="width: 25%;">デジポリス（警視庁）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>運営主体</strong></td>
+                                <td class="highlight-cell">
+                                    <span class="app-name">NTTタウンページ</span><br>
+                                    （NTTグループ）
+                                </td>
+                                <td>
+                                    非公開・不明確な点あり
+                                </td>
+                                <td>
+                                    警視庁
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>信頼性</strong></td>
+                                <td class="highlight-cell">
+                                    警察庁推奨認定<br>
+                                    高い透明性
+                                </td>
+                                <td>
+                                    ストアごとに提供会社が異なる等の指摘
+                                </td>
+                                <td>
+                                    公的機関による高信頼性
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>事業者名表示</strong></td>
+                                <td class="highlight-cell">
+                                    ✅ あり<br>
+                                    （約500万件）
+                                </td>
+                                <td>
+                                    ✅ あり
+                                </td>
+                                <td>
+                                    ❌ なし
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>費用</strong></td>
+                                <td class="highlight-cell">
+                                    💰 無料
+                                </td>
+                                <td>
+                                    💰 無料<br>
+                                    （機能制限の可能性）
+                                </td>
+                                <td>
+                                    💰 無料
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="warning-box">
+                    <div class="warning-title">⚠️ 重要な差別化ポイント</div>
+                    特に「電話帳ナビ」は利便性が高い一方、運営体制の不透明さが懸念される。本アプリは<strong>NTTグループの明確なバックグラウンド</strong>と<strong>警察庁の審査</strong>により、圧倒的な信頼性を担保している。
+                </div>
+            </div>
+            
+            <!-- Section 3 -->
+            <div class="section-card">
+                <div class="section-icon">⚙️</div>
+                <h2 class="section-title">導入および設定プロセス</h2>
+                
+                <div class="setup-steps">
+                    <h3>📲 インストールと初期設定</h3>
+                    
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <div class="step-title">アプリの入手</div>
+                        <div class="step-desc">
+                            App Store / Google Play からインストール
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <div class="step-title">通知・利用規約の設定</div>
+                        <div class="step-desc">
+                            通知を許可し、利用規約・データ取得に同意
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <div class="step-title">権限の付与</div>
+                        <div class="step-desc">
+                            以下の権限を許可する：<br>
+                            • 電話の発信と管理<br>
+                            • 着信履歴へのアクセス
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="setup-steps">
+                    <h3>🔧 デフォルトアプリおよび自動遮断の設定</h3>
+                    
+                    <div class="step">
+                        <div class="step-title">📱 デフォルト設定</div>
+                        <div class="step-desc">
+                            迷惑電話対策アプリとして本アプリをデフォルトに設定
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-title">🚫 自動切断（電話転送設定）</div>
+                        <div class="step-desc">
+                            <strong>有効化</strong> → 詐欺電話を自動で切断<br>
+                            <strong>無効</strong> → 警告表示のみ
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-title">🍎 OS別設定（iPhone）</div>
+                        <div class="step-desc">
+                            設定 → 電話 → 「着信拒否設定と着信識別」で本アプリを有効化
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">👥 ユーザー参加型の情報共有（マイリスト機能）</div>
+                    
+                    <ul style="margin-left: 25px; margin-top: 15px; line-height: 1.9;">
+                        <li>ユーザーは着信履歴から番号を「拒否」に設定し、理由を報告可能</li>
+                        <li><strong>審査後に共有</strong>：報告内容は審査を経て他ユーザーと共有</li>
+                        <li><strong>コミュニティ保護</strong>：ユーザーの報告が他者の詐欺被害防止に貢献</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Section 4 -->
+            <div class="section-card">
+                <div class="section-icon">⚠️</div>
+                <h2 class="section-title">利用上の留意事項と制限</h2>
+                
+                <div class="limitations">
+                    <h2>📌 重要な制限事項</h2>
+                    
+                    <div class="limitation-item">
+                        <h3>1️⃣ 表示対象の限定</h3>
+                        <p>
+                            事業者データベースに基づくため、<strong>個人の携帯番号は表示されない</strong><br>
+                            → 表示なし = 個人の可能性が高い
+                        </p>
+                    </div>
+                    
+                    <div class="limitation-item">
+                        <h3>2️⃣ 網羅性の限界</h3>
+                        <p>
+                            全ての事業者が登録されているわけではない<br>
+                            → 表示されない企業・店舗も存在
+                        </p>
+                    </div>
+                    
+                    <div class="limitation-item">
+                        <h3>3️⃣ OSによる機能差</h3>
+                        <p>
+                            Android / iOS で一部機能が異なる<br>
+                            古い iOS では「警告 → 自動遮断」が利用できない場合あり<br>
+                            → 詳細はアプリ内「よくある質問」を参照
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
