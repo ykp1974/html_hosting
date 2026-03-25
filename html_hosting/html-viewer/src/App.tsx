@@ -122,6 +122,21 @@ function FileList() {
           className="w-full pl-12 pr-4 py-4 rounded-xl border border-slate-200 shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none text-slate-700 text-lg transition-all"
         />
       </div>
+
+      {Object.keys(filesByDir).length > 1 && (
+        <nav className="mb-10 flex flex-wrap gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-inner">
+          <span className="w-full text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">Quick Jump</span>
+          {Object.keys(filesByDir).map(dir => (
+            <a 
+              key={dir} 
+              href={`#${dir}`}
+              className="px-4 py-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-300 hover:shadow-sm transition-all text-sm font-medium"
+            >
+              {dir === 'Root' ? 'Top' : dir}
+            </a>
+          ))}
+        </nav>
+      )}
       
       {Object.keys(filesByDir).length === 0 ? (
         <div className="text-center py-20 bg-white rounded-2xl border border-slate-200 border-dashed">
@@ -130,7 +145,7 @@ function FileList() {
       ) : (
         <div className="space-y-8">
           {Object.entries(filesByDir).map(([dir, dirFiles]) => (
-            <div key={dir} className="glass-panel p-6 shadow-sm hover:shadow-md transition-shadow group">
+            <div key={dir} id={dir} className="glass-panel p-6 shadow-sm hover:shadow-md transition-shadow group scroll-mt-6">
               <h2 className="text-xl font-semibold text-slate-800 flex items-center gap-3 mb-6 border-b border-slate-100 pb-3">
                 <FolderOpen className="w-6 h-6 text-indigo-500 group-hover:text-indigo-600 transition-colors" />
                 {dir}
