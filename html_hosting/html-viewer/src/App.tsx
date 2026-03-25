@@ -11,14 +11,18 @@ function FileList() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
+  // 【2. データの取得】
   const fetchFiles = async () => {
     try {
-      // Try files.json first (static build), fallback to /api/files (dev server)
+      // 1. 静的ビルド用: scripts/generate-file-list.mjs で生成された files.json を優先的に試行
+      // Netlify などの本番環境（静的ホスティング）ではこちらがメインのデータソースになります
       const res = await fetch('/files.json');
       if (res.ok) {
         const data = await res.json();
         setFiles(data);
       } else {
+        // 2. 開発環境用: files.json がない場合、Vite の開発サーバーミドルウェア API を使用
+        // ローカル開発時にリアルタイムでファイルをスキャンする場合のフォールバックです
         const resApi = await fetch('/api/files');
         const dataApi = await resApi.json();
         setFiles(dataApi);
@@ -28,6 +32,7 @@ function FileList() {
     }
   };
 
+  // 【2. データの取得（続き）】ブラウザに保存された既読の状態を読み込む
   const fetchStatus = () => {
     try {
       const stored = localStorage.getItem('html-viewer-status');
@@ -39,9 +44,13 @@ function FileList() {
     }
   };
 
+  // 【1. 初期化処理】コンポーネントがマウントされた際に一度だけ実行
   useEffect(() => {
+    // サーバーからファイル一覧を取得
     fetchFiles();
+    // ブラウザから既読状態を取得
     fetchStatus();
+    // 読み込み完了（ローディング表示を終了）
     setLoading(false);
   }, []);
 
@@ -52,23 +61,35 @@ function FileList() {
     localStorage.setItem('html-viewer-status', JSON.stringify(newStatus));
   };
 
+  // 【3. データの加工】検索クエリに基づいたファイルのフィルタリング
+  // useMemo を使うことで、ファイル一覧や検索文字が変わらない限り計算を使い回し（キャッシュ）します
   const filteredFiles = useMemo(() => {
+    // 検索窓が空の場合は全ファイルを返す
     if (!searchQuery.trim()) return files;
+
+    // 大文字小文字を区別せずに検索するため、小文字に変換して比較
     const lowerQ = searchQuery.toLowerCase();
     return files.filter(f => f.toLowerCase().includes(lowerQ));
   }, [files, searchQuery]);
 
+  // 【3. データの加工（続き）】表示用にファイルをディレクトリ（フォルダ）ごとにグループ化する処理
   const filesByDir = useMemo(() => {
     return filteredFiles.reduce((acc, file) => {
+      // パスを '/' で分割してフォルダ階層を特定
       const parts = file.split('/');
+      // フォルダパスを取得（最後のファイル名以外）。階層がない場合は 'Root' に分類
       const dir = parts.length > 1 ? parts.slice(0, -1).join('/') : 'Root';
+      // まだそのフォルダのリストがなければ初期化
       if (!acc[dir]) acc[dir] = [];
+      // 該当するフォルダのリストにファイルを追加
       acc[dir].push(file);
       return acc;
     }, {} as Record<string, string[]>);
   }, [filteredFiles]);
 
+  // 既読の合計数と進捗率の計算
   const readCount = Object.values(status).filter(Boolean).length;
+  // 【4. 最終的な表示データの準備完了】
   const progress = files.length > 0 ? Math.round((readCount / files.length) * 100) : 0;
 
   if (loading) {
@@ -82,6 +103,7 @@ function FileList() {
     );
   }
 
+  // 【5. レンダリング（表示）】加工されたデータに基づいたHTMLの生成
   return (
     <div className="max-w-6xl mx-auto p-6 md:p-8 animate-in fade-in duration-500">
       <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -94,15 +116,15 @@ function FileList() {
           </h1>
           <p className="text-slate-500 mt-2 text-lg">Browse, read, and track your HTML files across the project.</p>
         </div>
-        
+
         <div className="glass-panel p-4 flex flex-col min-w-[200px]">
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm font-semibold text-slate-600">Reading Progress</span>
             <span className="text-sm font-bold text-indigo-600">{progress}%</span>
           </div>
           <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden">
-            <div 
-              className="bg-indigo-600 h-2.5 rounded-full transition-all duration-1000 ease-out" 
+            <div
+              className="bg-indigo-600 h-2.5 rounded-full transition-all duration-1000 ease-out"
               style={{ width: `${progress}%` }}
             ></div>
           </div>
@@ -114,8 +136,8 @@ function FileList() {
 
       <div className="mb-8 relative">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
-        <input 
-          type="text" 
+        <input
+          type="text"
           placeholder="Search files or directories..."
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
@@ -123,21 +145,25 @@ function FileList() {
         />
       </div>
 
+      {/* クイックジャンプ機能：フォルダが2つ以上ある場合のみ表示 */}
       {Object.keys(filesByDir).length > 1 && (
         <nav className="mb-10 flex flex-wrap gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-inner">
-          <span className="w-full text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">Quick Jump</span>
+          <span className="w-full text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
+            Quick Jump
+          </span>
           {Object.keys(filesByDir).map(dir => (
-            <a 
-              key={dir} 
+            <a
+              key={dir}
               href={`#${dir}`}
               className="px-4 py-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-300 hover:shadow-sm transition-all text-sm font-medium"
             >
+              {/* 表示名の調整：'Root' は 'Top' と表示 */}
               {dir === 'Root' ? 'Top' : dir}
             </a>
           ))}
         </nav>
       )}
-      
+
       {Object.keys(filesByDir).length === 0 ? (
         <div className="text-center py-20 bg-white rounded-2xl border border-slate-200 border-dashed">
           <p className="text-slate-500 text-lg">No visible HTML files found. Try a different search.</p>
@@ -158,13 +184,12 @@ function FileList() {
                   const isChecked = !!status[file];
                   const fileName = file.split('/').pop() || file;
                   return (
-                    <div 
-                      key={file} 
-                      className={`relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 transform hover:-translate-y-1 ${
-                        isChecked 
-                          ? 'bg-green-50/60 border-green-200 outline outline-1 outline-green-200 shadow-sm' 
-                          : 'bg-white border-slate-200 hover:border-indigo-300 shadow-sm hover:shadow-md'
-                      }`}
+                    <div
+                      key={file}
+                      className={`relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 transform hover:-translate-y-1 ${isChecked
+                        ? 'bg-green-50/60 border-green-200 outline outline-1 outline-green-200 shadow-sm'
+                        : 'bg-white border-slate-200 hover:border-indigo-300 shadow-sm hover:shadow-md'
+                        }`}
                     >
                       <Link
                         to={`/view?file=${encodeURIComponent(file)}`}
