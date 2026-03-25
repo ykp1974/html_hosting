@@ -1,0 +1,4 @@
+[build]
+  base = "html_hosting/html-viewer"
+  publish = "dist"
+  command = "npm run build"
