@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* Custom modern aesthetic styling for HTML Viewer */
+@theme {
+  --font-sans: "Inter", "Roboto", sans-serif;
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/70 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl;
+  }
+  .dark .glass-panel {
+    @apply bg-slate-900/70 border-slate-700/50;
+  }
+}

@@ -1,0 +1,69 @@
+flowchart TD
+    %% ノードの定義
+    Start([学習開始]) --> EngineerBasic([エンジニア基礎])
+
+    subgraph subEngineerBasic [ ]
+        EngineerBasic --> Mind[マインドセット]
+        EngineerBasic --> DataAwareness[データへの意識]
+        EngineerBasic --> ProblemSolving[問題解決能力]
+    end
+
+    subgraph subIT_Basic [ ]
+        DataAwareness --> IT_Basic([IT基礎])
+
+        IT_Basic --> OS_FileSystem[OS・ファイルシステム]
+        IT_Basic --> Commandline[コマンドライン操作]
+        IT_Basic --> Linux[Linux操作]
+        IT_Basic --> Network[ネットワーク]
+        IT_Basic --> Security[セキュリティ]
+        IT_Basic --> AI[AI]
+    end
+
+    Linux --> check1{.}
+
+    check1 --> ProgramBasic([プログラミング基礎])
+    check1 --> Datamanipulation([データ操作])
+    check1 --> Database([データベース])
+    check1 --> VersionControl([バージョン管理])
+    check1 --> Cloud([クラウド])
+
+
+    subgraph subProgramBasic [ ]
+        ProgramBasic --> Coding[基本コーディング]
+    end
+
+    subgraph subDatamanipulation [ ]
+        Datamanipulation --> TabularData[表形式データ]
+        Datamanipulation --> Dataformat[データ形式とプログラム]
+        Datamanipulation --> Processing[加工・集計]
+        Datamanipulation --> Statistics[統計学]
+    end
+
+    subgraph subDatabase [ ]
+        Database --> RDB_Concept[RDB概念]
+        Database --> SQL[SQL操作]
+        Database --> DesignAndTheory[設計・理論]
+    end
+
+    subgraph subVersionControl [ ]
+        VersionControl --> Git_Concept[Git概念]
+        VersionControl --> GitOperation[Git操作]
+    end
+
+    subgraph subCloud [ ]
+        Cloud
+    end
+
+    Coding & Dataformat & SQL & Git_Concept & Cloud --> Project([データエンジニア])
+
+    %% スタイルの適用
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Project fill:#00ff00,stroke:#333,stroke-width:4px
+    classDef subEngineerBasicNode fill:#e1f5fe,stroke:#01579b
+    class subEngineerBasic, subEngineerBasicNode
+    style subIT_Basic fill:#FFFACD,stroke:#333,stroke-width:2px
+    style subProgramBasic fill:#F5FFFA,stroke:#333,stroke-width:2px
+    style subDatamanipulation fill:#F5FFFA,stroke:#333,stroke-width:2px
+    style subDatabase fill:#F5FFFA,stroke:#333,stroke-width:2px
+    style subVersionControl fill:#F5FFFA,stroke:#333,stroke-width:2px
+    style subCloud fill:#F5FFFA,stroke:#333,stroke-width:2px
