@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "node scripts/generate-file-list.mjs && vite",
+    "build": "node scripts/generate-file-list.mjs && tsc -b && vite build && mkdir -p dist/Docs && cp -r ../Docs/* dist/Docs/",
     "lint": "eslint .",
     "preview": "vite preview"
   },

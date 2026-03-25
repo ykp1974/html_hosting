@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from 'react';
-import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import { CheckCircle2, Circle, FileText, FolderOpen, LayoutTemplate, Search } from 'lucide-react';
 import HtmlViewer from './components/HtmlViewer';
 
@@ -13,41 +13,43 @@ function FileList() {
 
   const fetchFiles = async () => {
     try {
-      const res = await fetch('/api/files');
-      const data = await res.json();
-      setFiles(data);
+      // Try files.json first (static build), fallback to /api/files (dev server)
+      const res = await fetch('/files.json');
+      if (res.ok) {
+        const data = await res.json();
+        setFiles(data);
+      } else {
+        const resApi = await fetch('/api/files');
+        const dataApi = await resApi.json();
+        setFiles(dataApi);
+      }
     } catch (e) {
       console.error('Fetch files error:', e);
     }
   };
 
-  const fetchStatus = async () => {
+  const fetchStatus = () => {
     try {
-      const res = await fetch('/api/status');
-      const data = await res.json();
-      setStatus(data);
+      const stored = localStorage.getItem('html-viewer-status');
+      if (stored) {
+        setStatus(JSON.parse(stored));
+      }
     } catch (e) {
       console.error('Fetch status error:', e);
     }
   };
 
   useEffect(() => {
-    Promise.all([fetchFiles(), fetchStatus()]).then(() => setLoading(false));
+    fetchFiles();
+    fetchStatus();
+    setLoading(false);
   }, []);
 
-  const toggleCheck = async (file: string, currentState: boolean) => {
+  const toggleCheck = (file: string, currentState: boolean) => {
     const newState = !currentState;
-    setStatus(prev => ({ ...prev, [file]: newState }));
-    try {
-      await fetch('/api/status', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ filePath: file, checked: newState })
-      });
-    } catch (e) {
-      console.error('Update status error:', e);
-      setStatus(prev => ({ ...prev, [file]: currentState }));
-    }
+    const newStatus = { ...status, [file]: newState };
+    setStatus(newStatus);
+    localStorage.setItem('html-viewer-status', JSON.stringify(newStatus));
   };
 
   const filteredFiles = useMemo(() => {

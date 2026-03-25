@@ -10,22 +10,26 @@ export default function HtmlViewer() {
 
   useEffect(() => {
     if (!file) return;
-    // Fetch initial status
-    fetch('/api/status')
-      .then(res => res.json())
-      .then(data => setIsChecked(!!data[file]))
-      .catch(console.error);
+    try {
+      const stored = localStorage.getItem('html-viewer-status');
+      if (stored) {
+        const status = JSON.parse(stored);
+        setIsChecked(!!status[file]);
+      }
+    } catch (e) {
+      console.error('Fetch status error:', e);
+    }
   }, [file]);
 
-  const toggleCheck = async () => {
+  const toggleCheck = () => {
     if (!file) return;
     const newState = !isChecked;
     setIsChecked(newState);
     try {
-      await fetch('/api/status', {
-        method: 'POST',
-        body: JSON.stringify({ filePath: file, checked: newState })
-      });
+      const stored = localStorage.getItem('html-viewer-status');
+      const status = stored ? JSON.parse(stored) : {};
+      status[file] = newState;
+      localStorage.setItem('html-viewer-status', JSON.stringify(status));
     } catch (e) {
       console.error(e);
       setIsChecked(!newState);
@@ -36,7 +40,7 @@ export default function HtmlViewer() {
     return <div className="p-8 text-center text-red-500">No file specified</div>;
   }
 
-  const fileUrl = `/api/serve-html?file=${encodeURIComponent(file)}`;
+  const fileUrl = `/${file}`;
 
   return (
     <div className="flex flex-col h-screen bg-slate-100">
