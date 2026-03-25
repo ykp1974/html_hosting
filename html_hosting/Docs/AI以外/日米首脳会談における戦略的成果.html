@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日米首脳会談 戦略分析図解</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            line-height: 1.7;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '🇯🇵 🤝 🇺🇸';
+            font-size: 4em;
+            display: block;
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+        
+        .video-source {
+            background: #f0f4f8;
+            padding: 25px;
+            border-left: 5px solid #1e3c72;
+            margin: 25px 40px;
+            border-radius: 10px;
+        }
+        
+        .video-source a {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .video-source a:hover {
+            text-decoration: underline;
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            margin: 40px;
+            border-radius: 15px;
+            font-size: 1.15em;
+            line-height: 1.9;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        
+        .executive-summary h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(255,255,255,0.5);
+            padding-bottom: 10px;
+        }
+        
+        .section {
+            padding: 50px 40px;
+        }
+        
+        .section:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .section-title {
+            font-size: 2.2em;
+            color: #1e3c72;
+            margin-bottom: 35px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #1e3c72;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .section-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.5em;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            border-left: 6px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .strategy-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .strategy-card h3 {
+            color: #1e3c72;
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .taiwan-focus {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .taiwan-focus h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .timeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .timeline-item {
+            background: white;
+            padding: 25px 35px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 200px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .timeline-arrow {
+            font-size: 2.5em;
+            color: white;
+            margin: 0 15px;
+        }
+        
+        .alliance-table {
+            width: 100%;
+            margin: 30px 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        
+        .alliance-table thead {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+        }
+        
+        .alliance-table th {
+            padding: 20px;
+            text-align: left;
+            font-size: 1.2em;
+        }
+        
+        .alliance-table td {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            background: white;
+        }
+        
+        .alliance-table tr:hover td {
+            background: #f0f4f8;
+        }
+        
+        .achievement-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .achievement-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        
+        .achievement-card h4 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .achievement-card p {
+            font-size: 1.1em;
+            line-height: 1.7;
+        }
+        
+        .diplomatic-success {
+            background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+            padding: 35px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .diplomatic-success h4 {
+            color: #1e3c72;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        
+        .success-item {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            border-left: 5px solid #1e3c72;
+        }
+        
+        .success-item strong {
+            color: #1e3c72;
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .trust-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .trust-section h3 {
+            color: #d63031;
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .episode-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .episode-box h4 {
+            color: #1e3c72;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cooperation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .cooperation-item {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 3px solid #1e3c72;
+        }
+        
+        .cooperation-item h5 {
+            color: #1e3c72;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .evaluation-box {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            padding: 50px;
+            text-align: center;
+            color: #2d3436;
+            border-radius: 15px;
+            margin: 40px;
+        }
+        
+        .evaluation-box h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+        }
+        
+        .score {
+            font-size: 5em;
+            font-weight: bold;
+            color: #d63031;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .key-outcomes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .outcome-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        
+        .outcome-card h4 {
+            color: #1e3c72;
+            font-size: 1.6em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .outcome-card p {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #2d3436;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #ffc107;
+            margin: 20px 0;
+        }
+        
+        .countries-badge {
+            display: inline-block;
+            background: #1e3c72;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin: 5px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            .timeline {
+                flex-direction: column;
+            }
+            
+            .timeline-arrow {
+                transform: rotate(90deg);
+                margin: 15px 0;
+            }
+            
+            .cooperation-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .score {
+                font-size: 3.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>日米首脳会談における戦略的成果</h1>
+            <div class="subtitle">対中・対イラン政策に関する包括的分析</div>
+        </div>
+        
+        <div class="video-source">
+            <strong>📹 分析ソース動画:</strong><br>
+            <a href="https://youtu.be/KJpsR-HRcvA?list=TLGGl6g8g6pyInQyNTAzMjAyNg" target="_blank">
+                門田 隆将 - 日本が誰も予想しなかった行動に出た――対中秘密計画がついに明らかに
+            </a>
+        </div>
+        
+        <div class="executive-summary">
+            <h2>📊 エグゼクティブ・サマリー</h2>
+            <p>高一総理大臣とトランプ米大統領による日米首脳会談は、4月に予定されている米中首脳会談に先駆け、<strong>台湾海峡の平和と安定を日米共通の認識として再確認</strong>するという最大の目的を達成した。</p>
+            <p style="margin-top: 15px;">また、イラン情勢が緊迫する中、日本が主導して欧州諸国を巻き込んだ<strong>「ホルムズ海峡資源同盟」</strong>を構築したことで、米国の孤立を防ぎつつ、自衛隊のペルシャ湾派遣圧力を回避するという高度な外交手腕が発揮された。</p>
+            <p style="margin-top: 15px;">トランプ大統領との個人的な信頼関係の深化も顕著であり、安全保障およびエネルギー分野での多角的な協力関係が強固なものとなった。</p>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-number">1</span>
+                対中戦略と台湾の安全保障
+            </h2>
+            
+            <div class="taiwan-focus">
+                <h3>🎯 会談の最優先事項</h3>
+                <p style="font-size: 1.3em; margin-top: 15px;">中東問題以上に重要視された<br><strong style="font-size: 1.5em;">「中国問題」および「台湾海峡の安定」</strong></p>
+            </div>
+            
+            <div class="strategy-card">
+                <h3>⏰ 戦略的タイミング</h3>
+                <p>4月に控える米中首脳会談の前に、日米間で「台湾海峡の平和と安定が不可欠である」との認識を共有し、米国側に念押しすることに成功した。</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🇯🇵🤝🇺🇸</div>
+                    <strong style="color: #1e3c72; font-size: 1.2em;">日米首脳会談</strong>
+                    <p style="margin-top: 10px;">台湾安定の共通認識</p>
+                </div>
+                <div class="timeline-arrow">→</div>
+                <div class="timeline-item">
+                    <div style="font-size: 2em; margin-bottom: 10px;">📅</div>
+                    <strong style="color: #1e3c72; font-size: 1.2em;">4月予定</strong>
+                    <p style="margin-top: 10px;">米中首脳会談</p>
+                </div>
+                <div class="timeline-arrow">→</div>
+                <div class="timeline-item">
+                    <div style="font-size: 2em; margin-bottom: 10px;">🛡️</div>
+                    <strong style="color: #1e3c72; font-size: 1.2em;">効果</strong>
+                    <p style="margin-top: 10px;">中国への抑止力</p>
+                </div>
+            </div>
+            
+            <div class="strategy-card" style="border-left-color: #00b894;">
+                <h3>🇹🇼 台湾側の評価</h3>
+                <p>台湾の外交部長（外務大臣に相当）は、この日米共同の認識表明に対し、<strong style="color: #00b894; font-size: 1.2em;">「心からの歓迎と感謝」</strong>を表明している。</p>
+            </div>
+            
+            <div class="strategy-card" style="border-left-color: #d63031;">
+                <h3>⚠️ 存立危機の回避</h3>
+                <p>中国による覇権主義的行動（<strong>DF-41ミサイルの脅威</strong>等）に対し、日米が連携してアジアの平和を守り抜く姿勢を明確にしたことは、<strong>日本および台湾の存続にとって極めて重要な成果</strong>であるとされる。</p>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-number">2</span>
+                イラン情勢への対応と多国間外交
+            </h2>
+            
+            <div class="highlight-box">
+                <h3 style="color: #1e3c72; font-size: 1.8em; margin-bottom: 15px;">🌍 ホルムズ海峡資源同盟の構築</h3>
+                <p style="font-size: 1.15em;">緊迫するイラン情勢において、日本は従来の枠組みを超えた独自の多国間外交を展開した。高一総理は、就任から約半年という短期間で欧州諸国をまとめ上げ、新たな枠組みを構築した。</p>
+            </div>
+            
+            <h3 style="color: #1e3c72; font-size: 1.8em; margin: 30px 0 20px 0;">参加国</h3>
+            <div style="text-align: center; margin: 25px 0;">
+                <span class="countries-badge">🇯🇵 日本</span>
+                <span class="countries-badge">🇬🇧 イギリス</span>
+                <span class="countries-badge">🇫🇷 フランス</span>
+                <span class="countries-badge">🇩🇪 ドイツ</span>
+                <span class="countries-badge">🇮🇹 イタリア</span>
+                <span class="countries-badge">🇳🇱 オランダ</span>
+                <div style="margin-top: 20px; font-size: 1.5em; color: #1e3c72; font-weight: bold;">計6カ国</div>
+            </div>
+            
+            <table class="alliance-table">
+                <thead>
+                    <tr>
+                        <th>参加国</th>
+                        <th>枠組みの名称</th>
+                        <th>目的</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>日本、イギリス、フランス、ドイツ、イタリア、オランダ（計6カ国）</strong></td>
+                        <td><strong style="color: #1e3c72; font-size: 1.2em;">ホルムズ海峡資源同盟</strong></td>
+                        <td>米国の孤立を防止し、資源供給の安定を確保する</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="diplomatic-success">
+                <h4>🎖️ 外交的成果</h4>
+                
+                <div class="success-item">
+                    <strong>✅ 自衛隊派遣問題の解決</strong>
+                    <p>日本側は憲法および自衛隊法の制約により、ペルシャ湾への艦艇派遣が不可能であることを明確に伝達した。</p>
+                </div>
+                
+                <div class="success-item">
+                    <strong>✅ 米国の理解獲得</strong>
+                    <p>上記の資源同盟という代替案を提示したことで、トランプ大統領から自衛隊派遣を求められることはなかった。</p>
+                </div>
+                
+                <div class="success-item">
+                    <strong>✅ 「NATOとの差異」の認定</strong>
+                    <p>トランプ大統領は<strong style="color: #d63031;">「日本はNATOとは違う」</strong>と発言し、日本の法律の範囲内での貢献を高く評価した。これは、高一総理がトランプ大統領を国際的孤立から救った側面もあると分析されている。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-number">3</span>
+                信頼関係を象徴するエピソードと実務的合意
+            </h2>
+            
+            <p style="font-size: 1.2em; margin-bottom: 30px; color: #2d3436;">会談では、単なる外交辞令に留まらない深い個人的信頼関係と、具体的な経済・技術協力が示された。</p>
+            
+            <div class="trust-section">
+                <h3>🎵 ホワイトハウスでの異例の待遇</h3>
+                
+                <div class="episode-box">
+                    <h4>🎼 トランプ大統領による特別なおもてなし</h4>
+                    <p>トランプ大統領は、高一総理を歓迎するための夕食会で演奏される<strong>全ての楽曲を自ら1曲ずつ選曲</strong>した。</p>
+                </div>
+                
+                <div class="episode-box" style="background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);">
+                    <h4>🎸 徹底したリサーチ</h4>
+                    <p style="font-size: 1.15em;">その選曲リストには、高一総理が過去に演奏・歌唱したことのある</p>
+                    <p style="font-size: 1.5em; font-weight: bold; color: #d63031; margin: 15px 0; text-align: center;">X JAPAN「Rusty Nail」</p>
+                    <p style="font-size: 1.15em;">が含まれており、徹底したリサーチに基づくもてなしが行われた。</p>
+                </div>
+            </div>
+            
+            <h3 style="color: #1e3c72; font-size: 2em; margin: 40px 0 25px 0;">⚡ エネルギー・技術協力</h3>
+            
+            <div class="cooperation-grid">
+                <div class="cooperation-item">
+                    <h5>🛢️ アラスカ産石油</h5>
+                    <p style="font-size: 1.1em; margin-top: 10px;">アラスカ産石油の活用に関する合意</p>
+                </div>
+                
+                <div class="cooperation-item">
+                    <h5>⚛️ 小型モジュール原子炉（SMR）</h5>
+                    <p style="font-size: 1.1em; margin-top: 10px;">日立製作所などが関与する小型モジュール原子炉の共同開発に向けた資金投入と協力体制の確認</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="evaluation-box">
+            <h2>🏆 総合評価</h2>
+            <div class="score">90点以上</div>
+            <p style="font-size: 1.3em; margin-bottom: 30px;">本首脳会談は、単なる同盟関係の維持に留まらず、<br><strong>日本が主体となって国際的な枠組みを主導し、米国の行動原理に影響を与えた</strong>点で<br>高評価に値する成果を収めた。</p>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">
+                <span class="section-number">4</span>
+                総評と結論
+            </h2>
+            
+            <div class="key-outcomes">
+                <div class="outcome-card">
+                    <h4>🛡️ 対中抑止力の強化</h4>
+                    <p>米中会談を前に、台湾問題を日米共通の最重要課題として固定化した。</p>
+                </div>
+                
+                <div class="outcome-card">
+                    <h4>🌐 独自の多国間外交</h4>
+                    <p>米国を孤立させない形で欧州を巻き込み、日本の国益（憲法遵守と安全保障の両立）を守り抜いた。</p>
+                </div>
+                
+                <div class="outcome-card">
+                    <h4>🤝 強固な首脳間関係</h4>
+                    <p>個人的なシンパシーを背景に、実務的なエネルギー協力の進展を引き出した。</p>
+                </div>
+            </div>
+            
+            <div class="achievement-grid" style="margin-top: 40px;">
+                <div class="achievement-card">
+                    <h4>🎯 最重要達成項目</h4>
+                    <p>台湾海峡の平和と安定を日米共通認識として確立</p>
+                </div>
+                
+                <div class="achievement-card">
+                    <h4>🔧 法的制約の克服</h4>
+                    <p>憲法の制約内で最大限の国際貢献を実現</p>
+                </div>
+                
+                <div class="achievement-card">
+                    <h4>🌏 地域秩序の安定</h4>
+                    <p>日本の民族存続と地域秩序の安定に大きく寄与</p>
+                </div>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 15px; margin-top: 40px; text-align: center;">
+                <h3 style="font-size: 2em; margin-bottom: 20px;">📌 最終結論</h3>
+                <p style="font-size: 1.3em; line-height: 1.9;">これらの成果は、現下の厳しい国際情勢において、<br><strong style="font-size: 1.2em;">日本の民族存続と地域秩序の安定に大きく寄与するもの</strong><br>と評価される。</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
