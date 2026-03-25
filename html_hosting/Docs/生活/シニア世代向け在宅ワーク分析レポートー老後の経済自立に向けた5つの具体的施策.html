@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>シニア世代向け在宅ワーク分析：老後の経済自立に向けた5つの具体的施策</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap');
+
+  :root {
+    --primary: #2C5F8A;
+    --primary-light: #4A90C4;
+    --secondary: #E67E22;
+    --accent: #27AE60;
+    --accent2: #8E44AD;
+    --danger: #E74C3C;
+    --bg: #F4F7FB;
+    --card: #FFFFFF;
+    --text: #2C3E50;
+    --text-light: #566573;
+    --border: #D5E8F5;
+    --gold: #F39C12;
+    --silver: #95A5A6;
+    --bronze: #A0522D;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  /* ===== HEADER ===== */
+  .hero {
+    background: linear-gradient(135deg, #1a3a5c 0%, #2C5F8A 50%, #4A90C4 100%);
+    color: white;
+    padding: 60px 40px 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 300px; height: 300px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: -40px;
+    width: 250px; height: 250px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 30px;
+    padding: 6px 20px;
+    font-size: 13px;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.4;
+    margin-bottom: 14px;
+  }
+  .hero h1 span { color: #FFD166; }
+  .hero-sub {
+    font-size: 15px;
+    opacity: 0.85;
+    max-width: 600px;
+    margin: 0 auto 30px;
+  }
+  .hero-key {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255,255,255,0.12);
+    border-radius: 50px;
+    padding: 10px 28px;
+    font-size: 18px;
+    font-weight: 700;
+    gap: 10px;
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .hero-key .yen { font-size: 26px; color: #FFD166; font-weight: 900; }
+
+  /* ===== VIDEO LINK ===== */
+  .video-link-bar {
+    background: #1A252F;
+    padding: 14px 20px;
+    text-align: center;
+  }
+  .video-link-bar a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #FF6B6B;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: opacity 0.2s;
+  }
+  .video-link-bar a:hover { opacity: 0.8; text-decoration: underline; }
+  .yt-icon {
+    background: #FF0000;
+    color: white;
+    border-radius: 5px;
+    padding: 2px 7px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  /* ===== CONTAINER ===== */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 20px 60px;
+  }
+
+  /* ===== SECTION TITLE ===== */
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    margin-top: 50px;
+  }
+  .section-num {
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .section-title h2 {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--primary);
+    border-bottom: 3px solid var(--primary-light);
+    padding-bottom: 4px;
+  }
+
+  /* ===== EXEC SUMMARY ===== */
+  .exec-summary {
+    background: linear-gradient(135deg, #EBF5FB, #D6EAF8);
+    border-left: 6px solid var(--primary);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-top: 30px;
+    position: relative;
+  }
+  .exec-summary h3 {
+    font-size: 14px;
+    color: var(--primary);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .exec-summary p {
+    font-size: 15px;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .exec-summary p:last-child { margin-bottom: 0; }
+  .highlight-text {
+    background: rgba(44,95,138,0.1);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-top: 14px;
+    font-size: 14px;
+    border-left: 4px solid var(--accent);
+    color: var(--text);
+  }
+  .highlight-text strong { color: var(--accent); }
+
+  /* ===== BACKGROUND CARDS ===== */
+  .bg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 10px;
+  }
+  @media(max-width:600px){ .bg-grid { grid-template-columns: 1fr; } }
+
+  .bg-card {
+    background: white;
+    border-radius: 12px;
+    padding: 22px;
+    border-top: 4px solid var(--primary-light);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+  .bg-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bg-card ul { padding-left: 18px; }
+  .bg-card ul li { font-size: 14px; margin-bottom: 6px; color: var(--text); }
+
+  /* ===== 3 CRITERIA ===== */
+  .criteria-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+  .criteria-item {
+    flex: 1 1 200px;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    border-bottom: 4px solid var(--secondary);
+  }
+  .criteria-item .ci-num {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--secondary);
+    color: white;
+    font-size: 20px;
+    font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 10px;
+  }
+  .criteria-item h4 { font-size: 16px; font-weight: 800; margin-bottom: 6px; color: var(--text); }
+  .criteria-item p { font-size: 13px; color: var(--text-light); }
+
+  /* ===== RANKING CARDS ===== */
+  .ranking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    margin-top: 10px;
+  }
+
+  .rank-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+    overflow: hidden;
+    display: flex;
+    transition: transform 0.2s;
+  }
+  .rank-card:hover { transform: translateY(-3px); }
+
+  .rank-badge {
+    min-width: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 14px;
+    font-weight: 900;
+    color: white;
+  }
+  .rank-badge .rank-num { font-size: 36px; line-height: 1; }
+  .rank-badge .rank-label { font-size: 10px; letter-spacing: 1px; margin-top: 4px; opacity: 0.85; }
+
+  .rank5 .rank-badge { background: linear-gradient(160deg, #7f8c8d, #95a5a6); }
+  .rank4 .rank-badge { background: linear-gradient(160deg, #A0522D, #c07040); }
+  .rank3 .rank-badge { background: linear-gradient(160deg, #7D3C98, #9B59B6); }
+  .rank2 .rank-badge { background: linear-gradient(160deg, #1a6b9a, #2980B9); }
+  .rank1 .rank-badge { background: linear-gradient(160deg, #C0A000, #F1C40F); }
+
+  .rank-body {
+    padding: 20px 24px;
+    flex: 1;
+  }
+  .rank-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .rank-title-row h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+  }
+  .rank-tag {
+    font-size: 11px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .tag-green { background: #D5F5E3; color: #1E8449; }
+  .tag-blue  { background: #D6EAF8; color: #1A5276; }
+  .tag-purple{ background: #EAD7F5; color: #6C3483; }
+  .tag-orange{ background: #FDEBD0; color: #935116; }
+  .tag-gold  { background: #FEF9E7; color: #B7770D; }
+
+  .rank-desc {
+    font-size: 13px;
+    color: var(--text-light);
+    margin-bottom: 14px;
+    border-left: 3px solid #BDC3C7;
+    padding-left: 10px;
+  }
+
+  .rank-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .rank-info-box {
+    background: #F8F9FA;
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .rank-info-box .rib-label {
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .rank-info-box .rib-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .rank-info-box .rib-value.accent { color: var(--secondary); }
+  .rank-info-box .rib-value.green { color: var(--accent); }
+  .rank-info-box .rib-value.purple { color: var(--accent2); }
+
+  .strength-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(90deg, #2C5F8A, #4A90C4);
+    color: white;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 8px;
+    margin-right: 6px;
+  }
+
+  /* ===== PPC SECTION (RANK 1) ===== */
+  .ppc-hero {
+    background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+    border: 2px solid #F59E0B;
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-top: 10px;
+  }
+  .ppc-hero h3 {
+    font-size: 15px;
+    color: #92400E;
+    font-weight: 800;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ppc-hero p {
+    font-size: 14px;
+    color: #78350F;
+    margin-bottom: 14px;
+  }
+
+  .ppc-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin: 18px 0;
+  }
+  .ppc-table th {
+    background: var(--primary);
+    color: white;
+    padding: 12px 16px;
+    font-size: 13px;
+    text-align: left;
+  }
+  .ppc-table td {
+    padding: 12px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid #EDF2F7;
+    color: var(--text);
+  }
+  .ppc-table tr:last-child td { border-bottom: none; }
+  .ppc-table td:first-child { font-weight: 600; color: var(--primary); width: 120px; }
+
+  .ppc-boxes {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+    margin-top: 14px;
+  }
+  @media(max-width:600px){ .ppc-boxes { grid-template-columns: 1fr; } }
+
+  .ppc-box {
+    background: white;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  }
+  .ppc-box .pb-icon { font-size: 28px; margin-bottom: 8px; }
+  .ppc-box h4 { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 6px; }
+  .ppc-box p { font-size: 12px; color: var(--text-light); }
+
+  /* ===== CONCLUSION ===== */
+  .conclusion-wrap {
+    background: linear-gradient(135deg, #1a3a5c 0%, #2C5F8A 100%);
+    border-radius: 18px;
+    padding: 36px 32px;
+    color: white;
+    margin-top: 10px;
+  }
+  .conclusion-key {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 10px;
+    padding: 18px 22px;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    text-align: center;
+    line-height: 1.6;
+    color: #FFD166;
+  }
+  .conclusion-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  @media(max-width:600px){ .conclusion-cols { grid-template-columns: 1fr; } }
+  .conclusion-col {
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 20px;
+    border-top: 3px solid rgba(255,255,255,0.4);
+  }
+  .conclusion-col h4 {
+    font-size: 14px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .conclusion-col ul { padding-left: 18px; }
+  .conclusion-col ul li { font-size: 13px; margin-bottom: 8px; opacity: 0.9; }
+  .conclusion-final {
+    margin-top: 22px;
+    background: rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 14px;
+    text-align: center;
+    opacity: 0.95;
+    line-height: 1.8;
+  }
+
+  /* ===== FLOW ARROW ===== */
+  .flow-arrow {
+    text-align: center;
+    font-size: 28px;
+    color: var(--primary-light);
+    margin: 6px 0;
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    background: #1A252F;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 24px;
+    font-size: 12px;
+  }
+  .footer a { color: #FF6B6B; text-decoration: none; }
+  .footer a:hover { text-decoration: underline; }
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:640px){
+    .hero h1 { font-size: 20px; }
+    .rank-card { flex-direction: column; }
+    .rank-badge { flex-direction: row; justify-content: center; gap: 10px; min-width: auto; padding: 14px; }
+    .rank-badge .rank-num { font-size: 28px; }
+    .bg-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-badge">📊 シニア世代向け在宅ワーク分析レポート</div>
+  <h1>老後の経済自立に向けた<br><span>5つの具体的施策</span></h1>
+  <p class="hero-sub">年金だけに頼らない。人生経験を「資産」に変える在宅ワーク完全ガイド。</p>
+  <div class="hero-key">
+    <span>目標副収入</span>
+    <span class="yen">＋5〜10万円</span>
+    <span>／月</span>
+  </div>
+</div>
+
+<!-- ===== VIDEO LINK ===== -->
+<div class="video-link-bar">
+  <a href="https://www.youtube.com/watch?v=QtEy-9kbo-w" target="_blank" rel="noopener noreferrer">
+    <span class="yt-icon">▶ YouTube</span>
+    【無理なくできる】シニア世代が老後もできる在宅ワークを見つけたので紹介していきます
+  </a>
+</div>
+
+<div class="container">
+
+  <!-- ===== EXEC SUMMARY ===== -->
+  <div class="section-title">
+    <div class="section-num">📋</div>
+    <h2>エグゼクティブ・サマリー</h2>
+  </div>
+  <div class="exec-summary">
+    <h3>▍ Executive Summary</h3>
+    <p>現代社会において、<strong>年金のみで老後の生活を維持することは困難</strong>であり、「年金プラス5万円〜10万円」の副収入確保が急務となっている。しかし、シニア世代にとって体力的負担の大きい労働や、高度なデジタルスキルを要する業務は現実的ではない。</p>
+    <p>本資料では、シニア世代の強みである<strong>「人生経験」</strong>と<strong>「高い信頼性」</strong>を活かし、自宅で無理なく継続できる在宅ワークを5つのカテゴリーに分類して提示する。</p>
+    <div class="highlight-text">
+      💡 <strong>最終結論：</strong>健康寿命や体力低下を見据えた場合、労働時間の切り売りではない<strong>「仕組み化」された収益モデルの構築</strong>が老後の安心に繋がる。
+    </div>
+  </div>
+
+  <!-- ===== SECTION 1: BACKGROUND ===== -->
+  <div class="section-title" style="margin-top:50px;">
+    <div class="section-num">1</div>
+    <h2>背景：老後における在宅ワークの必要性</h2>
+  </div>
+
+  <div class="bg-grid">
+    <div class="bg-card">
+      <h4>💰 経済的圧力の増大</h4>
+      <ul>
+        <li>税金・生活コストは上昇する一方</li>
+        <li>年金額は減少傾向</li>
+        <li>月<strong>5〜10万円</strong>の不足分を補う必要がある</li>
+      </ul>
+    </div>
+    <div class="bg-card">
+      <h4>🏢 労働環境のミスマッチ</h4>
+      <ul>
+        <li>60歳以降の立ち仕事・力仕事は継続困難</li>
+        <li>外出を伴うパート・アルバイトは体力的に限界</li>
+        <li><strong>在宅</strong>で完結できる仕事が求められる</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 3 Criteria -->
+  <h3 style="margin-top:28px; font-size:16px; color:var(--primary); font-weight:800; margin-bottom:14px;">
+    ✅ シニア世代に適した在宅ワークの選定基準（3条件）
+  </h3>
+  <div class="criteria-row">
+    <div class="criteria-item">
+      <div class="ci-num">1</div>
+      <h4>低負荷</h4>
+      <p>体力的負担が少ない</p>
+    </div>
+    <div class="criteria-item">
+      <div class="ci-num">2</div>
+      <h4>習得容易性</h4>
+      <p>スキル習得が難しすぎない</p>
+    </div>
+    <div class="criteria-item">
+      <div class="ci-num">3</div>
+      <h4>収益性</h4>
+      <p>月10万円程度を現実的に狙える</p>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 2: RANKING ===== -->
+  <div class="section-title">
+    <div class="section-num">2</div>
+    <h2>推奨在宅ワーク・ランキングと詳細分析</h2>
+  </div>
+
+  <div class="ranking-list">
+
+    <!-- RANK 5 -->
+    <div class="rank-card rank5">
+      <div class="rank-badge">
+        <div class="rank-num">5</div>
+        <div class="rank-label">位</div>
+      </div>
+      <div class="rank-body">
+        <div class="rank-title-row">
+          <h3>💬 話し相手サービス</h3>
+          <span class="rank-tag tag-green">即戦力・即収入</span>
+        </div>
+        <p class="rank-desc">クラウドソーシング（例：ココナラ）で、電話相談や雑談の相手をする業務。<strong>業務の本質：</strong>第三者だからこそ話せる本音を受け止める「聞き役」</p>
+        <div class="strength-badge">👴 シニアの強み</div>
+        <span style="font-size:13px; color:var(--text); margin-left:4px;">豊富な人生経験が相談者の安心感に直結</span>
+        <div class="rank-grid" style="margin-top:14px;">
+          <div class="rank-info-box">
+            <div class="rib-label">💴 報酬単価</div>
+            <div class="rib-value accent">1分 100〜500円</div>
+          </div>
+          <div class="rank-info-box">
+            <div class="rib-label">💸 手取り</div>
+            <div class="rib-value">報酬の約 40%</div>
+          </div>
+          <div class="rank-info-box">
+            <div class="rib-label">⭐ 人気層の実績</div>
+            <div class="rib-value green">時給1万円以上<br>月30〜40万円の例も</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RANK 4 -->
+    <div class="rank-card rank4">
+      <div class="rank-badge">
+        <div class="rank-num">4</div>
+        <div class="rank-label">位</div>
+      </div>
+      <div class="rank-body">
+        <div class="rank-title-row">
+          <h3>🎙️ ナレーション代行</h3>
+          <span class="rank-tag tag-orange">低投資・始めやすい</span>
+        </div>
+        <p class="rank-desc">YouTube・広告・教育コンテンツの読み上げ業務。<strong>需要の変化：</strong>落ち着いた声・人間らしい声が求められるようになっている</p>
+        <div class="strength-badge">👴 シニアの強み</div>
+        <span style="font-size:13px; color:var(--text); margin-left:4px;">説得力のある大人の声</span>
+        <div class="rank-grid" style="margin-top:14px;">
+          <div class="rank-info-box">
+            <div class="rib-label">💴 単価目安</div>
+            <div class="rib-value accent">10分動画 3,000〜5,000円</div>
+          </div>
+          <div class="rank-info-box">
+            <div class="rib-label">🎧 必要機材</div>
+            <div class="rib-value green">スマホ ＋ マイク付きイヤホン</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RANK 3 -->
+    <div class="rank-card rank3">
+      <div class="rank-badge">
+        <div class="rank-num">3</div>
+        <div class="rank-label">位</div>
+      </div>
+      <div class="rank-body">
+        <div class="rank-title-row">
+          <h3>📋 オンライン秘書</h3>
+          <span class="rank-tag tag-purple">安定収入・月額固定</span>
+        </div>
+        <p class="rank-desc">メール対応、スケジュール管理、データ整理などのリモートアシスタント業務</p>
+        <div class="strength-badge">👴 シニアの強み①</div>
+        <span style="font-size:13px; color:var(--text); margin-left:4px;">ホウレンソウが徹底されており信頼されやすい</span><br>
+        <div class="strength-badge" style="margin-top:6px;">👴 シニアの強み②</div>
+        <span style="font-size:13px; color:var(--text); margin-left:4px;">長年の経験による「段取り力」</span>
+        <div class="rank-grid" style="margin-top:14px;">
+          <div class="rank-info-box">
+            <div class="rib-label">⏱️ 時給</div>
+            <div class="rib-value accent">1,500〜2,500円</div>
+          </div>
+          <div class="rank-info-box">
+            <div class="rib-label">📅 月額固定案件</div>
+            <div class="rib-value purple">15万〜30万円<br>（安定しやすい）</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RANK 2 -->
+    <div class="rank-card rank2">
+      <div class="rank-badge">
+        <div class="rank-num">2</div>
+        <div class="rank-label">位</div>
+      </div>
+      <div class="rank-body">
+        <div class="rank-title-row">
+          <h3>✍️ 専門特化ライター</h3>
+          <span class="rank-tag tag-blue">経験×AI活用</span>
+        </div>
+        <p class="rank-desc">介護・病気・子育て・更年期などの経験を記事化する専門ライター</p>
+        <div style="background:#EBF5FB; border-radius:8px; padding:10px 14px; margin:10px 0; font-size:13px; color:#1A5276;">
+          🤖 <strong>市場価値：</strong>AIでは再現できない「リアルな体験談」が高評価
+        </div>
+        <div class="rank-grid">
+          <div class="rank-info-box">
+            <div class="rib-label">💴 文字単価</div>
+            <div class="rib-value accent">1〜3円</div>
+          </div>
+          <div class="rank-info-box">
+            <div class="rib-label">📊 月収試算</div>
+            <div class="rib-value green">3,000字×月15本<br>＝ 月10万円前後</div>
+          </div>
+          <div class="rank-info-box">
+            <div class="rib-label">💡 推奨手法</div>
+            <div class="rib-value">AIを補助に使い<br>経験をスパイスに</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ranking-list -->
+
+  <!-- ===== SECTION 3: PPC (RANK 1) ===== -->
+  <div class="section-title">
+    <div class="section-num">3</div>
+    <h2>持続可能な収益モデルの構築（第1位：PPC広告アフィリエイト）</h2>
+  </div>
+
+  <!-- Problem statement -->
+  <div style="background:#FFF3CD; border-left:5px solid #F39C12; border-radius:8px; padding:14px 18px; font-size:14px; color:#7D5A00; margin-bottom:18px;">
+    ⚠️ <strong>上位4つの業務の限界：</strong>「労働時間の切り売り」という構造的問題。体力低下とともに収入が落ちるリスクがある。
+  </div>
+
+  <!-- RANK 1 CARD (special gold) -->
+  <div class="rank-card rank1" style="border: 2px solid #F1C40F;">
+    <div class="rank-badge">
+      <div class="rank-num">1</div>
+      <div class="rank-label">位</div>
+    </div>
+    <div class="rank-body">
+      <div class="rank-title-row">
+        <h3>📣 PPC広告アフィリエイト</h3>
+        <span class="rank-tag tag-gold">🏆 最優先推奨</span>
+      </div>
+      <p class="rank-desc">Google等に広告を出稿し、商品購入につながると報酬を得る仕組み。<br>広告が24時間自動で働くため、自分の労働が不要になる「資産型収益」</p>
+
+      <table class="ppc-table">
+        <thead>
+          <tr><th>項目</th><th>内容</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>⚡ レバレッジ</td>
+            <td>広告が24時間働くため、自分の労働が不要</td>
+          </tr>
+          <tr>
+            <td>⏰ 時間効率</td>
+            <td>仕組み構築後は<strong>1日10分の数字チェック</strong>で維持可能</td>
+          </tr>
+          <tr>
+            <td>📈 将来性</td>
+            <td><strong>70代・80代でも継続可能</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="ppc-boxes">
+        <div class="ppc-box">
+          <div class="pb-icon">🎯</div>
+          <h4>成功事例</h4>
+          <p>72歳で初めてPCを購入した未経験者が、<strong>8ヶ月で月20万円達成</strong></p>
+        </div>
+        <div class="ppc-box">
+          <div class="pb-icon">⚠️</div>
+          <h4>課題・障壁</h4>
+          <p>広告設定・商品選定の<strong>学習は必須</strong>。初期投資と学習期間が必要</p>
+        </div>
+        <div class="ppc-box">
+          <div class="pb-icon">🔑</div>
+          <h4>成功の鍵</h4>
+          <p>正しい知識と手順に<strong>基づく運用</strong>が不可欠</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 4: CONCLUSION ===== -->
+  <div class="section-title">
+    <div class="section-num">4</div>
+    <h2>総括と結論</h2>
+  </div>
+
+  <div class="conclusion-wrap">
+    <div class="conclusion-key">
+      「年齢や経験をデメリットではなく<br><strong>資産として再定義すること</strong>」が最も重要
+    </div>
+
+    <div class="conclusion-cols">
+      <div class="conclusion-col">
+        <h4>⚡ 短期的アプローチ</h4>
+        <ul>
+          <li>話し相手サービス</li>
+          <li>ナレーション代行</li>
+          <li>専門特化ライター など</li>
+        </ul>
+        <div style="margin-top:12px; font-size:12px; background:rgba(255,255,255,0.15); border-radius:8px; padding:10px 12px;">
+          ✅ 即金性があり、経験を直接活かせる
+        </div>
+      </div>
+      <div class="conclusion-col">
+        <h4>🔮 長期的アプローチ</h4>
+        <ul>
+          <li>PPC広告アフィリエイト</li>
+          <li>仕組み化された収益源</li>
+          <li>体力低下に左右されない構造</li>
+        </ul>
+        <div style="margin-top:12px; font-size:12px; background:rgba(255,255,255,0.15); border-radius:8px; padding:10px 12px;">
+          ✅ 70〜80代でも維持可能な収益基盤
+        </div>
+      </div>
+    </div>
+
+    <div class="conclusion-final">
+      短期 ＋ 長期を<strong>組み合わせる</strong>ことで、<br>
+      年金に依存しすぎない<strong>経済的自立</strong>と<strong>精神的余裕</strong>を両立できる。
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <p>本資料のソース動画：
+    <a href="https://www.youtube.com/watch?v=QtEy-9kbo-w" target="_blank" rel="noopener noreferrer">
+      【無理なくできる】シニア世代が老後もできる在宅ワークを見つけたので紹介していきます（YouTube）
+    </a>
+  </p>
+  <p style="margin-top:6px;">図解作成：AI Assistant ／ 情報整理・視覚化資料</p>
+</div>
+
+</body>
+</html>
