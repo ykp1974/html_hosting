@@ -47,12 +47,31 @@ function FileList() {
   // 【1. 初期化処理】コンポーネントがマウントされた際に一度だけ実行
   useEffect(() => {
     // サーバーからファイル一覧を取得
-    fetchFiles();
+    setLoading(true);
+    fetchFiles().finally(() => setLoading(false));
     // ブラウザから既読状態を取得
     fetchStatus();
-    // 読み込み完了（ローディング表示を終了）
-    setLoading(false);
   }, []);
+
+  // 【1.5. スクロール復元処理】ファイル一覧が表示された直後に実行
+  useEffect(() => {
+    if (files.length > 0 && !loading) {
+      const lastFile = sessionStorage.getItem('last-viewed-file');
+      if (lastFile) {
+        // DOMのレンダリング完了を待つために少し遅延させる
+        const timer = setTimeout(() => {
+          const element = document.getElementById(lastFile);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            // 同じページで何度もスクロールしないよう、一度スクロールしたらクリアするか検討
+            // ここではユーザーが「戻った時」だけ機能させたいので、そのままでも良いが
+            // 気になる場合は sessionStorage.removeItem('last-viewed-file') する
+          }
+        }, 300);
+        return () => clearTimeout(timer);
+      }
+    }
+  }, [files, loading]);
 
   const toggleCheck = (file: string, currentState: boolean) => {
     const newState = !currentState;
@@ -91,6 +110,13 @@ function FileList() {
   const readCount = Object.values(status).filter(Boolean).length;
   // 【4. 最終的な表示データの準備完了】
   const progress = files.length > 0 ? Math.round((readCount / files.length) * 100) : 0;
+
+  // フォルダ名の表示用クリーンアップ（例: Docs/AI関連 -> AI関連）
+  const formatDirName = (dir: string) => {
+    if (dir === 'Root') return 'Top';
+    // 先頭の Docs/ を削除し、/ を > に置換して見やすく
+    return dir.replace(/^Docs\//, '').replace(/\//g, ' > ');
+  };
 
   if (loading) {
     return (
@@ -151,16 +177,18 @@ function FileList() {
           <span className="w-full text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
             Quick Jump
           </span>
-          {Object.keys(filesByDir).map(dir => (
-            <a
-              key={dir}
-              href={`#${dir}`}
-              className="px-4 py-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-300 hover:shadow-sm transition-all text-sm font-medium"
-            >
-              {/* 表示名の調整：'Root' は 'Top' と表示 */}
-              {dir === 'Root' ? 'Top' : dir}
-            </a>
-          ))}
+          {Object.keys(filesByDir)
+            .sort((a, b) => a.localeCompare(b))
+            .map(dir => (
+              <a
+                key={dir}
+                href={`#${dir}`}
+                className="px-4 py-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-300 hover:shadow-sm transition-all text-sm font-medium"
+              >
+                {/* 表示名の調整 */}
+                {formatDirName(dir)}
+              </a>
+            ))}
         </nav>
       )}
 
@@ -170,15 +198,17 @@ function FileList() {
         </div>
       ) : (
         <div className="space-y-8">
-          {Object.entries(filesByDir).map(([dir, dirFiles]) => (
-            <div key={dir} id={dir} className="glass-panel p-6 shadow-sm hover:shadow-md transition-shadow group scroll-mt-6">
-              <h2 className="text-xl font-semibold text-slate-800 flex items-center gap-3 mb-6 border-b border-slate-100 pb-3">
-                <FolderOpen className="w-6 h-6 text-indigo-500 group-hover:text-indigo-600 transition-colors" />
-                {dir}
-                <span className="ml-auto text-sm font-medium bg-slate-100 text-slate-500 px-3 py-1 rounded-full">
-                  {dirFiles.length} {dirFiles.length === 1 ? 'file' : 'files'}
-                </span>
-              </h2>
+          {Object.entries(filesByDir)
+            .sort(([a], [b]) => a.localeCompare(b))
+            .map(([dir, dirFiles]) => (
+              <div key={dir} id={dir} className="glass-panel p-6 shadow-sm hover:shadow-md transition-shadow group scroll-mt-6">
+                <h2 className="text-xl font-semibold text-slate-800 flex items-center gap-3 mb-6 border-b border-slate-100 pb-3">
+                  <FolderOpen className="w-6 h-6 text-indigo-500 group-hover:text-indigo-600 transition-colors" />
+                  {formatDirName(dir)}
+                  <span className="ml-auto text-sm font-medium bg-slate-100 text-slate-500 px-3 py-1 rounded-full">
+                    {dirFiles.length} {dirFiles.length === 1 ? 'file' : 'files'}
+                  </span>
+                </h2>
               <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {dirFiles.map(file => {
                   const isChecked = !!status[file];
@@ -186,6 +216,7 @@ function FileList() {
                   return (
                     <div
                       key={file}
+                      id={file}
                       className={`relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 transform hover:-translate-y-1 ${isChecked
                         ? 'bg-green-50/60 border-green-200 outline outline-1 outline-green-200 shadow-sm'
                         : 'bg-white border-slate-200 hover:border-indigo-300 shadow-sm hover:shadow-md'
@@ -193,6 +224,7 @@ function FileList() {
                     >
                       <Link
                         to={`/view?file=${encodeURIComponent(file)}`}
+                        onClick={() => sessionStorage.setItem('last-viewed-file', file)}
                         className="flex items-center gap-3 flex-1 min-w-0"
                       >
                         <div className={`p-2 rounded-lg ${isChecked ? 'bg-green-100' : 'bg-indigo-50'}`}>

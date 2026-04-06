@@ -40,7 +40,10 @@ export default function HtmlViewer() {
     return <div className="p-8 text-center text-red-500">No file specified</div>;
   }
 
-  const fileUrl = `/${file}`;
+  const isDev = import.meta.env.DEV;
+  const fileUrl = isDev 
+    ? `/api/serve-html?file=${encodeURIComponent(file)}` 
+    : `/${file}`;
 
   return (
     <div className="flex flex-col h-screen bg-slate-100">
