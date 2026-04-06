@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini × NotebookLM 連携インフォグラフィック</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            font-size: 2.2em;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 10px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        .link-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .link-box a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .link-box a:hover {
+            text-decoration: underline;
+        }
+        
+        .summary-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .summary-box h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section h2 {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .problem-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #e74c3c;
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .card h3 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .solution-card {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .solution-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+        
+        .solution-card p {
+            font-size: 0.95em;
+            opacity: 0.95;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .gems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .gem-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .gem-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .gem-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0 auto 15px;
+        }
+        
+        .gem-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .gem-card .purpose {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+        
+        .cycle-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .cycle-step {
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            margin: 10px;
+        }
+        
+        .cycle-step::after {
+            content: '→';
+            position: absolute;
+            right: -40px;
+            font-size: 2em;
+            color: #667eea;
+        }
+        
+        .cycle-step:last-child::after {
+            content: '↻';
+            right: auto;
+            top: -40px;
+        }
+        
+        .cycle-step h4 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+        
+        .cycle-step p {
+            font-size: 0.85em;
+            color: #7f8c8d;
+        }
+        
+        .conclusion-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .conclusion-box h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .highlight {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.6em;
+            }
+            
+            .solution-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cycle-step::after {
+                content: '↓';
+                right: auto;
+                bottom: -40px;
+                top: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gemini × NotebookLM 連携<br>「自分専用エージェント」構築</h1>
+        <p class="subtitle">蓄積した対話履歴を「外部脳」として活用する革新的手法</p>
+        
+        <div class="link-box">
+            📚 <a href="https://zenn.dev/minipoisson/articles/2806b4a0865acb" target="_blank">Gemini × NotebookLM 連携で「自分専用エージェント」を量産する：蓄積した履歴を血肉化する究極の活用術</a>
+        </div>
+        
+        <div class="summary-box">
+            <h2>🎯 エグゼクティブ・サマリー</h2>
+            <p>Google の AI ツール「Gemini」と「NotebookLM」を高度に連携させ、膨大な対話履歴を「外部脳」として活用。特定目的に特化した「自分専用エージェント（Gems）」を量産する手法。2026年1月導入の NotebookLM 連携機能により、数百万トークン規模の個人知識を参照しながら、執筆・検索・自己分析をワンクリックで実行できる環境を実現。</p>
+        </div>
+        
+        <div class="section">
+            <h2>❌ 1. 現状の課題</h2>
+            <div class="problem-cards">
+                <div class="card">
+                    <h3>指示の反復</h3>
+                    <p>毎回「〇〇の文体で書いて」などの指示を入力する必要があり、非効率。まるで図書館に毎回司書を連れて行くような手間。</p>
+                </div>
+                <div class="card">
+                    <h3>文脈の混濁</h3>
+                    <p>ひとつのノートブックで多様な目的のチャットを繰り返すと、異なるトピックが混在し、整理が困難に。</p>
+                </div>
+                <div class="card">
+                    <h3>連携の不十分さ</h3>
+                    <p>特定の指示と膨大な背景知識をシームレスに結合し、即座に起動させる仕組みが不足。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>✅ 2. 解決策：役割と知識の分離</h2>
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <h3>📚 NotebookLM</h3>
+                    <p><strong>長期記憶（知識）</strong></p>
+                    <p>過去の全チャット履歴を格納するナレッジベース</p>
+                </div>
+                <div class="solution-card">
+                    <h3>🤖 Custom Gems</h3>
+                    <p><strong>人格（役割）</strong></p>
+                    <p>特定の役割や指示を定義したエージェント</p>
+                </div>
+            </div>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>ツール</th>
+                        <th>役割</th>
+                        <th>内容</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>NotebookLM</strong></td>
+                        <td>長期記憶（知識）</td>
+                        <td>Markdown 化された過去の全チャット履歴を格納するナレッジベース</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Custom Gems</strong></td>
+                        <td>人格（役割）</td>
+                        <td>特定の役割やシステム指示を定義したエージェント</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="highlight" style="background: #e8f5e9; color: #2e7d32; padding: 20px; border-radius: 10px; margin-top: 20px;">
+                <strong>🚀 革新的なポイント</strong><br>
+                Gemini の Gems 機能で NotebookLM のノートブックを直接指定可能に！<br>
+                システムプロンプトを簡潔に保ちながら、数百万トークン規模の個人知識を AI に持たせることが実現。
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🎭 3. 4つの専門エージェント（Gems）</h2>
+            <div class="gems-grid">
+                <div class="gem-card">
+                    <div class="gem-number">①</div>
+                    <h3>Zenn 執筆支援</h3>
+                    <p class="purpose">技術記事作成</p>
+                    <p>技術的正確性と実装の工夫を強調。客観的かつ技術への敬意を保つトーン。過去の試行錯誤から構成案を自動抽出。</p>
+                </div>
+                <div class="gem-card">
+                    <div class="gem-number">②</div>
+                    <h3>note.com 向け</h3>
+                    <p class="purpose">エッセイ記事作成</p>
+                    <p>背景にある思いや物語、試行錯誤のプロセスを重視した情緒的な文体への変換を実現。</p>
+                </div>
+                <div class="gem-card">
+                    <div class="gem-number">③</div>
+                    <h3>ナレッジ検索機</h3>
+                    <p class="purpose">過去の解決策特定</p>
+                    <p>「あの時どうしたか」を正確に抽出。ハルシネーションを抑止し、事実のみを最短で引き出す。</p>
+                </div>
+                <div class="gem-card">
+                    <div class="gem-number">④</div>
+                    <h3>自己分析コーチ</h3>
+                    <p class="purpose">内省と成長促進</p>
+                    <p>過去の悩みや決断の傾向を俯瞰。思考の癖や成長のためのヒントを提案。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🔄 4. 知的サイクルの確立</h2>
+            <div class="cycle-diagram">
+                <div class="cycle-step">
+                    <h4>Input</h4>
+                    <p>日々の開発や悩みについて対話</p>
+                </div>
+                <div class="cycle-step">
+                    <h4>Stock</h4>
+                    <p>履歴を取り出しMarkdown化</p>
+                </div>
+                <div class="cycle-step">
+                    <h4>Update</h4>
+                    <p>NotebookLMに読み込ませ更新</p>
+                </div>
+                <div class="cycle-step">
+                    <h4>Output</h4>
+                    <p>精度が向上した出力を獲得</p>
+                </div>
+            </div>
+            <p style="text-align: center; color: #7f8c8d; margin-top: 20px;">
+                このサイクルにより、AI が「自分の分身」として成長し続ける持続可能な仕組みが完成
+            </p>
+        </div>
+        
+        <div class="conclusion-box">
+            <h2>🌟 結論と展望</h2>
+            <p style="font-size: 1.1em; margin-bottom: 15px;">
+                本手法の核心は、AI を単なる「ツール」ではなく、<br>
+                蓄積されたデータを通じてユーザーを理解する<br>
+                <strong style="font-size: 1.3em;">「共生するパートナー」</strong>へと昇華させる点にある
+            </p>
+            <div class="highlight">
+                <strong>📊 AI 活用の肝要な点</strong><br>
+                蓄積する「データの量」以上に、それらを効率的に活用するための「仕組み」の構築が重要
+            </div>
+            <p style="margin-top: 20px; font-size: 0.95em;">
+                今後は、ライフログ専用 Gem や分野別特化型 Gem など、<br>
+                複数の NotebookLM ノートブックを組み合わせた多層的なエージェントの展開が期待される
+            </p>
+        </div>
+    </div>
+</body>
+</html>
