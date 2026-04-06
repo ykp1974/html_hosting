@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotebookLM スライド編集機能 実践ガイド</title>
+    <style>
+        :root {
+            --primary: #4285f4; /* Google Blue */
+            --secondary: #34a853; /* Google Green */
+            --accent: #fbbc04; /* Google Yellow */
+            --danger: #ea4335; /* Google Red */
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-main: #202124;
+            --text-sub: #5f6368;
+            --border: #dadce0;
+        }
+
+        body {
+            font-family: "Hiragino Sans", "Meiryo", sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0 0 10px 0;
+            color: var(--primary);
+        }
+
+        .link-box {
+            margin: 15px 0;
+            padding: 10px 20px;
+            background: #e8f0fe;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        .link-box a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .summary-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f1f3f4 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 6px solid var(--primary);
+            margin-bottom: 40px;
+        }
+
+        .evolution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .evolution-item {
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .evo-before { background: #feeae6; border: 1px solid #fad2cf; }
+        .evo-after { background: #e6f4ea; border: 1px solid #ceead6; }
+
+        .evo-tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+        }
+
+        .evo-before .evo-tag { background: var(--danger); color: white; }
+        .evo-after .evo-tag { background: var(--secondary); color: white; }
+
+        .workflow-section {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+        }
+
+        .step-list {
+            display: flex;
+            justify-content: space-between;
+            counter-reset: step;
+            padding: 0;
+            list-style: none;
+        }
+
+        .step-item {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            padding: 0 10px;
+        }
+
+        .step-item::before {
+            counter-increment: step;
+            content: counter(step);
+            display: block;
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            line-height: 30px;
+            font-weight: bold;
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .case-card {
+            background: #fdfaf0;
+            border: 1px solid #faefc1;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .case-card h4 { margin: 0 0 10px 0; color: #b06000; }
+
+        .constraint-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 40px;
+        }
+
+        .constraint-table th, .constraint-table td {
+            border: 1px solid var(--border);
+            padding: 12px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .constraint-table th { background: #f1f3f4; }
+
+        footer {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-sub);
+        }
+
+        .future-badge {
+            background: var(--accent);
+            color: #202124;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .evolution-grid, .case-grid, .step-list { grid-template-columns: 1fr; flex-direction: column; }
+            .step-item { margin-bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>NotebookLM スライド編集機能 実践ガイド</h1>
+        <div class="link-box">
+            <a href="https://zenn.dev/acntechjp/articles/482fe1a625b0be" target="_blank">
+                🔗 ついに編集できる！NotebookLMスライドの細部を直す実践テク（文字・イラスト）
+            </a>
+        </div>
+    </header>
+
+    <section class="summary-card">
+        <strong>エグゼクティブ・サマリー:</strong><br>
+        「編集不可能な画像出力」という最大の弱点を、プロンプトベースの<b>「✏変更」</b>機能が解消。イラストの不自然な描写や改行位置の微調整が数分で可能になり、実用性が飛躍的に向上しました。
+    </section>
+
+    <div class="evolution-grid">
+        <div class="evolution-item evo-before">
+            <span class="evo-tag">以前の課題</span>
+            <p style="font-size: 0.9rem;">画像化により修正不能。ミスがあれば全体を再生成するか、外部ソフトで加工するしかなかった。</p>
+        </div>
+        <div class="evolution-item evo-after">
+            <span class="evo-tag">新機能の効果</span>
+            <p style="font-size: 0.9rem;">プロンプトで指示するだけで、特定スライドの要素を「論理的に」再構成・修正可能に。</p>
+        </div>
+    </div>
+
+    <div class="workflow-section">
+        <h3 style="text-align: center; color: var(--primary); margin-top: 0;">修正ワークフロー</h3>
+        <ul class="step-list">
+            <li class="step-item"><b>ファイル選択</b><br><small>スライドを開く</small></li>
+            <li class="step-item"><b>対象を特定</b><br><small>1枚を選択</small></li>
+            <li class="step-item"><b>変更ボタン</b><br><small>編集モード起動</small></li>
+            <li class="step-item"><b>指示入力</b><br><small>プロンプト実行</small></li>
+        </ul>
+    </div>
+
+    <h3 style="border-left: 5px solid var(--accent); padding-left: 10px;">実践的な修正能力</h3>
+    <div class="case-grid">
+        <div class="case-card">
+            <h4>🎨 イラストの高度な修正</h4>
+            <ul style="font-size: 0.85rem; padding-left: 15px;">
+                <li>浮いている刃の削除</li>
+                <li>機関車を最後尾から先頭へ移動</li>
+                <li>不自然な描写の論理的修正</li>
+            </ul>
+        </div>
+        <div class="case-card">
+            <h4>✍️ 文字・レイアウト調整</h4>
+            <ul style="font-size: 0.85rem; padding-left: 15px;">
+                <li>日本語の改行位置の微調整</li>
+                <li>見栄えを損なう配置の修正</li>
+                <li>読みやすさの向上</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3 style="border-left: 5px solid var(--danger); padding-left: 10px;">制約と注意点</h3>
+    <table class="constraint-table">
+        <tr>
+            <th>細かい文字の潰れ</th>
+            <td>修正機能より、スライド全体の再生成の方が綺麗に仕上がる傾向。</td>
+        </tr>
+        <tr>
+            <th>解釈の誤差</th>
+            <td>指示が過剰に忠実すぎて、意図しないレイアウトになる場合がある。</td>
+        </tr>
+        <tr>
+            <th>過去の生成物</th>
+            <td>数ヶ月前の古いファイルには機能が適用しきれない場合がある。</td>
+        </tr>
+    </table>
+
+    <div class="summary-card" style="border-left-color: var(--accent);">
+        <span class="future-badge">将来の展望</span>
+        <p style="margin-top: 10px; font-size: 0.95rem;">
+            今後は<b>Google スライド形式</b>での出力が予告されています。これにより各要素が「オブジェクト化」され、プロンプトを介さず直接編集できる真の自由度が実現する見込みです。
+        </p>
+    </div>
+
+    <footer>
+        結論：現行のプロンプト修正機能を駆使しつつ、Google スライド連携を待機するのが最善策。
+    </footer>
+</div>
+
+</body>
+</html>

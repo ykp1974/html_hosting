@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotebookLM × Antigravity 連携ワークフロー</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        
+        .advanced-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            font-size: 2.2em;
+            color: #1a1a2e;
+            text-align: center;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #6c757d;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+        
+        .link-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 30px;
+            border-radius: 5px;
+        }
+        
+        .link-box a {
+            color: #856404;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .link-box a:hover {
+            text-decoration: underline;
+        }
+        
+        .summary-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .summary-box h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section h2 {
+            font-size: 1.8em;
+            color: #1a1a2e;
+            margin-bottom: 25px;
+            padding-left: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .comparison-container {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table thead {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+        
+        .comparison-table th {
+            padding: 18px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .comparison-table tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .comparison-table tbody tr:hover {
+            background: #e7f1ff;
+            transition: all 0.3s;
+        }
+        
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .vs-badge {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+        
+        .evolution-box {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(17, 153, 142, 0.3);
+        }
+        
+        .evolution-box h3 {
+            font-size: 1.6em;
+            margin-bottom: 10px;
+        }
+        
+        .evolution-arrow {
+            font-size: 3em;
+            margin: 15px 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:nth-child(1) {
+            border-top-color: #667eea;
+        }
+        
+        .feature-card:nth-child(2) {
+            border-top-color: #f093fb;
+        }
+        
+        .feature-card:nth-child(3) {
+            border-top-color: #4facfe;
+        }
+        
+        .feature-card:nth-child(4) {
+            border-top-color: #43e97b;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3em;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+        
+        .feature-card .label {
+            display: inline-block;
+            background: #e9ecef;
+            color: #495057;
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .feature-card p {
+            color: #6c757d;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+        
+        .feature-card ul {
+            margin-top: 10px;
+            padding-left: 20px;
+            color: #6c757d;
+        }
+        
+        .feature-card li {
+            margin-bottom: 6px;
+        }
+        
+        .process-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .process-step {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin: 10px;
+            position: relative;
+        }
+        
+        .process-step::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .process-step:last-child::after {
+            display: none;
+        }
+        
+        .process-number {
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: bold;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        
+        .warning-box h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .warning-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .warning-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        
+        .warning-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .warning-list strong {
+            color: #664d03;
+        }
+        
+        .risk-icon {
+            display: inline-block;
+            background: #ffc107;
+            color: #664d03;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 25px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .conclusion-box {
+            background: linear-gradient(135deg, #5f27cd 0%, #341f97 100%);
+            color: white;
+            padding: 35px;
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+        
+        .conclusion-box h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .conclusion-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .conclusion-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .conclusion-card h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #ffd93d;
+        }
+        
+        .hub-diagram {
+            text-align: center;
+            margin: 30px 0;
+            padding: 30px;
+            background: linear-gradient(to bottom, #f8f9fa, white);
+            border-radius: 15px;
+        }
+        
+        .hub-center {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 20px;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin: 20px;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .hub-spokes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .spoke {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.6em;
+            }
+            
+            .process-step::after {
+                content: '↓';
+                right: auto;
+                top: auto;
+                bottom: -35px;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .conclusion-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="text-align: center;">
+            <span class="advanced-badge">⚠️ 上級者向け</span>
+        </div>
+        
+        <h1>NotebookLM × Antigravity 連携<br><span style="font-size: 0.75em;">高度なAI活用ワークフロー</span></h1>
+        <p class="subtitle">MCP（Model Context Protocol）による「読む」から「作る」への進化</p>
+        
+        <div class="link-box">
+            🔗 <a href="https://note.com/majin_108/n/n15677a1e8361" target="_blank">【上級者向け】NotebookLM × Antigravity</a>
+        </div>
+        
+        <div class="summary-box">
+            <h2>🎯 エグゼクティブ・サマリー</h2>
+            <p>GoogleのAIノートブックツール「NotebookLM」とAIコードエディタ「Antigravity」を、MCP（Model Context Protocol）を通じて連携させる手法を解説。従来「読む」作業に特化していたNotebookLMが、この連携により長文執筆、コード生成、差分修正といった具体的な「作業」を一気通貫で行えるように進化。非公式ツール「notebooklm-mcp-cli」により、データのローカルエクスポート、標準UIでは制限されている機能の解放、AIチャットからの自動リサーチ機能など、NotebookLMを単なるリサーチツールから「テキスト変換ハブ」へと進化させます。</p>
+        </div>
+        
+        <div class="section">
+            <h2>⚖️ 1. 従来手法との比較</h2>
+            
+            <div class="comparison-container">
+                <h3 style="text-align: center; margin-bottom: 20px; color: #495057;">
+                    Geminiアプリ連携 <span class="vs-badge">VS</span> Antigravity連携（MCP）
+                </h3>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>比較項目</th>
+                            <th>Geminiアプリ × NotebookLM</th>
+                            <th>Antigravity × NotebookLM (MCP)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>主な用途</td>
+                            <td>チャット、情報の参照・要約</td>
+                            <td><strong>執筆、コード作成、複雑な編集作業</strong></td>
+                        </tr>
+                        <tr>
+                            <td>修正プロセス</td>
+                            <td>修正のたびに全文を再生成</td>
+                            <td><strong>差分修正（必要な箇所のみピンポイント修正）</strong></td>
+                        </tr>
+                        <tr>
+                            <td>作業効率</td>
+                            <td>長文になるほど非効率</td>
+                            <td><strong>構造的な編集が可能で効率的</strong></td>
+                        </tr>
+                        <tr>
+                            <td>拡張機能</td>
+                            <td>読み取りが中心</td>
+                            <td><strong>実行・生成・保存まで自動化可能</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="evolution-box">
+                <h3>NotebookLMの進化</h3>
+                <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; margin-top: 20px;">
+                    <div style="flex: 1; min-width: 200px; margin: 10px;">
+                        <div style="font-size: 1.3em; margin-bottom: 10px;">📖 従来</div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                            「読む」作業<br>
+                            情報の参照・要約
+                        </div>
+                    </div>
+                    <div class="evolution-arrow">→</div>
+                    <div style="flex: 1; min-width: 200px; margin: 10px;">
+                        <div style="font-size: 1.3em; margin-bottom: 10px;">🚀 MCP連携後</div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px;">
+                            「使う・作る」作業<br>
+                            執筆・生成・編集の一気通貫
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>⚡ 2. 実証された高度な機能</h2>
+            <p style="margin-bottom: 25px; color: #6c757d;">7種類のファイル形式のうち6種類が完全にテキストとして読み取り可能。NotebookLMは「あらゆるデータのテキスト変換ハブ」として機能します。</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🖼️</div>
+                    <div class="label">視覚情報認識</div>
+                    <h3>画像の高度な処理</h3>
+                    <p>MCP経由でURLを取得し、Antigravityの内蔵ブラウザで画像をプレビュー。AIがスクリーンショットを介して内容を詳細に認識。</p>
+                    <ul>
+                        <li>URL取得 → ブラウザ表示 → 画像認識</li>
+                        <li>APIトークンを消費せずに処理</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">💾</div>
+                    <div class="label">ローカルエクスポート</div>
+                    <h3>大容量データの効率化</h3>
+                    <p>膨大なソースデータをローカル環境にテキストファイルとして一括書き出し。トークン消費をほぼゼロに抑制。</p>
+                    <ul>
+                        <li>大容量データを自動保存</li>
+                        <li>1.5MB超のデータも効率的に処理</li>
+                        <li>AIにはファイルパスのみ渡す</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <div class="label">Fast Research</div>
+                    <h3>チャット経由の自動調査</h3>
+                    <p>NotebookLMのWeb検索・自動追加機能をチャットから発動。約2分で10件の記事を自動収集しMarkdown保存。</p>
+                    <ul>
+                        <li>調査からドキュメント化まで完全自動</li>
+                        <li>チャットのみで全工程完了</li>
+                    </ul>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎓</div>
+                    <div class="label">Studio機能解放</div>
+                    <h3>制限された機能の開放</h3>
+                    <p>標準UIではダウンロードできないフラッシュカードやクイズをHTML形式でローカル保存可能。</p>
+                    <ul>
+                        <li>クイズ・フラッシュカードをHTML化</li>
+                        <li>音声・動画スタイルの制御</li>
+                        <li>ブラウザ上で動作可能</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>🔧 3. 導入プロセス</h2>
+            <p style="margin-bottom: 25px; color: #6c757d;">Antigravity自体のAIエージェント機能により、セットアップは極めて簡略化されています。</p>
+            
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="process-number">1</div>
+                    <h4>指示</h4>
+                    <p>GitHubのURLをAntigravityに送付</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <h4>自動構築</h4>
+                    <p>AIがREADMEを解析し、必要なコマンド実行を提案</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-number">3</div>
+                    <h4>認証</h4>
+                    <p>ブラウザ経由でGoogleログイン</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="process-number">4</div>
+                    <h4>再現性</h4>
+                    <p>ワークフローとして保存し、次回以降は簡単に再現</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>⚠️ 4. 制約事項とリスク</h2>
+            <p style="margin-bottom: 20px; color: #6c757d;">本連携は非公式な手段を用いているため、以下の点に留意が必要です。</p>
+            
+            <div class="warning-box">
+                <h3>⚠️ 重要な注意事項</h3>
+                <ul class="warning-list">
+                    <li>
+                        <span class="risk-icon">!</span>
+                        <strong>非公式APIへの依存：</strong> Google公式APIではなく、内部APIのリバースエンジニアリングに基づいているため、Googleの仕様変更により突然利用不能になる可能性がある
+                    </li>
+                    <li>
+                        <span class="risk-icon">!</span>
+                        <strong>セキュリティのリスク：</strong> 正規のOAuth認証ではなく、Cookie抽出による認証方式を採用。Googleアカウントのセッション情報を含むため、信頼性の確認が不可欠
+                    </li>
+                    <li>
+                        <span class="risk-icon">!</span>
+                        <strong>開発の信頼性：</strong> オープンソース（MITライセンス）であり、非エンジニアがAIを用いて開発。活発なコミュニティレビューはあるが、品質の完全な保証はない
+                    </li>
+                    <li>
+                        <span class="risk-icon">!</span>
+                        <strong>クエリ制限：</strong> 無料版の利用には、1日あたり約50クエリ程度の制限が存在
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="hub-diagram">
+            <h3 style="color: #495057; margin-bottom: 20px; font-size: 1.5em;">NotebookLM = テキスト変換ハブ</h3>
+            <div class="hub-center">NotebookLM</div>
+            <div class="hub-spokes">
+                <div class="spoke">📄 PDF</div>
+                <div class="spoke">📊 スプレッドシート</div>
+                <div class="spoke">📝 Google Docs</div>
+                <div class="spoke">🖼️ 画像（PNG等）</div>
+                <div class="spoke">🌐 Webサイト</div>
+                <div class="spoke">🎬 スライド</div>
+            </div>
+            <p style="margin-top: 20px; color: #6c757d;">あらゆる形式のデータをテキストに変換し、AIが活用可能な形で提供</p>
+        </div>
+        
+        <div class="conclusion-box">
+            <h2>🚀 結論と今後の展望</h2>
+            <p style="text-align: center; font-size: 1.1em; margin-bottom: 25px;">
+                NotebookLMとAntigravityの連携は、情報の蓄積（NotebookLM）と実行（Antigravity）を統合する、<br>
+                極めて強力なワークフローを提示しています。
+            </p>
+            
+            <div class="conclusion-content">
+                <div class="conclusion-card">
+                    <h4>💡 現状の位置づけ</h4>
+                    <p>サードパーティ製ツールによる「つなぎ」のソリューション。しかし、NotebookLMが単なる情報ストレージを超えて、AI活用の中心的な「ハブ」として機能し始めていることを示唆。</p>
+                </div>
+                <div class="conclusion-card">
+                    <h4>🔮 将来の期待</h4>
+                    <p>Googleが公式のMCP対応やAPIをリリースすることで、これらの高度な機能がより安全かつ安定した形で普及することが期待される。</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.15); border-radius: 10px; text-align: center;">
+                <strong style="font-size: 1.2em;">🎯 技術的なリスクを理解した上での活用は、<br>ナレッジワークの生産性を劇的に向上させる潜在能力を秘めています</strong>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
