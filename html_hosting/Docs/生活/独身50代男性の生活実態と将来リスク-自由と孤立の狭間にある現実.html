@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>独身50代男性の生活実態と将来リスク：自由と孤立の狭間にある現実</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1a1a2e;
+            --secondary-dark: #16213e;
+            --accent-red: #e94560;
+            --accent-orange: #ff6b6b;
+            --accent-yellow: #ffd93d;
+            --text-primary: #f0f0f0;
+            --text-secondary: #b8b8b8;
+            --border-color: #2a2a3e;
+            --card-bg: #0f1419;
+            --stat-bg: rgba(233, 69, 96, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: var(--text-primary);
+            line-height: 1.7;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--primary-dark);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--primary-dark) 100%);
+            padding: 3rem 2rem;
+            border-bottom: 3px solid var(--accent-red);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(233, 69, 96, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        .video-source {
+            background: var(--card-bg);
+            padding: 1rem 1.5rem;
+            border-left: 4px solid var(--accent-yellow);
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .video-source h3 {
+            font-size: 0.9rem;
+            color: var(--accent-yellow);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .video-source a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .video-source a:hover {
+            color: var(--accent-yellow);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.3;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 3rem 2rem;
+        }
+
+        .executive-summary {
+            background: linear-gradient(135deg, var(--stat-bg) 0%, transparent 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--border-color);
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .executive-summary::before {
+            content: 'EXECUTIVE SUMMARY';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--primary-dark);
+            padding: 0 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-red);
+            letter-spacing: 2px;
+        }
+
+        .executive-summary p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--text-secondary);
+        }
+
+        .stat-highlight {
+            display: inline-block;
+            background: var(--accent-red);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-red);
+            margin-right: 1.5rem;
+            line-height: 1;
+        }
+
+        .section-title {
+            flex: 1;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: var(--text-primary);
+        }
+
+        .section-title p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.2);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-orange);
+            display: flex;
+            align-items: center;
+        }
+
+        .card h3::before {
+            content: '▸';
+            margin-right: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-yellow);
+            font-weight: 700;
+        }
+
+        .comparison-table {
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 2rem 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th {
+            background: var(--secondary-dark);
+            padding: 1.2rem;
+            text-align: left;
+            font-weight: 700;
+            color: var(--accent-yellow);
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .comparison-table td {
+            padding: 1.2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(233, 69, 96, 0.05);
+        }
+
+        .comparison-table .stat-cell {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-red);
+        }
+
+        .comparison-table .good-stat {
+            color: var(--accent-yellow);
+        }
+
+        .visual-stat {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .visual-stat .big-number {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-red), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .visual-stat .stat-label {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .visual-stat .stat-description {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .split-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .split-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-orange);
+        }
+
+        .split-card.winner {
+            border-color: var(--accent-yellow);
+            background: linear-gradient(135deg, rgba(255, 217, 61, 0.05) 0%, var(--card-bg) 100%);
+        }
+
+        .split-card.loser {
+            border-color: var(--accent-red);
+            background: linear-gradient(135deg, rgba(233, 69, 96, 0.05) 0%, var(--card-bg) 100%);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0.3rem;
+        }
+
+        .tag.high {
+            background: rgba(255, 217, 61, 0.2);
+            color: var(--accent-yellow);
+            border: 1px solid var(--accent-yellow);
+        }
+
+        .tag.low {
+            background: rgba(233, 69, 96, 0.2);
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+        }
+
+        .tag.medium {
+            background: rgba(255, 107, 107, 0.2);
+            color: var(--accent-orange);
+            border: 1px solid var(--accent-orange);
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, var(--secondary-dark) 0%, var(--primary-dark) 100%);
+            padding: 3rem;
+            border-radius: 15px;
+            border: 2px solid var(--accent-red);
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .conclusion::before {
+            content: '結論';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-dark);
+            padding: 0 20px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent-red);
+            letter-spacing: 3px;
+        }
+
+        .conclusion h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--accent-yellow);
+        }
+
+        .conclusion p {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .victory-conditions {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 5px solid var(--accent-yellow);
+            margin-top: 2rem;
+        }
+
+        .victory-conditions h3 {
+            color: var(--accent-yellow);
+            margin-bottom: 1rem;
+        }
+
+        .victory-conditions p {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-number {
+                font-size: 2rem;
+                margin-right: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 1.4rem;
+            }
+
+            .split-section {
+                grid-template-columns: 1fr;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .visual-stat .big-number {
+                font-size: 3rem;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-orange), var(--accent-yellow));
+            transition: width 0.2s;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+    
+    <div class="container">
+        <header class="header">
+            <div class="video-source">
+                <h3>📹 動画ソース</h3>
+                <a href="https://www.youtube.com/watch?v=v1SjEhxDArw" target="_blank">
+                    【2ch口コミ】アラフォー・アラフィフ必見！独身一人暮らし50代の「自由で無惨すぎる休日」と寿命中央値67歳の衝撃がヤバすぎたw【ゆっくり解説】
+                </a>
+            </div>
+            <h1>独身50代男性の生活実態と将来リスク</h1>
+            <p class="subtitle">自由と孤立の狭間にある現実</p>
+        </header>
+
+        <div class="content">
+            <section class="executive-summary">
+                <p>
+                    本資料は、現代日本における独身50代男性の日常生活、経済状況、健康リスク、および将来への展望について、当事者たちの証言に基づきまとめたものである。
+                </p>
+                <p>
+                    分析の結果、独身50代男性は「究極の自由」を享受する一方で、深刻な孤立と健康リスク、そして老後への強い不安を抱えている実態が浮き彫りになった。特に、独身男性の寿命中央値が<span class="stat-highlight">67.2歳</span>というデータ（既婚男性は<span class="stat-highlight">81.6歳</span>）は、彼らにとって死活的な意味を持ち、早期の「死」を前提とした人生観が形成されている。
+                </p>
+                <p>
+                    経済面では、資産1億円を超える層から貯蓄100万円以下の層まで二極化が進んでおり、就職氷河期世代特有の社会への冷笑と諦念が共通の背景として存在する。
+                </p>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">01</div>
+                    <div class="section-title">
+                        <h2>休日の実態</h2>
+                        <p>自由と虚無の表裏一体</p>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.8;">
+                    独身50代男性の休日は、他者との交流が極めて乏しく、自己完結的な活動に終始する傾向が強い。
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>コミュニケーションの欠如</h3>
+                        <ul>
+                            <li>誰からも連絡がない日常</li>
+                            <li>スマートフォンの通知は公式アカウントのメルマガのみ</li>
+                            <li>人間関係の完全な途絶</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>時間の浪費と消費</h3>
+                        <ul>
+                            <li>昼過ぎまで睡眠をとる生活</li>
+                            <li>YouTubeショート動画を数時間視聴</li>
+                            <li>生産性のない時間の過ごし方</li>
+                            <li>自嘲的な態度を示す</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>「人間観察」という娯楽</h3>
+                        <ul>
+                            <li>イオンのフードコートで家族連れを眺める</li>
+                            <li>自身の現状を「幸せの結界」の外側と定義</li>
+                            <li>疎外感を伴う活動</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>一人の食卓</h3>
+                        <ul>
+                            <li>資産があっても「一人で食べても味気ない」</li>
+                            <li>食事の質の低下</li>
+                            <li>孤独な食事体験</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">02</div>
+                    <div class="section-title">
+                        <h2>寿命と健康</h2>
+                        <p>67.2歳の衝撃と身体的衰退</p>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.8;">
+                    独身男性が直面する最も深刻な現実は、統計的に示された「短命」の傾向である。
+                </p>
+
+                <div class="visual-stat">
+                    <div class="big-number">67.2</div>
+                    <div class="stat-label">独身男性の寿命中央値（歳）</div>
+                    <div class="stat-description">
+                        定年退職後、数年で寿命が尽きる計算。既婚男性より約14年短命。
+                    </div>
+                </div>
+
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>区分</th>
+                                <th>寿命中央値</th>
+                                <th>備考</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>独身男性</td>
+                                <td class="stat-cell">67.2歳</td>
+                                <td>定年退職後、数年で寿命が尽きる計算</td>
+                            </tr>
+                            <tr>
+                                <td>既婚男性</td>
+                                <td class="stat-cell good-stat">81.6歳</td>
+                                <td>独身男性より約14年長命</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>健康管理の不全</h3>
+                        <ul>
+                            <li>コンビニ弁当への依存</li>
+                            <li>アルコール（ストロング系など）の常態化</li>
+                            <li>短命の要因の一つ</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>身体の老化</h3>
+                        <ul>
+                            <li>五十肩の発症</li>
+                            <li>視力低下（老眼）</li>
+                            <li>階段での膝の痛み</li>
+                            <li>50代特有の肉体的衰え</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>「セルフ介護」の絶望</h3>
+                        <ul>
+                            <li>病気で寝込んだ際、誰にも頼れない</li>
+                            <li>一人で看病する「虚無感」</li>
+                            <li>将来動けなくなった際の恐怖</li>
+                            <li>常に付きまとう不安</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">03</div>
+                    <div class="section-title">
+                        <h2>経済格差</h2>
+                        <p>氷河期世代の二極化</p>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.8;">
+                    50代独身層における経済格差は極めて残酷であり、生活水準の分断を引き起こしている。
+                </p>
+
+                <div class="split-section">
+                    <div class="split-card winner">
+                        <h3>💰 勝ち組（資産1億超）</h3>
+                        <span class="tag high">高資産</span>
+                        <span class="tag medium">精神的貧困</span>
+                        <ul style="list-style: none; padding: 0; margin-top: 1.5rem;">
+                            <li style="padding: 0.5rem 0; color: var(--text-secondary);">• 30年間の勤勉な労働と徹底した節約</li>
+                            <li style="padding: 0.5rem 0; color: var(--text-secondary);">• あるいは親の遺産によって形成</li>
+                            <li style="padding: 0.5rem 0; color: var(--text-secondary);">• 金があっても「孤独死が怖くて使えない」</li>
+                            <li style="padding: 0.5rem 0; color: var(--text-secondary);">• 精神的な貧困を抱える</li>
+                        </ul>
+                    </div>
+
+                    <div class="split-card loser">
+                        <h3>📉 底辺層（貯蓄100万以下）</h3>
+                        <span class="tag low">低資産</span>
+                        <span class="tag low">生存危機</span>
+                        <ul style="list-style: none; padding: 0; margin-top: 1.5rem;">
+                            <li style="padding: 0.5rem 0; color: var(--text-secondary);">• 就職氷河期の影響</li>
+                            <li style="padding: 0.5rem 0; color: var(--text-secondary);">• ギャンブルによる資産喪失</li>
+                            <li style="padding: 0.5rem 0; color: var(--text-secondary);">• あるいは親の介護による資産喪失</li>
+                            <li style="padding: 0.5rem 0; color: var(--text-secondary);">• 病気や失業が即、生存の危機に直結</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>親ガチャの現実</h3>
+                    <p style="color: var(--text-secondary); padding-left: 1.5rem; line-height: 1.8;">
+                        自身の能力以上に、親の資産状況が50代時点での生活の安定度を左右している。
+                    </p>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">04</div>
+                    <div class="section-title">
+                        <h2>趣味と現実逃避</h2>
+                        <p>孤独を埋めるための投資</p>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.8;">
+                    社会的な繋がりを持たない代替として、趣味への没入や高額な消費行動が、彼らのアイデンティティを支えている。
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>安価な趣味</h3>
+                        <span class="tag high">コスパ良好</span>
+                        <ul>
+                            <li>家庭菜園</li>
+                            <li>ダイソーの釣り具を用いた釣り</li>
+                            <li>ウォーキング</li>
+                            <li>健康維持と暇つぶしを兼ねた活動</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>高額な現実逃避</h3>
+                        <span class="tag low">高額消費</span>
+                        <ul>
+                            <li>アイドルへの心酔（握手券のための大量購入）</li>
+                            <li>サバゲー装備への投資</li>
+                            <li>自動車やオーディオへの過剰投資</li>
+                            <li>高級レンズを用いた写真撮影</li>
+                            <li>「話相手を金で買う」行為としてのパパ活</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>所有欲のパラドックス</h3>
+                        <span class="tag medium">虚無感</span>
+                        <ul>
+                            <li>道具を揃えるだけで満足し実際には活用しない</li>
+                            <li>ガンプラの山など未開封の趣味用品</li>
+                            <li>高級ブランドを買っても着ていく場所がない</li>
+                            <li>空虚さを埋められない現実</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">05</div>
+                    <div class="section-title">
+                        <h2>既婚者に対する視点</h2>
+                        <p>嫌悪と羨望</p>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.8;">
+                    独身50代男性は、既婚者を「自由を奪われた存在」として冷笑する一方で、その安定した社会的位置付けに複雑な感情を抱いている。
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>「ATM」説</h3>
+                        <ul>
+                            <li>既婚者を「家族という組織に仕えるATM」と呼ぶ</li>
+                            <li>自身の自由度を強調することで精神的優位性を保つ</li>
+                            <li>冷笑的な態度</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>社会的パスポート</h3>
+                        <ul>
+                            <li>既婚であることが信頼の証となる社会</li>
+                            <li>独身は「不法滞在者」のような不安定な存在</li>
+                            <li>社会的信用の欠如への自己認識</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>責任感の定義</h3>
+                        <ul>
+                            <li>既婚者の責任感を「社畜を正当化する言葉」と切り捨てる</li>
+                            <li>一方で誰にも思い出されずに死ぬことへの寂寥感</li>
+                            <li>複雑な感情の葛藤</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="section-header">
+                    <div class="section-number">06</div>
+                    <div class="section-title">
+                        <h2>終末期への備え</h2>
+                        <p>孤独死と「就活」</p>
+                    </div>
+                </div>
+
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.8;">
+                    死を身近に感じる世代として、死後の始末、いわゆる「就活」が現実的な課題となっている。
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <h3>特殊清掃と身辺整理</h3>
+                        <ul>
+                            <li>孤独死による他者への迷惑を最小限にする</li>
+                            <li>不用品の処分</li>
+                            <li>死後の片付けを業者に依頼する検討</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>資産の行方</h3>
+                        <ul>
+                            <li>相続人がいない場合、資産は国庫に没収</li>
+                            <li>ユニセフや母校への寄付を検討</li>
+                            <li>生きているうちに使い切ることを理想とする</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>エンディングノートの挫折</h3>
+                        <ul>
+                            <li>連絡先欄に書くべき名前が一人もいない</li>
+                            <li>独身の過酷さを再確認させる現実</li>
+                            <li>孤立の深刻さを痛感</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="conclusion">
+                <h2>50代独身男性の「生きる意味」</h2>
+                <p>
+                    独身50代男性にとって、人生の後半戦は「いかにして自分を肯定し、孤独と折り合いをつけるか」の闘いである。
+                </p>
+                <p>
+                    彼らにとっての勝利条件は、資産の多寡ではなく、以下の2点を持つことにある。
+                </p>
+                <div class="victory-conditions">
+                    <h3>勝利条件</h3>
+                    <p>✓ 最後まで自分の足でトイレに行ける健康</p>
+                    <p>✓ 誰にも邪魔されない自由を使い切る覚悟</p>
+                </div>
+                <p>
+                    社会からは「無惨」と評されるライフスタイルであっても、そこに究極の自由を見出し、自己完結的な幸せを見つけることが、彼らに残された唯一の抵抗でありプライドであると言える。
+                </p>
+            </section>
+
+            <div class="footer">
+                <p>本資料は動画内容を基に視覚化したものです</p>
+                <p style="margin-top: 0.5rem;">NotebookLM は不正確な場合があります。回答は再確認してください。</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Scroll indicator
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollIndicator').style.width = scrolled + '%';
+        });
+
+        // Fade in sections on scroll
+        const sections = document.querySelectorAll('.section');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
