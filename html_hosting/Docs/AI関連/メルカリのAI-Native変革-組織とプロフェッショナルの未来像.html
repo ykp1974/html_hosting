@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メルカリのAI-Native変革</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+        
+        .source-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .source-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-weight: bold;
+        }
+        
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .point-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s;
+        }
+        
+        .point-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+        
+        .point-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .themes {
+            display: flex;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .theme-box {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .theme-box h3 {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f5f7fa;
+        }
+        
+        .productivity-visual {
+            background: linear-gradient(to right, #ffeaa7, #fdcb6e);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 25px 0;
+        }
+        
+        .productivity-visual .scale {
+            font-size: 3em;
+            font-weight: bold;
+            color: #d63031;
+            margin: 15px 0;
+        }
+        
+        .quote-box {
+            background: #f8f9fa;
+            border-left: 5px solid #764ba2;
+            padding: 20px 25px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #2d3436;
+            border-radius: 5px;
+        }
+        
+        .quote-box::before {
+            content: '"';
+            font-size: 3em;
+            color: #764ba2;
+            opacity: 0.3;
+            float: left;
+            margin-right: 10px;
+            line-height: 0.8;
+        }
+        
+        .talent-criteria {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .talent-item {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .talent-item:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .talent-item h4 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #636e72;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.5em;
+            }
+            
+            .themes {
+                flex-direction: column;
+            }
+            
+            .section-title {
+                font-size: 1.4em;
+            }
+            
+            .productivity-visual .scale {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 メルカリのAI-Native変革</h1>
+            <div class="subtitle">組織とプロフェッショナルの未来像</div>
+            <a href="https://careers.mercari.com/mercan/articles/55622/" class="source-link" target="_blank">
+                📖 「AI-Native」によって何が変わるのか？＠markが語る"人"を通した変化の行く末
+            </a>
+        </header>
+        
+        <div class="content">
+            <!-- 2つのテーマ -->
+            <div class="section">
+                <div class="section-title">📌 2つの戦略テーマ</div>
+                <div class="themes">
+                    <div class="theme-box">
+                        <h3>AI-Native</h3>
+                        <p>AIを前提に全てを考え直す<br>組織のOS自体を変革</p>
+                    </div>
+                    <div class="theme-box">
+                        <h3>Back to Startup</h3>
+                        <p>過去の蓄積に縛られず<br>大胆にチャレンジ</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 重要な認識 -->
+            <div class="section">
+                <div class="section-title">⚡ AIは「技術革命」である</div>
+                <div class="key-points">
+                    <div class="point-card">
+                        <h3>🔥 危機感</h3>
+                        <p>既存の強みが一夜にして無効化される可能性</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>🎯 好機</h3>
+                        <p>巨大勢力に挑戦できるチャンス</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>🔄 変革</h3>
+                        <p>ビジネスのルール自体が書き換わる</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>💻 OS化</h3>
+                        <p>ツールではなく基盤としてのAI</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 生産性の目標 -->
+            <div class="section">
+                <div class="section-title">📈 生産性向上の目標</div>
+                <div class="productivity-visual">
+                    <p style="font-size: 1.2em; color: #2d3436;">従来の改善レベルではなく...</p>
+                    <div class="scale">10倍 〜 100倍</div>
+                    <p style="font-size: 1.1em; color: #2d3436;">という桁違いの向上を目指す</p>
+                </div>
+                <div class="stats-row">
+                    <div class="stat-box">
+                        <div class="stat-number">100名</div>
+                        <div class="stat-label">→ ごく少数で完結</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-number">100名</div>
+                        <div class="stat-label">AI Task Force規模</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 役割の変化 -->
+            <div class="section">
+                <div class="section-title">🔀 プロフェッショナルの役割変化</div>
+                <div class="quote-box">
+                    最も大きな変化は、その人が担うべきロール・アンド・レスポンシビリティ（役割と責任）が溶けて、広がるということ。
+                </div>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>能力</th>
+                            <th>AIの役割</th>
+                            <th>人間の役割</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>実行力（タスク）</strong></td>
+                            <td>制作、モックアップ作成、定型業務の遂行</td>
+                            <td>AIへの適切な指示</td>
+                        </tr>
+                        <tr>
+                            <td><strong>価値判断（センス）</strong></td>
+                            <td>出力結果の提示</td>
+                            <td>「いけてるかどうか」の判断、勝ち筋の見極め</td>
+                        </tr>
+                        <tr>
+                            <td><strong>戦略的方向性</strong></td>
+                            <td>データに基づく示唆</td>
+                            <td>ゴールの設定、進むべき方向の提示</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- セルフコラボレーション -->
+            <div class="section">
+                <div class="section-title">🤝 「セルフコラボレーション」の提唱</div>
+                <div class="key-points">
+                    <div class="point-card">
+                        <h3>境界線の消滅</h3>
+                        <p>エンジニアがPM、経営、数値分析など幅広い領域を担う</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>作りながら考える</h3>
+                        <p>分業による遅延を排除し、ストレートにゴールへ</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>コスト削減</h3>
+                        <p>意思疎通コスト、調整業務、無駄な会議の排除</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 組織変革 -->
+            <div class="section">
+                <div class="section-title">🏢 組織プロセスの再設計</div>
+                <div class="key-points">
+                    <div class="point-card">
+                        <h3>業務プロセス</h3>
+                        <p>全業務を棚卸しし、AI基盤で再設計</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>マネジメント</h3>
+                        <p>承認プロセスを見直し、瞬時の意思決定へ</p>
+                    </div>
+                    <div class="point-card">
+                        <h3>コラボレーション</h3>
+                        <p>制作は少人数、戦略判断により多くの人材を</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 求める人材像 -->
+            <div class="section">
+                <div class="section-title">👥 AI-Native時代の人材像</div>
+                <div class="talent-criteria">
+                    <div class="talent-item">
+                        <h4>🎯 ゼロベース思考</h4>
+                        <p>既存の手法に頼らず、ゼロから考察できる</p>
+                    </div>
+                    <div class="talent-item">
+                        <h4>🚀 変革リーダーシップ</h4>
+                        <p>マインドセットの変革を自ら主導</p>
+                    </div>
+                    <div class="talent-item">
+                        <h4>💡 積極的な提言</h4>
+                        <p>社歴に関わらず最大限の価値貢献</p>
+                    </div>
+                    <div class="talent-item">
+                        <h4>📊 拡張の追求</h4>
+                        <p>できることが10倍になった時の挑戦</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- キーメッセージ -->
+            <div class="section">
+                <div class="section-title">💬 重要メッセージ</div>
+                <div class="quote-box">
+                    勝ち筋を見極められる人に、より多くのことをやってもらえるような状態にするのが、重要なポイントです。
+                </div>
+                <div class="quote-box">
+                    単にAIを使うのではなく、AIを前提に全てを考え直す。こうした意味合いがAI-Nativeという言葉に込められています。
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

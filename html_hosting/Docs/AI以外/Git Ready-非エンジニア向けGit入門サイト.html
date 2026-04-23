@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Ready - 非エンジニア向けGit入門サイト</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+        
+        .source-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            margin-top: 10px;
+        }
+        
+        .source-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-weight: bold;
+        }
+        
+        .summary-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 1.05em;
+            line-height: 1.8;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .background-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .background-card {
+            background: white;
+            border: 3px solid #667eea;
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+        
+        .background-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.2);
+        }
+        
+        .background-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .background-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .background-card li {
+            padding: 8px 0 8px 25px;
+            position: relative;
+        }
+        
+        .background-card li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .problem-solution-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .problem-box {
+            background: #ff6b6b;
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        
+        .solution-box {
+            background: #51cf66;
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+        }
+        
+        .problem-box h3, .solution-box h3 {
+            font-size: 1.6em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .problem-list, .solution-list {
+            list-style: none;
+        }
+        
+        .problem-list li, .solution-list li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+            font-size: 1.05em;
+        }
+        
+        .problem-list li::before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .solution-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .principle-card {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .principle-card::before {
+            content: attr(data-number);
+            position: absolute;
+            top: -20px;
+            right: 10px;
+            font-size: 6em;
+            font-weight: bold;
+            opacity: 0.15;
+        }
+        
+        .principle-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .principle-card p {
+            font-size: 1.05em;
+            line-height: 1.7;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .principle-card ul {
+            list-style: none;
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .principle-card li {
+            padding: 8px 0 8px 25px;
+            position: relative;
+        }
+        
+        .principle-card li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        
+        .insight-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+        
+        .insight-box h3 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .insight-box p {
+            color: #856404;
+            line-height: 1.8;
+        }
+        
+        .quote-box {
+            background: #f8f9fa;
+            border-left: 5px solid #764ba2;
+            padding: 25px 30px;
+            margin: 25px 0;
+            font-style: italic;
+            color: #2d3436;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+        
+        .quote-box::before {
+            content: '"';
+            font-size: 3.5em;
+            color: #764ba2;
+            opacity: 0.3;
+            float: left;
+            margin-right: 10px;
+            line-height: 0.8;
+        }
+        
+        .target-users {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .user-card {
+            background: white;
+            border: 3px solid #667eea;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 180px;
+            transition: all 0.3s;
+        }
+        
+        .user-card:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .user-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        
+        .user-card h4 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .conclusion-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 35px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            line-height: 1.9;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .conclusion-box strong {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            
+            .problem-solution-container,
+            .principles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Git Ready</h1>
+            <div class="subtitle">非エンジニア向けGit入門サイト</div>
+            <a href="https://zenn.dev/nabewata/articles/d5261127bdd3c5" class="source-link" target="_blank">
+                📖 誰もがGitを触る時代に、やさしい入門サイトを作った
+            </a>
+        </header>
+        
+        <div class="content">
+            <!-- エグゼクティブサマリー -->
+            <div class="section">
+                <div class="section-title">📋 エグゼクティブ・サマリー</div>
+                <div class="summary-box">
+                    AI時代の到来により、デザイナーやライター、ディレクターといった<strong>非エンジニア層にとってもバージョン管理が不可欠なスキル</strong>となりつつあります。しかし、既存の学習リソースは専門用語やコマンドの羅列に終始し、初心者が抱く「失敗への恐怖」を払拭できていません。<br><br>
+                    「Git Ready」は、<strong>概念図と比喩を先行させた説明</strong>、および<strong>「失敗した時の戻し方」に重点を置いた構成</strong>を採用することで、実務でGitを必要とする人々が「触り続けられる」環境を提供します。
+                </div>
+            </div>
+            
+            <!-- 背景 -->
+            <div class="section">
+                <div class="section-title">🌍 背景：バージョン管理の民主化</div>
+                <div class="background-grid">
+                    <div class="background-card">
+                        <h3>👥 利用者層の変化</h3>
+                        <ul>
+                            <li>デザイナーのアセット管理</li>
+                            <li>ライターの原稿履歴管理</li>
+                            <li>PMの仕様書管理</li>
+                        </ul>
+                        <p style="margin-top: 15px; color: #667eea; font-weight: bold;">多様な職種でGitの必要性が高まっている</p>
+                    </div>
+                    <div class="background-card">
+                        <h3>🤖 AIの影響</h3>
+                        <p>AI時代の進展に伴い、非エンジニアにとってもバージョン管理が「自分ごと」として捉えられるようになっている</p>
+                    </div>
+                    <div class="background-card">
+                        <h3>⚠️ 既存リソースの限界</h3>
+                        <ul>
+                            <li>用語説明の不足</li>
+                            <li>コマンドの意味が不明確</li>
+                            <li>失敗時の復旧方法が不明</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 対象ユーザー -->
+            <div class="section">
+                <div class="section-title">🎯 対象ユーザー</div>
+                <div class="target-users">
+                    <div class="user-card">
+                        <div class="user-icon">🎨</div>
+                        <h4>デザイナー</h4>
+                        <p>アセット管理</p>
+                    </div>
+                    <div class="user-card">
+                        <div class="user-icon">✍️</div>
+                        <h4>ライター</h4>
+                        <p>原稿履歴管理</p>
+                    </div>
+                    <div class="user-card">
+                        <div class="user-icon">📊</div>
+                        <h4>ディレクター</h4>
+                        <p>プロジェクト管理</p>
+                    </div>
+                    <div class="user-card">
+                        <div class="user-icon">📝</div>
+                        <h4>PM</h4>
+                        <p>仕様書管理</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 課題と解決策 -->
+            <div class="section">
+                <div class="section-title">💡 最大の障壁とその克服</div>
+                <div class="problem-solution-container">
+                    <div class="problem-box">
+                        <h3>😰 初心者の恐怖</h3>
+                        <ul class="problem-list">
+                            <li>未知の状態になったときの恐怖</li>
+                            <li>失敗したらどうなるか分からない</li>
+                            <li>元に戻せるか不安</li>
+                            <li>専門用語が理解できない</li>
+                        </ul>
+                    </div>
+                    <div class="solution-box">
+                        <h3>🛡️ Git Readyの解決策</h3>
+                        <ul class="solution-list">
+                            <li>心理的安全性の確保</li>
+                            <li>「戻し方」を必ず説明</li>
+                            <li>概念を先に図解で理解</li>
+                            <li>日常語での言い換え</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4つの設計方針 -->
+            <div class="section">
+                <div class="section-title">🎨 4つの設計方針</div>
+                <div class="principles-grid">
+                    <div class="principle-card" data-number="1">
+                        <h3>📊 概念先行型のアプローチ</h3>
+                        <ul>
+                            <li>コマンドの前に図解や比喩で説明</li>
+                            <li>専門用語は日常語で言い換える</li>
+                            <li>「ブランチ」→「木の枝」「平行宇宙」</li>
+                        </ul>
+                    </div>
+                    <div class="principle-card" data-number="2">
+                        <h3>🛡️ 心理的安全性の確保</h3>
+                        <ul>
+                            <li>「元に戻せる確信」が必要</li>
+                            <li>各章の最後に「戻し方」セクション</li>
+                            <li>失敗を恐れず触り続けられる</li>
+                        </ul>
+                    </div>
+                    <div class="principle-card" data-number="3">
+                        <h3>💼 実務に即した事例</h3>
+                        <ul>
+                            <li>ドキュメント・文書作成</li>
+                            <li>デザインアセット</li>
+                            <li>原稿執筆</li>
+                        </ul>
+                    </div>
+                    <div class="principle-card" data-number="4">
+                        <h3>🎯 学習目標の最適化</h3>
+                        <ul>
+                            <li>エンジニアレベルを目指さない</li>
+                            <li>実務で困らない最低限の知識</li>
+                            <li>まず動かせる状態に</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 開発プロセスの洞察 -->
+            <div class="section">
+                <div class="section-title">💡 開発プロセスにおける洞察</div>
+                <div class="insight-box">
+                    <h3>🔍 言語化による理解の深化</h3>
+                    <p>専門用語を日常的な概念へ翻訳する作業（例：「ブランチ」を「木の枝」や「履歴の平行宇宙」と表現）は、<strong>教える側の理解の曖昧さを浮き彫りにし、知識の精度を高める</strong>。</p>
+                </div>
+                <div class="insight-box">
+                    <h3>⚖️ 適切な距離感の維持</h3>
+                    <p>全てを完璧に教えようとすることは初心者の学習を停滞させる。<strong>実務との適切な距離感を保った情報提供が重要</strong>。</p>
+                </div>
+            </div>
+            
+            <!-- 重要な引用 -->
+            <div class="section">
+                <div class="section-title">💬 重要メッセージ</div>
+                <div class="quote-box">
+                    初心者が安心して触り続けるためには「元に戻せる確信」が必要
+                </div>
+                <div class="quote-box">
+                    実務で困らない「最低限の知識」を確実に習得。まずは動かせる状態に引き上げる
+                </div>
+            </div>
+            
+            <!-- 結論 -->
+            <div class="section">
+                <div class="section-title">🎓 結論</div>
+                <div class="conclusion-box">
+                    <strong>Gitが一部の専門家だけの道具であった時代は終焉を迎えつつある</strong>
+                    <p>非エンジニアがバージョン管理という新たな領域に踏み出す際、その心理的・技術的な障壁を低減するための<strong>「やさしい階段」</strong>としての役割が、今後の学習プラットフォームには求められている。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

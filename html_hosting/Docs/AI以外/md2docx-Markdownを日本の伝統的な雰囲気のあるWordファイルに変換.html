@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>md2docx - Markdown to Word変換ツール</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        header .command {
+            font-family: 'Courier New', monospace;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 15px 0;
+            font-size: 1.2em;
+        }
+        
+        header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+        
+        .source-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            margin-top: 10px;
+        }
+        
+        .source-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        
+        .content {
+            padding: 40px 30px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+        }
+        
+        .overview-box {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            font-size: 1.1em;
+            line-height: 1.8;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .problem-solution {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .problem-box, .solution-box {
+            padding: 25px;
+            border-radius: 15px;
+        }
+        
+        .problem-box {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .solution-box {
+            background: #27ae60;
+            color: white;
+        }
+        
+        .problem-box h3, .solution-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .problem-list, .solution-list {
+            list-style: none;
+        }
+        
+        .problem-list li, .solution-list li {
+            padding: 10px 0 10px 30px;
+            position: relative;
+        }
+        
+        .problem-list li::before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .solution-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border: 2px solid #3498db;
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(52, 152, 219, 0.3);
+            background: #3498db;
+            color: white;
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #ecf0f1;
+        }
+        
+        .workflow {
+            background: linear-gradient(to right, #ecf0f1, #bdc3c7);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+        }
+        
+        .workflow-steps {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .workflow-step {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 150px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .workflow-step .step-number {
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .workflow-arrow {
+            font-size: 2em;
+            color: #3498db;
+        }
+        
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .code-block code {
+            color: #2ecc71;
+            font-size: 1.1em;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+        
+        .highlight-box strong {
+            color: #856404;
+        }
+        
+        .tech-stack {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .tech-item {
+            background: white;
+            border: 2px solid #e74c3c;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            color: #e74c3c;
+            transition: all 0.3s;
+        }
+        
+        .tech-item:hover {
+            background: #e74c3c;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .problem-solution {
+                grid-template-columns: 1fr;
+            }
+            
+            .workflow-steps {
+                flex-direction: column;
+            }
+            
+            .workflow-arrow {
+                transform: rotate(90deg);
+            }
+            
+            .section-title {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📄 md2docx</h1>
+            <div class="command">コマンド: mdd</div>
+            <div class="subtitle">Markdownを日本の伝統的な雰囲気のあるWordファイルに変換</div>
+            <a href="https://qiita.com/nokonoko_1203/items/87a71916c155d69a336b" class="source-link" target="_blank">
+                📖 Markdownを日本の伝統的な雰囲気のあるWordファイルに変換するCLIツール「md2docx」を作った
+            </a>
+        </header>
+        
+        <div class="content">
+            <!-- 概要 -->
+            <div class="section">
+                <div class="section-title">🎯 概要</div>
+                <div class="overview-box">
+                    <strong>md2docx</strong>は、Markdownファイルを<strong>日本のビジネス文書の慣習に適合したWord（.docx）形式</strong>へ変換するためのRust製CLIツールです。エンジニアが使い慣れたMarkdownでドキュメントを作成しながら、クライアントや業務で求められる「日本の伝統的な雰囲気」を持つWordファイルを一発で生成することを目的に開発されました。
+                </div>
+            </div>
+            
+            <!-- 開発背景 -->
+            <div class="section">
+                <div class="section-title">💡 開発背景と解決する課題</div>
+                <div class="problem-solution">
+                    <div class="problem-box">
+                        <h3>❌ 課題</h3>
+                        <ul class="problem-list">
+                            <li>エンジニアはMarkdownを好む</li>
+                            <li>実務ではWord形式が必須</li>
+                            <li>既存ツールでは日本語特有の書式に対応困難</li>
+                            <li>図表番号の自動採番ができない</li>
+                            <li>手動修正コストが高い</li>
+                        </ul>
+                    </div>
+                    <div class="solution-box">
+                        <h3>✅ 解決策</h3>
+                        <ul class="solution-list">
+                            <li>Markdownの生産性を維持</li>
+                            <li>日本のビジネス文書基準に対応</li>
+                            <li>游明朝・游ゴシックをデフォルト適用</li>
+                            <li>図表番号を自動採番</li>
+                            <li>TOML設定で一括カスタマイズ</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 主な機能 -->
+            <div class="section">
+                <div class="section-title">⚡ 主な特徴と機能</div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🇯🇵</div>
+                        <h3>日本ビジネス文書特化</h3>
+                        <p>游明朝・游ゴシックがデフォルトで適用され、即座に業務利用可能</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔢</div>
+                        <h3>強力な自動採番</h3>
+                        <p>見出し、表、画像に自動で図表番号を付与（表1.1、図1など）</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚙️</div>
+                        <h3>高度なカスタマイズ性</h3>
+                        <p>フォント、余白、字下げ、箇条書き記号を設定ファイルで管理</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📝</div>
+                        <h3>幅広いMarkdown対応</h3>
+                        <p>リスト、GFM表、画像、コードブロック、太字、リンクなど網羅</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 変換の流れ -->
+            <div class="section">
+                <div class="section-title">🔄 変換ワークフロー</div>
+                <div class="workflow">
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <div class="step-number">1</div>
+                            <div>📝</div>
+                            <strong>Markdown作成</strong>
+                            <p>使い慣れたエディタで</p>
+                        </div>
+                        <div class="workflow-arrow">→</div>
+                        <div class="workflow-step">
+                            <div class="step-number">2</div>
+                            <div>⚙️</div>
+                            <strong>設定（任意）</strong>
+                            <p>TOMLで細かく調整</p>
+                        </div>
+                        <div class="workflow-arrow">→</div>
+                        <div class="workflow-step">
+                            <div class="step-number">3</div>
+                            <div>🚀</div>
+                            <strong>コマンド実行</strong>
+                            <p>mdd input.md</p>
+                        </div>
+                        <div class="workflow-arrow">→</div>
+                        <div class="workflow-step">
+                            <div class="step-number">4</div>
+                            <div>📄</div>
+                            <strong>Word出力</strong>
+                            <p>ビジネス品質の.docx</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 導入方法 -->
+            <div class="section">
+                <div class="section-title">🛠️ 導入と利用方法</div>
+                <div class="highlight-box">
+                    <strong>必要要件:</strong> Rust 1.70以上
+                </div>
+                
+                <h3 style="margin: 20px 0; color: #2c3e50;">基本コマンド</h3>
+                <div class="code-block">
+                    <code>mdd input.md</code>
+                </div>
+                
+                <h3 style="margin: 20px 0; color: #2c3e50;">オプション指定</h3>
+                <div class="code-block">
+                    <code>mdd input.md -o output.docx -c config.toml</code>
+                </div>
+                
+                <table class="comparison-table" style="margin-top: 25px;">
+                    <thead>
+                        <tr>
+                            <th>オプション</th>
+                            <th>説明</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>-o, --output</code></td>
+                            <td>出力ファイル名を指定</td>
+                        </tr>
+                        <tr>
+                            <td><code>-c, --config</code></td>
+                            <td>設定ファイルを指定</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 技術スタック -->
+            <div class="section">
+                <div class="section-title">🔧 技術スタック</div>
+                <div class="tech-stack">
+                    <div class="tech-item">🦀 Rust</div>
+                    <div class="tech-item">📋 TOML</div>
+                    <div class="tech-item">📝 Markdown</div>
+                    <div class="tech-item">📄 .docx</div>
+                </div>
+            </div>
+            
+            <!-- 従来ツールとの比較 -->
+            <div class="section">
+                <div class="section-title">📊 従来ツールとの違い</div>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>機能</th>
+                            <th>Pandoc等の既存ツール</th>
+                            <th>md2docx</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>図表番号の自動採番</strong></td>
+                            <td>❌ 困難</td>
+                            <td>✅ 対応（表1.1、図1など）</td>
+                        </tr>
+                        <tr>
+                            <td><strong>日本語フォント設定</strong></td>
+                            <td>⚠️ 手動調整が必要</td>
+                            <td>✅ 游明朝・游ゴシックがデフォルト</td>
+                        </tr>
+                        <tr>
+                            <td><strong>見出し階層構造</strong></td>
+                            <td>⚠️ カスタマイズ複雑</td>
+                            <td>✅ 日本式（1, 1.1, (1)）自動適用</td>
+                        </tr>
+                        <tr>
+                            <td><strong>インデント・余白調整</strong></td>
+                            <td>⚠️ 細かい制御が困難</td>
+                            <td>✅ twip単位で詳細設定可能</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 結論 -->
+            <div class="section">
+                <div class="section-title">🎓 結論</div>
+                <div class="overview-box">
+                    md2docxは、<strong>Markdownの生産性とWordのフォーマット要求を両立</strong>させるツールです。特に「<strong>図表番号の自動採番</strong>」という従来のツールでは困難だった課題を解決しており、実務レベルで「日本の伝統的な業務」に耐えうるドキュメント作成を強力に支援します。
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

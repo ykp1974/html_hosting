@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Copilot 劇的進化インフォグラフィック</title>
+    <style>
+        :root {
+            --copilot-blue: #00a4ef;
+            --copilot-gradient: linear-gradient(135deg, #00a4ef 0%, #0078d4 100%);
+            --bg-dark: #0a0c10;
+            --card-bg: #161b22;
+            --text-light: #f0f6fc;
+            --text-dim: #8b949e;
+            --accent: #79c0ff;
+            --border: #30363d;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo-area {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--copilot-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .link-tag {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: rgba(0, 164, 239, 0.1);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: 50px;
+            border: 1px solid var(--accent);
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .link-tag:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .comp-box {
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        .comp-past { background: rgba(234, 67, 53, 0.05); border: 1px solid rgba(234, 67, 53, 0.2); }
+        .comp-future { background: rgba(52, 168, 83, 0.05); border: 1px solid rgba(52, 168, 83, 0.2); }
+
+        .comp-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+
+        .feature-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .case-study {
+            background: #0d1117;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .badge {
+            background: var(--copilot-gradient);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        footer {
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 600px) {
+            .hero-stats, .comparison, .grid-2 { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <div class="logo-area">Microsoft Copilot Evolution</div>
+        <h1>GPT-5.4 Think Deeper モードの衝撃</h1>
+        <a href="https://qiita.com/mnoda/items/3d9cf2d00f8f04a1b2ac" class="link-tag" target="_blank">
+            🔗 Copilotの性能向上におったまげた！2026年3月から利用可能になったGPT-5.4 Think Deeperモード
+        </a>
+    </header>
+
+    <div class="hero-stats">
+        <div class="stat-card">
+            <span class="stat-label">最大思考時間</span>
+            <span class="stat-value">20 min</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">出力規模</span>
+            <span class="stat-value">50 pages</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-label">導入コスト</span>
+            <span class="stat-value">Free</span>
+        </div>
+    </div>
+
+    <div class="comparison">
+        <div class="comp-box comp-past">
+            <div class="comp-title">❌ 以前の課題 (2025まで)</div>
+            <ul class="feature-list">
+                <li>回答が簡略化され情報不足</li>
+                <li>長文生成時にタイムアウト頻発</li>
+                <li>他社AIに比べ「使い物にならない」評価</li>
+            </ul>
+        </div>
+        <div class="comp-box comp-future">
+            <div class="comp-title">✅ 新時代のCopilot (2026.3〜)</div>
+            <ul class="feature-list">
+                <li>「考え抜く」プロセスで精度が飛躍</li>
+                <li>1万字を超える超長文を完走</li>
+                <li>無料ユーザーにも高度な推論を開放</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="case-study">
+        <span class="badge">検証成果：実務レベルのドキュメント生成</span>
+        <h3>三井不動産を事例とした戦略立案タスク</h3>
+        <p style="font-size: 0.9rem; color: var(--text-dim);">ホームページの組織図からビルディング本部の戦略を策定させた結果：</p>
+        <div class="grid-2">
+            <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px;">
+                <b style="color: var(--accent);">37 ページ</b><br>
+                <small>Wordエクスポート時の分量</small>
+            </div>
+            <div style="background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px;">
+                <b style="color: var(--accent);">12,085 文字</b><br>
+                <small>密度のある詳細な情報提供</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2" style="margin-bottom: 40px;">
+        <div class="stat-card">
+            <h4>🏢 法人導入メリット</h4>
+            <p style="font-size: 0.85rem; text-align: left;">M365 Business Standard環境があれば、追加ライセンスなしでもブラウザから高度な活用が可能。</p>
+        </div>
+        <div class="stat-card">
+            <h4>🚀 業務へのインパクト</h4>
+            <p style="font-size: 0.85rem; text-align: left;">研修資料の自動作成、公開情報に基づく専門的な分析など、工数を劇的に削減。</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>「使いにくい」という認識はもう古い。Copilotは業務フローに不可欠な主軸ツールへ。</p>
+    </footer>
+</div>
+
+</body>
+</html>

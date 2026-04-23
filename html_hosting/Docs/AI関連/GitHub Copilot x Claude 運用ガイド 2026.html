@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Copilot x Claude 運用ガイド 2026g</title>
+    <style>
+        :root {
+            --github-dark: #0d1117;
+            --github-card: #161b22;
+            --anthropic-accent: #d97757; /* Claudeのイメージ */
+            --copilot-blue: #2f81f7;
+            --text-main: #f0f6fc;
+            --text-sub: #8b949e;
+            --border: #30363d;
+            --success: #238636;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            background-color: var(--github-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--github-card);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 0 0 10px 0;
+            background: linear-gradient(90deg, var(--copilot-blue), var(--anthropic-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .external-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: rgba(47, 129, 247, 0.1);
+            color: var(--copilot-blue);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border: 1px solid var(--copilot-blue);
+            transition: 0.3s;
+        }
+
+        .external-link:hover {
+            background: var(--copilot-blue);
+            color: white;
+        }
+
+        .summary-box {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 40px;
+            border-left: 4px solid var(--anthropic-accent);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--copilot-blue);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card h3::before {
+            content: "◆";
+            margin-right: 8px;
+            font-size: 0.8rem;
+        }
+
+        .model-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.85rem;
+        }
+
+        .model-table th, .model-table td {
+            border: 1px solid var(--border);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .model-table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-sub);
+        }
+
+        .premium-multiplier {
+            color: var(--anthropic-accent);
+            font-weight: bold;
+        }
+
+        .usage-bar-container {
+            margin-top: 10px;
+        }
+
+        .usage-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+        }
+
+        .progress-bg {
+            background: #30363d;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: var(--copilot-blue);
+            height: 100%;
+            width: 65%; /* 視覚的な例 */
+        }
+
+        .budget-box {
+            background: rgba(35, 134, 54, 0.1);
+            border: 1px solid var(--success);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            color: var(--text-sub);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>VSCode x Claude 運用管理ガイド</h1>
+        <p style="color: var(--text-sub);">GitHub Copilot サブスクリプションでの戦略的AI活用</p>
+        <a href="https://dev.classmethod.jp/articles/shoma-how-to-use-claude-code-with-github-copilot-in-vscode/" class="external-link" target="_blank">
+            🔗 VSCode の GitHub Copilot で Claude を使う方法
+        </a>
+    </header>
+
+    <div class="summary-box">
+        <strong>エグゼクティブ・サマリー:</strong><br>
+        Copilot Business/Enterprise利用者は、追加コストなしでClaude最新モデルを利用可能。高性能モデル使用時の「Premium requests」を戦略的に管理することが、運用の成否を分けます。
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>導入環境と設定</h3>
+            <ul style="padding-left: 20px; font-size: 0.9rem;">
+                <li><b>前提:</b> Business / Enterpriseプラン</li>
+                <li><b>設定:</b> チャット欄のエージェントを「Claude」へ切り替え</li>
+                <li><b>メリット:</b> Anthropicとの個別契約・APIキー不要</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>リクエスト制限区分</h3>
+            <div class="usage-bar-container">
+                <div class="usage-label"><span>Inline / Chat</span><span style="color: var(--success);">Included (無制限)</span></div>
+                <div class="usage-label"><span>Premium requests (Claude等)</span><span style="color: var(--anthropic-accent);">上限あり (消費制)</span></div>
+                <div class="progress-bg"><div class="progress-fill"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <h3 style="color: var(--anthropic-accent); border-bottom: 1px solid var(--border); padding-bottom: 10px;">利用可能モデルと「Premium 倍率」</h3>
+    <table class="model-table">
+        <thead>
+            <tr>
+                <th>モデル名</th>
+                <th>倍率</th>
+                <th>推奨用途</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><b>Claude Haiku 4.5</b></td>
+                <td class="premium-multiplier">0.33x</td>
+                <td>軽量・高速。日常的なコーディング。</td>
+            </tr>
+            <tr>
+                <td><b>Claude Sonnet 4 / 4.5</b></td>
+                <td class="premium-multiplier">1x</td>
+                <td>バランス型。標準的な開発作業全般。</td>
+            </tr>
+            <tr>
+                <td><b>Claude Opus 4.5 / 4.6</b></td>
+                <td class="premium-multiplier">3x</td>
+                <td>最高性能。複雑な設計・高度なリファクタリング。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="grid" style="margin-top: 40px;">
+        <div class="card">
+            <h3>モニタリング方法</h3>
+            <p style="font-size: 0.85rem;">
+                <b>VSCode内:</b> 右下のCopilotアイコンからパネル表示。<br>
+                <b>Web:</b> GitHub設定の「Usage」から詳細なプログレスバーを確認。
+            </p>
+        </div>
+        <div class="card">
+            <h3>予算管理と対応</h3>
+            <p style="font-size: 0.85rem;">
+                <b>予算 $0 設定の場合:</b> 無料枠終了時にClaude利用が停止。<br>
+                <b>継続方法:</b> 翌月待機、標準モデルへの切り替え、または管理者による予算追加。
+            </p>
+        </div>
+    </div>
+
+    <div class="budget-box">
+        <h4 style="margin-top:0;">💡 運用のポイント</h4>
+        <p style="margin:0; font-size: 0.9rem;">タスクの難易度に応じて <b>Haiku (0.33x)</b> と <b>Opus (3x)</b> を使い分けることで、月間の利用可能リクエスト数を最大化できます。</p>
+    </div>
+
+    <footer>
+        結論：追加契約なしで最高峰のAIをワークフローに統合。倍率管理が鍵となる。
+    </footer>
+</div>
+
+</body>
+</html>
