@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code 最適化スキル ブリーフィング図解</title>
+    <style>
+        :root {
+            --claude-bg: #f3f0e9;
+            --claude-accent: #d97757;
+            --claude-text: #3d3929;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--claude-bg);
+            color: var(--claude-text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--claude-accent);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 { font-size: 1.8rem; color: var(--claude-accent); margin-bottom: 10px; }
+        h2 { 
+            background: var(--claude-accent); 
+            color: #fff; 
+            padding: 10px 15px; 
+            border-radius: 8px;
+            font-size: 1.2rem;
+            margin-top: 40px;
+        }
+
+        .summary-box {
+            background-color: #fef2f2;
+            border-left: 5px solid #ef4444;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+        /* リスク管理エリア */
+        .risk-management {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .risk-card {
+            background: #fffaf0;
+            border: 1px solid #feebc8;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        /* スキルグリッド */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .skill-card {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .skill-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--claude-accent); }
+        .skill-icon { font-size: 2rem; margin-bottom: 10px; }
+        .skill-name { font-weight: bold; font-size: 1.1rem; color: var(--claude-accent); margin-bottom: 10px; }
+        .skill-desc { font-size: 0.95rem; flex-grow: 1; }
+
+        /* カテゴリーテーブル */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th { background-color: var(--claude-accent); color: white; padding: 12px; text-align: left; }
+        td { border-bottom: 1px solid var(--border-color); padding: 12px; vertical-align: top; }
+
+        .process-steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 30px 0;
+        }
+        .step {
+            flex: 1;
+            text-align: center;
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        .step-num { font-weight: bold; color: var(--claude-accent); display: block; margin-bottom: 5px; }
+
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #666;
+            text-align: center;
+        }
+        .source-link { color: var(--claude-accent); text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Claude Code 最適化スキル 活用ガイド</h1>
+        <p>AIコーディングの生産性を最大化するための戦略的ブリーフィング</p>
+    </header>
+
+    <div class="summary-box">
+        <strong>エグゼクティブ・サマリー：</strong><br>
+        「スキル」はClaude Codeの挙動を直接制御する強力なプログラムです。導入によりメタ思考や計画の永続化が可能になりますが、セキュリティリスクを伴うため「作成者の信頼性確認」と「コードの検証」が不可欠です。
+    </div>
+
+    <h2>1. 導入時の安全原則（リスク管理）</h2>
+    <div class="risk-management">
+        <div class="risk-card">
+            <strong>⚠️ 実行権限の理解</strong>
+            <p>スキルはClaudeの挙動を直接制御します。不正なコードはシステム全体に影響を及ぼす可能性があります。</p>
+        </div>
+        <div class="risk-card">
+            <strong>🔍 安全性の確認プロセス</strong>
+            <p>誰でも公開できる性質上、著名な開発者やAnthropic公式のものを優先し、自らソースを確認することが推奨されます。</p>
+        </div>
+    </div>
+
+    
+
+    <h2>2. 厳選された推奨スキル 5選</h2>
+    <div class="skills-grid">
+        <div class="skill-card">
+            <span class="skill-icon">🧠</span>
+            <div class="skill-name">① Superpowers</div>
+            <div class="skill-desc">基礎能力を底上げするメタスキル。エラーの根本原因を追求し、サブエージェントを駆使して高度な解決策を提示します。</div>
+        </div>
+        <div class="skill-card">
+            <span class="skill-icon">📅</span>
+            <div class="skill-name">② Planning with Kails</div>
+            <div class="skill-desc">Markdownでの計画策定。セッションを跨いでもタスク進捗や意思決定が記録として残り、長期開発を支えます。</div>
+        </div>
+        <div class="skill-card">
+            <span class="skill-icon">🩺</span>
+            <div class="skill-name">③ Claude Health</div>
+            <div class="skill-desc">設定状況の「健康診断」。6層のスキャンで設定の重複やスキル間の競合、肥大化を可視化します。</div>
+        </div>
+        <div class="skill-card">
+            <span class="skill-icon">🎨</span>
+            <div class="skill-name">④ Front-end Design</div>
+            <div class="skill-desc">Anthropic公式パッケージ。Office系文書の操作からCanvas、アルゴリズムアートまで、多機能を一括導入。</div>
+        </div>
+        <div class="skill-card">
+            <span class="skill-icon">📊</span>
+            <div class="skill-name">⑤ Understand Anything</div>
+            <div class="skill-desc">巨大なコードベースのナレッジグラフ化。依存関係を視覚的に理解し、オンボーディング時間を短縮します。</div>
+        </div>
+    </div>
+
+    
+
+    <h2>3. Front-end Design カテゴリー詳細</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>カテゴリー</th>
+                <th>主な機能と特徴</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>ドキュメント系</strong></td>
+                <td>Word/Excel/PDFの読み書き、スライド生成、変更履歴の管理など。</td>
+            </tr>
+            <tr>
+                <td><strong>クリエイティブ系</strong></td>
+                <td>フロントエンドのデザイン能力向上、Canvas、アルゴリズミック・アート。</td>
+            </tr>
+            <tr>
+                <td><strong>開発者向け</strong></td>
+                <td>MCPサーバー構築用スキルの提供など。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>4. 実装・運用プロセス</h2>
+    <div class="process-steps">
+        <div class="step">
+            <span class="step-num">STEP 1</span>
+            <strong>選定</strong><br>目的（思考・計画・可視化）に応じて選択。
+        </div>
+        <div class="step">
+            <span class="step-num">STEP 2</span>
+            <strong>導入</strong><br>URLを渡し「このスキルを入れて」と依頼。
+        </div>
+        <div class="step">
+            <span class="step-num">STEP 3</span>
+            <strong>診断</strong><br>Healthスキルで定期的な競合チェック。
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>出典：</strong> <a href="https://www.youtube.com/watch?v=6FQ1V0QifwY" class="source-link" target="_blank">毎日12時間Claude Code使っている私の必須スキルたちを紹介します。</a></p>
+        <p>&copy; 2024 Claude Code Optimization Guide</p>
+    </footer>
+</div>
+
+</body>
+</html>

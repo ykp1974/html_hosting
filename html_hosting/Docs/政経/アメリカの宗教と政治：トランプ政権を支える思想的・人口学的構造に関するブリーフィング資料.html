@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アメリカの宗教と政治：トランプ政権を支える思想的・人口学的構造</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;600;800&family=Crimson+Pro:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1e3a5f;
+            --secondary-burgundy: #8b2635;
+            --accent-gold: #d4af37;
+            --accent-bronze: #cd7f32;
+            --bg-cream: #f5f1e8;
+            --bg-white: #ffffff;
+            --text-dark: #2c2c2c;
+            --text-medium: #4a4a4a;
+            --text-light: #6b6b6b;
+            --border-subtle: #d4cfc5;
+            --highlight-blue: #4169e1;
+            --highlight-red: #dc143c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        .document-frame {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .document-header {
+            background: var(--bg-white);
+            border: 3px solid var(--primary-navy);
+            border-radius: 0;
+            padding: 3rem 3rem 2.5rem 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .document-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-navy) 0%, var(--secondary-burgundy) 50%, var(--accent-gold) 100%);
+        }
+
+        .classified-badge {
+            display: inline-block;
+            background: var(--secondary-burgundy);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            border-radius: 2px;
+        }
+
+        .video-source {
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.05) 0%, rgba(139, 38, 53, 0.05) 100%);
+            padding: 1rem 1.5rem;
+            border-left: 4px solid var(--accent-gold);
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .video-source h3 {
+            font-size: 0.8rem;
+            color: var(--secondary-burgundy);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .video-source a {
+            color: var(--primary-navy);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .video-source a:hover {
+            color: var(--secondary-burgundy);
+        }
+
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1rem;
+            color: var(--text-medium);
+            font-style: italic;
+            margin-bottom: 2rem;
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .executive-summary {
+            background: var(--bg-white);
+            padding: 2.5rem;
+            border: 2px solid var(--border-subtle);
+            margin-bottom: 3rem;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .executive-summary::before {
+            content: 'EXECUTIVE SUMMARY';
+            position: absolute;
+            top: -12px;
+            left: 30px;
+            background: var(--bg-cream);
+            padding: 0 15px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--secondary-burgundy);
+            letter-spacing: 2px;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .executive-summary p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--text-medium);
+            margin-bottom: 1.5rem;
+        }
+
+        .key-points {
+            background: linear-gradient(135deg, rgba(30, 58, 95, 0.03) 0%, rgba(139, 38, 53, 0.03) 100%);
+            padding: 1.5rem 2rem;
+            border-left: 5px solid var(--accent-gold);
+            margin-top: 1.5rem;
+        }
+
+        .key-points h3 {
+            font-size: 1.1rem;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .key-points li {
+            padding: 0.7rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--text-medium);
+            line-height: 1.7;
+        }
+
+        .key-points li::before {
+            content: '▪';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-burgundy);
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .key-points strong {
+            color: var(--primary-navy);
+            font-weight: 700;
+        }
+
+        .section {
+            background: var(--bg-white);
+            margin-bottom: 3rem;
+            padding: 2.5rem;
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        .section-header {
+            border-bottom: 3px solid var(--primary-navy);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .section-number {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            line-height: 1;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .section-title h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 0.3rem;
+        }
+
+        .section-title p {
+            font-size: 0.95rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .subsection {
+            margin-bottom: 2.5rem;
+        }
+
+        .subsection h3 {
+            font-size: 1.4rem;
+            color: var(--secondary-burgundy);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .subsection h3::before {
+            content: '■';
+            color: var(--accent-bronze);
+            font-size: 0.8rem;
+        }
+
+        .subsection p {
+            color: var(--text-medium);
+            line-height: 1.9;
+            margin-bottom: 1rem;
+        }
+
+        .subsection ul {
+            list-style: none;
+            padding: 0;
+            margin-left: 1.5rem;
+        }
+
+        .subsection li {
+            padding: 0.6rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-medium);
+            line-height: 1.8;
+        }
+
+        .subsection li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-bronze);
+            font-weight: 700;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(65, 105, 225, 0.05) 0%, rgba(220, 20, 60, 0.05) 100%);
+            padding: 1.5rem;
+            border-left: 4px solid var(--highlight-blue);
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .info-box.warning {
+            border-left-color: var(--highlight-red);
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.05) 0%, rgba(139, 38, 53, 0.05) 100%);
+        }
+
+        .info-box p {
+            color: var(--text-medium);
+            line-height: 1.8;
+            margin: 0;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: var(--bg-cream);
+            padding: 1.5rem;
+            border: 2px solid var(--border-subtle);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .stat-card .stat-value {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card .stat-description {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        .religious-structure {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .religious-pillar {
+            background: linear-gradient(135deg, var(--bg-white) 0%, var(--bg-cream) 100%);
+            padding: 2rem;
+            border: 2px solid var(--border-subtle);
+            border-top: 5px solid var(--primary-navy);
+        }
+
+        .religious-pillar h4 {
+            font-size: 1.3rem;
+            color: var(--primary-navy);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .religious-pillar .badge {
+            display: inline-block;
+            background: var(--secondary-burgundy);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.75rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .religious-pillar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .religious-pillar li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-medium);
+            line-height: 1.7;
+        }
+
+        .religious-pillar li::before {
+            content: '✦';
+            position: absolute;
+            left: 0;
+            color: var(--accent-gold);
+        }
+
+        .leaders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .leader-card {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border: 2px solid var(--border-subtle);
+            border-left: 5px solid var(--secondary-burgundy);
+        }
+
+        .leader-card .name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .leader-card .position {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .leader-card .description {
+            font-size: 0.95rem;
+            color: var(--text-medium);
+            line-height: 1.7;
+        }
+
+        .thought-flow {
+            background: var(--bg-white);
+            padding: 2rem;
+            border: 2px dashed var(--border-subtle);
+            margin: 2rem 0;
+        }
+
+        .thought-flow h4 {
+            font-size: 1.2rem;
+            color: var(--secondary-burgundy);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .flow-step .step-number {
+            min-width: 40px;
+            height: 40px;
+            background: var(--accent-gold);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .flow-step .step-content {
+            flex: 1;
+            padding: 1rem;
+            background: var(--bg-cream);
+            border-left: 3px solid var(--primary-navy);
+        }
+
+        .conclusion {
+            background: linear-gradient(135deg, var(--primary-navy) 0%, var(--secondary-burgundy) 100%);
+            padding: 3rem;
+            color: white;
+            margin-top: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .conclusion h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: var(--accent-gold);
+        }
+
+        .conclusion p {
+            font-size: 1.1rem;
+            line-height: 2;
+            margin-bottom: 1.5rem;
+            opacity: 0.95;
+        }
+
+        .conclusion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .conclusion-point {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-gold);
+        }
+
+        .conclusion-point h3 {
+            font-size: 1.3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-family: 'Crimson Pro', serif;
+        }
+
+        .conclusion-point p {
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 3rem;
+            border-top: 2px solid var(--border-subtle);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .section-number {
+                font-size: 2.5rem;
+            }
+
+            .religious-structure,
+            .leaders-grid,
+            .conclusion-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="document-frame">
+        <div class="document-header">
+            <div class="classified-badge">BRIEFING MATERIAL</div>
+            
+            <div class="video-source">
+                <h3>📹 SOURCE MATERIAL</h3>
+                <a href="https://www.youtube.com/watch?v=j61uDafSP50" target="_blank">
+                    【宗教で読むトランプ政権】アメリカでカトリックが増えるワケ
+                </a>
+            </div>
+
+            <h1>アメリカの宗教と政治：トランプ政権を支える思想的・人口学的構造に関するブリーフィング資料</h1>
+            <p class="subtitle">Religion, Demographics, and Political Power in Contemporary America</p>
+        </div>
+
+        <section class="executive-summary">
+            <p>
+                現在のアメリカ政治、特にトランプ政権の支持基盤を理解する上で、宗教と人口統計の変化は不可欠な要素である。本資料では、従来の「白人・福音派」という枠組みを超え、ヒスパニック層の共和党支持への転換、カトリック共同体主義の再評価、そしてそれらを支える新右翼的な思想背景を分析する。
+            </p>
+
+            <div class="key-points">
+                <h3>主要ポイント</h3>
+                <ul>
+                    <li><strong>人口動態の変化と政治的転換：</strong> 白人アングロサクソンがマイノリティ化する中で、伝統的価値観を重視するヒスパニック層（特に男性）が民主党から共和党支持へと大きくシフトしている。</li>
+                    <li><strong>宗教的ハイブリッド化：</strong> プロテスタント福音派に加え、「MAGAカトリック」と呼ばれる保守的カトリック層が政権中枢（バンス副大統領、ルビオ国務長官ら）で影響力を強めている。</li>
+                    <li><strong>「リベラリズムの失敗」と共同体主義：</strong> 行き過ぎた個人主義や平等主義の限界に対し、カトリック的な階層性や共同体主義が、テック業界の有力者（ピーター・ティール等）を介して政治思想に取り入れられている。</li>
+                    <li><strong>イスラエル問題の国内化：</strong> 米国における熱烈なイスラエル支持の主体は、ユダヤ人以上に「ユダヤ・キリスト教」的価値観を持つキリスト教福音派であり、多額の資金提供を通じて外交政策に影響を与えている。</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <div class="section-title">
+                    <h2>人口動態の変化とヒスパニック層の動向</h2>
+                    <p>Demographic Shifts and Hispanic Voting Patterns</p>
+                </div>
+            </div>
+
+            <p style="color: var(--text-medium); margin-bottom: 2rem; line-height: 1.9;">
+                アメリカの人口構成の変化は、宗教的・政治的景観を劇的に塗り替えている。
+            </p>
+
+            <div class="subsection">
+                <h3>マイノリティ化する白人層</h3>
+                <p>
+                    白人アングロサクソン系アメリカ人が間もなくマイノリティになるという危機感が、保守層の結束を強めている。
+                </p>
+            </div>
+
+            <div class="subsection">
+                <h3>ヒスパニック層の共和党シフト</h3>
+                <ul>
+                    <li>伝統的に民主党支持だったヒスパニック層、特に男性において、2024年選挙ではトランプ支持への劇的な転換が見られた。</li>
+                    <li>背景には、LGBTQ+などのマイノリティの権利を強調しすぎるリベラルな政治姿勢への反発がある。</li>
+                    <li>ヒスパニック層は伝統的な家族のあり方（男女の結婚など）を重視し、宗教的信念が共和党の掲げる価値観と合致している。</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <p>
+                    <strong>宗教の回収（コンバージョン）：</strong> ヒスパニック層の中で、元来のカトリックからキリスト教福音派へ回収する動きが活発化しており、南部諸州での共和党支持拡大の要因となっている。
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <div class="section-title">
+                    <h2>トランプ政権を支える宗教的勢力図</h2>
+                    <p>Religious Forces Supporting the Trump Administration</p>
+                </div>
+            </div>
+
+            <p style="color: var(--text-medium); margin-bottom: 2rem; line-height: 1.9;">
+                トランプ政権の支持基盤は、複数の宗教的柱によって構成されている。
+            </p>
+
+            <div class="religious-structure">
+                <div class="religious-pillar">
+                    <div class="badge">PROTESTANT</div>
+                    <h4>キリスト教福音派（プロテスタント）</h4>
+                    <ul>
+                        <li>第1次政権時からの強固な支持層</li>
+                        <li>トランプ氏を「神に救われた存在」として神格化する傾向</li>
+                        <li>カリスマ牧師たちが大きな影響力を持つ</li>
+                        <li>イスラエル支援の最大資金源</li>
+                    </ul>
+                </div>
+
+                <div class="religious-pillar">
+                    <div class="badge">CATHOLIC</div>
+                    <h4>MAGAカトリックの台頭</h4>
+                    <ul>
+                        <li>政権中枢にカトリック信者が配置</li>
+                        <li>共同体主義的思想を政治に反映</li>
+                        <li>バンス副大統領、ルビオ国務長官らが代表</li>
+                        <li>新しい保守的価値観の体現</li>
+                    </ul>
+                </div>
+
+                <div class="religious-pillar">
+                    <div class="badge">INSTITUTIONAL</div>
+                    <h4>制度化される宗教政治</h4>
+                    <ul>
+                        <li>第2次トランプ政権で「信仰局」が設置</li>
+                        <li>宗教が政治・行政に直接関与</li>
+                        <li>政策決定プロセスへの影響力増大</li>
+                        <li>宗教的価値観の制度化</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="leaders-grid">
+                <div class="leader-card">
+                    <div class="name">J.D.バンス</div>
+                    <div class="position">副大統領</div>
+                    <div class="description">
+                        プロテスタントからカトリックに回収した経緯を持つ。共同体主義的価値観を政権に持ち込む重要人物。
+                    </div>
+                </div>
+
+                <div class="leader-card">
+                    <div class="name">マルコ・ルビオ</div>
+                    <div class="position">国務長官</div>
+                    <div class="description">
+                        保守的カトリックの価値観を体現。外交政策にも宗教的視点を反映させる。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <div class="section-title">
+                    <h2>思想的背景：カトリック共同体主義と新右翼</h2>
+                    <p>Intellectual Foundations: Catholic Communitarianism and the New Right</p>
+                </div>
+            </div>
+
+            <p style="color: var(--text-medium); margin-bottom: 2rem; line-height: 1.9;">
+                アメリカで伝統的に優勢だったプロテスタント的個人主義に対し、カトリック的思想が再評価されている。
+            </p>
+
+            <div class="subsection">
+                <h3>リベラリズムの限界</h3>
+                <p>
+                    パトリック・デニーン教授の著書『リベラリズムの失敗』に象徴されるように、個人主義・自由競争・行き過ぎた平等主義が社会の分断を招いたとする見方が強まっている。
+                </p>
+            </div>
+
+            <div class="thought-flow">
+                <h4>共同体主義への回帰の論理</h4>
+                <div class="flow-steps">
+                    <div class="flow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <strong>人間の本質的ニーズ：</strong> 人間は「帰属意識」を根本的に求める存在である
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <strong>プロテスタント的問題：</strong> 平等主義が「個人の使命」を希薄化させた
+                        </div>
+                    </div>
+                    <div class="flow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <strong>カトリック的解決：</strong> 「階層性」や「役割分担」が社会秩序再構築のモデルとして注目
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>テック業界との接点</h3>
+                <ul>
+                    <li>ピーター・ティールなどのテック業界有力者が、ルネ・ジラールやデニーンといったカトリック思想家の影響を受けている。</li>
+                    <li>これらの思想がバンス副大統領らを通じて政策決定に反映される構造がある。</li>
+                </ul>
+            </div>
+
+            <div class="info-box warning">
+                <p>
+                    <strong>重要な転換点：</strong> シリコンバレーのリバタリアニズムから、カトリック的共同体主義への思想的転換が、現在の政治情勢を形成する重要な要素となっている。
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <div class="section-title">
+                    <h2>宗教が外交に与える影響：イスラエル問題</h2>
+                    <p>Religious Impact on Foreign Policy: The Israel Question</p>
+                </div>
+            </div>
+
+            <p style="color: var(--text-medium); margin-bottom: 2rem; line-height: 1.9;">
+                イスラエル支援は、アメリカ国内の宗教勢力にとって極めて重要なアジェンダである。
+            </p>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-label">ユダヤ系人口</div>
+                    <div class="stat-value">2%</div>
+                    <div class="stat-description">
+                        アメリカ総人口に占める割合
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">福音派人口</div>
+                    <div class="stat-value">25%</div>
+                    <div class="stat-description">
+                        イスラエル支援の主要勢力
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>福音派による支援</h3>
+                <ul>
+                    <li>イスラエルを熱烈に支持しているのはユダヤ系アメリカ人（人口2%）だけではない。</li>
+                    <li>むしろ多額の寄付を行い政治的圧力をかけているのはキリスト教福音派である。</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3>「ユダヤ・キリスト教」という感覚</h3>
+                <p>
+                    福音派は「ユダヤ・キリスト教」という一体的価値観を持ち、イスラエル支援を信仰上の義務と捉えている。
+                </p>
+            </div>
+
+            <div class="subsection">
+                <h3>ロビー活動</h3>
+                <p>
+                    AIPAC（米国イスラエル公共問題委員会）などへの多額の寄付を通じ、中東政策を実質的に規定している。
+                </p>
+            </div>
+
+            <div class="info-box">
+                <p>
+                    <strong>外交政策への影響：</strong> 宗教的信念に基づくイスラエル支援が、アメリカの中東政策を形成する主要因となっており、地政学的判断を超えた「信仰の政治化」が進行している。
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <div class="section-title">
+                    <h2>社会的ニーズとしての「メガチャーチ」とコミュニティ</h2>
+                    <p>Megachurches as Social Infrastructure</p>
+                </div>
+            </div>
+
+            <p style="color: var(--text-medium); margin-bottom: 2rem; line-height: 1.9;">
+                アメリカ社会の構造的課題が、宗教形態の変化を促している。
+            </p>
+
+            <div class="subsection">
+                <h3>孤立する個人</h3>
+                <p>
+                    車社会・郊外化が進んだアメリカでは、人間関係が希薄になりやすい。
+                </p>
+            </div>
+
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-label">メガチャーチ定義</div>
+                    <div class="stat-value">2,000人+</div>
+                    <div class="stat-description">
+                        週末礼拝の収容人数
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">社会的機能</div>
+                    <div class="stat-value">コミュニティ</div>
+                    <div class="stat-description">
+                        希薄な人間関係の補完
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>メガチャーチの役割</h3>
+                <ul>
+                    <li>2,000人以上を収容するメガチャーチは、希薄になった人間関係を補完する「コミュニティ」として機能。</li>
+                    <li>宗派を問わず、スピリチュアル性を強調することで若者や無宗派層を取り込む。</li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3>商業主義との結びつき</h3>
+                <p>
+                    マーケティングリサーチを導入し、ニーズに合致した説教や運営を行うなど、高度に商業化された側面も持つ。
+                </p>
+            </div>
+
+            <div class="info-box warning">
+                <p>
+                    <strong>社会的インフラとしての宗教：</strong> メガチャーチは単なる信仰の場を超え、アメリカ社会の分断と孤立を埋める重要な社会的インフラとして機能している。
+                </p>
+            </div>
+        </section>
+
+        <section class="conclusion">
+            <h2>結論：ビジネスリーダーへの示唆</h2>
+            <p>
+                宗教は人々のアイデンティティの源泉であり、その国の風俗習慣や意思決定の背後にある価値観を理解するための鍵である。
+            </p>
+
+            <div class="conclusion-grid">
+                <div class="conclusion-point">
+                    <h3>信頼構築の基盤</h3>
+                    <p>
+                        相手の宗教的背景や、それに基づく家族観・社会観を理解することは、国際ビジネスにおけるマナーであり、信頼獲得の必須教養である。
+                    </p>
+                </div>
+
+                <div class="conclusion-point">
+                    <h3>政治リスクの予見</h3>
+                    <p>
+                        アメリカにおける宗教勢力の動向を把握することは、政権の政策方針や将来的な社会変容を予測する上で極めて重要である。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <div class="footer">
+            <p>本ブリーフィング資料は動画内容を基に作成されたものです</p>
+            <p style="margin-top: 0.5rem; font-size: 0.85rem;">※ 分析内容は元動画の情報をもとに構成されています</p>
+        </div>
+    </div>
+</body>
+</html>
