@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini 2.5 Pro × NotebookLM 業務半自動化ワークフロー</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .video-source {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .video-source a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .video-source a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .overview-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .overview-card {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 25px;
+            border-radius: 15px;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .overview-card h3 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .overview-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .overview-card li {
+            margin: 8px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .overview-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: rgba(255,255,255,0.8);
+            font-weight: bold;
+        }
+        
+        .tools-section {
+            margin-bottom: 40px;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .tool-card {
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .gemini {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .notebooklm {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        
+        .gemspark {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        
+        .tool-card h4 {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .tool-emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .workflow-section {
+            margin-bottom: 40px;
+        }
+        
+        .workflow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: flex-start;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            padding: 20px 25px;
+            flex: 1;
+        }
+        
+        .step-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .step-description {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .benefits-section {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .benefit-item {
+            background: rgba(255,255,255,0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        
+        .benefit-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+        
+        .summary-section {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        
+        .quote {
+            font-size: 1.1em;
+            font-style: italic;
+            color: #444;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.5);
+            border-radius: 10px;
+            border-left: 4px solid #ff6b6b;
+        }
+        
+        .section-title {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+        
+        @media (max-width: 768px) {
+            .overview-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .step {
+                flex-direction: column;
+            }
+            
+            .step-number {
+                width: 100%;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ Gemini 2.5 Pro × NotebookLM</h1>
+            <div class="subtitle">半自動化業務フローの詳細ブリーフィング</div>
+            <div class="video-source">
+                <div>📺 ソース動画：</div>
+                <a href="https://youtu.be/ebIFBi47Hhg?list=TLGG0YszjMBqSQMwMzA4MjAyNQ" target="_blank">
+                    【神連携‼️】NotebookLM×Gemini2.5Proを使って業務を半自動化する方法を徹底解説（プロンプト付）
+                </a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="overview-section">
+                <div class="overview-card">
+                    <h3>🎯 概要と背景</h3>
+                    <ul>
+                        <li>対象業務：調査、分析、情報整理、資料化</li>
+                        <li>目的：AIツールの連携で「高精度の半自動化」を実現</li>
+                    </ul>
+                </div>
+                <div class="overview-card">
+                    <h3>⚡ 解決する課題</h3>
+                    <ul>
+                        <li>リサーチ量のコントロール</li>
+                        <li>情報抽出の困難さ</li>
+                        <li>作業品質の安定化</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="tools-section">
+                <h2 class="section-title">主要ツールと評価</h2>
+                <div class="tools-grid">
+                    <div class="tool-card gemini">
+                        <h4><span class="tool-emoji">🧠</span>Gemini 2.5 Pro</h4>
+                        <div>
+                            <strong>高評価：</strong>チャットボットアリーナで1位獲得<br><br>
+                            <strong>特徴：</strong><br>
+                            • ディープリサーチ機能による網羅的調査<br>
+                            • 数値データや分析に強い<br>
+                            • 引用・参考文献も自動付加
+                        </div>
+                    </div>
+                    <div class="tool-card notebooklm">
+                        <h4><span class="tool-emoji">🗃</span>NotebookLM</h4>
+                        <div>
+                            <strong>役割：</strong>情報抽出のスペシャリスト<br><br>
+                            <strong>特徴：</strong><br>
+                            • Geminiで生成された情報を取り込み要約<br>
+                            • 特定情報に絞り込みやすい<br>
+                            • Googleドキュメントとの連携がスムーズ
+                        </div>
+                    </div>
+                    <div class="tool-card gemspark">
+                        <h4><span class="tool-emoji">📊</span>Gemspark</h4>
+                        <div>
+                            <strong>用途：</strong>最終フェーズでの資料化<br><br>
+                            <strong>特徴：</strong><br>
+                            • 情報構造を元に高品質なプレゼン資料を自動生成<br>
+                            • テーマ変更でテンプレート応用可能
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="workflow-section">
+                <h2 class="section-title">5ステップのAIワークフロー</h2>
+                <div class="workflow-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">調査・ドキュメンテーション（Gemini）</div>
+                            <div class="step-description">
+                                Geminiでディープリサーチ専用プロンプトを作成<br>
+                                調査内容はGoogleドキュメントへ出力（最大26ページ）<br>
+                                戦略コンサルレベルの情報収集が可能
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">課題抽出（NotebookLM）</div>
+                            <div class="step-description">
+                                GoogleドキュメントをNotebookLMに追加<br>
+                                傾向・パターン・初期仮説を抽出<br>
+                                メモ機能で保存 → 後続活用可能
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">課題分析と打ち手検討（Gemini）</div>
+                            <div class="step-description">
+                                NotebookLMから抽出した課題をもとに優先順位付け<br>
+                                指標：影響度 × 実行可能性<br>
+                                Geminiが順位付け＋理由の説明も生成
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">情報整理・構造化（NotebookLM）</div>
+                            <div class="step-description">
+                                優先課題を元にアウトライン作成<br>
+                                エグゼクティブサマリーやスライド内容まで網羅<br>
+                                所要時間：約10分で完了
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <div class="step-title">資料化（Gemspark）</div>
+                            <div class="step-description">
+                                NotebookLMからGemsparkに構造化データを貼り付け<br>
+                                スライド構成、ロードマップなどを含む資料を自動生成<br>
+                                テーマを変更するだけでテンプレート応用可能
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="benefits-section">
+                <h2 class="section-title">ワークフローの利点と課題解決</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <strong>高精度アウトプット</strong><br>
+                        複数AI連携で精度と信頼性を向上
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">⏱</div>
+                        <strong>時間効率</strong><br>
+                        構造化まで約10分！従来の工数と比較して大幅短縮
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🧠</div>
+                        <strong>プロンプト活用</strong><br>
+                        プロンプト設計が成果を左右する鍵
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">🔄</div>
+                        <strong>柔軟な応用性</strong><br>
+                        テーマを差し替えるだけで様々な業務に対応
+                    </div>
+                </div>
+            </div>
+            
+            <div class="summary-section">
+                <h2 class="section-title">まとめ</h2>
+                <div>
+                    Gemini 2.5 Pro × NotebookLM による「5ステップ業務自動化」は、情報過多な現代で重要なスキルとなる
+                    <strong>プロンプトエンジニアリング</strong>を中心に据えた革新的なフローです。<br><br>
+                    この連携によって、戦略コンサル級の思考とアウトプットを誰もが短時間で再現できる可能性が開かれています。
+                </div>
+                <div class="quote">
+                    💬「今後は、AIツールを"使う"だけではなく、"操る"力が問われる時代へ」
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

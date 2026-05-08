@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genspark AI スライド 2.0 概要図解</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>') repeat;
+            opacity: 0.3;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .video-source {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .video-source a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .video-source a:hover {
+            text-decoration: underline;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+            transition: transform 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .section-1 { border-left-color: #e74c3c; }
+        .section-2 { border-left-color: #3498db; }
+        .section-3 { border-left-color: #f39c12; }
+        .section-4 { border-left-color: #2ecc71; }
+        .section-5 { border-left-color: #9b59b6; }
+        .section-6 { border-left-color: #1abc9c; }
+        
+        .section h2 {
+            color: #2c3e50;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .section-1 .section-icon { background: #e74c3c; }
+        .section-2 .section-icon { background: #3498db; }
+        .section-3 .section-icon { background: #f39c12; }
+        .section-4 .section-icon { background: #2ecc71; }
+        .section-5 .section-icon { background: #9b59b6; }
+        .section-6 .section-icon { background: #1abc9c; }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-top: 3px solid #3498db;
+        }
+        
+        .feature-card h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .pricing-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .pricing-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+        
+        .pricing-card.recommended {
+            border: 3px solid #f39c12;
+            transform: scale(1.05);
+        }
+        
+        .pricing-card.recommended::before {
+            content: '推奨';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #f39c12;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+        
+        .prompt-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .tip-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #2ecc71;
+        }
+        
+        .tip-card h4 {
+            color: #2ecc71;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .workflow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+            align-items: center;
+        }
+        
+        .workflow-step {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .workflow-step::after {
+            content: '→';
+            position: absolute;
+            right: -25px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9b59b6;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .workflow-step:last-child::after {
+            display: none;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        .conclusion h2 {
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .key-point {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .evolution-timeline {
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #3498db;
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .timeline-content {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            flex: 1;
+            margin: 0 20px;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            width: 15px;
+            height: 15px;
+            background: #3498db;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .header p { font-size: 1rem; }
+            .content { padding: 20px; }
+            .section { padding: 20px; }
+            .workflow { flex-direction: column; }
+            .workflow-step::after { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Genspark AI スライド 2.0</h1>
+            <p>概要と活用術 完全図解ガイド</p>
+            <div class="video-source">
+                <strong>📺 動画ソース:</strong><br>
+                <a href="https://www.youtube.com/watch?v=R_C8e3ZaCBI&pp=ygVrR2Vuc3BhcmsgQUnjgrnjg6njgqTjg4kyLjDjga7mpoLopoHjgajmhI_lm7PpgJrjgorjga7jgrnjg6njgqTjg4njgpLkvZzjgovjg5fjg63jg7Pjg5fjg4jooZPjgpLmlZnjgYjjgb7jgZnSBwkJsgkBhyohjO8%3D" target="_blank">
+                    【神アプデ】Genspark AIスライド2.0の概要と意図通りのスライドを作るプロンプト術を教えます
+                </a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- セクション1: 概要 -->
+            <div class="section section-1">
+                <h2><div class="section-icon">1</div>Genspark と AI スライド機能の概要</h2>
+                
+                <div class="evolution-timeline">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>🔍 元々の機能</h4>
+                            <p><strong>AI 検索サービス</strong> - 検索に特化したAIサービス</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>🌸 今年春頃</h4>
+                            <p><strong>AI エージェントサービスへ進化</strong> - 多様なAIエージェント提供開始</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>📊 AI スライド機能</h4>
+                            <p><strong>プロンプトベース</strong> - 複数スライドを一気に生成するAIエージェント</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(231, 76, 60, 0.1); padding: 15px; border-radius: 10px; margin-top: 15px;">
+                    <strong>💡 従来の特徴:</strong> 爆速でスライド骨子を作成、読みやすさやデザインは二の次 → <strong>2.0で品質大幅向上！</strong>
+                </div>
+            </div>
+            
+            <!-- セクション2: 新機能 -->
+            <div class="section section-2">
+                <h2><div class="section-icon">2</div>バージョン 2.0 の主な新機能と改善点</h2>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h4>🎨 テンプレート機能の追加</h4>
+                        <p><strong>Genspark用意のデザインテンプレート</strong></p>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>デジタル風テーマ</li>
+                            <li>日本風テーマ</li>
+                            <li>多様なバリエーション</li>
+                            <li>プロンプト品質の安定化</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>🧠 AI エージェントの賢さと多機能化</h4>
+                        <p><strong>段階的スライド作成プロセス</strong></p>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>チェックリスト自動作成</li>
+                            <li>段階的進行管理</li>
+                            <li>画像検索・生成機能</li>
+                            <li style="color: #e74c3c;">⚠️ 画像著作権に注意</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <h4>✏️ 高度な編集機能</h4>
+                        <p><strong>包括的な編集オプション</strong></p>
+                        <ul style="margin-top: 10px; padding-left: 20px;">
+                            <li>テキスト編集</li>
+                            <li>フォント変更</li>
+                            <li>色調整</li>
+                            <li>画像編集</li>
+                            <li>レイアウト変更</li>
+                        </ul>
+                        <p style="color: #f39c12; margin-top: 10px;">※ 操作性に改善の余地あり</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- セクション3: 料金体系 -->
+            <div class="section section-3">
+                <h2><div class="section-icon">3</div>料金体系</h2>
+                
+                <div class="pricing-table">
+                    <div class="pricing-card">
+                        <h3>無料プラン</h3>
+                        <div class="price">$0<small>/月</small></div>
+                        <ul style="text-align: left; margin-top: 15px;">
+                            <li>200クレジット/月</li>
+                            <li>基本機能利用可能</li>
+                            <li>お試し用途に最適</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="pricing-card recommended">
+                        <h3>プラスプラン</h3>
+                        <div class="price">$25<small>/月</small></div>
+                        <ul style="text-align: left; margin-top: 15px;">
+                            <li>10,000クレジット/月</li>
+                            <li>AIチャット無制限</li>
+                            <li>継続利用に推奨</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(243, 156, 18, 0.1); padding: 15px; border-radius: 10px; margin-top: 20px; text-align: center;">
+                    <strong>💰 クレジット消費:</strong> スライド作成1回あたり約200クレジット<br>
+                    <strong>💡 推奨利用方法:</strong> 無課金で試用 → 継続利用ならプラスプラン
+                </div>
+            </div>
+            
+            <!-- セクション4: プロンプト術 -->
+            <div class="section section-4">
+                <h2><div class="section-icon">4</div>効果的なプロンプト術</h2>
+                
+                <div class="prompt-tips">
+                    <div class="tip-card">
+                        <h4>📋 骨子を自分で作成する</h4>
+                        <p><strong>階層のある箇条書きで構成</strong></p>
+                        <ul style="margin-top: 10px;">
+                            <li>事前に構成を考える</li>
+                            <li>話しやすいスライドに</li>
+                            <li>質の高いスライド生成</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4>🔢 スライド番号を付与する</h4>
+                        <p><strong>「スライド1」などの番号付け</strong></p>
+                        <ul style="margin-top: 10px;">
+                            <li>意図通りのスライド分割</li>
+                            <li>構成の明確化</li>
+                            <li>管理しやすい形式</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4>⚠️ HTML/CSS テンプレート（非推奨）</h4>
+                        <p><strong>現在は不要な手法</strong></p>
+                        <ul style="margin-top: 10px;">
+                            <li>テンプレート機能で十分</li>
+                            <li>こだわるなら他ツール使用</li>
+                            <li>例: マープ等</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <h4>🎯 修正指示は一度にまとめて</h4>
+                        <p><strong>効率的な修正方法</strong></p>
+                        <ul style="margin-top: 10px;">
+                            <li>小出しより一括指示</li>
+                            <li>枚数指定でピンポイント修正</li>
+                            <li>時間短縮効果</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- セクション5: 外部ツール活用 -->
+            <div class="section section-5">
+                <h2><div class="section-icon">5</div>最終調整における外部ツールの活用</h2>
+                
+                <div style="background: rgba(155, 89, 182, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <h3>🎨 Figma の活用が最適</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px;">
+                        <div style="background: white; padding: 15px; border-radius: 8px;">
+                            <strong>📈 PowerPoint (PPTX) より優秀</strong>
+                            <p>レイアウト崩れが少ない</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px;">
+                            <strong>📄 Canva (PDF) より優秀</strong>
+                            <p>より忠実なデザイン保持</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px;">
+                            <strong>🔌 HTML 2 デザインプラグイン</strong>
+                            <p>忠実にインポート可能</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>📥 Figma へのインポート方法</h3>
+                <div class="workflow">
+                    <div class="workflow-step">
+                        <strong>1枚ずつ</strong><br>
+                        コードをコピー<br>
+                        ↓<br>
+                        プラグインで生成
+                    </div>
+                    <div class="workflow-step">
+                        <strong>一括処理（非公式）</strong><br>
+                        Chrome拡張<br>
+                        ↓<br>
+                        H2Dファイル<br>
+                        ↓<br>
+                        Figmaで読み込み
+                    </div>
+                </div>
+                
+                <div style="margin-top: 20px;">
+                    <h3>🔧 追加機能</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px; margin-top: 15px;">
+                        <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                            <h4>✂️ セクションの分解</h4>
+                            <p><strong>「Genspark Slide Splitter」プラグイン</strong></p>
+                            <p>個別スライドに分割可能</p>
+                        </div>
+                        <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                            <h4>🎤 Figma でのプレゼン</h4>
+                            <p><strong>プロトタイプ機能</strong>や<strong>「Figma Slides」</strong>活用</p>
+                            <p>PDF出力も対応</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 結論 -->
+            <div class="conclusion">
+                <h2>🎯 結論</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 20px;">
+                    Genspark AI スライド 2.0により、<strong>「なかなか品質のスライドを爆速で作る」</strong>ことが実現可能に！
+                </p>
+                
+                <div class="key-points">
+                    <div class="key-point">
+                        <h4>🎨 品質向上</h4>
+                        <p>テンプレート機能<br>賢いAIエージェント<br>高度な編集機能</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>💡 効果的プロンプト</h4>
+                        <p>骨子の事前作成<br>スライド番号付与<br>一括修正指示</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>🔧 最終調整</h4>
+                        <p>Figma活用<br>関連プラグイン<br>デザイン保持</p>
+                    </div>
+                    <div class="key-point">
+                        <h4>⚡ 効率化</h4>
+                        <p>意図通りのスライド<br>効率的な作成<br>高度な編集</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

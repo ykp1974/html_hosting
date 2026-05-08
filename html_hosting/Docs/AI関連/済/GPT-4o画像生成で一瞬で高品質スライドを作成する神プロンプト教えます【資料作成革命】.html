@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPT-4oスライド作成革命 - 図解</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', 'Arial', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .video-link {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .video-link a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .video-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .main-content {
+            padding: 40px 30px;
+        }
+        
+        .workflow-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .workflow-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .step {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .step:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .step h3 {
+            color: #1e293b;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            padding-top: 10px;
+        }
+        
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left: 4px solid;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:nth-child(1) { border-left-color: #3b82f6; }
+        .feature-card:nth-child(2) { border-left-color: #10b981; }
+        .feature-card:nth-child(3) { border-left-color: #f59e0b; }
+        .feature-card:nth-child(4) { border-left-color: #ef4444; }
+        
+        .feature-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1e293b;
+        }
+        
+        .feature-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-card li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .feature-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+        
+        .comparison-section {
+            background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 20%, #f59e0b 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .comparison-section h2 {
+            color: #92400e;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .quality-bars {
+            display: flex;
+            justify-content: space-around;
+            align-items: end;
+            margin: 20px 0;
+            height: 150px;
+        }
+        
+        .quality-bar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .bar {
+            width: 60px;
+            background: linear-gradient(to top, #dc2626, #fbbf24, #10b981);
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .bar:hover {
+            transform: scale(1.05);
+        }
+        
+        .bar-designer { height: 120px; }
+        .bar-gpt4 { height: 108px; }
+        .bar-self { height: 90px; }
+        
+        .bar-label {
+            font-weight: 600;
+            color: #92400e;
+            text-align: center;
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #92400e;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .future-section {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .future-section h2 {
+            color: #1e40af;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .future-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .future-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .tools-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .tool-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            min-width: 120px;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+        
+        .arrow {
+            font-size: 1.5rem;
+            color: #6b7280;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .workflow-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .tools-flow {
+                flex-direction: column;
+            }
+            
+            .arrow {
+                transform: rotate(90deg);
+            }
+            
+            .quality-bars {
+                flex-direction: column;
+                height: auto;
+                gap: 20px;
+            }
+            
+            .quality-bar {
+                flex-direction: row;
+                width: 100%;
+            }
+            
+            .bar {
+                width: 100%;
+                height: 40px !important;
+            }
+            
+            .bar-designer { width: 100%; }
+            .bar-gpt4 { width: 90%; }
+            .bar-self { width: 75%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 GPT-4oスライド作成革命</h1>
+            <p>主要テーマと重要ポイント</p>
+            <div class="video-link">
+                <a href="https://youtu.be/lZ6dQsHbG94?list=TLGGS8MFm7mwuXgyNzA3MjAyNQ" target="_blank">
+                    🎬 元動画：GPT-4o画像生成で一瞬で高品質スライドを作成する神プロンプト教えます【資料作成革命】
+                </a>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <!-- GPT-4o基本機能 -->
+            <section class="workflow-section">
+                <h2 class="workflow-title">1️⃣ GPT-4o画像生成の基本とSoraとの連携</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>🎨 簡単な操作性</h3>
+                        <ul>
+                            <li>「画像を生成する」を選択</li>
+                            <li>プロンプト入力のみ</li>
+                            <li>「/image」コマンドでも起動</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h3>💬 対話による修正</h3>
+                        <ul>
+                            <li>生成後の画像を部分選択</li>
+                            <li>対話形式で修正指示</li>
+                            <li>リアルタイム調整可能</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h3>📐 Soraの活用の利点</h3>
+                        <ul>
+                            <li>アスペクト比指定可能<br	>（3:2、1:1、2:3）</li>
+                            <li>初期素材作成に最適</li>
+                            <li>修正機能なし → Chat GPTへ</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- ワークフロー -->
+            <section class="workflow-section">
+                <h2 class="workflow-title">⚡ 高品質スライド作成のワークフロー</h2>
+                <div class="tools-flow">
+                    <div class="tool-box">
+                        <div style="font-size: 2rem;">🧠</div>
+                        <strong>Koo 3.7 Sonnet<br>Chat GPT-4o</strong>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="tool-box">
+                        <div style="font-size: 2rem;">🖼️</div>
+                        <strong>Sora</strong>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="tool-box">
+                        <div style="font-size: 2rem;">✍️</div>
+                        <strong>Chat GPT</strong>
+                    </div>
+                </div>
+                
+                <div class="workflow-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-icon">🧠</div>
+                        <h3>プロンプト生成</h3>
+                        <ul>
+                            <li>内容を&lt;script&gt;タグ内に記述</li>
+                            <li>雰囲気・テイストを具体的に指定</li>
+                            <li>色・フォントの詳細も指定可能</li>
+                            <li>推奨AI：リーズニングモデル</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-icon">🖼️</div>
+                        <h3>Soraで画像生成</h3>
+                        <ul>
+                            <li>生成したプロンプトを入力</li>
+                            <li>スライド画像を自動生成</li>
+                            <li>結果は通知から確認</li>
+                            <li>アスペクト比の調整も可能</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-icon">✍️</div>
+                        <h3>Chat GPTで微調整</h3>
+                        <ul>
+                            <li>Sora画像をChat GPTに貼り付け</li>
+                            <li>誤字などをテキスト選択</li>
+                            <li>修正依頼で精度高く調整</li>
+                            <li>1〜2回の修正で完成</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- レイヤー分けとアニメーション -->
+            <section class="workflow-section">
+                <h2 class="workflow-title">🎬 レイヤー分けとアニメーションの応用</h2>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <h3>📱 レイヤー分解</h3>
+                        <ul>
+                            <li>吹き出しやキャラクターを分離</li>
+                            <li>透明PNGとして出力</li>
+                            <li>個別素材化でアニメーション対応</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <h3>🎯 アニメーション追加</h3>
+                        <ul>
+                            <li>Canvaなどにインポート</li>
+                            <li>各素材に動きを追加</li>
+                            <li>魅力的なスライド演出を実現</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 品質比較 -->
+            <section class="comparison-section">
+                <h2>📊 品質比較と時間短縮効果</h2>
+                <div class="quality-bars">
+                    <div class="quality-bar">
+                        <div class="bar bar-designer">
+                            <div class="bar-value">100点</div>
+                        </div>
+                        <div class="bar-label">デザイナー</div>
+                    </div>
+                    <div class="quality-bar">
+                        <div class="bar bar-gpt4">
+                            <div class="bar-value">90点</div>
+                        </div>
+                        <div class="bar-label">GPT-4</div>
+                    </div>
+                    <div class="quality-bar">
+                        <div class="bar bar-self">
+                            <div class="bar-value">75点</div>
+                        </div>
+                        <div class="bar-label">自分</div>
+                    </div>
+                </div>
+                <p><strong>90点レベルで十分！修正は1〜2回で済み、スライド作成の手間が大幅軽減</strong></p>
+            </section>
+            
+            <!-- 今後の展望 -->
+            <section class="future-section">
+                <h2>🔮 今後の展望</h2>
+                <div class="future-items">
+                    <div class="future-item">
+                        <h3>🛠️ API公開後の構想</h3>
+                        <p>「箇条書きリスト → 自動スライド生成」のツール構築を計画中</p>
+                    </div>
+                    <div class="future-item">
+                        <h3>🎥 解説動画制作</h3>
+                        <p>より詳細な手順やテクニックの解説動画制作を検討</p>
+                    </div>
+                    <div class="future-item">
+                        <h3>⚡ 完全自動化</h3>
+                        <p>人間の介入を最小限に抑えた完全自動スライド生成システム</p>
+                    </div>
+                </div>
+            </section>
+            
+            <div style="text-align: center; padding: 40px 0; background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); border-radius: 15px; margin-top: 30px;">
+                <h2 style="color: #1e293b; margin-bottom: 15px;">🎯 これは「スライド作成革命」です！</h2>
+                <p style="font-size: 1.2rem; color: #475569;">GPT-4o・Sora・Chat GPTの連携で、プロ級のスライドを短時間で作成</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIプロンプトエンジニアリング完全図解</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .video-source {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .video-source h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .video-source a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .video-source a:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+        h1 {
+            color: #2d3748;
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 4px solid #667eea;
+        }
+        .summary-box {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 6px solid #f5576c;
+        }
+        .summary-box h2 {
+            color: #c53030;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        .key-stat {
+            display: inline-block;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 10px 10px 10px 0;
+            font-weight: bold;
+            font-size: 18px;
+            color: #c53030;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #f7fafc;
+            border-radius: 15px;
+            border: 2px solid #e2e8f0;
+        }
+        .section h2 {
+            color: #2d3748;
+            font-size: 26px;
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 5px solid #667eea;
+        }
+        .section h3 {
+            color: #4a5568;
+            font-size: 20px;
+            margin: 25px 0 15px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+        }
+        .techniques-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .technique-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-top: 4px solid #667eea;
+            transition: transform 0.3s;
+        }
+        .technique-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .technique-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .technique-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+        .markdown-table {
+            width: 100%;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .markdown-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .markdown-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+        }
+        .markdown-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .markdown-table tr:hover {
+            background: #f7fafc;
+        }
+        .symbol-cell {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+            text-align: center;
+        }
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .flow-step {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+            min-width: 150px;
+            margin: 10px;
+            border: 2px solid #667eea;
+        }
+        .flow-arrow {
+            font-size: 30px;
+            color: #667eea;
+            margin: 0 10px;
+        }
+        .mindset-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+        .mindset-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        .example-box {
+            background: #fffbeb;
+            border: 2px solid #fbbf24;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .example-box h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .conclusion-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        .conclusion-box h2 {
+            color: white;
+            margin-bottom: 15px;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        li {
+            margin: 8px 0;
+        }
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .principle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .principle-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #f5576c;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .principle-card h4 {
+            color: #c53030;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="video-source">
+            <h3>📹 ソース動画</h3>
+            <p><strong>【脱初心者】AIへの指示出しがうまくいくプロンプトの基礎徹底解説するで！</strong></p>
+            <a href="https://www.youtube.com/watch?v=3ZJJF_7UNSM&list=WL&index=18" target="_blank">🎬 YouTubeで視聴する</a>
+        </div>
+
+        <h1>🚀 AIプロンプトエンジニアリングの基礎と実践</h1>
+        
+        <div class="summary-box">
+            <h2>📊 エグゼクティブサマリー</h2>
+            <p><strong>AIの応答品質が低い原因</strong></p>
+            <div class="key-stat">99.9%がプロンプトの質に起因</div>
+            <p style="margin-top: 15px;"><strong>プロンプト技術の習得効果</strong></p>
+            <div class="key-stat">AIの潜在能力を200%引き出す</div>
+            <div class="key-stat">3時間→15分の作業時間短縮</div>
+            <p style="margin-top: 20px; font-size: 18px;">
+                <strong>最重要原則：</strong>曖昧な指示を避け、<span class="highlight">明確かつ具体的な指示</span>を与えること
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>1️⃣ AIとの対話における根本原則</h2>
+            
+            <h3>1.1 プロンプトの重要性：曖昧さの排除</h3>
+            <div class="principle-grid">
+                <div class="principle-card">
+                    <h4>❌ 悪い例</h4>
+                    <p>「いい感じにやっておいて」</p>
+                    <p style="font-size: 14px; color: #718096; margin-top: 10px;">→ 意図した成果物が得られない</p>
+                </div>
+                <div class="principle-card">
+                    <h4>✅ 良い例</h4>
+                    <p>「明確かつ具体的な指示」</p>
+                    <p style="font-size: 14px; color: #718096; margin-top: 10px;">→ 期待通りの成果を得られる</p>
+                </div>
+            </div>
+            <p style="margin-top: 15px; padding: 15px; background: white; border-radius: 8px;">
+                <strong>🏢 公式推奨：</strong>Google（Gemini）とOpenAI（ChatGPT）が公式に発表している基本方針
+            </p>
+
+            <h3>1.2 AI活用の実態</h3>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <strong>初期段階</strong><br>
+                    数十回の試行錯誤
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <strong>技術習得後</strong><br>
+                    劇的な効率化
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <strong>成果</strong><br>
+                    3時間→15分
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2️⃣ プロンプト設計の6つの核心的テクニック</h2>
+            
+            <div class="techniques-grid">
+                <div class="technique-card">
+                    <div class="technique-number">1</div>
+                    <div class="technique-title">プロンプトの構造化</div>
+                    <p>マークダウン記法を活用し、指示を階層化してAIの理解度を向上</p>
+                </div>
+                
+                <div class="technique-card">
+                    <div class="technique-number">2</div>
+                    <div class="technique-title">役割の付与</div>
+                    <p>「優秀な商品担当者」など具体的な役割を与え、応答の文脈と専門性を定義</p>
+                </div>
+                
+                <div class="technique-card">
+                    <div class="technique-number">3</div>
+                    <div class="technique-title">背景情報の提供</div>
+                    <p>目的や背景（市場の課題、目標）を伝え、精度の高いアウトプットを導出</p>
+                </div>
+                
+                <div class="technique-card">
+                    <div class="technique-number">4</div>
+                    <div class="technique-title">タスクの分解とルール設定</div>
+                    <p>複雑な要求をステップに分け、出力形式のルールを明確に定義</p>
+                </div>
+                
+                <div class="technique-card">
+                    <div class="technique-number">5</div>
+                    <div class="technique-title">AIによるプロンプト生成</div>
+                    <p>対話を通じて結果を改善し、プロセスを再現可能なプロンプトとして生成</p>
+                </div>
+                
+                <div class="technique-card">
+                    <div class="technique-number">6</div>
+                    <div class="technique-title">プロンプト生成の自動化</div>
+                    <p>GPTsやGemでカスタムAIを構築し、プロンプト作成を効率化</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔤 テクニック1：マークダウン記法の詳細</h2>
+            <div class="markdown-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>記号</th>
+                            <th>名称</th>
+                            <th>用途と効果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="symbol-cell">#</td>
+                            <td><strong>シャープ</strong></td>
+                            <td>見出しの作成。最重要テーマを宣言。##（中見出し）、###（小見出し）で階層化</td>
+                        </tr>
+                        <tr>
+                            <td class="symbol-cell">-</td>
+                            <td><strong>ハイフン</strong></td>
+                            <td>箇条書き。中黒（・）よりAIが確実に認識し、指示の実行力が120%向上</td>
+                        </tr>
+                        <tr>
+                            <td class="symbol-cell">`</td>
+                            <td><strong>バッククォート</strong></td>
+                            <td>テキスト範囲の指定。```で囲んだ部分を特別扱いするテキストとして明示</td>
+                        </tr>
+                        <tr>
+                            <td class="symbol-cell">**</td>
+                            <td><strong>アスタリスク2つ</strong></td>
+                            <td>強調。**で囲んだ部分をAIが重要事項として認識し、処理の優先度を向上</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>👤 テクニック2：役割付与と背景情報の提供</h2>
+            
+            <div class="example-box">
+                <h4>💼 役割の付与</h4>
+                <p><code># 役割<br>あなたは飲料メーカーの優秀な商品企画担当者です。</code></p>
+                <p style="margin-top: 10px; color: #059669;">
+                    ✅ 効果：その役割にふさわしい専門的な視点からの回答が期待できる
+                </p>
+            </div>
+
+            <div class="example-box">
+                <h4>📋 背景情報の提供</h4>
+                <p><code>## 背景<br>- 現状の課題: 主力の若者向け市場が成長の限界に達している。<br>- 目的: 未開拓の巨大市場「大人の食中」を攻略する。</code></p>
+                <p style="margin-top: 10px; color: #059669;">
+                    ✅ 効果：より戦略的で的確な提案が可能になる
+                </p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 テクニック3：タスク分解とルール設定</h2>
+            
+            <div class="principle-grid">
+                <div class="principle-card">
+                    <h4>📝 段階的な制作</h4>
+                    <p>各セクションごとに段階的に制作・確認を行う</p>
+                    <p style="font-size: 14px; color: #718096; margin-top: 10px;">プロセスをステップ・バイ・ステップで進める</p>
+                </div>
+                <div class="principle-card">
+                    <h4>📐 出力ルールの定義</h4>
+                    <p>サイズの比率を16:9で出力</p>
+                    <p style="font-size: 14px; color: #718096; margin-top: 10px;">形式を事前に指定し、手戻りを防ぐ</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🤖 テクニック4：AIによるプロンプト生成</h2>
+            
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <strong>STEP 1</strong><br>
+                    初期指示を与える<br>
+                    <small>「300字で要約して」</small>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <strong>STEP 2</strong><br>
+                    結果を評価・改善<br>
+                    <small>「影響を重視して再要約」</small>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <strong>STEP 3</strong><br>
+                    プロンプト化を依頼<br>
+                    <small>「再現できるプロンプト作成」</small>
+                </div>
+            </div>
+            
+            <p style="margin-top: 20px; padding: 15px; background: #ecfdf5; border-left: 4px solid #10b981; border-radius: 8px;">
+                <strong>💡 ポイント：</strong>対話を通じて特定のタスクに最適化された高精度なプロンプトを効率的に作成
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>⚙️ テクニック5：プロンプト生成の自動化</h2>
+            
+            <h3>カスタムAI（プロンプトメーカー）の構築</h3>
+            
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <strong>1. 目的定義</strong><br>
+                    「プロンプトメーカーを作りたい」
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <strong>2. カスタムAI設定</strong><br>
+                    GPTs/Gemに貼り付け
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <strong>3. 活用</strong><br>
+                    自然言語で依頼するだけ
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 10px; border: 2px solid #667eea;">
+                <h4 style="color: #667eea; margin-bottom: 10px;">🛠️ 利用可能なツール</h4>
+                <ul>
+                    <li><strong>ChatGPTの「GPTs」</strong></li>
+                    <li><strong>Geminiの「Gem」</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📊 実践例：新商品企画書作成プロセス</h2>
+            
+            <div class="example-box">
+                <h4>🍹 商品名：秋彩ハイボール 徳島すだちのキレ</h4>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <h3 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 10px;">
+                    STEP 1：プロンプト構築
+                </h3>
+                <div style="background: white; padding: 20px; margin-top: 10px; border-radius: 10px; border: 2px solid #e2e8f0;">
+                    <ul>
+                        <li><strong>役割：</strong>あなたは飲料メーカーの優秀な商品担当者です。</li>
+                        <li><strong>命令：</strong>新商品「秋彩ハイボール 徳島すだちのキレ」の社内向け企画提案スライドの構成と内容を作成してください。</li>
+                        <li><strong>作成要件：</strong>
+                            <ul>
+                                <li>目的: 役員会議で商品化の承認を得ること</li>
+                                <li>枚数: 全10枚構成</li>
+                            </ul>
+                        </li>
+                        <li><strong>背景：</strong>
+                            <ul>
+                                <li>現状の課題: 主力の若者向け事業が成長の限界に</li>
+                                <li>新たな戦場: 未開拓の巨大市場「大人の食中」</li>
+                            </ul>
+                        </li>
+                        <li><strong>補足：</strong>市場データ、競合動向、自社の強みを根拠として適用し、説得力を最大化</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <h3 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 10px;">
+                    STEP 2：構成案の生成
+                </h3>
+                <div style="background: white; padding: 20px; margin-top: 10px; border-radius: 10px; border: 2px solid #e2e8f0;">
+                    <p>上記プロンプトを実行し、企画書の構成案をAIに生成させる</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px;">
+                <h3 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 10px;">
+                    STEP 3：スライドデザイン化
+                </h3>
+                <div style="background: white; padding: 20px; margin-top: 10px; border-radius: 10px; border: 2px solid #e2e8f0;">
+                    <ul>
+                        <li><strong>役割：</strong>あなたは優秀なデータビジュアライゼーションデザイナー</li>
+                        <li><strong>ルール：</strong>
+                            <ul>
+                                <li>出力サイズは16:9</li>
+                                <li>ステップバイステップで1枚ずつ確認を取りながら作成</li>
+                            </ul>
+                        </li>
+                        <li><strong>活用ツール：</strong>Geminiの「インフォグラフィック作成」機能など</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🧠 AIを使いこなすためのマインドセット</h2>
+            
+            <div class="mindset-box">
+                <div class="mindset-item">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">🎯 自己責任の原則</h4>
+                    <p>AIが期待通りに動作しない場合、その原因をAIの性能不足に求めず、<strong>「自分の指示の出し方に改善の余地がある」</strong>と考える</p>
+                    <p style="margin-top: 10px; font-size: 14px; color: #4a5568;">
+                        → 利用できるAIの機能は全ユーザーで同じ。差が生まれるのは使い方にある
+                    </p>
+                </div>
+
+                <div class="mindset-item">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">🔄 試行錯誤の受容</h4>
+                    <p>最初から完璧な結果を求めず、<strong>AIとの対話を通じて改良を重ねる</strong>ことを前提とする</p>
+                </div>
+
+                <div class="mindset-item">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">💪 継続的な努力の価値</h4>
+                    <p>AIスキルは一朝一夕には身につかない。成果が出ない期間も存在することを認識し、<strong>自分自身を信じて淡々と作業を続ける</strong></p>
+                    <p style="margin-top: 10px; font-size: 14px; color: #4a5568;">
+                        → AIは人生を好転させる強力なツールだが、人生を変える主体はあくまで自分自身
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="conclusion-box">
+            <h2>🎯 結論</h2>
+            <p style="font-size: 18px; line-height: 1.8; margin-top: 15px;">
+                AIの能力を最大限に引き出す鍵は、<strong>明確で構造化された指示を与えるプロンプト技術</strong>と、
+                <strong>結果に対して主体的に向き合い試行錯誤を続けるマインドセット</strong>の両輪にある。
+            </p>
+            <p style="font-size: 18px; line-height: 1.8; margin-top: 15px;">
+                本稿で概説したベストプラクティスを実践することで、誰でもAIを強力なパートナーとして活用し、
+                <strong>業務効率化や新たな価値創造</strong>を実現することが可能となる。
+            </p>
+        </div>

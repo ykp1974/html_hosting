@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code 業務自動化ブリーフィング 2026</title>
+    <style>
+        :root {
+            --primary: #d97757; /* Claudeのイメージカラーに近い暖色 */
+            --secondary: #2c3e50;
+            --accent: #e67e22;
+            --bg: #fdfaf6;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --light-text: #666666;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--secondary);
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+
+        .news-link {
+            display: inline-block;
+            background: #fff8f0;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 0.9em;
+            border: 1px solid var(--accent);
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+
+        .news-link:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .summary-box {
+            background: linear-gradient(135deg, #fefefe 0%, #fff3e0 100%);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary);
+            margin-bottom: 40px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            padding: 25px;
+            border: 1px solid #eee;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            font-size: 1.4em;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .card h2 span {
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 10px;
+            font-size: 0.8em;
+        }
+
+        .skill-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .skill-table th, .skill-table td {
+            border: 1px solid #eee;
+            padding: 12px;
+            text-align: left;
+            font-size: 0.9em;
+        }
+
+        .skill-table th {
+            background-color: #fcfcfc;
+            color: var(--primary);
+        }
+
+        .step-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 10px;
+            padding-left: 35px;
+            position: relative;
+        }
+
+        .step-list li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            background: var(--secondary);
+            color: white;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 12px;
+            line-height: 22px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 15px;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 1.6em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Claude Code 業務自動化ブリーフィング</h1>
+        <p>〜2026年のビジネススタンダード：AIディレクションの新時代〜</p>
+        <a href="https://gihyo.jp/article/2026/02/notebooklm-adds-prompt-based-revisions-and-pptx-export" class="news-link" target="_blank">
+            🔗 NotebookLM⁠⁠、プロンプトを使ったスライド修正機能と⁠⁠、PowerPoint形式の出力機能を提供へ
+        </a>
+    </header>
+
+    <section class="summary-box">
+        <h3 style="margin-top:0;">エグゼクティブ・サマリー</h3>
+        <p>Claude Codeは、単なるAIモデルを超えた<strong>「AIディレクションツール」</strong>です。細かなプロンプトは不要。ユーザーの「願望」から複雑なワークフローを自律的に構築し、認知負荷を劇的に軽減する<strong>AIオーケストレーション</strong>の象徴です。</p>
+    </section>
+
+    <div class="grid">
+        <div class="card">
+            <h2><span>1</span> 定義と特異性</h2>
+            <ul>
+                <li><strong>AIエージェント:</strong> 自律的に動作するアプリケーションレイヤー。</li>
+                <li><strong>強力な権限:</strong> ターミナル権限でファイル操作やシステム干渉が可能。</li>
+                <li><strong>非エンジニアへの解放:</strong> 直感的なUIで誰でも活用可能。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2><span>2</span> フォルダ管理の革新</h2>
+            <p>「プロンプト」から<strong>「環境構築（フォルダ構造）」</strong>へ</p>
+            <ul>
+                <li><strong>フォルダ＝部署:</strong> 部署ごとの情報を格納し自律探索。</li>
+                <li><strong>情報の自動抽出:</strong> 膨大なデータから必要な5%をピックアップ。</li>
+                <li><strong>権限管理:</strong> フォルダ単位で安全なチーム運用。</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2><span>3</span> AIオーケストレーション</h2>
+            <p><strong>司令塔としてのClaude Code</strong></p>
+            <ul>
+                <li><strong>MCP規格:</strong> Notion, Slack, Calendar等と接続。</li>
+                <li><strong>マルチAI分担:</strong> Gemini等の他モデルを「部下」として制御。</li>
+                <li><strong>相互監視:</strong> AIが他AIのアウトプットをレビュー。</li>
+            </ul>
+        </div>
+
+        <div class="card" style="grid-column: 1 / -1;">
+            <h2><span>4</span> 「スキル」によるパッケージ化</h2>
+            <table class="skill-table">
+                <thead>
+                    <tr>
+                        <th width="20%">項目</th>
+                        <th>内容</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>作成</strong></td>
+                        <td>複雑な手順を一度実行し「スキル化して」と命じるだけで保存。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>発動</strong></td>
+                        <td>関連タスク発生時にAIが自律的に判断して呼び出し。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>事例</strong></td>
+                        <td>リサーチから画像生成、SNS投稿作成までの一貫自動化。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2><span>5</span> セキュリティと導入</h2>
+            <p><strong>留意点:</strong> API経由のため学習リスク低。秘密鍵の露出はAIに確認させ修正。</p>
+            <ol class="step-list">
+                <li><strong>Cursor</strong>のインストール</li>
+                <li><strong>作業フォルダ</strong>の構築（データ集約）</li>
+                <li><strong>Claude Code</strong>のセットアップ</li>
+                <li><strong>拡張機能</strong>によるUI構築</li>
+            </ol>
+        </div>
+    </div>
+
+    <footer>
+        <h3 style="margin-top:0;">結論</h3>
+        <p>人間が「手足」となる時代は終わり、<strong>「願望」</strong>を語るだけでAIが実行する時代へ。<br>
+        圧倒的な生産性向上を実現する、ビジネスシーン不可欠のスキルです。</p>
+    </footer>
+</div>
+
+</body>
+</html>
