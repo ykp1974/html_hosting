@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1970年代生まれの脳内アップグレード分析報告</title>
+    <style>
+        :root {
+            --primary-navy: #1a2a3a;
+            --accent-gold: #c5a059;
+            --soft-blue: #e3e9f0;
+            --text-dark: #2c3e50;
+            --white: #ffffff;
+            --highlight: #e74c3c;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: #f4f7f9;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* ヘッダー */
+        header {
+            background-color: var(--primary-navy);
+            color: var(--white);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            line-height: 1.3;
+        }
+
+        .source-link {
+            margin-top: 15px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--accent-gold);
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .source-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* エグゼクティブ・サマリー */
+        .summary-box {
+            background-color: var(--soft-blue);
+            border-left: 6px solid var(--primary-navy);
+            padding: 25px;
+            margin: 30px;
+            border-radius: 4px;
+        }
+
+        .summary-title {
+            font-weight: bold;
+            color: var(--primary-navy);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* セクションタイトル */
+        h2 {
+            text-align: center;
+            color: var(--primary-navy);
+            margin-top: 40px;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        h2::after {
+            content: '';
+            width: 50px;
+            height: 3px;
+            background: var(--accent-gold);
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 3つの要因グリッド */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #e0e6ed;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .card-num {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--soft-blue);
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            z-index: 0;
+        }
+
+        .card h3 {
+            color: var(--primary-navy);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ドーパミンの図解 */
+        .mechanism-box {
+            margin: 0 30px;
+            padding: 30px;
+            background: #fdfaf3;
+            border-radius: 15px;
+            border: 1px solid #f1e6c9;
+        }
+
+        .mechanism-flex {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .mech-item {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .arrow {
+            font-size: 24px;
+            color: var(--accent-gold);
+        }
+
+        /* 実践アプローチテーブル */
+        .table-wrapper {
+            padding: 0 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th {
+            background-color: var(--primary-navy);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* 結論 */
+        footer {
+            background-color: #f8fafc;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .final-message {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-navy);
+            border: 2px solid var(--accent-gold);
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .grid-3 { grid-template-columns: 1fr; }
+            section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>1970年代生まれの「虚無感」に関する分析報告</h1>
+        <p>〜 脳科学と心理学の視点から紐解く成熟のサイン 〜</p>
+        <a href="https://www.youtube.com/watch?v=p-VYb9C1iks" class="source-link" target="_blank">
+            JP 1970年代生まれが何をしても楽しくないと感じる本当の理由
+        </a>
+    </header>
+
+    <div class="summary-box">
+        <span class="summary-title">📊 エグゼクティブ・サマリー</span>
+        「何をやっても楽しくない」という感覚は、感性の劣化ではありません。それは、激動の時代を生き抜いたあなたの脳が、低品質な刺激を拒否し、**より深く本質的な体験を求める段階へ「アップグレード」された証拠**です。
+    </div>
+
+    <h2>脳が「楽しくない」と感じる3つの真実</h2>
+    <div class="grid-3">
+        <div class="card" style="position: relative;">
+            <div class="card-num">01</div>
+            <h3>感情管理の成熟</h3>
+            <p>前頭前野が発達し、原始的な興奮（扁桃体）を高度に抑制。感情が消えたのではなく、**精密なコントロール**が可能になった状態です。</p>
+        </div>
+        <div class="card" style="position: relative;">
+            <div class="card-num">02</div>
+            <h3>報酬予測誤差の縮小</h3>
+            <p>経験の蓄積により「次に何が起こるか」を脳が予測済み。驚きによるドーパミン放出が減り、脳は**安易な刺激を既知として処理**します。</p>
+        </div>
+        <div class="card" style="position: relative;">
+            <div class="card-num">03</div>
+            <h3>本質志向へのシフト</h3>
+            <p>社会情動的選択理論に基づき、脳はリソースを「新しい情報」から**「情緒的満足・深い意味」**へと自動的に集中させています。</p>
+        </div>
+    </div>
+
+    <h2>メカニズム：期待と経験の相関</h2>
+    <div class="mechanism-box">
+        <div class="mechanism-flex">
+            <div class="mech-item">
+                <strong style="color:var(--highlight)">若い頃の脳</strong><br>
+                予測不能な報酬<br>
+                ＝ ドーパミン大量放出
+            </div>
+            <div class="arrow">▶▶▶</div>
+            <div class="mech-item">
+                <strong style="color:var(--primary-navy)">成熟した脳</strong><br>
+                高度なパターン認識<br>
+                ＝ アセチルコリン系（集中・理解）へ
+            </div>
+        </div>
+        <p style="text-align: center; font-size: 0.9rem; margin-top: 20px; color: #666;">
+            ※脳は「偽物の刺激」を見破り、より「本物」を求める審美眼を手に入れています。
+        </p>
+    </div>
+
+    <h2>進化した脳を扱う実践ガイド</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>手法</th>
+                    <th>内容</th>
+                    <th>神経学的効果</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>4-7-8呼吸法</strong></td>
+                    <td>4秒吸う・7秒止める・8秒吐く</td>
+                    <td>前頭前野の抑制を緩め、感情を解放</td>
+                </tr>
+                <tr>
+                    <td><strong>3人称実況中継法</strong></td>
+                    <td>自分を客観的に実況する</td>
+                    <td>自己監視を緩め、心の隙間を作る</td>
+                </tr>
+                <tr>
+                    <td><strong>広角視野の確保</strong></td>
+                    <td>意識的に周辺視野を広げる</td>
+                    <td>副交感神経を優位にしリラックスへ</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <div class="final-message">
+            求めるべきは「量」ではなく「質」
+        </div>
+        <p>あなたの脳は壊れたのではありません。**深遠な静寂と本質的な充実**を求めているのです。<br>
+        外部の騒がしさを離れた先にある「本物」こそが、今のあなたにとっての真の報酬です。</p>
+    </footer>
+</div>
+
+</body>
+</html>

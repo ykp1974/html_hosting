@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026年NISA制度改正 概要報告インフォグラフィック</title>
+    <style>
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-blue: #3b82f6;
+            --accent-green: #10b981;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --text-main: #334155;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: #f1f5f9;
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        /* ヘッダー */
+        header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .source-link {
+            margin-top: 15px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--white);
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .source-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* エグゼクティブ・サマリー */
+        .summary {
+            padding: 30px;
+            background-color: #eff6ff;
+            border-bottom: 5px solid var(--secondary-blue);
+        }
+
+        .summary-tag {
+            display: inline-block;
+            background: var(--secondary-blue);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* セクションタイトル */
+        .section-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin: 40px 30px 20px;
+            color: var(--primary-blue);
+        }
+
+        .section-title::before {
+            content: '';
+            width: 8px;
+            height: 24px;
+            background-color: var(--accent-green);
+            margin-right: 12px;
+            border-radius: 4px;
+        }
+
+        /* 3つの改正ポイント */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 0 30px 40px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            text-align: center;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--secondary-blue);
+            font-size: 1.1rem;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .card-val {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            margin: 10px 0;
+        }
+
+        /* 世帯シミュレーション */
+        .family-box {
+            margin: 0 30px 40px;
+            background: #fdfaf6;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .family-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .family-item {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* 教育資金シミュレーション */
+        .education-sim {
+            background-color: #ecfdf5;
+            margin: 0 30px 40px;
+            padding: 30px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .sim-text {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .sim-result {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 3px solid var(--accent-green);
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--accent-green);
+        }
+
+        /* フッター */
+        footer {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .final-tag {
+            display: inline-block;
+            background: var(--accent-green);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .family-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.2rem; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>2026年 NISA制度改正 概要報告</h1>
+        <p>〜 「個人」から「家族」での資産形成時代へ 〜</p>
+        <a href="https://www.youtube.com/watch?v=wduKXWjq8HY" class="source-link" target="_blank">
+            【要注意】2027年からのNISA変更点｜理解しないと損をします
+        </a>
+    </header>
+
+    <div class="summary">
+        <span class="summary-tag">要旨</span>
+        <p>2026年改正（2027年運用開始）の目玉は、0〜17歳向けの<strong>「子供NISA」の創設</strong>です。利便性の向上として「枠の年内復活」や「対象商品の拡充」も行われ、世帯全体の非課税運用を最大化できるかどうかが、将来の格差を分ける分岐点となります。</p>
+    </div>
+
+    <div class="section-title">1. 三つの主要なアップデート</div>
+    <div class="grid-3">
+        <div class="card">
+            <h3>子供NISA(0〜17歳)</h3>
+            <div class="card-val">年 60 万円</div>
+            <p style="font-size: 0.85rem;">生涯上限600万円。<br>12歳以降は本人の同意で引き出しが可能に。</p>
+        </div>
+        <div class="card">
+            <h3>枠の「年内復活」</h3>
+            <div class="card-val">売却後 即日</div>
+            <p style="font-size: 0.85rem;">翌年を待たずに再投資が可能。<br>※復活するのは「元本」のみ。</p>
+        </div>
+        <div class="card">
+            <h3>債券ファンドの解禁</h3>
+            <div class="card-val">リスク抑制</div>
+            <p style="font-size: 0.85rem;">株式より安定した債券信託を追加。<br>シニア層や初心者の安心を確保。</p>
+        </div>
+    </div>
+
+    <div class="section-title">2. 世帯全体の年間投資上限の変化</div>
+    <div class="family-box">
+        <p>夫婦＋子供2人の世帯なら、年間最大投資枠はここまで広がる</p>
+        <div class="family-grid">
+            <div class="family-item">
+                <span style="color:var(--text-muted);">親(夫婦) 枠</span><br>
+                <strong>360万円 × 2人</strong>
+            </div>
+            <div class="family-item">
+                <span style="color:var(--accent-green); font-weight:bold;">子供(0〜17歳) 枠</span><br>
+                <strong>60万円 × 2人</strong>
+            </div>
+        </div>
+        <div style="margin-top: 25px; font-size: 1.5rem; font-weight: bold; color: var(--primary-blue);">
+            世帯合計：年間 840 万円
+        </div>
+    </div>
+
+    <div class="section-title">3. 教育資金シミュレーション（子供NISA）</div>
+    <div class="education-sim">
+        <div class="sim-text">
+            <strong>0歳から毎月5万円(年60万)を投資</strong><br>
+            <span style="font-size: 0.9rem; color: #065f46;">（想定利回り：年利5%運用）</span>
+        </div>
+        <div class="sim-result">
+            18歳時点で 1,600万円超
+        </div>
+    </div>
+
+    <footer>
+        <div class="final-tag">結論</div>
+        <p>NISAは「貯蓄から投資へ」という国家戦略の柱です。<br>
+        今回の改正は子育て世代にとっての強力な武器となります。<br>
+        教育資金・老後資金の自助努力において、この「家族枠」を活用しない手はありません。</p>
+        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">
+            ※運用開始は2027年1月1日から。2026年末より口座開設受付予定。
+        </p>
+    </footer>
+</div>
+
+</body>
+</html>

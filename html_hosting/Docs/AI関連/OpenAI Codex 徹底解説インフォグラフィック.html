@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenAI Codex 徹底解説インフォグラフィック</title>
+    <style>
+        :root {
+            --openai-green: #10a37f;
+            --openai-dark: #202123;
+            --bg-light: #f7f9fb;
+            --accent-blue: #3b82f6;
+            --text-main: #374151;
+            --card-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--openai-dark);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: -0.025em;
+        }
+
+        .source-link {
+            display: inline-block;
+            margin-top: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #10a37f;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .source-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Summary */
+        .summary {
+            padding: 30px;
+            background: linear-gradient(to right, #ffffff, #f0fdf4);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .summary strong {
+            color: var(--openai-green);
+        }
+
+        /* Main Content Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .section-title {
+            grid-column: 1 / -1;
+            font-size: 1.5rem;
+            color: var(--openai-dark);
+            border-left: 5px solid var(--openai-green);
+            padding-left: 15px;
+            margin-top: 20px;
+        }
+
+        /* Comparison Table */
+        .table-wrapper {
+            grid-column: 1 / -1;
+            overflow-x: auto;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border: 1px solid #e5e7eb;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background-color: #f9fafb;
+            color: var(--openai-green);
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--openai-green);
+        }
+
+        .feature-card h3 {
+            margin-top: 0;
+            color: var(--openai-green);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Interface List */
+        .interface-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .interface-item {
+            background: #f3f4f6;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Footer Info */
+        .footer-banner {
+            background-color: var(--openai-dark);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--openai-green);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            .interface-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>OpenAI Codex (2026) 徹底解説</h1>
+        <a href="https://www.youtube.com/watch?v=gKtw6tuTuJ0" class="source-link" target="_blank">
+            【Claude Codeのライバル】Codex(コーデックス)入門ガイド｜導入方法・使い方・重要機能
+        </a>
+    </header>
+
+    <div class="summary">
+        <strong>エグゼクティブ・サマリー：</strong><br>
+        2025年10月に一般提供が開始されたOpenAI製AIエージェント。最新の<strong>GPT 5.5</strong>を搭載し、ウェブサイト構築から動画生成までを直感的に自動化。開発者だけでなく、非エンジニアの強力なパートナーとして市場を席巻中。
+    </div>
+
+    <div class="grid">
+        <h2 class="section-title">1. 市場の競合比較</h2>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>比較項目</th>
+                        <th>Codex (OpenAI)</th>
+                        <th>Claude Code (Anthropic)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>UI/アプリ</strong></td>
+                        <td>デスクトップ版が極めて優秀</td>
+                        <td>CLI/Web主体</td>
+                    </tr>
+                    <tr>
+                        <td><strong>画像生成</strong></td>
+                        <td>DALL-E 2.0 直接連携</td>
+                        <td>別途外部モデルが必要</td>
+                    </tr>
+                    <tr>
+                        <td><strong>利用制限</strong></td>
+                        <td>プラスプランでも寛容</td>
+                        <td>上位モデルは制限が厳格</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="section-title">2. 4つの利用形態 & 導入</h2>
+        <div class="feature-card">
+            <div class="badge">推奨</div>
+            <h3>デスクトップアプリ</h3>
+            <p>Win/Mac対応。ローカルフォルダと同期し、成果物を直接生成・保存可能。</p>
+        </div>
+        <div class="feature-card">
+            <h3>IDE / CLI / Web</h3>
+            <div class="interface-grid">
+                <div class="interface-item">VS Code / Cursor</div>
+                <div class="interface-item">CLI (npm install)</div>
+                <div class="interface-item">Webブラウザ版</div>
+                <div class="interface-item">GitHub連携</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">3. 進化した5大機能</h2>
+        <div class="feature-card">
+            <h3>MCP (連携)</h3>
+            <p>Gmail、カレンダー、Notionなど外部ツールと「脳」を接続。</p>
+        </div>
+        <div class="feature-card">
+            <h3>スキル (学習)</h3>
+            <p>独自の知識やマニュアルを学習させ、特定のトーンやルールを守らせる。</p>
+        </div>
+        <div class="feature-card">
+            <h3>プラグイン (拡張)</h3>
+            <p>ブラウザ操作や動画生成など、特化機能をプラグイン形式で追加可能。</p>
+        </div>
+        <div class="feature-card">
+            <h3>サブエージェント</h3>
+            <p>内部で専門特化型AIを自律運用し、複雑なタスクを分業処理。</p>
+        </div>
+
+        <h2 class="section-title">4. 運用・カスタマイズ</h2>
+        <div class="feature-card" style="grid-column: 1 / -1; background: #fffbeb;">
+            <h3 style="color: #b45309;">📁 agent.md の重要性</h3>
+            <p>作業フォルダ直下にこのファイルを配置するだけで、<strong>応答トーンの指定（例：関西弁）</strong>や<strong>独自の開発ルール</strong>を永続的に記憶させることができます。</p>
+        </div>
+    </div>
+
+    <div class="footer-banner">
+        <div class="badge">PROMO</div>
+        <p style="margin: 0;">ユーザー数1,000万人に達するまで、100万人増加ごとに<strong>使用制限リセットキャンペーン</strong>実施中！</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.8;">※ プラスプラン（月額3,000円）から利用可能</p>
+    </div>
+</div>
+
+</body>
+</html>
