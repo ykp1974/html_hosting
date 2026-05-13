@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弁当業界分析報告書：インフォグラフィック</title>
+    <style>
+        :root {
+            --primary-orange: #f39c12;
+            --danger-red: #e74c3c;
+            --dark-blue: #2c3e50;
+            --light-bg: #f4f7f6;
+            --white: #ffffff;
+            --gray: #7f8c8d;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-blue);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--dark-blue), #34495e);
+            color: var(--white);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .source-link {
+            margin-top: 15px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--white);
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .source-link:hover {
+            background: var(--primary-orange);
+        }
+
+        /* Summary Area */
+        .summary-section {
+            padding: 30px;
+            background: #fff9f0;
+            border-bottom: 5px solid var(--primary-orange);
+        }
+
+        .summary-title {
+            color: var(--primary-orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 3-Column Layout: Cost & Competition */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 1.5rem;
+            color: var(--dark-blue);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-orange);
+            margin: 10px auto;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 0 30px 40px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+            transition: 0.3s;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        .card-header {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: var(--danger-red);
+        }
+
+        .competition-card .card-header { color: var(--dark-blue); }
+
+        .card-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .card-list li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #eee;
+        }
+
+        /* Case Study Section */
+        .case-study {
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 40px 30px;
+        }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .stats-table th, .stats-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stats-table th { color: var(--primary-orange); }
+
+        /* V-Shape Insight */
+        .insight-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        /* Conclusion Footer */
+        footer {
+            padding: 40px 30px;
+            text-align: center;
+            background: #f8f9fa;
+        }
+
+        .footer-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--primary-orange);
+            color: white;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>弁当業界 倒産急増と生存戦略 分析報告書</h1>
+        <a href="https://www.youtube.com/watch?v=pbJIYRHbT1o" class="source-link" target="_blank">
+            なぜ弁当屋はここまで潰れるのか？倒産急増の裏にある本当の理由
+        </a>
+    </header>
+
+    <div class="summary-section">
+        <div class="summary-title">⚠️ エグゼクティブ・サマリー</div>
+        <p>日本の弁当店倒産件数は2年連続で過去最多を更新中。原材料費高騰と多角的競合（コンビニ・スーパー等）の台頭による収益悪化が中小店を直撃。最大手「ほっともっと」は効率化とデリバリー強化でV字回復を果たす一方、業界は「安価な食事」から「戦略的価値」への転換期を迎えている。</p>
+    </div>
+
+    <h2 class="section-title">1. 倒産急増の構造的要因</h2>
+    <div class="grid-container">
+        <!-- Factor 1 -->
+        <div class="card">
+            <div class="card-header">💸 原材料・コストの高騰</div>
+            <ul class="card-list">
+                <li><strong>米価:</strong> 以前の約2倍へ劇的上昇</li>
+                <li><strong>鶏肉:</strong> 主力メニューの原価圧迫</li>
+                <li><strong>容器:</strong> 原油高に伴うプラ容器の増大</li>
+            </ul>
+        </div>
+        <!-- Factor 2 -->
+        <div class="card competition-card">
+            <div class="card-header">⚔️ 激化する「中食」競争</div>
+            <ul class="card-list">
+                <li><strong>コンビニ:</strong> 店内キッチン・小サイズ展開</li>
+                <li><strong>スーパー:</strong> 低価格・夕方割引の強み</li>
+                <li><strong>デリバリー:</strong> Uber等による外食の侵食</li>
+            </ul>
+        </div>
+        <!-- Factor 3 -->
+        <div class="card competition-card">
+            <div class="card-header">🍱 消費行動の変化</div>
+            <ul class="card-list">
+                <li><strong>利便性重視:</strong> 高単価でもデリバリー許容</li>
+                <li><strong>多様性:</strong> 家族全員が揃う店への集中</li>
+                <li><strong>淘汰:</strong> 差別化なき個人店の脱落</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="case-study">
+        <h2 class="section-title" style="color:white;">2. 最大手「ほっともっと」の生存戦略</h2>
+        <p>売上高 <strong>1,460〜1,470億円</strong> 前後で推移。赤字転落からのV字回復の裏側。</p>
+        
+        <table class="stats-table">
+            <thead>
+                <tr>
+                    <th>戦略項目</th>
+                    <th>分析・具体的アクション</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>粗利益率管理</td>
+                    <td>原材料高に対し適切な値上げを実施。<strong>約52%</strong>の高水準を維持。</td>
+                </tr>
+                <tr>
+                    <td>不採算店舗整理</td>
+                    <td>店舗数を削減しつつ、1店舗あたりの売上効率を最大化。</td>
+                </tr>
+                <tr>
+                    <td>デリバリー対応</td>
+                    <td>店頭600円→Uber950円等の単価上昇を「利便性」で吸収。</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="insight-box">
+            <strong>💡 歴史的強み：</strong> 2008年「ほっかほっか亭」からの独立により、当初から2,000店舗規模の巨大網とノウハウを継承。圧倒的な規模の経済を武器に、個人店が太刀打ちできない原価管理を実現している。
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-tag">今後の展望</div>
+        <p>弁当業界の倒産ラッシュは「構造的淘汰」であり、今後3〜4年は継続の予測。<br>
+        生き残りの鍵は、<strong>緻密な原価管理</strong>と、価格上昇を顧客が許容するだけの<strong>付加価値（品質・健康・こだわり）</strong>の提供である。</p>
+    </footer>
+</div>
+
+</body>
+</html>
