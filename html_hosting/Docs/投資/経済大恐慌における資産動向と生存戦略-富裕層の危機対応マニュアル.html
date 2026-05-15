@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>経済大恐慌における資産動向と生存戦略 - インフォグラフィック</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><path d="M0 0 L50 50 L0 100 L100 100 L50 50 L100 0 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+            opacity: 0.3;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.4em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 25px;
+        }
+
+        .video-link {
+            display: inline-block;
+            background: #ff4444;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1em;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(255,68,68,0.4);
+        }
+
+        .video-link:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,68,68,0.6);
+        }
+
+        .video-link::before {
+            content: '▶';
+            margin-right: 10px;
+        }
+
+        .executive-summary {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 50px 40px;
+            border-left: 6px solid #2a5298;
+        }
+
+        .executive-summary h2 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin-bottom: 25px;
+        }
+
+        .executive-summary p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .key-point {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 1.15em;
+            font-weight: 500;
+        }
+
+        section {
+            padding: 50px 40px;
+        }
+
+        section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        h2 {
+            color: #1e3c72;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #2a5298;
+        }
+
+        h3 {
+            color: #2a5298;
+            font-size: 1.6em;
+            margin: 30px 0 20px;
+        }
+
+        .definition-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .definition-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            border-top: 4px solid #2a5298;
+        }
+
+        .definition-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .definition-card h4 {
+            color: #1e3c72;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .case-study {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(238,90,111,0.3);
+        }
+
+        .case-study h3 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .case-study ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .case-study li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .case-study li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .velocity-comparison {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .velocity-item {
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .velocity-number {
+            font-size: 4em;
+            font-weight: bold;
+            color: #2a5298;
+            margin-bottom: 10px;
+        }
+
+        .velocity-number.recession {
+            color: #ff4444;
+        }
+
+        .velocity-label {
+            font-size: 1.2em;
+            font-weight: 600;
+        }
+
+        .destination-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .destination-table thead {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+        }
+
+        .destination-table th {
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        .destination-table td {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .destination-table tbody tr:hover {
+            background: #f0f4ff;
+        }
+
+        .destination-table tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .destination-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2a5298;
+            width: 60px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 4px solid #4CAF50;
+        }
+
+        .stat-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 15px 0;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            color: #666;
+        }
+
+        .gravity-zone {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gravity-zone::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        }
+
+        .gravity-zone h3 {
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gravity-zone ul {
+            position: relative;
+            z-index: 1;
+        }
+
+        .players-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .player-card {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .wealth-progression {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .wealth-year {
+            text-align: center;
+        }
+
+        .wealth-amount {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .arrow {
+            font-size: 3em;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .action-guide {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+        }
+
+        .action-guide h3 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .action-list {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+        }
+
+        .action-list li {
+            background: rgba(255,255,255,0.2);
+            margin: 20px 0;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid white;
+            font-size: 1.1em;
+        }
+
+        .action-list strong {
+            display: block;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .quote-box {
+            background: #1e3c72;
+            color: white;
+            padding: 50px;
+            text-align: center;
+            font-size: 1.8em;
+            font-style: italic;
+            border-radius: 15px;
+            margin: 40px 0;
+            box-shadow: 0 10px 40px rgba(30,60,114,0.3);
+        }
+
+        footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+            }
+
+            section {
+                padding: 30px 20px;
+            }
+
+            .destination-table {
+                font-size: 0.9em;
+            }
+
+            .destination-table th,
+            .destination-table td {
+                padding: 12px;
+            }
+
+            .velocity-number {
+                font-size: 3em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>経済大恐慌における資産動向と生存戦略</h1>
+            <p class="subtitle">富裕層の危機対応マニュアル</p>
+            <a href="https://www.youtube.com/watch?v=a1Btf1C99Ig" target="_blank" class="video-link">
+                経済大恐慌が起きても100%生き残る4段階行動指針(富裕層の危機対応マニュアル)
+            </a>
+        </header>
+
+        <div class="executive-summary">
+            <h2>エグゼクティブ・サマリー</h2>
+            <p>本資料は、経済不況および大恐慌時における「お金」の真の動きと、富裕層がどのように資産を守り、拡大させているかを分析したものである。</p>
+            
+            <div class="highlight-box">
+                <p><strong>主要な結論:</strong> 不況下においてお金は「消滅」するのではなく、価値に対する<strong>信頼が揺らぐことで"持ち主が移動するだけ"</strong>である。</p>
+            </div>
+
+            <p>経済危機は、恐怖に駆られて資産を手放す「準備不足の人々」から、冷静に市場を観察し実行する「準備ができている人々」へ富が移転する巨大な再分配プロセスである。</p>
+
+            <div class="key-point">
+                <strong>本稿の解説内容:</strong>
+                <ul style="margin-top: 15px; padding-left: 20px;">
+                    <li>お金・価格・価値の本質</li>
+                    <li>不況時に資金が流れ込む「4つの目的地」</li>
+                    <li>富が最終的に蓄積される「資本重力圏」の構造</li>
+                </ul>
+            </div>
+        </div>
+
+        <section>
+            <h2>1. お金、価格、そして価値の本質的定義</h2>
+            <p>不況を理解するためには、「お金」「価格」「価値」の違いを明確にする必要がある。</p>
+
+            <div class="definition-grid">
+                <div class="definition-card">
+                    <h4>💵 お金(通貨)</h4>
+                    <p>価値を測るための"道具"</p>
+                </div>
+                <div class="definition-card">
+                    <h4>💎 価値</h4>
+                    <p>人々の信頼と集団的合意によって成立</p>
+                </div>
+                <div class="definition-card">
+                    <h4>🏷️ 価格</h4>
+                    <p>その瞬間に買い手と売り手が合意した"数字"</p>
+                </div>
+            </div>
+
+            <div class="case-study">
+                <h3>ケーススタディ: 2025年1月 NVIDIA市場パニック</h3>
+                <p>中国AIモデル「DeepSeek」の登場により、市場はNVIDIAの将来に不安を抱きパニックに陥った。</p>
+                <ul>
+                    <li><strong>事象:</strong> 2025年1月27日、NVIDIAの時価総額約90兆円が1日で蒸発</li>
+                    <li><strong>結果:</strong> 翌日以降、NVIDIAの優位性が再確認され株価は反発</li>
+                </ul>
+                <div class="highlight-box" style="margin-top: 20px;">
+                    <strong>教訓:</strong>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>90兆円が"消えた"のではない</li>
+                        <li><strong>価値への信頼が揺らぎ、再び戻っただけ</strong></li>
+                        <li>不況とは「認識の変化」である</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>2. 経済の階層構造と「貨幣の流通速度」</h2>
+            <p>経済を船に例えると、不況の波で最初に振り落とされるのは、貯蓄がなく労働収入に依存する最下層の人々である。</p>
+
+            <h3>貨幣の流通速度(Velocity of Money)</h3>
+            <p>1ドルが1年間に何回取引に使われるかで経済の健全性を測る。</p>
+
+            <div class="velocity-comparison">
+                <div class="velocity-item">
+                    <div class="velocity-number">5-7回</div>
+                    <div class="velocity-label">成長期</div>
+                    <p style="margin-top: 15px; color: #666;">1ドルが年5〜7回循環</p>
+                </div>
+                <div style="font-size: 3em; color: #ccc;">→</div>
+                <div class="velocity-item">
+                    <div class="velocity-number recession">1.5回</div>
+                    <div class="velocity-label">不況期</div>
+                    <p style="margin-top: 15px; color: #666;">1.5回程度まで急落</p>
+                </div>
+            </div>
+
+            <div class="key-point">
+                <strong>不況の皮肉な循環:</strong>
+                <ul style="margin-top: 10px; padding-left: 20px;">
+                    <li>人々が支出を控える</li>
+                    <li>投資も停滞</li>
+                    <li>結果として「慎重な行動」が自分たちの雇用を奪うという皮肉な循環が発生</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. 不況下における「お金の旅」: 4つの目的地</h2>
+            <p>不況時、お金は「交換の媒体」から「蓄えられた価値」へと役割を変え、特定の場所へ避難する。</p>
+
+            <table class="destination-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>目的地</th>
+                        <th>特徴</th>
+                        <th>主な資産</th>
+                        <th>リスク・課題</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="destination-number">1</td>
+                        <td><strong>受動的保管</strong></td>
+                        <td>安全を優先し現金を"駐車"</td>
+                        <td>普通預金、国債、MMF</td>
+                        <td>インフレで価値が減少</td>
+                    </tr>
+                    <tr>
+                        <td class="destination-number">2</td>
+                        <td><strong>下落相場での買い向かい</strong></td>
+                        <td>恐怖で売る人から富が移転</td>
+                        <td>暴落株、暗号資産</td>
+                        <td>長期保有できる余剰資金が必要</td>
+                    </tr>
+                    <tr>
+                        <td class="destination-number">3</td>
+                        <td><strong>現物・安全資産</strong></td>
+                        <td>国や企業に依存しない価値</td>
+                        <td>金、農地、芸術品</td>
+                        <td>流動性が低い</td>
+                    </tr>
+                    <tr>
+                        <td class="destination-number">4</td>
+                        <td><strong>低評価の大型資産</strong></td>
+                        <td>資金難の他者から優良資産を取得</td>
+                        <td>経営難企業、不動産</td>
+                        <td>キャッシュリッチな層が主導</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>補足データ</h3>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">MMF総資産</div>
+                    <div class="stat-value">7.4兆ドル</div>
+                    <div class="stat-label">(約1100兆円)<br>2025年4月時点</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">農地の収益性</div>
+                    <div class="stat-value">年12%</div>
+                    <div class="stat-label">米国農地<br>過去20年平均</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">金(ゴールド)</div>
+                    <div class="stat-value">1.8倍</div>
+                    <div class="stat-label">2008年危機後<br>2年で上昇</div>
+                </div>
+            </div>
+        </section>
+
+        <section style="background: #f0f0f0;">
+            <h2>4. 資本の最終目的地: 「資本重力圏」</h2>
+            <p>不況のサイクルを経るほど、富は最終的に「資本重力圏」へ集まる。<br>
+            これは <strong>最上位0.01%の超富裕層</strong> が支配する領域である。</p>
+
+            <div class="gravity-zone">
+                <h3>資本重力圏の特徴</h3>
+                <div class="highlight-box" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3);">
+                    <p><strong>指標:</strong> 所得ではなく"所有権"</p>
+                    <ul style="margin-top: 15px; padding-left: 20px;">
+                        <li>企業</li>
+                        <li>ファンド</li>
+                        <li>エネルギー</li>
+                        <li>食品インフラ</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 40px;">代表的プレイヤー</h3>
+                <div class="players-list">
+                    <div class="player-card">
+                        <strong>🇦🇪 UAE</strong><br>
+                        アル・ナヒヤーン家
+                    </div>
+                    <div class="player-card">
+                        <strong>🇶🇦 カタール</strong><br>
+                        アル・サーニ家
+                    </div>
+                    <div class="player-card">
+                        <strong>🇫🇷 フランス</strong><br>
+                        エルメス家
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 40px;">富の推移例</h3>
+                <div class="wealth-progression">
+                    <div class="wealth-year">
+                        <div style="font-size: 1.5em; margin-bottom: 10px;">2015年</div>
+                        <div class="wealth-amount">1,490億ドル</div>
+                    </div>
+                    <div class="arrow">→</div>
+                    <div class="wealth-year">
+                        <div style="font-size: 1.5em; margin-bottom: 10px;">2024年</div>
+                        <div class="wealth-amount">4,300億ドル</div>
+                        <div style="margin-top: 10px; font-size: 0.9em;">(推定)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>5. 結論と行動指針</h2>
+            <p style="font-size: 1.2em; margin-bottom: 30px;">不況はゲームのルールを変えるのではなく、<br>
+            <strong>「誰がルールを理解しているか」を明らかにする時間</strong>である。</p>
+
+            <div class="action-guide">
+                <h3>行動指針</h3>
+                <ul class="action-list">
+                    <li>
+                        <strong>1. 生存モード → 建設モードへ</strong>
+                        恐怖で動けない時こそ、学び・準備・実行のチャンス。
+                    </li>
+                    <li>
+                        <strong>2. 紙上の数字に惑わされない</strong>
+                        株価下落は"帳簿上の損失"。<br>
+                        売らない限り、富裕層は生活も権力も維持する。
+                    </li>
+                    <li>
+                        <strong>3. 富の移転の"受け取り側"に立つ</strong>
+                        恐怖で手放す側ではなく、計画的に受け取る側へ回ることが重要。
+                    </li>
+                </ul>
+            </div>
+
+            <div class="quote-box">
+                「不況とはお金が消える時間ではなく、持ち主が変わる時間である。」
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 経済大恐慌における資産動向と生存戦略 - インフォグラフィック</p>
+        </footer>
+    </div>
+</body>
+</html>

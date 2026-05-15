@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人材育成の崩壊に関する分析報告書</title>
+    <style>
+        :root {
+            --primary-navy: #1a2a3a;
+            --accent-red: #e63946;
+            --alert-orange: #f4a261;
+            --bg-gray: #f8f9fa;
+            --text-dark: #2c3e50;
+            --white: #ffffff;
+            --border-light: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: #f0f2f5;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-navy);
+            color: var(--white);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .source-link {
+            margin-top: 15px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #a8dadc;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .source-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Summary */
+        .summary-section {
+            padding: 30px;
+            background-color: #fff5f5;
+            border-bottom: 5px solid var(--accent-red);
+        }
+
+        .summary-title {
+            color: var(--accent-red);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Paradox Section */
+        .section-title {
+            text-align: center;
+            margin: 40px 0 20px;
+            font-size: 1.5rem;
+            color: var(--primary-navy);
+        }
+
+        .paradox-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 30px 40px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            text-align: center;
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--accent-red);
+        }
+
+        /* Wall Section */
+        .wall-box {
+            background-color: var(--primary-navy);
+            color: white;
+            padding: 40px 30px;
+            margin: 0 30px 40px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .wall-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .wall-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        /* Table Section */
+        .table-wrapper {
+            padding: 0 30px 40px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        th {
+            background-color: #f1f4f8;
+            color: var(--primary-navy);
+        }
+
+        .vs-tag {
+            color: var(--accent-red);
+            font-weight: bold;
+        }
+
+        /* Quotes */
+        .quote-section {
+            background: #f8f9fa;
+            padding: 40px 30px;
+            font-style: italic;
+        }
+
+        .quote-bubble {
+            background: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--alert-orange);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 30px;
+            text-align: center;
+            background: var(--primary-navy);
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .paradox-container, .wall-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>日本企業における「即戦力」偏重と人材育成の崩壊</h1>
+        <a href="https://www.youtube.com/watch?v=6qAsr5IH9WM" class="source-link" target="_blank">
+            【2chまとめ】企業「未経験者はいらない。経験者だけ欲しい」→これを続けた結果www
+        </a>
+    </header>
+
+    <div class="summary-section">
+        <div class="summary-title">⚠️ エグゼクティブ・サマリー</div>
+        <p>日本企業が教育コストと離職リスクを恐れ、「他社で育った経験者」のみを奪い合う現状。自社での育成を放棄する「育成の外部化」は、市場から経験者そのものを枯渇させる致命的なパラドックスを生んでいます。</p>
+    </div>
+
+    <h2 class="section-title">1. 「経験者偏重」が生む負の連鎖</h2>
+    <div class="paradox-container">
+        <div class="card">
+            <div class="card-icon">🔄</div>
+            <h3>市場全体の枯渇</h3>
+            <p>全社が「完成品」を求め、誰も「育成」をしないため、市場全体の供給がストップする。</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">📉</div>
+            <h3>条件の乖離</h3>
+            <p>高スキル要件 × 低賃金。このミスマッチが解消されないまま「人手不足」と叫ばれる。</p>
+        </div>
+        <div class="card">
+            <div class="card-icon">🚫</div>
+            <h3>偽装の温床</h3>
+            <p>未経験を経験者として送り込むSES等の不正や、経歴詐称を誘発する構造。</p>
+        </div>
+    </div>
+
+    <h2 class="section-title">2. 労働者を阻む「採用の二極化」</h2>
+    <div class="wall-box">
+        <p>一度レールを外れると、再起が極めて困難な構造</p>
+        <div class="wall-grid">
+            <div class="wall-item">
+                <strong>新卒カードの絶対性</strong>
+                <p>一括採用から漏れると、未経験からの正社員道がほぼ閉ざされる日本特有の慣行。</p>
+            </div>
+            <div class="wall-item">
+                <strong>30歳の壁</strong>
+                <p>30歳を超えた未経験者は、潜在能力にかかわらず「ブラック人材」と見なされるリスク。</p>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">3. 採用・育成における主要な対立軸</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>企業側の論理</th>
+                    <th><span class="vs-tag">労働者側の視点</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>人材育成</strong></td>
+                    <td>育てても転職されるので無駄</td>
+                    <td>経験を積ませてもらえないと成長できない</td>
+                </tr>
+                <tr>
+                    <td><strong>賃金設定</strong></td>
+                    <td>可能な限り人件費を抑えたい</td>
+                    <td>昇給が少ないので、より良い条件を求め他社へ</td>
+                </tr>
+                <tr>
+                    <td><strong>人手不足</strong></td>
+                    <td>安価で優秀な経験者が足りない</td>
+                    <td>未経験を拒絶し、低賃金で酷使しているだけ</td>
+                </tr>
+                <tr>
+                    <td><strong>外部依存</strong></td>
+                    <td>コンサル・外国人・AIに頼る</td>
+                    <td>自社に技術が蓄積されず、現場が空洞化</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="quote-section">
+        <h2 class="section-title">4. 現場の痛切な声</h2>
+        <div class="quote-bubble">「経験者がたけのこみたいに勝手に生えてくると思うのやめませんか。お前らが育てるんだよ」</div>
+        <div class="quote-bubble">「教育費かけたくないから他が育てた人材が欲しい。どの会社も抜け駆けしようとしてるからどうにもならん」</div>
+        <div class="quote-bubble">「30歳以下の経験・未経験の確認禁止とかにすればええのに」</div>
+    </div>
+
+    <footer>
+        <p><strong>結論：社会システムとしての再構築が不可欠</strong></p>
+        <p>「新卒」や「経験年数」という記号に依存した採用から、<br>個人の素質・ポテンシャルを評価し、企業が責任を持って育てるモデルへの転換が必要です。</p>
+    </footer>
+</div>
+
+</body>
+</html>

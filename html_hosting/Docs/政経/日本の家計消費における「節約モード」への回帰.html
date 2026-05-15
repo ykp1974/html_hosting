@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本の家計消費における「節約モード」への回帰 - インフォグラフィック</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #404040 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/><circle cx="50" cy="50" r="25" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="2"/></svg>');
+            opacity: 0.3;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 1.4em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 25px;
+        }
+
+        .video-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1em;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .video-link:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .video-link::before {
+            content: '▶';
+            margin-right: 10px;
+        }
+
+        .executive-summary {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 50px 40px;
+            border-left: 6px solid #667eea;
+        }
+
+        .executive-summary h2 {
+            color: #1a1a1a;
+            font-size: 2em;
+            margin-bottom: 25px;
+        }
+
+        .executive-summary p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #667eea;
+        }
+
+        .key-point {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 1.15em;
+            font-weight: 500;
+        }
+
+        section {
+            padding: 50px 40px;
+        }
+
+        section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        h2 {
+            color: #1a1a1a;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h3 {
+            color: #667eea;
+            font-size: 1.6em;
+            margin: 30px 0 20px;
+        }
+
+        h4 {
+            color: #1a1a1a;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* 主要指標カード */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 5px solid #667eea;
+            transition: transform 0.3s;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .metric-card.negative {
+            border-top-color: #e74c3c;
+        }
+
+        .metric-value {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .metric-value.negative {
+            color: #e74c3c;
+        }
+
+        .metric-value.positive {
+            color: #27ae60;
+        }
+
+        .metric-label {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .metric-detail {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 15px;
+            line-height: 1.6;
+        }
+
+        /* 消費支出テーブル */
+        .consumption-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .consumption-table thead {
+            background: linear-gradient(135deg, #1a1a1a 0%, #404040 100%);
+            color: white;
+        }
+
+        .consumption-table th {
+            padding: 20px;
+            text-align: left;
+            font-size: 1em;
+            font-weight: 600;
+        }
+
+        .consumption-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .consumption-table tbody tr:hover {
+            background: #f5f7fa;
+        }
+
+        .consumption-table tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .item-label {
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        /* 乖離の可視化 */
+        .divergence-chart {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .comparison-bars {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            gap: 30px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .bar-item {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .bar-chart {
+            background: #e0e0e0;
+            border-radius: 10px 10px 0 0;
+            overflow: hidden;
+            height: 200px;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .bar-fill {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .bar-fill.negative {
+            background: linear-gradient(180deg, #e74c3c, #c0392b);
+        }
+
+        .bar-label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        /* 要因カード */
+        .factors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .factor-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s;
+        }
+
+        .factor-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .factor-number {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            line-height: 40px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .factor-card h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        /* 比較表 */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .comparison-table thead {
+            background: linear-gradient(135deg, #1a1a1a 0%, #404040 100%);
+            color: white;
+        }
+
+        .comparison-table th {
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: #f5f7fa;
+        }
+
+        .comparison-table tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .year-2022 {
+            background: #ffe6e6;
+        }
+
+        .year-current {
+            background: #e6f3ff;
+        }
+
+        /* 提言カード */
+        .recommendation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .recommendation-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-top: 5px solid #27ae60;
+        }
+
+        .recommendation-card h4 {
+            color: #27ae60;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #27ae60;
+        }
+
+        .recommendation-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recommendation-card li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+        }
+
+        .recommendation-card li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* エンゲル係数 */
+        .engel-box {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe6cc 100%);
+            border: 2px solid #f39c12;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .engel-box h4 {
+            color: #f39c12;
+            margin-bottom: 15px;
+        }
+
+        /* フロー図 */
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .flow-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            border-left: 4px solid #667eea;
+        }
+
+        .flow-arrow {
+            font-size: 2em;
+            color: #667eea;
+            flex-shrink: 0;
+        }
+
+        /* 警告ボックス */
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            color: #856404;
+        }
+
+        .warning-box strong {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+        }
+
+        /* 結論 */
+        .conclusion-box {
+            background: linear-gradient(135deg, #1a1a1a 0%, #404040 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .conclusion-box h3 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .conclusion-text {
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+
+        footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+            }
+
+            section {
+                padding: 30px 20px;
+            }
+
+            .consumption-table {
+                font-size: 0.9em;
+            }
+
+            .consumption-table th,
+            .consumption-table td {
+                padding: 12px;
+            }
+
+            .metric-value {
+                font-size: 2em;
+            }
+
+            .comparison-bars {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .flow-diagram {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>日本の家計消費における「節約モード」への回帰</h1>
+            <p class="subtitle">可処分所得と消費の乖離に関する分析</p>
+            <a href="https://www.youtube.com/watch?v=K4VQBIA63tk" target="_blank" class="video-link">
+                岡崎良介×永濱利廣【『再び節約に向かう日本の家計消費』可処分所得があっても消費出来ない｜岡崎良介のRisicare(リジカーレ)『勇気をもって投資せよ』#44 】
+            </a>
+        </header>
+
+        <div class="executive-summary">
+            <h2>エグゼクティブ・サマリー</h2>
+            <p>直近の家計調査データ（2024年3月分）は、日本の家計が再び強い節約志向へと転じている実態を示した。</p>
+            
+            <div class="highlight-box">
+                <p><strong>異例の乖離:</strong> 実質消費支出が前年比 <strong>-1.8％</strong> と減少する一方、勤労者世帯の実収入は <strong>4％以上増加</strong> しており、<br><strong>「所得が増えているのに消費が減る」</strong>という異例の現象が発生している。</p>
+            </div>
+
+            <p>この背景には、長年のデフレマインドの定着、物価高への警戒感、新NISAなどによる資産形成への過度なシフト（いわゆる「NISA貧乏」）がある。</p>
+
+            <div class="key-point">
+                <strong>重要な指摘:</strong>
+                <ul style="margin-top: 15px; padding-left: 20px;">
+                    <li>賃金上昇率は2022年のウクライナ危機時より高い</li>
+                    <li>リバウンド消費が期待できない現状</li>
+                    <li>内需停滞が大きな懸念</li>
+                </ul>
+            </div>
+        </div>
+
+        <section>
+            <h2>1. 家計消費の現状：統計が示す「節約」の実態</h2>
+            <p>2024年3月の家計調査データは、日本の消費動向が転換点にあることを示唆している。</p>
+
+            <h3>主な指標の動向</h3>
+            
+            <div class="metrics-grid">
+                <div class="metric-card negative">
+                    <div class="metric-label">実質消費支出</div>
+                    <div class="metric-value negative">-1.8%</div>
+                    <div class="metric-detail">
+                        前年比での低下<br>
+                        <strong>消費が減少傾向</strong>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-label">実収入の増加</div>
+                    <div class="metric-value positive">+4.0%</div>
+                    <div class="metric-detail">
+                        勤労者世帯での増加<br>
+                        <strong>所得は確実に増加</strong>
+                    </div>
+                </div>
+
+                <div class="metric-card negative">
+                    <div class="metric-label">平均消費性向</div>
+                    <div class="metric-value negative">低下</div>
+                    <div class="metric-detail">
+                        前年より下落<br>
+                        <strong>所得増でも消費に回らない</strong>
+                    </div>
+                </div>
+
+                <div class="metric-card negative">
+                    <div class="metric-label">循環的トレンド</div>
+                    <div class="metric-value negative">弱い</div>
+                    <div class="metric-detail">
+                        2023年末から悪化<br>
+                        <strong>2四半期連続で弱い動き</strong>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">項目別の変動要因</h3>
+            <div style="overflow-x: auto;">
+                <table class="consumption-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">項目</th>
+                            <th style="width: 25%;">動向</th>
+                            <th style="width: 50%;">主な要因</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="item-label">交通・通信</span></td>
+                            <td><strong>下落</strong></td>
+                            <td>自動車購入など耐久財の買い控え。経済不透明感が影響</td>
+                        </tr>
+                        <tr>
+                            <td><span class="item-label">住居</span></td>
+                            <td><strong>上昇</strong></td>
+                            <td>住宅価格上昇、家賃増、リフォーム需要の増加</td>
+                        </tr>
+                        <tr>
+                            <td><span class="item-label">保健医療</span></td>
+                            <td><strong>不透明</strong></td>
+                            <td>他項目と異なる動き。要因の特定が課題</td>
+                        </tr>
+                        <tr>
+                            <td><span class="item-label">その他消費</span></td>
+                            <td><strong>下落</strong></td>
+                            <td>選択的支出の削減。生活防衛が優先される</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section style="background: #f8f9fa;">
+            <h2>2. 消費抑制の背景にある心理的・構造的要因</h2>
+
+            <h3>💭 デフレマインドの残存とタイムラグ</h3>
+            <div class="factor-card">
+                <p>所得が増えても即消費に回さない慎重な国民性が根付いている。長期デフレにより「現金・資産を重視する」価値観が深く定着しており、所得増加のシグナルが消費に直結しない。</p>
+            </div>
+
+            <h3 style="margin-top: 30px;">📊 消費者マインドの悪化</h3>
+            <div class="factor-card">
+                <p>消費者態度指数が大幅に悪化している。エネルギー価格報道などが警戒感を増幅し、将来への不安が現在の消費抑制につながっている。</p>
+            </div>
+
+            <h3 style="margin-top: 30px;">📈 「資産へのシフト」と消費の停滞</h3>
+            <div class="warning-box">
+                <strong>⚠️ NISA貧乏の問題</strong>
+                <p style="margin-top: 15px;">
+                    新NISAなどへの投資が増加している一方で、資産形成を優先しすぎて日常消費を過度に抑制する家計が増加。<br><br>
+                    結果として国内の経済循環が弱まり、本来期待される「所得増→消費増→経済成長」の好循環が形成されないリスクが高まっている。
+                </p>
+            </div>
+
+            <h3 style="margin-top: 30px;">カテゴリ別の抑制要因</h3>
+            <div class="factors-grid">
+                <div class="factor-card">
+                    <span class="factor-number">1</span>
+                    <h4>デフレマインド</h4>
+                    <p>30年間のデフレが「お金を使わない」という価値観を刻み込んだ。習慣の変更は容易ではない。</p>
+                </div>
+
+                <div class="factor-card">
+                    <span class="factor-number">2</span>
+                    <h4>物価高警戒</h4>
+                    <p>継続的なインフレ報道が将来への不安を増加させ、予防的貯蓄が増加している。</p>
+                </div>
+
+                <div class="factor-card">
+                    <span class="factor-number">3</span>
+                    <h4>資産形成ブーム</h4>
+                    <p>新NISA制度の開始により、投資へのシフトが加速。消費との二者択一になりやすい。</p>
+                </div>
+
+                <div class="factor-card">
+                    <span class="factor-number">4</span>
+                    <h4>リバウンド余地消失</h4>
+                    <p>コロナ後の反動消費は終了し、新たな消費動機が限定的である。</p>
+                </div>
+
+                <div class="factor-card">
+                    <span class="factor-number">5</span>
+                    <h4>雇用不安定化</h4>
+                    <p>正規雇用の減少や給与の変動性増加が、家計の防衛的姿勢を強化している。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. 2022年（ロシア・ウクライナ危機時）との比較分析</h2>
+            <p style="font-size: 1.15em; margin-bottom: 30px;">異なる経済環境での賃金動向と消費行動を比較。</p>
+
+            <h3>賃金環境の比較</h3>
+            <div style="overflow-x: auto;">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">指標</th>
+                            <th style="width: 35%;">2022年（ウクライナ危機時）</th>
+                            <th style="width: 35%;">現在（2024年）</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="year-2022">
+                            <td><strong>賃上げ率</strong></td>
+                            <td>1％台前半</td>
+                            <td>—</td>
+                        </tr>
+                        <tr class="year-current">
+                            <td><strong>賃上げ率</strong></td>
+                            <td>—</td>
+                            <td>3年連続で5％超の回答</td>
+                        </tr>
+                        <tr class="year-2022">
+                            <td><strong>名目賃金</strong></td>
+                            <td>低成長</td>
+                            <td>—</td>
+                        </tr>
+                        <tr class="year-current">
+                            <td><strong>名目賃金</strong></td>
+                            <td>—</td>
+                            <td>3％超で増加</td>
+                        </tr>
+                        <tr class="year-2022">
+                            <td><strong>実質賃金</strong></td>
+                            <td>大きく落ち込み</td>
+                            <td>—</td>
+                        </tr>
+                        <tr class="year-current">
+                            <td><strong>実質賃金</strong></td>
+                            <td>—</td>
+                            <td>2022年ほど深刻ではない見通し</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 style="margin-top: 40px;">経済再開効果の比較</h3>
+            <div class="divergence-chart">
+                <h4 style="text-align: center; margin-bottom: 30px;">リオープン（経済再開）効果の消失</h4>
+                
+                <div class="comparison-bars">
+                    <div class="bar-item">
+                        <div class="bar-chart">
+                            <div class="bar-fill" style="height: 80%;">
+                                <span>高い</span>
+                            </div>
+                        </div>
+                        <div class="bar-label">2022年<br>反動消費効果</div>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar-chart">
+                            <div class="bar-fill negative" style="height: 20%;">
+                                <span>低い</span>
+                            </div>
+                        </div>
+                        <div class="bar-label">現在<br>リバウンド余地なし</div>
+                    </div>
+                </div>
+
+                <p style="text-align: center; color: #666; margin-top: 30px;">
+                    2022年はコロナ後の反動で消費が増えたが、現在はリバウンド余地がなく、<br>
+                    賃金増でも消費が伸びにくい構造が定着している。
+                </p>
+            </div>
+        </section>
+
+        <section style="background: #f8f9fa;">
+            <h2>4. エンゲル係数の解釈と今後の予測</h2>
+            
+            <div class="engel-box">
+                <h4>📊 エンゲル係数とは</h4>
+                <p style="margin-top: 15px;">
+                    消費支出に占める食糧費の割合。高いほど生活が苦しいと解釈される傾向があるが、解釈には注意が必要。
+                </p>
+            </div>
+
+            <h3 style="margin-top: 30px;">現状分析</h3>
+            <div class="factor-card">
+                <h4 style="color: #333;">❌ 誤解しやすい点</h4>
+                <p>エンゲル係数上昇は「貯蓄を取り崩している」わけではない。むしろ、他の支出（耐久財など）を削った結果、相対的に食費比率が上昇しているのが実情。</p>
+            </div>
+
+            <h3 style="margin-top: 30px;">今後の予測</h3>
+            <div class="recommendation-card">
+                <h4>⚠️ 注視すべき要素</h4>
+                <ul>
+                    <li>エネルギー価格の更なる上昇可能性</li>
+                    <li>米価の相対的下落による影響</li>
+                    <li>「良くない低下」のリスク（消費全体の弱さを示唆）</li>
+                    <li>構造的な家計収支の悪化の可能性</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 30px; padding: 20px; background: white; border-radius: 10px; border-left: 4px solid #667eea;">
+                エンゲル係数の動きから、必ずしも「生活が豊かになった」とは判断できない。<br>
+                むしろ消費全体の構造的な弱さを示すシグナルと解釈すべき。
+            </p>
+        </section>
+
+        <section>
+            <h2>5. 結論と提言：内需の火を消さないために</h2>
+            <p style="font-size: 1.15em; margin-bottom: 30px;">日本がデフレ脱却を目指す中、家計消費の停滞は大きな課題である。</p>
+
+            <h3>三者の役割と提言</h3>
+            <div class="recommendation-grid">
+                <div class="recommendation-card">
+                    <h4>🏢 企業の役割</h4>
+                    <ul>
+                        <li>増えた賃金を使いたくなる魅力的な商品・サービスの開発</li>
+                        <li>広告やマーケティングの戦略的工夫</li>
+                        <li>消費者心理に訴える価値提案</li>
+                        <li>イノベーティブな商品投入による需要創造</li>
+                    </ul>
+                </div>
+
+                <div class="recommendation-card" style="border-top-color: #3498db;">
+                    <h4 style="color: #3498db;">🏛️ 政府の役割</h4>
+                    <ul>
+                        <li>定額減税は一定の効果を発揮してきた</li>
+                        <li>継続的な内需刺激政策が不可欠</li>
+                        <li>消費マインドの転換を促す施策が必要</li>
+                        <li>賃金上昇と消費増をリンクさせる環境整備</li>
+                    </ul>
+                </div>
+
+                <div class="recommendation-card" style="border-top-color: #f39c12;">
+                    <h4 style="color: #f39c12;">👨‍👩‍👧‍👦 消費者の視点</h4>
+                    <ul>
+                        <li>過度な将来不安による貯蓄・投資偏重の回避</li>
+                        <li>現在の生活の質を高める「健全な消費」の実践</li>
+                        <li>バランスの取れた資産管理（貯蓄と消費の最適配分）</li>
+                        <li>経済全体への貢献意識の醸成</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">経済循環のフロー</h3>
+            <div class="flow-diagram">
+                <div class="flow-box">
+                    <strong>所得増加</strong>
+                    <p style="margin-top: 10px; font-size: 0.9em;">企業の賃上げ</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">
+                    <strong>消費増加</strong>
+                    <p style="margin-top: 10px; font-size: 0.9em;">現在ここで失敗</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">
+                    <strong>経済成長</strong>
+                    <p style="margin-top: 10px; font-size: 0.9em;">期待される未来</p>
+                </div>
+            </div>
+
+            <div class="conclusion-box">
+                <h3>最終的な警告</h3>
+                <p class="conclusion-text">
+                    日本の家計は今、所得増にもかかわらず消費を抑える「節約モード」に回帰している。<br><br>
+                    この流れを放置すれば、<strong>内需の弱さが長期化する可能性が高い。</strong><br><br>
+                    企業・政府・消費者の三者がバランスを取りながら、<br>
+                    <strong>経済循環を維持する視点が求められる。</strong>
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 日本の家計消費における「節約モード」への回帰 - インフォグラフィック</p>
+        </footer>
+    </div>
+</body>
+</html>

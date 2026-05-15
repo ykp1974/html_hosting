@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>グローバリゼーションの終焉と地政学的危機：分析報告書</title>
+    <style>
+        :root {
+            --primary-dark: #1a1a1a;
+            --accent-red: #c62828;
+            --accent-gold: #b8860b;
+            --bg-light: #f4f4f2;
+            --text-main: #333333;
+            --card-bg: #ffffff;
+            --border-color: #d1d1d1;
+        }
+
+        body {
+            font-family: 'Times New Roman', serif, 'Hiragino Mincho ProN', 'MS Mincho';
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 2px solid var(--primary-dark);
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 0 0 15px 0;
+            color: var(--primary-dark);
+        }
+
+        .source-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 20px;
+            background-color: var(--primary-dark);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .source-link:hover {
+            background-color: var(--accent-red);
+        }
+
+        /* Summary Section */
+        .summary-box {
+            background-color: #fff;
+            border: 1px solid var(--accent-red);
+            padding: 25px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .summary-box::before {
+            content: "EXECUTIVE SUMMARY";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--accent-red);
+            color: white;
+            padding: 2px 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* Globalism Structure */
+        .concept-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .concept-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+        }
+
+        .concept-card h3 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary-dark);
+            padding-bottom: 5px;
+        }
+
+        /* History Cycle Section */
+        .cycle-section {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 30px;
+            border-radius: 4px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .cycle-flow {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .cycle-step {
+            flex: 1;
+            min-width: 150px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.3);
+            margin: 5px;
+        }
+
+        .arrow { font-size: 1.5rem; color: var(--accent-red); }
+
+        /* Crisis Table */
+        .table-wrapper {
+            margin-bottom: 40px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #eee;
+            color: var(--primary-dark);
+        }
+
+        .china-alert {
+            background-color: rgba(198, 40, 40, 0.05);
+            border: 2px solid var(--accent-red);
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+
+        /* Conclusion Footer */
+        footer {
+            border-top: 2px solid var(--primary-dark);
+            padding-top: 30px;
+            margin-top: 50px;
+        }
+
+        .insight-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .conclusion-text {
+            background: #eee;
+            padding: 20px;
+            text-align: center;
+            font-weight: bold;
+            grid-column: 1 / -1;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .concept-grid, .insight-grid { grid-template-columns: 1fr; }
+            .cycle-flow { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>グローバリゼーションの終焉と地政学的危機の再来</h1>
+        <p>〜 三橋貴明氏の分析に基づく構造的転換点の考察 〜</p>
+        <a href="https://www.youtube.com/watch?v=aB1N_DZjqiQ" class="source-link" target="_blank">
+            【三橋貴明】世界中で政情不安が爆発し、日本以外はとんでもない事になるぞ！
+        </a>
+    </header>
+
+    <div class="summary-box">
+        グローバリゼーションは覇権国による「自由貿易の強制」によって成立する一時的な現象に過ぎない。歴史的に、この崩壊はデフレ、所得格差、そして「ナショナリズムの爆発」を招き、大恐慌や大戦争へと至るサイクルを持つ。現代は第二次グローバリゼーションの黄昏時であり、資源・労働・需要の不均衡が世界的な地政学リスクを最大化させている。
+    </div>
+
+    <h2>1. 思想と現象の分離構造</h2>
+    <div class="concept-grid">
+        <div class="concept-card">
+            <h3>グローバリゼーション（現象）</h3>
+            <p>財・サービス・資本・人の国境を越えた自由化。覇権国（英・米）によるシーレーン支配と自由貿易の強制が前提条件となる。</p>
+        </div>
+        <div class="concept-card">
+            <h3>グローバリズム（価値観）</h3>
+            <p>この自由化を「善」とし、意図的に推進する思想。国内産業の空洞化や格差拡大を招く要因となる。</p>
+        </div>
+    </div>
+
+    
+
+    <h2>2. 第一次グローバリゼーション（イギリス覇権期）の教訓</h2>
+    <div class="cycle-section">
+        <p>かつて世界が辿った崩壊のプロセス</p>
+        <div class="cycle-flow">
+            <div class="cycle-step">所得格差の拡大・デフレ</div>
+            <div class="arrow">▶</div>
+            <div class="cycle-step">挑戦国の台頭（米・独）</div>
+            <div class="arrow">▶</div>
+            <div class="cycle-step">バブル崩壊と大恐慌</div>
+            <div class="arrow">▶</div>
+            <div class="cycle-step">ナショナリズムとナチス台頭</div>
+        </div>
+        <p style="margin-top: 20px; color: var(--accent-red); font-weight: bold;">結論：グローバリゼーションの極地は「大戦争」を招く</p>
+    </div>
+
+    <h2>3. 現代：主要国が直面する欠乏と課題</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>対象</th>
+                    <th>欠乏・課題</th>
+                    <th>リスク分析</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>中国</strong></td>
+                    <td>需要・技術・資本</td>
+                    <td>不動産バブル崩壊による内因的デフレと資源高のスタグフレーション。</td>
+                </tr>
+                <tr>
+                    <td><strong>日本</strong></td>
+                    <td>資源・労働力</td>
+                    <td>コストプッシュ型インフレの試練。低失業率ゆえの供給制約。</td>
+                </tr>
+                <tr>
+                    <td><strong>アメリカ</strong></td>
+                    <td>労働の質・供給</td>
+                    <td>再工業化を目指すが、肥満や教育問題による労働力品質の懸念。</td>
+                </tr>
+                <tr>
+                    <td><strong>UAE</strong></td>
+                    <td>食糧・自国労働力</td>
+                    <td>人口の9割が移民。自給率0%ゆえ、シーレーン封鎖が即「死」を意味する。</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="china-alert">
+        <strong>⚠️ 中国の本格的スタグフレーション懸念</strong>
+        <ul>
+            <li><strong>内因的要因：</strong> 不動産バブル崩壊による需要の蒸発（GDPデフレータマイナス）。</li>
+            <li><strong>外的要因：</strong> 資源価格の上昇。</li>
+            <li><strong>戦略的要因：</strong> 日米からの技術・資本吸収モデルの終焉。</li>
+        </ul>
+    </div>
+
+    <h2>4. 生き残るための戦略的洞察</h2>
+    <div class="insight-grid">
+        <div class="concept-card">
+            <h3>具体化の重要性</h3>
+            <p>「民主主義」「グローバリゼーション」といった抽象語を具体化し、現物の「物資・人・資本」の動きを直視せよ。</p>
+        </div>
+        <div class="concept-card">
+            <h3>赤の女王の理論</h3>
+            <p>激変する世界では、現状維持のためだけに「全速力で走り続ける」努力と国家戦略が必要となる。</p>
+        </div>
+        <div class="conclusion-text">
+            日本は他国支援の前に「自国の生存」を最優先せよ。<br>
+            資源・労働力・防衛能力の確保こそが、政情不安爆発期における唯一の解である。
+        </div>
+    </div>
+
+    <footer>
+        <p style="text-align: center; font-style: italic;">本資料は三橋貴明氏の分析を要約したものです。状況は常に変動するため最新のデータをご確認ください。</p>
+    </footer>
+</div>
+
+</body>
+</html>
