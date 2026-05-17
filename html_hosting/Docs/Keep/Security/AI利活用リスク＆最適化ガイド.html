@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI利活用リスク＆最適化ガイド</title>
+    <style>
+        :root {
+            --bg-body: #f4f7f6;
+            --primary-navy: #1a2a3a;
+            --accent-red: #e63946;
+            --accent-green: #2a9d8f;
+            --accent-blue: #3498db;
+            --text-dark: #2c3e50;
+            --card-bg: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background-color: var(--primary-navy);
+            color: #fff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .source-link {
+            margin-top: 15px;
+            display: inline-block;
+            background: rgba(255,255,255,0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .source-link:hover {
+            background: rgba(255,255,255,0.25);
+        }
+
+        /* エグゼクティブサマリー */
+        .summary {
+            padding: 30px;
+            background-color: #f8fafc;
+            border-bottom: 5px solid var(--accent-blue);
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-navy);
+            margin: 40px 0 20px;
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-blue);
+            margin: 10px auto;
+        }
+
+        /* 学習オフ設定テーブル */
+        .table-wrapper {
+            padding: 0 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-navy);
+            color: #fff;
+        }
+
+        /* 5つのNG行為 & 対策カード */
+        .ng-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .ng-card {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .ng-header {
+            background-color: var(--accent-red);
+            color: #fff;
+            padding: 10px 15px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+
+        .ng-content {
+            padding: 20px;
+        }
+
+        .solution-box {
+            background-color: #e9f5f3;
+            border-left: 4px solid var(--accent-green);
+            padding: 15px;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        /* 3大AI比較セクション */
+        .ai-features {
+            display: flex;
+            justify-content: space-around;
+            padding: 30px;
+            background: #f1f4f8;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .ai-feature-card {
+            flex: 1;
+            min-width: 250px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .ai-logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        footer {
+            background: var(--primary-navy);
+            color: #fff;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+
+        .highlight {
+            color: var(--accent-red);
+            font-weight: bold;
+        }
+
+        @media (max-width: 600px) {
+            .ng-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>AI利活用：主要リスクと最適化ガイド</h1>
+        <a href="https://www.youtube.com/watch?v=wzlo2n-bE3c" class="source-link" target="_blank">
+            【超危険!!】9割が間違える！ChatGPT・Gemini・Claudeで絶対にやってはいけない５つのNG行為
+        </a>
+    </header>
+
+    <div class="summary">
+        <strong>エグゼクティブ・サマリー：</strong><br>
+        AIの真価は設定と対話にあります。デフォルト設定での機密入力や単発の「丸投げ」指示を避け、適切なオプトアウト設定と段階的な対話を行うことで、セキュリティ確保と高品質（100点）な成果の両立を目指します。
+    </div>
+
+    <h2 class="section-title">1. セキュリティ対策：学習設定をマスターする</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>AIサービス</th>
+                    <th>オプトアウト手順</th>
+                    <th>一時チャット機能</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>ChatGPT</strong></td>
+                    <td>設定 > データコントロール > 学習オフ</td>
+                    <td>履歴に残らず学習にも不使用</td>
+                </tr>
+                <tr>
+                    <td><strong>Gemini</strong></td>
+                    <td>アクティビティ > 保存をオフ</td>
+                    <td>72時間保存されるが学習不使用</td>
+                </tr>
+                <tr>
+                    <td><strong>Claude</strong></td>
+                    <td>設定 > 改善への協力をオフ</td>
+                    <td>記憶に追加されず学習不使用</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2 class="section-title">2. 陥りやすいNG行為と解決策</h2>
+    <div class="ng-grid">
+        <div class="ng-card">
+            <div class="ng-header">NG：デフォルトのまま機密入力</div>
+            <div class="ng-content">
+                個人向けプランは標準でデータ学習が行われます。
+                <div class="solution-box">
+                    <strong>対策：</strong> 上記のオプトアウト設定を完了させるか、企業用プラン・APIを利用する。
+                </div>
+            </div>
+        </div>
+        <div class="ng-card">
+            <div class="ng-header">NG：出力を無修正で利用（AIスロップ）</div>
+            <div class="ng-content">
+                嘘（ハルシネーション）や、AI特有の冷たい表現で信頼を損なう恐れ。
+                <div class="solution-box">
+                    <strong>対策：</strong> 自分の過去の文章（メール等）を学習させ、自分の文体を再現させる。
+                </div>
+            </div>
+        </div>
+        <div class="ng-card">
+            <div class="ng-header">NG：1回限りの「丸投げ」プロンプト</div>
+            <div class="ng-content">
+                丸投げでは平均的な60点の回答しか得られません。
+                <div class="solution-box">
+                    <strong>対策：</strong> 「役割付与」→「構成案」→「詳細」の順で対話し、成果物を育てる。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">3. マルチAI活用による「セカンドオピニオン」</h2>
+    <p style="text-align:center; padding: 0 30px;">特定AIへの依存を避け、複数を使い分けることで死角をなくします。</p>
+    <div class="ai-features">
+        <div class="ai-feature-card">
+            <span class="ai-logo" style="color:#10a37f;">ChatGPT</span>
+            <strong>得意：汎用性・具体策</strong><br>
+            例：定期アンケートによる顧客改善提案
+        </div>
+        <div class="ai-feature-card" style="border-top: 4px solid #4285f4;">
+            <span class="ai-logo" style="color:#4285f4;">Gemini</span>
+            <strong>得意：Google連携・エコシステム</strong><br>
+            例：Slack/Salesforce連携による効率化
+        </div>
+        <div class="ai-feature-card" style="border-top: 4px solid #d97757;">
+            <span class="ai-logo" style="color:#d97757;">Claude</span>
+            <strong>得意：長文読解・人間味のある文体</strong><br>
+            例：解約を防ぐ柔軟な選択肢の提案
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>「入力しない」よりも「入力前の設定」を。</strong></p>
+        <p>AIを道具として使いこなすための第一歩は、正しい設定と健全な疑いを持つことです。</p>
+    </footer>
+</div>
+
+</body>
+</html>

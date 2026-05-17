@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI時代のセキュリティ新常識 インフォグラフィック</title>
+    <style>
+        :root {
+            --primary-dark: #1a202c;
+            --secondary-blue: #2b6cb0;
+            --danger-red: #c53030;
+            --safe-green: #2f855a;
+            --warning-gold: #b7791f;
+            --bg-light: #f7fafc;
+            --white: #ffffff;
+            --text-dark: #2d3748;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: #edf2f7;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* ヘッダー */
+        header {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .source-link {
+            margin-top: 15px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #63b3ed;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* セクションタイトル */
+        h2 {
+            text-align: center;
+            color: var(--primary-dark);
+            margin: 40px 0 20px;
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary-blue);
+            margin: 10px auto;
+        }
+
+        /* ハックロア比較テーブル */
+        .table-wrapper {
+            padding: 0 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--white);
+        }
+
+        th {
+            background-color: #2d3748;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .old-way { color: #718096; text-decoration: line-through; }
+        .new-truth { color: var(--safe-green); font-weight: bold; }
+
+        /* データハイライト */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8fafc;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-value {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--danger-red);
+        }
+
+        /* 事例・リスクカード */
+        .card-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 0 30px 40px;
+        }
+
+        .card {
+            padding: 25px;
+            border-radius: 12px;
+            background: var(--white);
+            border-left: 5px solid var(--danger-red);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* 防衛術のピラミッド/リスト */
+        .defense-section {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 40px 30px;
+        }
+
+        .defense-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .defense-item {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .defense-item strong {
+            color: #63b3ed;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* 結論 */
+        footer {
+            padding: 40px 30px;
+            text-align: center;
+            background: #f1f5f9;
+        }
+
+        .final-message {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary-dark);
+            border: 2px solid var(--secondary-blue);
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .card-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>AI時代のセキュリティ新常識</h1>
+        <p>ハックロアの打破とAIエージェントのリスク管理</p>
+        <a href="https://www.youtube.com/watch?v=GUntMNn2tqM" class="source-link" target="_blank">
+            【AIに聞けば】は『ウソ』！？APIキー渡す人=アウト 〜Claude Code時代のセキュリティ8つの基礎〜
+        </a>
+    </header>
+
+    <h2>1. 廃棄すべき「古い常識（ハックロア）」</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>旧来の認識（時代遅れ）</th>
+                    <th>現代の真実</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>パスワード変更</td>
+                    <td class="old-way">定期的に変更すべき</td>
+                    <td class="new-truth">頻繁な変更は弱体化を招く。NISTも否定。</td>
+                </tr>
+                <tr>
+                    <td>公共Wi-Fi</td>
+                    <td class="old-way">危険なので避けるべき</td>
+                    <td class="new-truth">HTTPS化により安全性向上。利用可能。</td>
+                </tr>
+                <tr>
+                    <td>QRコード</td>
+                    <td class="old-way">スキャン自体が危険</td>
+                    <td class="new-truth">スキャンは無害。入力内容が危険。</td>
+                </tr>
+                <tr>
+                    <td>クッキー削除</td>
+                    <td class="old-way">定期的に削除すべき</td>
+                    <td class="new-truth">手間が増えるだけで攻撃対策効果は薄い。</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>2. AI時代の衝撃的なデータ</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <span class="stat-value">5 分以内</span>
+            流出したクラウド鍵が<br>悪用されるまでの時間
+        </div>
+        <div class="stat-card">
+            <span class="stat-value">3.2 %</span>
+            AI支援開発での<br>秘密情報漏洩率 (平均の2倍)
+        </div>
+        <div class="stat-card">
+            <span class="stat-value">2,865 万件</span>
+            2025年に流出した<br>シークレット数
+        </div>
+    </div>
+
+    
+
+    <h2>3. 重大事例：プロでも防げない「1行のミス」</h2>
+    <div class="card-container">
+        <div class="card">
+            <strong style="color:var(--danger-red);">Anthropic社 ソースコード流出</strong>
+            <p>設定ファイル <code>.npmignore</code> のわずか1行の書き忘れにより、<strong>51万行超</strong>のソースコードが流出。4万件以上フォークされ回収不能に。</p>
+        </div>
+        <div class="card" style="border-left-color: var(--warning-gold);">
+            <strong>スロックスクワッティング</strong>
+            <p>AIの「幻覚」が提案した存在しないパッケージ名を攻撃者が先取り登録。ユーザーが誤って悪意あるコードを導入する新型攻撃。</p>
+        </div>
+    </div>
+
+    <div class="defense-section">
+        <h2 style="color:white; margin-top:0;">4. プロフェッショナルが実践する防衛術</h2>
+        <div class="defense-grid">
+            <div class="defense-item">
+                <strong>パスワードマネージャー + MFA</strong>
+                フィッシング自動入力防止と、漏洩時の「最後の砦」を構築。
+            </div>
+            <div class="defense-item">
+                <strong>最小権限の原則 (Least Privilege)</strong>
+                AIには必要最小限のフォルダ・APIのみ露出。秘密情報は隔離する。
+            </div>
+            <div class="defense-item">
+                <strong>多層防御 (Defense in Depth)</strong>
+                100点の壁はない前提で、不完全な対策を何層にも重ねる。
+            </div>
+            <div class="defense-item">
+                <strong>職務分離：AIはインターン</strong>
+                「申請者（AI）」と「承認者（人間）」を明確に分け、最終承認は必ず人間が行う。
+            </div>
+        </div>
+    </div>
+
+    
+
+    <footer>
+        <div class="final-message">
+            攻撃面（窓）を減らし、被害範囲（延焼）を最小化せよ。
+        </div>
+        <p style="margin-top:20px; font-size:0.85rem; color:#64748b;">
+            秘密情報の隔離、公式リポジトリの確認、そして「迷ったらNo」がAI時代の新鉄則です。
+        </p>
+    </footer>
+</div>
+
+</body>
+</html>

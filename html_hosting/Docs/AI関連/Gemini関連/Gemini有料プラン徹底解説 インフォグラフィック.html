@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini有料プラン徹底解説 インフォグラフィック</title>
+    <style>
+        :root {
+            --google-blue: #4285F4;
+            --google-red: #EA4335;
+            --google-yellow: #FBBC05;
+            --google-green: #34A853;
+            --bg-light: #F8F9FA;
+            --text-dark: #202124;
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background: #fff;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .source-link {
+            display: inline-block;
+            background: #f1f3f4;
+            padding: 8px 16px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #5f6368;
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .source-link:hover {
+            background: #e8eaed;
+            color: var(--google-blue);
+        }
+
+        /* 料金プラン比較 */
+        .plan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .plan-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .plan-card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow); }
+
+        .plan-name { font-weight: bold; font-size: 1.2rem; margin-bottom: 10px; }
+        .price { font-size: 1.8rem; font-weight: 800; margin-bottom: 5px; }
+        .discount-badge {
+            background: var(--google-red);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            position: absolute;
+            top: -10px;
+            right: 20px;
+        }
+
+        /* 最安ルート図解 */
+        .strategy-box {
+            background: #fff8e1;
+            margin: 0 30px 30px;
+            padding: 30px;
+            border-radius: 16px;
+            border: 2px dashed var(--google-yellow);
+        }
+
+        .strategy-title {
+            color: #d8a000;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .route-steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            flex: 1;
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            min-width: 200px;
+        }
+
+        /* 機能アイコン */
+        .feature-section {
+            padding: 0 30px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--google-blue);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .feature-item h4 { margin: 0 0 8px 0; color: var(--google-blue); }
+
+        /* ファミリー共有コスト計算 */
+        .family-math {
+            background: var(--google-blue);
+            color: white;
+            margin: 0 30px 30px;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .math-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .math-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .math-item span { font-size: 1.5rem; font-weight: bold; display: block; }
+
+        footer {
+            background: #202124;
+            color: #bdc1c6;
+            padding: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .math-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Gemini 有料プラン & コスト最適化戦略</h1>
+        <a href="https://www.youtube.com/watch?v=uLAr6wAK9x8" class="source-link" target="_blank">
+            【必見】Gemini有料版を最安で使う方法！最新プラン「Google AI Plus」がたった数百円で使える！
+        </a>
+    </header>
+
+    <div class="plan-grid">
+        <div class="plan-card">
+            <span class="discount-badge">New!</span>
+            <div class="plan-name">Google AI Plus</div>
+            <div class="price">¥1,200 <small>/月</small></div>
+            <p style="font-size: 0.85rem;">最新AIを手軽に。<br>年額プランで<strong>月額換算 ¥608</strong></p>
+        </div>
+        <div class="plan-card" style="border-color: var(--google-blue);">
+            <div class="plan-name">Google AI Pro</div>
+            <div class="price">¥2,900 <small>/月</small></div>
+            <p style="font-size: 0.85rem;">高度な作業に。<br>2TBストレージ & 究極の解析力</p>
+        </div>
+        <div class="plan-card">
+            <div class="plan-name">Google AI Ultra</div>
+            <div class="price">高機能特化</div>
+            <p style="font-size: 0.85rem;">映像・画像制作プロ向け。<br>Veo 3.1 / Lysk搭載</p>
+        </div>
+    </div>
+
+    <div class="strategy-box">
+        <div class="strategy-title">💡 49%オフを実現する「最安利用ルート」</div>
+        <div class="route-steps">
+            <div class="step"><strong>1. トライアル開始</strong><br>まずProプランの1ヶ月無料トライアルに申し込む。</div>
+            <div class="step"><strong>2. 解約 & ダウングレード</strong><br>トライアル中に解約し、移行先として「AI Plus 年額プラン」を選択。</div>
+            <div class="step"><strong>3. 年一括払い</strong><br>年額 ¥7,300を支払うことで、月額 ¥1,200 → <strong>実質 ¥608</strong>に。</div>
+        </div>
+    </div>
+
+    <div class="family-math">
+        <strong>👨‍👩‍👧‍👦 ファミリー共有でコストを究極分散</strong>
+        <p style="font-size: 0.9rem;">追加料金なしで最大6人とAI権限を共有可能 (プライバシーは完全隔離)</p>
+        <div class="math-grid">
+            <div class="math-item">
+                <small>4人家族なら</small>
+                <span>月額 ¥300 /人</span>
+            </div>
+            <div class="math-item">
+                <small>6人共有なら</small>
+                <span>月額 ¥200 /人</span>
+            </div>
+        </div>
+    </div>
+
+    <h2 style="text-align: center; margin-bottom: 20px; font-size: 1.3rem;">有料版限定の「脳の共有」機能</h2>
+    <div class="feature-section">
+        <div class="feature-item">
+            <h4>パーソナライズ</h4>
+            <p style="font-size: 0.85rem;">職業や関心を記憶。毎回説明する手間を排除。</p>
+        </div>
+        <div class="feature-item">
+            <h4>Workspace連携</h4>
+            <p style="font-size: 0.85rem;">Gmail/カレンダー/ドキュメントから情報を直接要約・整理。</p>
+        </div>
+        <div class="feature-item">
+            <h4>予約アクション</h4>
+            <p style="font-size: 0.85rem;">「毎週最新ニュースを通知」など、AIによるタスク自動化。</p>
+        </div>
+        <div class="feature-item">
+            <h4>クリエイティブ</h4>
+            <p style="font-size: 0.85rem;">Google Vids(動画生成)やImagen 3の高速生成が利用可能。</p>
+        </div>
+    </div>
+
+    <footer>
+        <strong>結論：月額数百円で「専用秘書」を雇う時代</strong>
+        <p style="margin-top: 10px;">年額プランとファミリー共有の併用は、2026年現在のAI活用における最強の生存戦略です。</p>
+    </footer>
+</div>
+
+</body>
+</html>

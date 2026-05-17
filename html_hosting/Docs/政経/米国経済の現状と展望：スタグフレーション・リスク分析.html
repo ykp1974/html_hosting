@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>米国経済の現状と展望：スタグフレーション・リスク分析</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', 'Yu Gothic', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 20px;
+            line-height: 1.7;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f093fb 0%, #f5576c 50%, #4facfe 100%);
+        }
+        
+        h1 {
+            font-size: 2.3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 25px;
+        }
+        
+        .video-link {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 15px 30px;
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            margin-top: 10px;
+        }
+        
+        .video-link:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 40px;
+            margin: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+        
+        .executive-summary h2 {
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .executive-summary p {
+            font-size: 1.05em;
+            line-height: 1.9;
+            margin-bottom: 15px;
+        }
+        
+        .key-conclusion {
+            background: rgba(255,255,255,0.2);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+            border-left: 5px solid white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .key-conclusion strong {
+            font-size: 1.15em;
+        }
+        
+        .section {
+            padding: 50px 40px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .section h2 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 6px solid #667eea;
+        }
+        
+        .section h3 {
+            color: #2c3e50;
+            font-size: 1.6em;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .comparison-table thead {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+        }
+        
+        .comparison-table th {
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        
+        .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .info-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-top: 5px solid;
+        }
+        
+        .info-card.positive {
+            border-color: #28a745;
+        }
+        
+        .info-card.neutral {
+            border-color: #ffc107;
+        }
+        
+        .info-card.negative {
+            border-color: #dc3545;
+        }
+        
+        .info-card h4 {
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .info-card ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+        
+        .info-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .info-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .risk-box {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+        
+        .risk-box h4 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .opportunity-box {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 25px 0;
+            box-shadow: 0 10px 30px rgba(79, 172, 254, 0.3);
+        }
+        
+        .opportunity-box h4 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .vs-section {
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+        }
+        
+        .vs-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 30px;
+            align-items: center;
+            margin-top: 25px;
+        }
+        
+        .vs-item {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .vs-divider {
+            font-size: 3em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .vs-item h4 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #2c3e50;
+        }
+        
+        .watch-points {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+        }
+        
+        .watch-points h3 {
+            color: white;
+            border: none;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+        
+        .watch-points ol {
+            list-style: none;
+            counter-reset: watch-counter;
+        }
+        
+        .watch-points li {
+            counter-increment: watch-counter;
+            padding: 20px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            padding-left: 60px;
+        }
+        
+        .watch-points li::before {
+            content: counter(watch-counter);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            color: #f5576c;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .conclusion h2 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .conclusion-text {
+            font-size: 1.3em;
+            line-height: 2;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .highlight {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        
+        .chart-placeholder {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 25px 0;
+            border: 2px dashed #ccc;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.6em;
+            }
+            
+            .section {
+                padding: 30px 20px;
+            }
+            
+            .vs-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .vs-divider {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 米国経済の現状と展望</h1>
+            <div class="subtitle">スタグフレーション・リスクと投資戦略の分析</div>
+            <a href="https://www.youtube.com/watch?v=v86Cw4nSyh0" target="_blank" class="video-link">
+                🎥 【イラン後の投資】米国株はまだ買いなのか？米国経済スタグフレーション入りのリスクをどう見るべきか？大川智宏に聞け
+            </a>
+        </header>
+
+        <div class="executive-summary">
+            <h2>💡 エグゼクティブ・サマリー</h2>
+            <p>
+                現在、米国経済においてインフレと景気後退が同時進行する「スタグフレーション」への懸念が浮上しているが、<strong>実体経済のデータは異なる側面を示している</strong>。
+            </p>
+            <p>
+                2024年3月のFOMCでは実質GDP成長率と物価見通しの双方が上方修正されており、現状は<strong>「景気好調に伴うインフレ」</strong>と捉えるのが妥当である。
+            </p>
+            <p>
+                最大の懸念材料は原油価格（WTI）が100ドルを超える高水準で停滞することだが、2022年の混乱期と比較してインフレのベースラインが低いことから、深刻な景気後退に至る可能性は限定的である。
+            </p>
+            
+            <div class="key-conclusion">
+                <strong>🎯 結論</strong><br>
+                米国株の足元のアンダーパフォーマンスは一時的な調整（踊り場）であり、EPS（一株当たり利益）の成長率とマージンの改善という強固なファンダメンタルズに支えられた米国市場の優位性は、中長期的に揺るがないものと判断される。
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>1️⃣ スタグフレーション・リスクの検証</h2>
+            
+            <p style="font-size: 1.1em; margin-bottom: 25px;">
+                足元では米国経済の減速懸念とインフレの再燃、さらに原油高が重なることで、スタグフレーションへの警戒感が高まっている。しかし、<strong>その深刻度は限定的</strong>であると分析される。
+            </p>
+
+            <h3>📈 景気見通しと物価の現状</h3>
+            
+            <div class="info-grid">
+                <div class="info-card positive">
+                    <h4>✅ GDPと物価の上方修正</h4>
+                    <p>3月のFOMCにおいて、実質GDP成長率および物価の見通しが共に上方修正。単なるコストプッシュ型のインフレではなく、需要を伴う経済活動の強さを示唆。</p>
+                </div>
+                
+                <div class="info-card positive">
+                    <h4>💪 消費の底堅さ</h4>
+                    <p>2月の小売売上高がプラスに転じるなど、個人消費は依然として堅調である。</p>
+                </div>
+            </div>
+
+            <h3>🛢️ 原油高の影響：2022年との比較</h3>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>2022年の状況</th>
+                        <th>現在（2024年4月時点）</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>インフレ水準</strong></td>
+                        <td>米国6–7%、欧州4%超</td>
+                        <td>米国2–3%程度（マイルド）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>金融政策の背景</strong></td>
+                        <td>コロナ後の超金融緩和から急激な引き締めへ</td>
+                        <td>すでに高い金利水準にある（調整余地がある）</td>
+                    </tr>
+                    <tr>
+                        <td><strong>景気への影響</strong></td>
+                        <td>企業業績は一時頭打ち、株価は大幅下落</td>
+                        <td>企業業績は右肩上がりを維持</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="opportunity-box">
+                <h4>🔍 分析結果</h4>
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    現在のインフレ水準であれば、原油高が加わっても2022年ほどの破壊的な景気後退を引き起こす可能性は低く、<strong>スタグフレーションが起こったとしても軽微かつ短期間</strong>に留まると予測される。
+                </p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>2️⃣ 金融政策の不確実性と市場への影響</h2>
+            
+            <p style="font-size: 1.1em; margin-bottom: 25px;">
+                市場が最も注視すべきは、<strong>FRB（米連邦準備制度理事会）の政策スタンスの転換</strong>である。
+            </p>
+
+            <h3>📉 「利下げ期待」の剥落と利上げのリスク</h3>
+            
+            <div class="info-grid">
+                <div class="info-card neutral">
+                    <h4>📊 市場予測の変遷</h4>
+                    <p>2月時点では年2回の利下げが織り込まれていたが、原油高や物価動向を受け、その期待はゼロへと急速に収束。</p>
+                </div>
+                
+                <div class="info-card negative">
+                    <h4>⚠️ テールリスクとしての利上げ</h4>
+                    <p>可能性は極めて低いものの、当局者から「場合によっては利上げ」との言及が出始めており、これが現実味を帯びた場合、株式市場には甚大なショックを与える可能性がある。</p>
+                </div>
+            </div>
+
+            <div class="risk-box">
+                <h4>🚨 最大のテールリスク</h4>
+                <p style="font-size: 1.05em; line-height: 1.8;">
+                    市場は利下げ期待を前提に動いてきたため、<strong>「FRBによる利上げ」への転換</strong>という前提が崩れた際のショックには警戒が必要である。
+                </p>
+            </div>
+
+            <h3>🏛️ 次期政権・人事の影響</h3>
+            
+            <ul style="list-style: none; margin-top: 20px;">
+                <li style="padding: 10px 0; padding-left: 30px; position: relative;">
+                    <span style="position: absolute; left: 0; color: #667eea; font-weight: bold;">▸</span>
+                    次期FRB議長候補とされる人物（ウォーシュ氏等）の動向も注目される
+                </li>
+                <li style="padding: 10px 0; padding-left: 30px; position: relative;">
+                    <span style="position: absolute; left: 0; color: #667eea; font-weight: bold;">▸</span>
+                    トランプ前大統領の意向（利下げ要求）や、AIによる生産性革命への期待が政策判断にどう影響するかが焦点
+                </li>
+                <li style="padding: 10px 0; padding-left: 30px; position: relative;">
+                    <span style="position: absolute; left: 0; color: #667eea; font-weight: bold;">▸</span>
+                    現状では<strong>「利下げもしないが、利上げも慎重」</strong>という膠着状態が続く可能性が高い
+                </li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>3️⃣ 米国株の優位性と投資戦略</h2>
+            
+            <p style="font-size: 1.1em; margin-bottom: 25px;">
+                直近では米国株が他地域（日本株や欧州株など）に対してアンダーパフォームする場面も見られるが、これは構造的な衰退ではなく、<strong>一時的なリバランスや調整の結果</strong>である。
+            </p>
+
+            <h3>💪 米国市場の強固なファンダメンタルズ</h3>
+            
+            <div class="info-grid">
+                <div class="info-card positive">
+                    <h4>📈 成長性の重要性</h4>
+                    <p>米国市場では、歴史的に「高い成長が予想される銘柄が実際に上がる」という相関が極めて強い。</p>
+                </div>
+                
+                <div class="info-card positive">
+                    <h4>💰 価格決定権</h4>
+                    <p>米国のハイテク企業を中心としたグローバルリーダーは、自ら需要を創出し、価格をコントロールできる能力（プライシング・パワー）を持つ。</p>
+                </div>
+            </div>
+
+            <div class="opportunity-box">
+                <h4>🎯 米国株を支える要素</h4>
+                <p style="font-size: 1.1em;">
+                    極めて高い <strong>EPS（一株当たり利益）の成長率</strong> と <strong>マージンの改善</strong>
+                </p>
+            </div>
+
+            <h3>🇺🇸 vs 🇯🇵 米国株と日本株の対比</h3>
+            
+            <div class="vs-section">
+                <div class="vs-grid">
+                    <div class="vs-item">
+                        <h4>🇺🇸 米国株の特性</h4>
+                        <ul style="list-style: none;">
+                            <li style="padding: 10px 0;">✅ 自国発のテクノロジー（AI等）で世界を席巻</li>
+                            <li style="padding: 10px 0;">✅ 中長期的な投資テーマとしての信頼性が高い</li>
+                            <li style="padding: 10px 0;">✅ 自ら需要を創出する力</li>
+                            <li style="padding: 10px 0;">✅ 価格決定権を保持</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="vs-divider">VS</div>
+                    
+                    <div class="vs-item">
+                        <h4>🇯🇵 日本株の特性</h4>
+                        <ul style="list-style: none;">
+                            <li style="padding: 10px 0;">⚠️ 外需依存型の企業が多い</li>
+                            <li style="padding: 10px 0;">⚠️ 為替や地政学リスクに業績が左右される</li>
+                            <li style="padding: 10px 0;">⚠️ 利益予想の信頼性が低くなりやすい</li>
+                            <li style="padding: 10px 0;">⚠️ バリュートラップに陥りやすい</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p style="text-align: center; margin-top: 25px; font-size: 1.1em; color: #2c3e50;">
+                    <strong>これは外需に左右されやすい日本企業との決定的な違い</strong>
+                </p>
+            </div>
+
+            <h3>🌍 地域別パフォーマンスの現状</h3>
+            
+            <p style="margin-top: 20px;">
+                年初来の騰落率ランキングでは、資源国（ノルウェー等）が上位に食い込んでいる。原油や天然ガスの輸出が強い国々が一時的に買われる傾向にあるが、これは<strong>短期的・イベント的な動き</strong>であり、超長期の成長エンジンは依然として米国のテクノロジーセクターにある。
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>4️⃣ 総括と今後の注視点</h2>
+            
+            <p style="font-size: 1.15em; line-height: 1.9; margin-bottom: 30px;">
+                米国経済は現在、過度な楽観論が修正される<strong>「踊り場」</strong>に位置している。<br>
+                投資家にとっては、現在のアンダーパフォームはむしろ<strong>好機（買い場）</strong>と捉えることができる。
+            </p>
+
+            <div class="watch-points">
+                <h3>👀 今後の注目ポイント</h3>
+                <ol>
+                    <li>
+                        <strong>企業決算の推移</strong><br>
+                        エヌビディアをはじめとするハイパースケーラー企業の決算が、依然として強い設備投資需要を証明できるか
+                    </li>
+                    <li>
+                        <strong>FRBの議論の変遷</strong><br>
+                        2024年半ばから後半にかけて、利上げの議論が具体化するかどうか
+                    </li>
+                    <li>
+                        <strong>地政学リスクの収束</strong><br>
+                        中東情勢による物流および原油価格への影響が、どの程度の期間継続するか
+                    </li>
+                </ol>
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <h2>🎯 最終結論</h2>
+            <div class="conclusion-text">
+                米国経済の本質的な強みである<br>
+                <span class="highlight">「成長性」</span> と <span class="highlight">「テクノロジーの覇権」</span><br>
+                に変化がない限り、<br><br>
+                <strong style="font-size: 1.3em;">米国株を中心とした投資戦略は引き続き有効</strong>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

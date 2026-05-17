@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本のエネルギー安全保障状況報告 2024-2026</title>
+    <style>
+        :root {
+            --primary-blue: #003366;
+            --secondary-blue: #00509d;
+            --accent-green: #2d6a4f;
+            --warning-gold: #ffb703;
+            --danger-red: #c1121f;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #212529;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: #e9ecef;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .source-link {
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        header a {
+            color: var(--warning-gold);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        /* Summary Section */
+        .summary-section {
+            background-color: #f1f8ff;
+            border-left: 6px solid var(--secondary-blue);
+            padding: 25px;
+            margin: 30px;
+            border-radius: 4px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .summary-item {
+            text-align: center;
+            background: var(--white);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .big-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--secondary-blue);
+        }
+
+        /* Map/Routes Section */
+        .section-title {
+            text-align: center;
+            color: var(--primary-blue);
+            margin: 40px 0 20px;
+            font-size: 1.5rem;
+        }
+
+        .routes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 0 30px;
+        }
+
+        .country-card {
+            border: 1px solid #dee2e6;
+            border-radius: 12px;
+            padding: 20px;
+            background: #fff;
+            transition: transform 0.2s;
+        }
+
+        .country-card:hover { transform: translateY(-5px); }
+        .country-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--accent-green);
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* Market & Info War Section */
+        .info-war-box {
+            margin: 40px 30px;
+            background-color: #fff3f3;
+            border: 1px solid #ffcccc;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .warning-title {
+            color: var(--danger-red);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* IEA Table */
+        .table-wrapper {
+            margin: 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+        }
+
+        th {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .supply-up { color: var(--accent-green); font-weight: bold; }
+        .supply-down { color: var(--danger-red); font-weight: bold; }
+
+        /* Footer */
+        footer {
+            background-color: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        @media (max-width: 600px) {
+            .container { padding: 10px; }
+            .summary-section, .info-war-box, .table-wrapper { margin: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>日本の原油代替調達とエネルギー安全保障状況報告</h1>
+        <div class="source-link">
+            <a href="https://www.youtube.com/watch?v=pFil2nG9H5g" target="_blank">【朗報】日本に原油が続々到着！原油の代替調達が急加速！IEAも原油供給回復の見込みを発表！</a>
+        </div>
+    </header>
+
+    <div class="summary-section">
+        <strong>エグゼクティブ・サマリー</strong>
+        <p>ホルムズ海峡の緊迫化に対し、政府は「経由しないルート」への切り替えを加速。5月には前年実績の6割を代替確保済みであり、米国・メキシコ・サウジ（迂回）による多角化が着実に進展しています。</p>
+        <div class="summary-grid">
+            <div class="summary-item">
+                <span class="label">5月の代替確保率</span>
+                <span class="big-number">約60%</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">米国からの輸送期間</span>
+                <span class="big-number">約35日間</span>
+                <span>(従来より20日短縮)</span>
+            </div>
+            <div class="summary-item">
+                <span class="label">メキシコ合意量</span>
+                <span class="big-number">100万BBL</span>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">調達ルートの多角化と主要国の成果</h2>
+    <div class="routes-container">
+        <div class="country-card">
+            <div class="country-name">🇸Ａ サウジアラビア / ＵＡＥ</div>
+            <p><strong>ホルムズ海峡を回避：</strong> 紅海側のヤンブ港などを活用したパイプライン経由の供給を継続。外交努力により供給拡大への協力を確認。</p>
+        </div>
+        <div class="country-card">
+            <div class="country-name">🇲Ｘ メキシコ</div>
+            <p><strong>太平洋側の新拠点：</strong> シェインバウム大統領による100万バレルの輸出表明。中東依存度を下げる戦略的供給源。</p>
+        </div>
+        <div class="country-card">
+            <div class="country-name">🇺Ｓ アメリカ合衆国</div>
+            <p><strong>テキサスからの直行便：</strong> パナマックス型タンカーを採用。パナマ運河ルート活用で、約91万バレルの原油が迅速に到着。</p>
+        </div>
+    </div>
+
+    <div class="info-war-box">
+        <div class="warning-title">⚠️ 国内の混乱と情報工作への警戒</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div>
+                <strong>心理的「目詰まり」：</strong><br>
+                実質的な不足ではなく、メディアの不安煽りによる「買いだめ」が中間材（接着剤・塗料）の混乱を招いている。
+            </div>
+            <div>
+                <strong>中露による情報戦：</strong><br>
+                ロシア関連アカウントが偽情報を発信し、中国が拡散。社会不安増幅と日米分断を狙った工作を確認。
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">IEAによる供給量予測 (前年比)</h2>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>期間</th>
+                    <th>予測・ステータス</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>2024年4月</td>
+                    <td class="supply-down">日量230万バレルの減少 (最大級)</td>
+                </tr>
+                <tr>
+                    <td>2024年5月以降</td>
+                    <td>供給網の正常化が開始 (基本シナリオ)</td>
+                </tr>
+                <tr>
+                    <td>2026年4-6月期</td>
+                    <td class="supply-down">日量150万バレルの減少 (改善傾向)</td>
+                </tr>
+                <tr>
+                    <td>2026年7-9月期</td>
+                    <td class="supply-up">日量7万バレルの増加 (反転)</td>
+                </tr>
+                <tr>
+                    <td>2026年10-12月期</td>
+                    <td class="supply-up">日量61万バレルの増加</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <footer>
+        <p><strong>結論：</strong> 供給網は正常化に向かっており、年明け分までの原油はすでに確保されています。<br>
+        過度な悲観論を避け、外交努力の成果に基づいた冷静な対応が求められます。</p>
+    </footer>
+</div>
+
+</body>
+</html>

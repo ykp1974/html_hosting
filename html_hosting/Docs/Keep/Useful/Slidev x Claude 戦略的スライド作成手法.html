@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slidev x Claude 戦略的スライド作成手法</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --primary: #38bdf8;
+            --secondary: #818cf8;
+            --accent: #fb7185;
+            --text: #f1f5f9;
+            --text-dim: #94a3b8;
+            --border: #334155;
+        }
+
+        body {
+            font-family: 'Inter', 'Hiragino Sans', 'Meiryo', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .link-tag {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            border: 1px solid var(--primary);
+            transition: 0.3s;
+        }
+
+        .link-tag:hover {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .summary {
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--secondary);
+            margin-bottom: 40px;
+        }
+
+        .section-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.02);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .card h2::before {
+            content: '■';
+            margin-right: 10px;
+            font-size: 0.8rem;
+        }
+
+        .workflow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .flow-step {
+            width: 30%;
+        }
+
+        .flow-step b {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .arrow {
+            color: var(--text-dim);
+            font-weight: bold;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table th, .comparison-table td {
+            border: 1px solid var(--border);
+            padding: 10px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: rgba(129, 140, 248, 0.1);
+            color: var(--secondary);
+        }
+
+        .badge-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            background: var(--border);
+        }
+
+        footer {
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            color: var(--text-dim);
+        }
+
+        @media (max-width: 768px) {
+            .section-grid { grid-template-columns: 1fr; }
+            .workflow { flex-direction: column; gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Slidev × Claude 提案資料作成手法</h1>
+        <p>〜Markdown駆動によるデザイン統制と自動変換の統合〜</p>
+        <a href="https://qiita.com/ntaka329/items/47fb89fb6a84d9976d36" class="link-tag" target="_blank">
+            🔗 「Markdownだけで」顧客提案レベルのスライドを作ってみた【Slidev x Claude Opus 4.6】
+        </a>
+    </header>
+
+    <div class="summary">
+        <b>エグゼクティブ・サマリー:</b><br>
+        「コピペ地獄」や「デザインの不統一」を解消。エンジニアがGitで管理可能なMarkdownを記述し、Claudeが高度なレイアウト（Vueコンポーネント）へ自動変換。ロジック構築に集中できる開発体験（DX）を実現します。
+    </div>
+
+    <div class="section-grid">
+        <div class="card">
+            <h2>従来手法の課題</h2>
+            <ul style="font-size: 0.9rem; color: var(--text-dim); padding-left: 20px;">
+                <li>複製・差し替えに伴う<b>「コピペ地獄」</b></li>
+                <li>ページ増大による<b>デザインのバラつき</b></li>
+                <li>バイナリ管理による<b>diff（差分）確認不可</b></li>
+                <li>非効率なレビューと管理の限界</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>Slidevの選定理由</h2>
+            <div class="badge-grid">
+                <span class="badge">Viteベースの高速プレビュー</span>
+                <span class="badge">Vue 3拡張性</span>
+                <span class="badge">完全テキスト管理</span>
+                <span class="badge">マルチ出力(PDF/Web)</span>
+            </div>
+            <p style="font-size: 0.85rem; margin-top: 15px;">保存と同時に反映されるホットリロードが、執筆のリズムを加速させます。</p>
+        </div>
+    </div>
+
+    <h2 style="text-align: center; color: var(--primary); font-size: 1.1rem; margin-bottom: 20px;">3段階の自動変換ワークフロー</h2>
+    <div class="workflow">
+        <div class="flow-step">
+            <b>Step 1: 執筆</b>
+            <small>「素の」Markdownを作成</small>
+        </div>
+        <div class="arrow">▶</div>
+        <div class="flow-step">
+            <b>Step 2: 変換 (Claude)</b>
+            <small>コンポーネント付与</small>
+        </div>
+        <div class="arrow">▶</div>
+        <div class="flow-step">
+            <b>Step 3: 描画</b>
+            <small>Slidevで即座に反映</small>
+        </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 40px;">
+        <h2>PptxGenJS との比較</h2>
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>比較軸</th>
+                    <th>PptxGenJS (JS生成)</th>
+                    <th>Slidev (Markdown)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>コンテンツ記述</td>
+                    <td>API呼び出し</td>
+                    <td>Markdown + Vue</td>
+                </tr>
+                <tr>
+                    <td>デザイン統一</td>
+                    <td>都度スタイル指定</td>
+                    <td>CSS変数で一括管理</td>
+                </tr>
+                <tr>
+                    <td>LLM親和性</td>
+                    <td>コード生成（誤りあり）</td>
+                    <td>テキスト生成（得意領域）</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="section-grid">
+        <div class="card">
+            <h2>デザインシステムの効果</h2>
+            <ul style="font-size: 0.9rem; padding-left: 20px;">
+                <li><b style="color: var(--accent);">CompareCards:</b> 推奨方式に枠線を自動付与</li>
+                <li><b style="color: var(--accent);">DataTable:</b> ゼブラ柄や強調を自動適用</li>
+                <li><b style="color: var(--accent);">eval-top:</b> 評価基準テーブルを自動描画</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>導入の利点と制約</h2>
+            <p style="font-size: 0.85rem; margin: 0;">
+                <b>◎ 利点:</b> PRベースのレビュー、A4印刷対応<br>
+                <b>× 制約:</b> 複雑な図解は画像が必要、初期構築コスト<br>
+                <b>※ 注意:</b> PPTX出力は「画像」扱いとなる
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>デザインの統制をシステムに委ね、執筆者はロジック構築の本質に集中する。</p>
+    </footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>石原慎太郎流・50代からの後悔しない生き方</title>
+    <style>
+        :root {
+            --primary-navy: #1a2a3a;
+            --accent-gold: #c5a059;
+            --bg-light: #f4f4f2;
+            --text-gray: #4a4a4a;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-gray);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* ヘッダー */
+        header {
+            background-color: var(--primary-navy);
+            color: var(--white);
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+            line-height: 1.3;
+        }
+
+        .source-link {
+            margin-top: 15px;
+            display: inline-block;
+        }
+
+        header a {
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--accent-gold);
+            transition: opacity 0.3s;
+        }
+
+        header a:hover {
+            opacity: 0.7;
+        }
+
+        /* エグゼクティブサマリー */
+        .summary-section {
+            padding: 30px;
+            background-color: #f9f9f7;
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .summary-text {
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+            color: var(--primary-navy);
+            font-weight: 500;
+        }
+
+        /* 8つの真実グリッド */
+        .grid-section {
+            padding: 40px 30px;
+        }
+
+        .grid-section h2 {
+            text-align: center;
+            color: var(--primary-navy);
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--white);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-gold);
+        }
+
+        .card-num {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-gold);
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: var(--primary-navy);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-content {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* 比較テーブル */
+        .comparison-section {
+            padding: 40px 30px;
+            background-color: var(--primary-navy);
+            color: var(--white);
+        }
+
+        .comparison-section h2 {
+            text-align: center;
+            color: var(--accent-gold);
+            margin-bottom: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        th {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .td-old { color: #aaa; font-size: 0.85rem; }
+        .td-new { color: #fff; font-weight: bold; }
+
+        /* フッター・結論 */
+        footer {
+            padding: 40px 30px;
+            text-align: center;
+            background-color: var(--white);
+        }
+
+        .conclusion-box {
+            border: 2px solid var(--accent-gold);
+            padding: 20px;
+            display: inline-block;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .conclusion-box p {
+            margin: 0;
+            font-weight: bold;
+            color: var(--primary-navy);
+        }
+
+        @media (max-width: 600px) {
+            .grid-container { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <header>
+        <h1>50代からの後悔しない生き方<br>石原慎太郎流「8つの真実」</h1>
+        <div class="source-link">
+            <a href="https://www.youtube.com/watch?v=_9TqauTdYOE" target="_blank">
+                【石原慎太郎流】知らないと一生後悔する50代からの生き方。「ああしとけば良かった」を無くす8つの方法
+            </a>
+        </div>
+    </header>
+
+    <section class="summary-section">
+        <p class="summary-text">「後悔とは、これからの生き方を問うためのサインである」<br>世間体を捨て、己の美学に従って生きるための指針。</p>
+    </section>
+
+    <section class="grid-section">
+        <h2>人生の質を変える8つの真実</h2>
+        <div class="grid-container">
+            <div class="card">
+                <span class="card-num">01</span>
+                <span class="card-title">価値観の言語化</span>
+                <span class="card-content">他人の正解ではなく、自分が何を大切にしたいかを言葉にし、独自の基準を持つ。</span>
+            </div>
+            <div class="card">
+                <span class="card-num">02</span>
+                <span class="card-title">即時行動の原則</span>
+                <span class="card-content">「いつか」は来ない。思い立った瞬間に動く事実が、未来の影を消し自信を生む。</span>
+            </div>
+            <div class="card">
+                <span class="card-num">03</span>
+                <span class="card-title">正直さという武器</span>
+                <span class="card-content">社会的役割の仮面を捨て、自分の心に正直でいられるか。自己を裏切らない選択。</span>
+            </div>
+            <div class="card">
+                <span class="card-num">04</span>
+                <span class="card-title">日常の選択の丁寧さ</span>
+                <span class="card-content">劇的決断ではなく、日々の小さな選択に自分の意思を宿らせ、美学を反映させる。</span>
+            </div>
+            <div class="card">
+                <span class="card-num">05</span>
+                <span class="card-title">完璧主義の放棄</span>
+                <span class="card-content">失敗を恐れず「納得」を軸に動く。不完全でも動き出す勇気が人生を動かす。</span>
+            </div>
+            <div class="card">
+                <span class="card-num">06</span>
+                <span class="card-title">立ち止まる勇気</span>
+                <span class="card-content">忙しさは麻薬。静止して方向を確かめることは、弱さではなく成熟の証である。</span>
+            </div>
+            <div class="card">
+                <span class="card-num">07</span>
+                <span class="card-title">学びへの転換</span>
+                <span class="card-content">後悔を自己嫌悪で終わらせず反省し、改善点を探ることで経験を教科書にする。</span>
+            </div>
+            <div class="card">
+                <span class="card-num">08</span>
+                <span class="card-title">他者比較の撤廃</span>
+                <span class="card-content">他人の物差しを捨て、過去の自分と比較する。孤独の中に真の自由を見出す。</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="comparison-section">
+        <h2>マインドセットの転換</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>従来の思考</th>
+                    <th>石原流の指針</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>評価基準</td>
+                    <td class="td-old">他人・世間体</td>
+                    <td class="td-new">自己の美学・納得感</td>
+                </tr>
+                <tr>
+                    <td>失敗への対応</td>
+                    <td class="td-old">自己嫌悪・他責</td>
+                    <td class="td-new">反省と学びへの転換</td>
+                </tr>
+                <tr>
+                    <td>行動の時</td>
+                    <td class="td-old">完璧な条件を待つ</td>
+                    <td class="td-new">即時行動</td>
+                </tr>
+                <tr>
+                    <td>孤独</td>
+                    <td class="td-old">恐れるべき欠落</td>
+                    <td class="td-new">自由への前提条件</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <div class="conclusion-box">
+            <p>「人生の終盤において自分を裁くのは、他人ではない。自分自身である。」</p>
+        </div>
+        <p style="margin-top:20px; font-size:0.8rem; color:#999;">自らの価値観を明確にし、不完全でも信念に従って一歩を踏み出す。</p>
+    </footer>
+</div>
+
+</body>
+</html>

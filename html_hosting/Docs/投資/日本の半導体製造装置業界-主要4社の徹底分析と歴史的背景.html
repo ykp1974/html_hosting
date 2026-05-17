@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日本の半導体製造装置業界：主要4社の徹底分析</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+  line-height: 1.7;
+  color: #2c2c2a;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+}
+.container { 
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  overflow: hidden;
+}
+header {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  padding: 60px 40px 40px;
+  text-align: center;
+  position: relative;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #f093fb 0%, #f5576c 100%);
+}
+h1 { 
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+.subtitle {
+  font-size: 18px;
+  opacity: 0.95;
+  margin-bottom: 25px;
+  font-weight: 400;
+}
+.video-link {
+  display: inline-block;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s;
+  border: 1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+}
+.video-link:hover {
+  background: rgba(255,255,255,0.25);
+  transform: translateY(-2px);
+}
+.section {
+  padding: 50px 40px;
+}
+.section:nth-child(even) {
+  background: #f8f9fa;
+}
+h2 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 30px;
+  color: #1e3c72;
+  border-left: 5px solid #667eea;
+  padding-left: 20px;
+}
+h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 30px 0 20px;
+  color: #2a5298;
+}
+.timeline {
+  position: relative;
+  padding-left: 40px;
+  border-left: 3px solid #667eea;
+  margin: 30px 0;
+}
+.timeline-item {
+  margin-bottom: 40px;
+  position: relative;
+}
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -46px;
+  top: 5px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #667eea;
+  border: 3px solid white;
+  box-shadow: 0 0 0 3px #667eea;
+}
+.timeline-year {
+  font-size: 20px;
+  font-weight: 700;
+  color: #667eea;
+  margin-bottom: 8px;
+}
+.timeline-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.company-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin: 30px 0;
+}
+.company-card {
+  background: white;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: all 0.3s;
+  border: 2px solid transparent;
+}
+.company-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+.company-card.tel { border-color: #667eea; }
+.company-card.advantest { border-color: #f093fb; }
+.company-card.screen { border-color: #4facfe; }
+.company-card.disco { border-color: #43e97b; }
+.company-name {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #1e3c72;
+}
+.company-vision {
+  font-size: 13px;
+  color: #666;
+  font-style: italic;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 3px solid #667eea;
+}
+.company-strength {
+  font-size: 15px;
+  margin: 15px 0;
+  padding-left: 20px;
+  position: relative;
+}
+.company-strength::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: #667eea;
+  font-weight: 700;
+}
+.table-wrapper {
+  overflow-x: auto;
+  margin: 30px 0;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+th {
+  padding: 18px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 15px;
+}
+td {
+  padding: 16px 18px;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 14px;
+}
+tr:hover {
+  background: #f8f9fa;
+}
+.highlight-box {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  border-left: 4px solid #667eea;
+  padding: 25px;
+  border-radius: 12px;
+  margin: 30px 0;
+}
+.highlight-box h3 {
+  margin-top: 0;
+  color: #667eea;
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 30px 0;
+}
+.stat-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+.stat-number {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: block;
+}
+.stat-label {
+  font-size: 14px;
+  opacity: 0.9;
+  font-weight: 400;
+}
+.key-point {
+  display: flex;
+  align-items: flex-start;
+  margin: 20px 0;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.key-point-icon {
+  min-width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  margin-right: 20px;
+}
+.key-point-content h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #1e3c72;
+}
+.key-point-content p {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}
+footer {
+  background: #1e3c72;
+  color: white;
+  padding: 30px 40px;
+  text-align: center;
+  font-size: 14px;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px 0;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.legend-color {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.legend-color.tel { background: #667eea; }
+.legend-color.advantest { background: #f093fb; }
+.legend-color.screen { background: #4facfe; }
+.legend-color.disco { background: #43e97b; }
+@media (max-width: 768px) {
+  h1 { font-size: 32px; }
+  h2 { font-size: 26px; }
+  .section { padding: 30px 20px; }
+  header { padding: 40px 20px 30px; }
+  .company-grid { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>日本の半導体製造装置業界</h1>
+    <p class="subtitle">主要4社の徹底分析と歴史的背景</p>
+    <a href="https://www.youtube.com/watch?v=n35TrKegb2w" target="_blank" class="video-link">
+      📺 解説動画を見る
+    </a>
+  </header>
+
+  <div class="section">
+    <h2>エグゼクティブ・サマリー</h2>
+    <div class="highlight-box">
+      <p>日本の半導体産業において、現在世界的な競争力を維持しているのは<strong>「半導体そのもの」を作るメーカーではなく、それを作るための「製造装置」を開発するメーカー</strong>である。かつて「日の丸半導体」として世界シェアを席巻したメモリ半導体の衰退、そして1986年の「日米半導体協定」という政治的圧力を背景に、日本の装置メーカーは独自の進化を遂げてきた。</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <span class="stat-number">4</span>
+        <span class="stat-label">主要企業</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">70%+</span>
+        <span class="stat-label">かつての世界シェア（メモリ）</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">1986</span>
+        <span class="stat-label">日米半導体協定</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>1. 歴史的変遷</h2>
+    
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">1848年</div>
+        <div class="timeline-content">
+          <h4>ゴールドラッシュの格言</h4>
+          <p>「金を掘る人よりも、ツルハシを売った人が一番儲かった」— 半導体産業の構造を象徴する格言。製造装置メーカーの安定的な収益モデルの起源。</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">1950年代</div>
+        <div class="timeline-content">
+          <h4>日本の半導体産業の誕生</h4>
+          <p>ソニーがトランジスタラジオ（TR-55）で世界的大ヒット。日本での半導体ブーム到来。</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">1964年〜</div>
+        <div class="timeline-content">
+          <h4>「日の丸半導体」の隆盛</h4>
+          <p>メインフレーム登場以降、東芝、NEC、日立、富士通、三菱電機などがメモリ半導体に注力。「圧倒的な信頼性」を武器に世界シェア70%以上を獲得。</p>
+          <p style="margin-top:10px; font-size:13px; color:#666;">🔑 超LSI技術研究組合による製造装置の国産化推進</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-year">1986年</div>
+        <div class="timeline-content">
+          <h4>日米半導体協定</h4>
+          <p><strong>不平等な条約内容：</strong></p>
+          <ul style="margin-top:10px; padding-left:20px;">
+            <li>日本市場における外国製シェア20%以上の確保を強制</li>
+            <li>日本企業によるダンピング防止の義務化</li>
+            <li>⚠️ 協定の対象は「半導体」のみ、「製造装置」は対象外</li>
+          </ul>
+          <p style="margin-top:15px; padding:12px; background:#fff3cd; border-left:4px solid #ffc107; border-radius:6px; font-weight:600;">
+            💡 装置メーカーは圧力を受けず成長を継続
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>2. 主要4社の戦略的差異</h2>
+    
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-color tel"></div>
+        <span>東京エレクトロン</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color advantest"></div>
+        <span>アドバンテスト</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color screen"></div>
+        <span>SCREEN</span>
+      </div>
+      <div class="legend-item">
+        <div class="legend-color disco"></div>
+        <span>ディスコ</span>
+      </div>
+    </div>
+
+    <div class="company-grid">
+      <div class="company-card tel">
+        <div class="company-name">東京エレクトロン（TEL）</div>
+        <div class="company-vision">「半導体の技術革新に貢献する夢と活力のある会社」</div>
+        <div class="company-strength"><strong>強み：</strong>総合力の進化</div>
+        <div class="company-strength"><strong>起源：</strong>輸入商社からスタート</div>
+        <div class="company-strength"><strong>戦略：</strong>幅広い製品ラインナップで顧客ニーズを製品進化に直結</div>
+        <p style="margin-top:20px; font-size:13px; color:#666;">主要製品：エピソス（成膜）、リシウス（塗布・現像）、タクトラス（エッチング）、セレスタ（洗浄）</p>
+      </div>
+
+      <div class="company-card advantest">
+        <div class="company-name">アドバンテスト</div>
+        <div class="company-vision">「最も価値あるテストソリューションカンパニー」</div>
+        <div class="company-strength"><strong>強み：</strong>専門性の拡大と全体最適</div>
+        <div class="company-strength"><strong>起源：</strong>国産初の検査装置を開発</div>
+        <div class="company-strength"><strong>戦略（ACS）：</strong>製造装置のリアルタイムデータをクラウド管理</div>
+        <p style="margin-top:20px; font-size:13px; color:#666;">「検査」の立場からバリューチェーン全体の最適化を実現</p>
+      </div>
+
+      <div class="company-card screen">
+        <div class="company-name">SCREENホールディングス</div>
+        <div class="company-vision">「思考展開（成功に甘んじず変化し続ける）」</div>
+        <div class="company-strength"><strong>強み：</strong>自己変革と新規事業</div>
+        <div class="company-strength"><strong>起源：</strong>明治時代の札印刷から半導体洗浄へ</div>
+        <div class="company-strength"><strong>戦略：</strong>洗浄工程の圧倒的シェアに依存せず新領域へ挑戦</div>
+        <p style="margin-top:20px; font-size:13px; color:#666;">新領域：水素事業（CCM膜）、アドバンスドパッケージング装置</p>
+      </div>
+
+      <div class="company-card disco">
+        <div class="company-name">ディスコ</div>
+        <div class="company-vision">「遠い社会を身近な快適につなぐ」</div>
+        <div class="company-strength"><strong>強み：</strong>主体性を促す企業変革</div>
+        <div class="company-strength"><strong>技術：</strong>「切る・削る・磨く」で世界トップ</div>
+        <div class="company-strength"><strong>独自制度：</strong>Will会計（社員が仕事を選び、社内通貨で評価）</div>
+        <p style="margin-top:20px; font-size:13px; color:#666;">効果：変化に強い組織文化を形成</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>3. 製造工程における日本企業のプレゼンス</h2>
+    
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>工程</th>
+            <th>主要企業（日本）</th>
+            <th>世界シェア順位</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>露光工程</strong></td>
+            <td>キヤノン、ニコン</td>
+            <td>2位、3位</td>
+          </tr>
+          <tr>
+            <td><strong>エッチング工程</strong></td>
+            <td>東京エレクトロン</td>
+            <td>2位・3位</td>
+          </tr>
+          <tr style="background:#e1f5ee;">
+            <td><strong>洗浄工程</strong></td>
+            <td>SCREEN</td>
+            <td><strong>🥇 1位（圧倒的）</strong></td>
+          </tr>
+          <tr style="background:#e1f5ee;">
+            <td><strong>ダイシング工程</strong></td>
+            <td>ディスコ</td>
+            <td><strong>🥇 1位（圧倒的）</strong></td>
+          </tr>
+          <tr style="background:#e1f5ee;">
+            <td><strong>検査工程</strong></td>
+            <td>アドバンテスト</td>
+            <td><strong>🥇 1位（圧倒的）</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>4. 東京エレクトロンの主要製品</h2>
+    
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>工程</th>
+            <th>製品シリーズ名</th>
+            <th>特徴</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>成膜</td>
+            <td><strong>エピソス</strong></td>
+            <td>薄膜形成に強み</td>
+          </tr>
+          <tr>
+            <td>露光（塗布・現像）</td>
+            <td><strong>リシウス</strong></td>
+            <td>露光用の膜を形成</td>
+          </tr>
+          <tr>
+            <td>エッチング</td>
+            <td><strong>タクトラス</strong></td>
+            <td>形成された膜を精密に削る</td>
+          </tr>
+          <tr>
+            <td>洗浄</td>
+            <td><strong>セレスタ</strong></td>
+            <td>原子レベルの汚れを除去</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>5. 今後の展望と技術的課題</h2>
+    
+    <div class="highlight-box">
+      <h3>微細化の限界（3nm以下）に直面</h3>
+      <p>半導体業界は物理的な微細化の限界に到達しつつある。今後の成長には新たなアプローチが必要。</p>
+    </div>
+
+    <div class="key-point">
+      <div class="key-point-icon">1</div>
+      <div class="key-point-content">
+        <h4>アドバンスドパッケージング</h4>
+        <p>微細化ではなく、複数チップの積層・連結で性能向上を実現。新たな成長領域として注目されている。</p>
+      </div>
+    </div>
+
+    <div class="key-point">
+      <div class="key-point-icon">2</div>
+      <div class="key-point-content">
+        <h4>データ活用の高度化</h4>
+        <p>ACS（アドバンテスト）のように製造データをクラウドで一元管理し、不良原因を高速特定。歩留まり改善を加速。</p>
+      </div>
+    </div>
+
+    <div style="margin-top:40px; padding:30px; background:linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border-radius:16px; text-align:center;">
+      <p style="font-size:18px; font-weight:600; color:#1e3c72; line-height:1.8;">
+        日本の半導体製造装置メーカーは、<br>
+        歴史的強みと変革精神を武器に、<br>
+        世界の半導体インフラを支え続けている
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2024 日本の半導体製造装置業界分析 | データは公開情報に基づく</p>
+    <p style="margin-top:10px; font-size:12px; opacity:0.8;">
+      <a href="https://www.youtube.com/watch?v=n35TrKegb2w" target="_blank" style="color:white; text-decoration:underline;">
+        半導体業界で一括りにするな！半導体装置業界（東京エレクトロン・アドバンテスト・スクリーン・DISCO）を完全解説！
+      </a>
+    </p>
+  </footer>
+</div>
+
+</body>
+</html>

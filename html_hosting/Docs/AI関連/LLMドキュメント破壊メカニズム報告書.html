@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLMドキュメント破壊メカニズム報告書</title>
+    <style>
+        :root {
+            --primary-dark: #1a202c;
+            --accent-orange: #f6993f;
+            --danger-red: #e3342f;
+            --bg-light: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #2d3748;
+            --border: #e2e8f0;
+            --gemini-blue: #4285f4;
+            --claude-purple: #7c3aed;
+            --gpt-green: #10a37f;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            background-color: white;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        .source-link {
+            margin-top: 15px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #63b3ed;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .source-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Summary */
+        .summary-section {
+            padding: 30px;
+            background-color: #fffaf0;
+            border-bottom: 5px solid var(--accent-orange);
+        }
+
+        .summary-title {
+            color: var(--accent-orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Main Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 30px;
+        }
+
+        .section-title {
+            grid-column: 1 / -1;
+            font-size: 1.4rem;
+            color: var(--primary-dark);
+            border-left: 5px solid var(--accent-orange);
+            padding-left: 15px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+
+        /* Performance Table */
+        .ranking-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .ranking-table th, .ranking-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .rank-1 { color: var(--gemini-blue); font-weight: bold; }
+        .rank-2 { color: var(--claude-purple); font-weight: bold; }
+        .rank-3 { color: var(--gpt-green); font-weight: bold; }
+
+        /* Highlight Boxes */
+        .highlight-box {
+            background-color: #fff5f5;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            border: 1px solid #feb2b2;
+        }
+
+        .domain-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .domain-good { color: #2f855a; font-weight: bold; }
+        .domain-bad { color: #c53030; font-weight: bold; }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .conclusion-tag {
+            display: inline-block;
+            background: var(--danger-red);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            .domain-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>LLMによるドキュメント破壊のメカニズム</h1>
+        <p>Microsoft Research 論文「Delegate52」分析報告</p>
+        <a href="https://www.youtube.com/watch?v=C6dv4_O4jmY" class="source-link" target="_blank">
+            GPT/Gemini/Claudeに共通する落とし穴？解説動画
+        </a>
+    </header>
+
+    <div class="summary-section">
+        <div class="summary-title">⚠️ 警告：委譲ワークフローの罠</div>
+        <p>最先端LLMへのタスク委譲（編集→復元）を繰り返すと、ドキュメントは<strong>徐々にではなく「突発的（崖効果）」</strong>に破壊されます。特に情報の「削除」ではなく、気づきにくい<strong>「意味の改ざん」</strong>が深刻なリスクとなります。</p>
+    </div>
+
+    <div class="grid">
+        <h2 class="section-title">1. モデル別：復元精度のパフォーマンス</h2>
+        <div class="card" style="grid-column: 1 / -1;">
+            <p>20回の編集サイクル後、フロンティアモデルでも平均25%の内容が破壊される。</p>
+            <table class="ranking-table">
+                <thead>
+                    <tr>
+                        <th>順位</th>
+                        <th>モデル名</th>
+                        <th>評価</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="rank-1">1位</td>
+                        <td class="rank-1">Gemini 1.5 Pro</td>
+                        <td>最も安定しており、復元精度が最も高い。</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-2">2位</td>
+                        <td class="rank-2">Claude 3.5 Sonnet</td>
+                        <td>高性能だが、Geminiには一歩及ばず。</td>
+                    </tr>
+                    <tr>
+                        <td class="rank-3">3位</td>
+                        <td class="rank-3">GPT-4o</td>
+                        <td>初期段階から微細な破壊が発生しやすい。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="section-title">2. 領域別の耐性（得意・苦手）</h2>
+        <div class="card">
+            <div class="domain-grid">
+                <div>
+                    <span class="domain-good">✔ 高耐性（得意）</span>
+                    <ul style="font-size: 0.85rem;">
+                        <li>Pythonコード</li>
+                    </ul>
+                    <p style="font-size: 0.75rem; color: #666;">※20回後も98%維持</p>
+                </div>
+                <div>
+                    <span class="domain-bad">✖ 低耐性（苦手）</span>
+                    <ul style="font-size: 0.85rem;">
+                        <li>JSON / DBスキーマ</li>
+                        <li>スプレッドシート</li>
+                        <li>日常文書・レシピ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">3. 精度劣化を加速させる4要因</h2>
+        <div class="card">
+            <ul style="font-size: 0.9rem; padding-left: 20px;">
+                <li><strong>ドキュメント長：</strong> 1万トークン超で改ざんリスク急増。</li>
+                <li><strong>ノイズ：</strong> 無関係なファイルが多いと精度低下。</li>
+                <li><strong>ツールの逆効果：</strong> 修正ツール導入で逆にミスが増える。</li>
+                <li><strong>マルチターン：</strong> 対話が重なるほど劣化が激化。</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title">4. 失敗のパターン：崖効果と改ざん</h2>
+        <div class="card" style="grid-column: 1 / -1;">
+            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div style="flex: 1; min-width: 250px;">
+                    <strong>📉 崖効果（クリティカル・エラー）</strong>
+                    <p style="font-size: 0.85rem;">精度は徐々に落ちるのではなく、特定のステップで突然10ポイント以上急落する（全失敗の80%以上）。</p>
+                </div>
+                <div style="flex: 1; min-width: 250px;">
+                    <strong>✍ 不可視の改ざん</strong>
+                    <p style="font-size: 0.85rem;">フロンティアモデルは「削除」せず「もっともらしく書き換える」ため、人間が目視でミスを発見するのは困難。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="conclusion-tag">実践的な対策</div>
+        <p>完全な自律委譲は不可能。Git等を用いた<strong>「差分確認（Diff Check）」を必須化</strong>し、<br>
+        「賢いモデルほどもっともらしい嘘を吐く」ことを前提とした監視体制を構築せよ。</p>
+        <p style="font-size: 0.8rem; margin-top: 20px; opacity: 0.7;">
+            ※将来のGPT-5等でもこの構造的限界には注意が必要。
+        </p>
+    </footer>
+</div>
+
+</body>
+</html>
