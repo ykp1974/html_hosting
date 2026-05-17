@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI株バブルの現状と市場展望：図解レポート</title>
+    <style>
+        :root {
+            --primary-red: #e53e3e;
+            --primary-blue: #2b6cb0;
+            --bg-gray: #f7fafc;
+            --text-dark: #2d3748;
+            --border-color: #e2e8f0;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg-gray);
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        header {
+            text-align: center;
+            border-bottom: 4px solid var(--primary-red);
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+
+        h1 { font-size: 1.8rem; color: var(--primary-red); margin-bottom: 10px; }
+        h2 { 
+            background: var(--primary-blue); 
+            color: #fff; 
+            padding: 10px 15px; 
+            border-radius: 6px;
+            font-size: 1.3rem;
+            margin-top: 40px;
+        }
+        h3 { color: var(--primary-blue); border-bottom: 2px solid var(--border-color); padding-bottom: 5px; }
+
+        .summary-box {
+            background-color: #fff5f5;
+            border-left: 6px solid var(--primary-red);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        /* 収益化ギャップの図解 */
+        .gap-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background: #edf2f7;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .gap-box { flex: 1; padding: 10px; }
+        .gap-value { font-size: 1.8rem; font-weight: bold; color: var(--primary-red); }
+        .vs { font-size: 1.5rem; font-weight: bold; color: #718096; }
+
+        /* 歴史的比較テーブル */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th { background-color: #edf2f7; border: 1px solid var(--border-color); padding: 12px; }
+        td { border: 1px solid var(--border-color); padding: 12px; }
+
+        /* リスクと戦略のカード */
+        .flex-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+        .info-card {
+            flex: 1;
+            min-width: 250px;
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            border-radius: 8px;
+            background: #fff;
+        }
+        .warning-text { color: var(--primary-red); font-weight: bold; }
+
+        footer {
+            margin-top: 50px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
+            color: #718096;
+            text-align: center;
+        }
+        .source-link { color: var(--primary-blue); text-decoration: none; font-weight: bold; }
+
+        @media (max-width: 600px) {
+            .gap-container { flex-direction: column; }
+            .vs { margin: 10px 0; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>AI株バブルの現状と市場展望に関する分析レポート</h1>
+        <p>〜 エミン・ユルマズ氏の知見に基づく投資判断指針 〜</p>
+    </header>
+
+    <div class="summary-box">
+        <strong>エグゼクティブ・サマリー：</strong><br>
+        現在のAI市場は「期待先行」のバブル状態にあります。膨大な設備投資に対し収益化の目処が立っておらず、ホワイトカラーの雇用削減に伴う消費減退（ホワイトカラー・リセッション）や金融危機への波及が懸念されています。
+    </div>
+
+    <h2>1. バブルの実態：収益化の「巨大なギャップ」</h2>
+    <p>2030年末までにデータセンター投資を回収するためには、現状を遥かに上回る売上が必要です。</p>
+    
+    <div class="gap-container">
+        <div class="gap-box">
+            <p>必要な設備投資額<br>(向こう10年)</p>
+            <div class="gap-value">1.5 〜 2兆ドル</div>
+        </div>
+        <div class="vs">VS</div>
+        <div class="gap-box">
+            <p>投資回収に必要な売上<br>(2030年末まで)</p>
+            <div class="gap-value">約 2兆ドル</div>
+        </div>
+    </div>
+    <p style="text-align: center; font-weight: bold; color: var(--primary-red);">
+        現状：実際の収益は極めて少なく、コスト耐性の壁に直面中
+    </p>
+
+    
+
+    <h2>2. 歴史の教訓：繰り返される過剰投資</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>歴史的事例</th>
+                <th>概要</th>
+                <th>結末と教訓</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>鉄道バブル</strong></td>
+                <td>1800年代：借金による敷設競争</td>
+                <td>8〜9割が倒産。過剰投資の典型。</td>
+            </tr>
+            <tr>
+                <td><strong>ITバブル</strong></td>
+                <td>1990年代後半：光ファイバー投資</td>
+                <td>設備が実際に使われるまで10年。</td>
+            </tr>
+            <tr>
+                <td><strong>AIブーム（現在）</strong></td>
+                <td>データセンター・GPU投資</td>
+                <td><strong>FOMO（乗り遅れる恐怖）</strong>による過熱。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>3. 警戒すべき2つの大きなリスク</h2>
+    <div class="flex-grid">
+        <div class="info-card">
+            <h3 style="margin-top:0;">雇用と消費のリスク</h3>
+            <p class="warning-text">ホワイトカラー・リセッション</p>
+            <p>事務・開発職のAI代替により、裁量消費の主役であるホワイトカラーの所得が減少し、深刻な景気後退を招くリスク。</p>
+        </div>
+        <div class="info-card">
+            <h3 style="margin-top:0;">金融システムのリスク</h3>
+            <p class="warning-text">債務の焦げ付き</p>
+            <p>年間40〜50兆円規模のAI投資が回収不能となった場合、金融機関の不良債権化が進み、市場全体の暴落へ繋がる恐れ。</p>
+        </div>
+    </div>
+
+    
+
+    <h2>4. 投資戦略：ダウンサイドへの備え</h2>
+    <div class="flex-grid">
+        <div class="info-card" style="border-top: 4px solid var(--primary-blue);">
+            <strong>資産の多様化</strong>
+            <ul>
+                <li>債券の検討（株価下落へのヘッジ）</li>
+                <li>日本企業：製造装置・素材など「縁の下」の強み</li>
+            </ul>
+        </div>
+        <div class="info-card" style="border-top: 4px solid var(--primary-red);">
+            <strong>危険信号の察知</strong>
+            <ul>
+                <li>好決算でも株価が反応しない時</li>
+                <li>エヌビディアがシスコの軌道を辿る可能性</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>5. AIに代替されない「人間的価値」</h2>
+    <ul>
+        <li><strong>心理的信頼：</strong> 医療や最終判断など、人間の責任・言葉が必要な領域。</li>
+        <li><strong>独創性：</strong> AIには不可能な、完全なオリジナル作品の創造。</li>
+        <li><strong>温かみ：</strong> 効率を超えた「人間の手間暇」への再評価。</li>
+    </ul>
+
+    <footer>
+        <p><strong>情報ソース：</strong><br>
+        動画タイトル：<a href="https://www.youtube.com/watch?v=9UUgFcEi-zs" class="source-link" target="_blank">【要注意】AI株には投資すべき？これからの市場と落とし穴をプロが解説！</a><br>
+        URL：https://www.youtube.com/watch?v=9UUgFcEi-zs
+    </p>
+    </footer>
+</div>
+
+</body>
+</html>
