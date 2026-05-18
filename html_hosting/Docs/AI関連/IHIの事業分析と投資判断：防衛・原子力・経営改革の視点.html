@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IHIの事業分析と投資判断：防衛・原子力・経営改革の視点</title>
+    <style>
+        :root {
+            --ihi-navy: #0f2537;
+            --ihi-blue: #0056b3;
+            --accent-orange: #f39c12;
+            --alert-red: #e74c3c;
+            --bg-light: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --border-color: #d5dbdb;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        /* ヘッダー */
+        header {
+            background: linear-gradient(135deg, var(--ihi-navy), #1c3d5a);
+            color: white;
+            padding: 45px 30px;
+            text-align: center;
+            border-bottom: 5px solid var(--ihi-blue);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+
+        .source-link {
+            margin-top: 20px;
+            display: inline-block;
+            background: rgba(0, 86, 179, 0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #5dade2;
+            font-weight: bold;
+            font-size: 0.85rem;
+            border: 1px solid rgba(93, 173, 226, 0.4);
+            transition: 0.3s ease;
+        }
+
+        .source-link:hover {
+            background: var(--ihi-blue);
+            color: white;
+            border-color: white;
+        }
+
+        /* エグゼクティブ・サマリー */
+        .summary-box {
+            padding: 30px;
+            background-color: #ebf5fb;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .summary-box strong {
+            color: var(--ihi-blue);
+        }
+
+        /* セクションタイトル */
+        .section-title {
+            display: flex;
+            align-items: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 40px 30px 20px;
+            color: var(--ihi-navy);
+        }
+
+        .section-title::before {
+            content: '';
+            width: 6px;
+            height: 24px;
+            background-color: var(--ihi-blue);
+            margin-right: 12px;
+            border-radius: 3px;
+        }
+
+        /* 2カラム・グリッド */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            padding: 0 30px 30px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.01);
+            position: relative;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 1.15rem;
+            color: var(--ihi-navy);
+            border-bottom: 2px solid var(--bg-light);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        .badge-blue { border-left: 5px solid var(--ihi-blue); }
+        .badge-orange { border-left: 5px solid var(--accent-orange); }
+        .badge-red { border-left: 5px solid var(--alert-red); }
+
+        /* 特徴数値リスト */
+        .stat-flex {
+            display: flex;
+            justify-content: space-between;
+            background: var(--bg-light);
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .stat-val {
+            font-weight: bold;
+            color: var(--ihi-blue);
+        }
+
+        /* テーブル構造 */
+        .table-wrapper {
+            margin: 0 30px 30px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--ihi-navy);
+            color: white;
+            font-weight: bold;
+        }
+
+        /* PER比較のビジュアル化 */
+        .per-compare-box {
+            background: #fff5f5;
+            border: 1px solid #feb2b2;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 0 30px 40px;
+        }
+
+        .per-flex {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .per-item {
+            text-align: center;
+            background: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            border: 1px solid #fc8181;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .per-item .val {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* フッター */
+        footer {
+            background-color: var(--ihi-navy);
+            color: #d1d5db;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .footer-bold {
+            color: white;
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .per-flex { flex-direction: column; }
+            .section-title { font-size: 1.15rem; }
+            header h1 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>IHIの事業分析と投資判断</h1>
+        <p style="margin: 5px 0 0; opacity: 0.8; font-size: 1rem;">〜防衛・原子力・経営改革の視点から紐解く真の稼ぐ力〜</p>
+        <a href="https://www.youtube.com/watch?v=7X-pw5AKwr4" class="source-link" target="_blank">
+            【動画】IHIは買いなのか？防衛ブーム後の株価下落と成長余地を解説
+        </a>
+    </header>
+
+    <div class="summary-box">
+        <strong>エグゼクティブ・サマリー：</strong><br>
+        IHI（旧・石川島播磨重工業）は防衛予算拡大、AI関連の電力需要、そして構造改革という現代の重要テーマが絡み合う注目企業です。株価急騰後の調整局面において、主要セグメントの成長性と<strong>一過性利益を除いた実力値ベースのバリュエーション</strong>を精査し、真の投資価値を見極めます。
+    </div>
+
+    <div class="section-title">1. 事業構造と収益の柱（営業利益の集中）</div>
+    <div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>セグメント（2025年度見通し）</th>
+                    <th>主な内容</th>
+                    <th>営業利益シェア</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>航空・宇宙・防衛</strong></td>
+                    <td>民間航空機エンジン、防衛装備品、宇宙ロケット関連整備</td>
+                    <td style="color: var(--ihi-blue); font-weight: bold; font-size: 1.1rem;">約 74 %</td>
+                </tr>
+                <tr>
+                    <td><strong>産業システム・汎用機械</strong></td>
+                    <td>立体駐車場、圧縮機、物流システム、工業炉など</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><strong>資源・エネルギー・環境</strong></td>
+                    <td>発電用タービン、原子力設備・プラントなど</td>
+                    <td>—</td>
+                </tr>
+                <tr>
+                    <td><strong>社会基盤</strong></td>
+                    <td>橋梁、水門、シールドシステムなど</td>
+                    <td>—</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p style="margin: -20px 30px 30px; font-size: 0.9rem; color: #555;">
+        ※<b>収益の特徴：</b> 航空エンジンのアフターマーケット（修理・整備）が極めて強力な利益柱。インフラと国家防衛を担う高い公共性を有します。
+    </p>
+
+    <div class="section-title">2. 成長を牽引する3つの注目ポイント</div>
+    <div class="grid-2">
+        <div class="card badge-blue">
+            <h3>🚀 ① 防衛予算拡大の恩恵</h3>
+            <p>政府の防衛費GDP比2%方針が強力な追い風。航空エンジン、ロケットモーター、独自の整備能力に強みを持ちます。</p>
+            <div class="stat-flex"><span>2024年度 売上高</span><span>1,502 億円</span></div>
+            <div class="stat-flex"><span>今期売上見通し</span><span class="stat-val">3,000 億円</span></div>
+            <p style="font-size: 0.8rem; color: #7f8c8d; margin-top: 10px;">※課題：大型投資一巡後は維持管理（メンテナンス）が中心となり、伸び率が鈍化する懸念も内包。</p>
+        </div>
+
+        <div class="card badge-blue">
+            <h3>⚡ ② AIデータセンター需要と原子力</h3>
+            <p>AIの爆発的普及に伴うデータセンター増設により、24時間稼働できる安定電源として<b>原子力が世界的に再評価</b>されています。</p>
+            <p>再生可能エネルギーは出力が不安定、火力発電はCO2排出と燃料コストの課題を抱える中、IHIは<b>原子炉格納容器・圧力容器の製造</b>という代替不可能な役割を担います。原発再稼働や新設議論の進展がそのまま需要増へ直結します。</p>
+        </div>
+
+        <div class="card badge-orange" style="grid-column: 1 / -1;">
+            <h3>🛠️ ③ 抜本的経営改革（選択と集中）</h3>
+            <p>2024年3月期、民間航空機エンジンの不具合問題により<b>680億円の最終赤字</b>を計上。この巨額損失という強烈な危機感を契機に、構造改革が一気に加速しました。</p>
+            <div style="background: var(--bg-light); padding: 15px; border-radius: 8px; font-size: 0.95rem; margin-top: 10px;">
+                <b>【断行された具体策】</b>
+                <ul style="margin: 5px 0 0 0; padding-left: 20px;">
+                    <li>汎用ボイラー、運搬システム、交通システムといった「不採算・低利益事業」の売却および清算。</li>
+                    <li>残された強みである「成長事業（航空・防衛・原子力）」へのリソース集中投資。</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">3. 財務状況とバリュエーションの精査</div>
+    <div class="grid-2">
+        <div class="card badge-red" style="grid-column: 1 / -1;">
+            <h3>📉 受注動向に潜む不確実性</h3>
+            <p>2026年度の受注高は、前期にあった大型原子力案件の反動により減少傾向を示しています。重工業ビジネスは<b>「受注 → 将来の売上」</b>という構造をたどるため、受注高の減少は将来の成長性の鈍化懸念として市場に意識されやすいポイントです。</p>
+        </div>
+    </div>
+
+    <div class="per-compare-box">
+        <h3 style="margin-top: 0; color: var(--alert-red);">⚠️ PER（株価収益率）に潜む「見かけの割安感」</h3>
+        <p style="font-size: 0.95rem; margin-bottom: 15px;">表面上の数値と、一過性要因を除いた「実力値ベース」のPERには大きな乖離が存在します。</p>
+        
+        <div style="font-size: 0.9rem; background: rgba(255,255,255,0.7); padding: 15px; border-radius: 8px;">
+            <b>【実力値の試算プロセス】</b><br>
+            今期営業利益見通し 2,400億円のうち、<b>約900億円は一過性の特殊要因</b>。これを除外した実力純利益を約1,000億円と試算。時価総額3.3兆円に対して再計算を行います。
+        </div>
+
+        <div class="per-flex">
+            <div class="per-item">
+                <span style="color: #7f8c8d; font-size: 0.9rem;">表面上のPER (2024年5月)</span>
+                <div class="val" style="color: #34495e;">19.7 倍</div>
+            </div>
+            <div class="per-item" style="border-color: var(--alert-red); background: #fff5f5;">
+                <span style="color: var(--alert-red); font-size: 0.9rem; font-weight: bold;">実力値ベースPER（試算）</span>
+                <div class="val" style="color: var(--alert-red);">約 33 倍</div>
+            </div>
+        </div>
+        <p style="text-align: center; margin: 15px 0 0 0; font-size: 0.85rem; font-weight: bold; color: var(--alert-red);">
+            ※防衛・国策の成長株であることを加味しても、足元の水準は決して割安とは言い難い領域にあります。
+        </p>
+    </div>
+
+    <div class="section-title">4. 総括：投資判断のための重要マトリクス</div>
+    <div class="grid-2">
+        <div class="card" style="border-top: 4px solid #2ecc71;">
+            <h3 style="color: #27ae60;">➕ ポジティブ要素</h3>
+            <ul style="padding-left: 18px; margin: 0; font-size: 0.9rem;">
+                <li style="margin-bottom: 8px;">防衛および原子力分野における、他社が模倣できない国家級の技術力。</li>
+                <li style="margin-bottom: 8px;">不採算事業からの迅速な撤退に伴う、中長期的なROE（自己資本利益率）の改善。</li>
+                <li>緊迫化する地政学リスクを背景とした、防衛予算の持続的な拡大余地。</li>
+            </ul>
+        </div>
+        <div class="card" style="border-top: 4px solid var(--alert-red);">
+            <h3 style="color: var(--alert-red);">➖ リスク・懸念点</h3>
+            <ul style="padding-left: 18px; margin: 0; font-size: 0.9rem;">
+                <li style="margin-bottom: 8px;"><b>自力成長の証明：</b> 国策や外部環境の追い風に依存せず、自力で高収益を維持できるか。</li>
+                <li style="margin-bottom: 8px;"><b>バリュエーションの割高感：</b> 実力値PER33倍という、先行期待が色濃い株価水準。</li>
+                <li><b>構造改革の継続性：</b> 伝統ある旧来事業を切り離し続ける痛みを伴う痛烈さの維持。</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-bold">結論：先行する期待値と「足元の実力」のバランスを注視せよ</div>
+        <p style="margin: 0; font-size: 0.95rem; opacity: 0.8; max-width: 800px; margin: 0 auto;">
+            IHIは極めて強力なテーマ性と技術力を誇る一方、現在の株価は将来の好材料を大きく先回りで織り込んでいる側面が否めません。安易なブームに乗るのではなく、<b>①一過性利益を排除した真の「稼ぐ力」、②受注残高のトレンド推移、③不採算撤退による利益率の改善スピード</b>を冷徹に監視し続けることが、投資の成否を分ける鍵となります。
+        </p>
+    </footer>
+</div>
+
+</body>
+</html>
