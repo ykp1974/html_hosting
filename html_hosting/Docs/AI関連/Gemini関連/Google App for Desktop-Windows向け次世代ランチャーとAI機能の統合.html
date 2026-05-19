@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google App for Desktop - Windows向けランチャー解説</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e8eaed 50%, #f8f9fa 100%);
+            color: #202124;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .header h1 {
+            font-size: 3.2rem;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            color: #5f6368;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .header .tagline {
+            font-size: 1rem;
+            color: #80868b;
+            margin-bottom: 35px;
+            font-style: italic;
+        }
+
+        .video-link {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #4285f4 0%, #2d5f9f 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 24px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
+            border: 2px solid transparent;
+        }
+
+        .video-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(66, 133, 244, 0.4);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 100px;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #1f2937;
+            letter-spacing: -0.3px;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: #5f6368;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* Hero Feature */
+        .hero-feature {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 1px solid #dadce0;
+            border-radius: 12px;
+            padding: 50px;
+            margin-bottom: 50px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.05);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .hero-text h3 {
+            font-size: 1.8rem;
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .hero-text p {
+            font-size: 1rem;
+            color: #5f6368;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 25px;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            color: #5f6368;
+            border-bottom: 1px solid #e8eaed;
+            font-size: 0.95rem;
+        }
+
+        .feature-list li:before {
+            content: '✓ ';
+            color: #34a853;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .hero-visual {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            font-size: 3rem;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 24px rgba(66, 133, 244, 0.2);
+        }
+
+        .hero-visual .shortcut {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
+
+        /* Feature Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 1px solid #dadce0;
+            border-radius: 10px;
+            padding: 30px;
+            transition: all 0.4s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+            border-color: #4285f4;
+        }
+
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            color: #1f2937;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #5f6368;
+            line-height: 1.7;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border: 1px solid #dadce0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 50px;
+        }
+
+        .comparison-table thead {
+            background: linear-gradient(90deg, #f8f9fa 0%, #e8eaed 100%);
+        }
+
+        .comparison-table th {
+            padding: 20px;
+            text-align: left;
+            color: #202124;
+            font-weight: 500;
+            font-size: 0.95rem;
+            border-bottom: 2px solid #dadce0;
+        }
+
+        .comparison-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e8eaed;
+            font-size: 0.9rem;
+            color: #5f6368;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table .check {
+            color: #34a853;
+            font-weight: bold;
+        }
+
+        .comparison-table .cross {
+            color: #ea4335;
+            font-weight: bold;
+        }
+
+        /* Capabilities */
+        .capability-section {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 1px solid #dadce0;
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 50px;
+        }
+
+        .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .capability-item {
+            background: white;
+            border: 1px solid #e8eaed;
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .capability-item:hover {
+            border-color: #4285f4;
+            box-shadow: 0 4px 12px rgba(66, 133, 244, 0.15);
+        }
+
+        .capability-item h4 {
+            color: #1f2937;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .capability-item p {
+            color: #5f6368;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* System Info */
+        .system-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 1px solid #dadce0;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .info-card .value {
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: #4285f4;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .info-card h4 {
+            color: #202124;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            color: #5f6368;
+            font-size: 0.9rem;
+        }
+
+        /* Conclusion */
+        .conclusion {
+            background: linear-gradient(135deg, #4285f4 0%, #34a853 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 50px;
+            margin-top: 80px;
+            box-shadow: 0 8px 24px rgba(66, 133, 244, 0.25);
+        }
+
+        .conclusion h3 {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .conclusion p {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .conclusion .highlight {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-feature {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            .hero-feature {
+                padding: 30px;
+            }
+
+            .conclusion {
+                padding: 30px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Utility */
+        .badge {
+            display: inline-block;
+            background: #4285f4;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            border-top: 1px solid #dadce0;
+            color: #80868b;
+            font-size: 0.85rem;
+        }
+
+        /* Google Colors Reference */
+        .google-blue { color: #4285f4; }
+        .google-red { color: #ea4335; }
+        .google-yellow { color: #fbbc04; }
+        .google-green { color: #34a853; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Google App for Desktop</h1>
+            <p class="subtitle">Windows向け次世代ランチャーとAI機能の統合</p>
+            <p class="tagline">シンプルさと機能性を両立する、Google公式デスクトップツール</p>
+            <a href="https://www.youtube.com/watch?v=ML11AkZ__zQ" class="video-link" target="_blank">
+                ▶ 【無料】最新のGoogle公式アプリが文句なしで神神神！
+            </a>
+        </div>
+
+        <!-- Section 1: Overview -->
+        <div class="section">
+            <h2 class="section-title">Google アプリとは</h2>
+            <p class="section-subtitle">2026年4月正式公開 - OSレイヤーに統合されたAI検索ランチャー</p>
+            
+            <div class="hero-feature">
+                <div class="hero-text">
+                    <h3>シンプルさと機能性の両立</h3>
+                    <p>
+                        Google アプリは、Google検索、AIアシスタント、ランチャー機能を統合したWindows向けデスクトップツールです。ショートカットキー一つで瞬時に起動し、ブラウザを介さずに検索やAI対話、ファイル操作を完結させることができます。
+                    </p>
+                    <ul class="feature-list">
+                        <li>キーボードショートカット（Alt + Space）での瞬時起動</li>
+                        <li>AI搭載の検索とチャット機能</li>
+                        <li>画面・ファイル認識機能</li>
+                        <li>Google ドライブとの統合検索</li>
+                        <li>メモリ消費量わずか500MB程度の軽量設計</li>
+                    </ul>
+                </div>
+                <div class="hero-visual">
+                    🔍
+                    <p style="font-size: 1rem; margin-top: 20px;">AI検索ランチャー</p>
+                    <div class="shortcut">Alt + Space</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Key Features -->
+        <div class="section">
+            <h2 class="section-title">主要機能の詳細</h2>
+            <p class="section-subtitle">日常的な業務を効率化する4つの中核機能</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">🤖</div>
+                    <h3>AI搭載Google検索</h3>
+                    <p>検索ワードを入力するとアプリ内でAIがウェブ情報を読み取り、チャット形式で回答生成。ブラウザを立ち上げることなくシームレスな対話が可能です。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">👁️</div>
+                    <h3>ファイル＆画面認識</h3>
+                    <p>PDFや画像をアップロードして内容要約や質問に回答させたり、開いているアプリの画面を認識させて操作方法やエラー解決策を求めることが可能。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">📸</div>
+                    <h3>Google レンズ</h3>
+                    <p>画面の特定範囲をクロップして画像検索や情報特定を実行。動画内の商品特定など、ビジュアル情報に基づいた即座の検索に対応。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⚡</div>
+                    <h3>高速ファイル検索</h3>
+                    <p>PC内のローカルデータ、インストール済みアプリ、Google ドライブ上のドキュメント・スプレッドシートを統合的に検索。Windows標準機能より高速で高精度。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Interface & Settings -->
+        <div class="section">
+            <h2 class="section-title">基本構成と操作性</h2>
+            <p class="section-subtitle">最小限のUIで最大の生産性を実現</p>
+            
+            <div class="capability-section">
+                <h3>シンプルなインターフェース設計</h3>
+                <div class="capability-grid">
+                    <div class="capability-item">
+                        <h4>🚀 起動と配置</h4>
+                        <p>ショートカットキー（デフォルトはAlt + Space）を入力すると、画面中央に検索バーがポップアップ。どのアプリを使用中でも最前面に表示され、作業を中断なくアクセス可能。</p>
+                    </div>
+                    <div class="capability-item">
+                        <h4>🎨 視覚的シンプルさ</h4>
+                        <p>検索窓を中心に、ファイルアップロード用プラスボタン、画面認識ボタン、Google レンズボタンを配置。余分な要素がなく直感的に操作できます。</p>
+                    </div>
+                    <div class="capability-item">
+                        <h4>⚙️ 高い設定柔軟性</h4>
+                        <p>キーボードショートカットの変更、デフォルト検索モード(AI/通常検索)の切り替え、検索対象範囲(ローカル/クラウド)の選択が可能で、ユーザーの好みに完全カスタマイズ可能。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Comparison -->
+        <div class="section">
+            <h2 class="section-title">他社ツールとの比較</h2>
+            <p class="section-subtitle">既存ランチャーとの機能・パフォーマンス比較</p>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>比較項目</th>
+                        <th>Google アプリ</th>
+                        <th>Raycast / PowerToys等</th>
+                        <th>優位性</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>主な特徴</strong></td>
+                        <td>Google連携、AI統合、シンプルさ</td>
+                        <td>拡張性、多機能、カスタマイズ性</td>
+                        <td><span class="check">✓</span> シンプルで即座に使える</td>
+                    </tr>
+                    <tr>
+                        <td><strong>操作感</strong></td>
+                        <td>動作が極めて軽く、サクサク動く</td>
+                        <td>多機能ゆえに学習コストが必要</td>
+                        <td><span class="check">✓</span> ストレスフリーな体験</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI機能</strong></td>
+                        <td>Googleの最新AI搭載。回答生成、画像認識</td>
+                        <td>AIは限定的またはなし</td>
+                        <td><span class="check">✓</span> AI体験が充実</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ドライブ連携</strong></td>
+                        <td>Google ドライブとの統合検索</td>
+                        <td>別途設定が必要</td>
+                        <td><span class="check">✓</span> シームレス統合</td>
+                    </tr>
+                    <tr>
+                        <td><strong>プラグイン/拡張</strong></td>
+                        <td>限定的（将来的に拡張予定）</td>
+                        <td>豊富、カスタマイズ性が高い</td>
+                        <td><span class="cross">✗</span> Raycast/PowerToysに劣る</td>
+                    </tr>
+                    <tr>
+                        <td><strong>メモリ消費</strong></td>
+                        <td>約500MB（軽量）</td>
+                        <td>可変（数百MB～1GB超）</td>
+                        <td><span class="check">✓</span> 最軽量設計</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 5: System Performance -->
+        <div class="section">
+            <h2 class="section-title">システム負荷とパフォーマンス</h2>
+            <p class="section-subtitle">軽量設計により快適な動作を実現</p>
+            
+            <div class="system-info">
+                <div class="info-card">
+                    <h4>メモリ消費量</h4>
+                    <div class="value">500MB</div>
+                    <p>常駐型アプリながら極めて軽量。標準的なPCスペック（8GB以上）で快適に動作</p>
+                </div>
+                <div class="info-card">
+                    <h4>推奨PC仕様</h4>
+                    <div class="value">8GB+</div>
+                    <p>メモリ8GB以上のWindowsマシンで推奨。複数アプリ起動時も重さを感じさせない</p>
+                </div>
+                <div class="info-card">
+                    <h4>起動速度</h4>
+                    <div class="value">瞬時</div>
+                    <p>キーボードショートカットから検索バー表示まで。ほぼ遅延を感じさせない応答速度</p>
+                </div>
+            </div>
+
+            <div class="capability-section" style="margin-top: 50px;">
+                <h3>なぜGoogle アプリは軽いのか</h3>
+                <p style="color: #5f6368; margin-top: 15px; line-height: 1.8;">
+                    Google アプリは「シンプルさ」をコンセプトにしているため、検索・AI・ファイル検索という最頻出の機能に特化しています。Raycast等のように多数のプラグインやカスタマイズオプションを内蔵していないため、メモリ占有量が最小限に抑えられています。また、Googleのクラウドインフラを活用した軽量な処理設計が実現しています。
+                </p>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="conclusion">
+            <h3>📌 まとめ：Google アプリの価値</h3>
+            <p>
+                デスクトップ版 Google アプリは、<span class="highlight">Googleの強力なAIと検索技術をOSの操作レイヤーに直接統合</span>することで、作業効率を大幅に向上させるツールです。
+            </p>
+            <p>
+                多機能さを追求するのではなく、<span class="highlight">「Google検索とAI、ファイル検索」という最頻用機能をシンプルかつ高速に提供する</span>ことに特化しています。
+            </p>
+            <p>
+                特に、<span class="highlight">Google ドライブを活用しているユーザーやAIによる即時情報収集を重視するユーザー</span>にとって、極めて価値の高い公式ツールといえます。2026年4月の正式公開により、Windows環境での標準ランチャーとなる可能性も高いでしょう。
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 Google App for Desktop Guide | Windows Launcher Excellence</p>
+        </div>
+    </div>
+</body>
+</html>
