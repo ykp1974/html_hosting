@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>トレーラーハウス居住1年間の実態調査</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #faf5f0 0%, #f5ede4 50%, #ede4db 100%);
+            color: #2d2520;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1650px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            color: #3d3635;
+            background: linear-gradient(120deg, #8b6f47 0%, #a0826d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #6b5d4f;
+            margin-bottom: 12px;
+            font-weight: 300;
+        }
+
+        .header .tagline {
+            font-size: 1rem;
+            color: #8b7355;
+            margin-bottom: 35px;
+            font-style: italic;
+        }
+
+        .video-link {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #c19a6b 0%, #a0826d 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 24px rgba(193, 154, 107, 0.25);
+        }
+
+        .video-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(193, 154, 107, 0.4);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 120px;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+        .section:nth-child(6) { animation-delay: 0.6s; }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #3d3635;
+            letter-spacing: -0.5px;
+        }
+
+        .section-num {
+            display: inline-block;
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #c19a6b 0%, #a0826d 100%);
+            color: white;
+            border-radius: 50%;
+            line-height: 44px;
+            text-align: center;
+            font-weight: 700;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: #8b7355;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* Profile Card */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .profile-item {
+            background: linear-gradient(135deg, rgba(193, 154, 107, 0.08) 0%, rgba(160, 130, 109, 0.08) 100%);
+            border: 1px solid rgba(193, 154, 107, 0.2);
+            border-radius: 10px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .profile-item .label {
+            font-size: 0.9rem;
+            color: #8b7355;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .profile-item .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #8b6f47;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* Comparison Grid */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .comparison-card {
+            background: linear-gradient(135deg, rgba(193, 154, 107, 0.08) 0%, rgba(160, 130, 109, 0.08) 100%);
+            border: 1px solid rgba(193, 154, 107, 0.2);
+            border-radius: 10px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .comparison-card:hover {
+            border-color: rgba(193, 154, 107, 0.5);
+            background: linear-gradient(135deg, rgba(193, 154, 107, 0.15) 0%, rgba(160, 130, 109, 0.15) 100%);
+            box-shadow: 0 12px 30px rgba(193, 154, 107, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .comparison-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .comparison-card h3 {
+            font-size: 1.15rem;
+            color: #8b6f47;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .comparison-card p {
+            font-size: 0.9rem;
+            color: #6b5d4f;
+            line-height: 1.6;
+        }
+
+        /* Cost Breakdown */
+        .cost-section {
+            background: linear-gradient(135deg, rgba(193, 154, 107, 0.1) 0%, rgba(160, 130, 109, 0.1) 100%);
+            border: 1px solid rgba(193, 154, 107, 0.2);
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .cost-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .cost-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(193, 154, 107, 0.2);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .cost-card.highlight {
+            border-color: rgba(193, 154, 107, 0.5);
+            background: linear-gradient(135deg, rgba(193, 154, 107, 0.1) 0%, rgba(160, 130, 109, 0.1) 100%);
+        }
+
+        .cost-label {
+            font-size: 0.9rem;
+            color: #8b7355;
+            margin-bottom: 12px;
+        }
+
+        .cost-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #8b6f47;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .cost-desc {
+            font-size: 0.85rem;
+            color: #8b7355;
+        }
+
+        /* Infrastructure Table */
+        .table-wrapper {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(193, 154, 107, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .infrastructure-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .infrastructure-table thead {
+            background: linear-gradient(90deg, rgba(193, 154, 107, 0.2) 0%, rgba(160, 130, 109, 0.2) 100%);
+        }
+
+        .infrastructure-table th {
+            padding: 18px 20px;
+            text-align: left;
+            color: #8b6f47;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 2px solid rgba(193, 154, 107, 0.3);
+        }
+
+        .infrastructure-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(193, 154, 107, 0.1);
+            font-size: 0.9rem;
+            color: #6b5d4f;
+        }
+
+        .infrastructure-table tr:hover {
+            background: rgba(193, 154, 107, 0.05);
+        }
+
+        .infrastructure-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Living Performance */
+        .performance-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .performance-card {
+            background: linear-gradient(135deg, rgba(193, 154, 107, 0.08) 0%, rgba(160, 130, 109, 0.08) 100%);
+            border: 1px solid rgba(193, 154, 107, 0.2);
+            border-radius: 10px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .performance-card h3 {
+            font-size: 1.2rem;
+            color: #8b6f47;
+            margin-bottom: 20px;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(193, 154, 107, 0.2);
+            padding-bottom: 15px;
+        }
+
+        .performance-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+        }
+
+        .performance-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .perf-icon {
+            font-size: 1.8rem;
+            margin-right: 15px;
+        }
+
+        .perf-text {
+            font-size: 0.9rem;
+            color: #6b5d4f;
+        }
+
+        .perf-text strong {
+            color: #8b6f47;
+        }
+
+        /* Legal Dilemma */
+        .dilemma-section {
+            background: linear-gradient(135deg, rgba(193, 154, 107, 0.12) 0%, rgba(160, 130, 109, 0.12) 100%);
+            border-left: 4px solid #c19a6b;
+            border-radius: 10px;
+            padding: 35px;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .dilemma-title {
+            font-size: 1.2rem;
+            color: #8b6f47;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .dilemma-item {
+            background: rgba(255, 255, 255, 0.4);
+            border-left: 3px solid #c19a6b;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #6b5d4f;
+            line-height: 1.6;
+        }
+
+        .dilemma-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .dilemma-item strong {
+            color: #8b6f47;
+        }
+
+        /* Seasonal Grid */
+        .seasonal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .seasonal-card {
+            background: linear-gradient(135deg, rgba(193, 154, 107, 0.1) 0%, rgba(160, 130, 109, 0.1) 100%);
+            border: 1px solid rgba(193, 154, 107, 0.2);
+            border-radius: 10px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .seasonal-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(193, 154, 107, 0.5);
+            box-shadow: 0 12px 30px rgba(193, 154, 107, 0.15);
+        }
+
+        .seasonal-card .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .seasonal-card h4 {
+            font-size: 1.1rem;
+            color: #8b6f47;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .seasonal-card p {
+            font-size: 0.9rem;
+            color: #6b5d4f;
+            line-height: 1.6;
+        }
+
+        /* Suitability Matrix */
+        .suitability-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .suitability-card {
+            border-radius: 10px;
+            padding: 35px;
+            backdrop-filter: blur(10px);
+        }
+
+        .suitability-card.suited {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(56, 142, 60, 0.1) 100%);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        .suitability-card.not-suited {
+            background: linear-gradient(135deg, rgba(244, 67, 54, 0.1) 0%, rgba(192, 57, 43, 0.1) 100%);
+            border: 1px solid rgba(244, 67, 54, 0.3);
+        }
+
+        .suitability-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .suitability-card.suited h4 {
+            color: #4caf50;
+        }
+
+        .suitability-card.not-suited h4 {
+            color: #f44336;
+        }
+
+        .suitability-list {
+            list-style: none;
+        }
+
+        .suitability-list li {
+            padding: 10px 0;
+            padding-left: 25px;
+            font-size: 0.95rem;
+            color: #6b5d4f;
+            position: relative;
+        }
+
+        .suitability-card.suited li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .suitability-card.not-suited li:before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        /* Conclusion */
+        .conclusion {
+            background: linear-gradient(135deg, rgba(193, 154, 107, 0.12) 0%, rgba(160, 130, 109, 0.12) 100%);
+            border: 2px solid rgba(193, 154, 107, 0.3);
+            border-radius: 10px;
+            padding: 50px;
+            margin-top: 80px;
+            backdrop-filter: blur(10px);
+        }
+
+        .conclusion h3 {
+            font-size: 1.8rem;
+            color: #8b6f47;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .conclusion p {
+            font-size: 1rem;
+            color: #6b5d4f;
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .conclusion .highlight {
+            color: #8b6f47;
+            font-weight: 600;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .performance-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .suitability-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .infrastructure-table {
+                font-size: 0.85rem;
+            }
+
+            .infrastructure-table th,
+            .infrastructure-table td {
+                padding: 12px;
+            }
+        }
+
+        /* Utility */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(193, 154, 107, 0.2), transparent);
+            margin: 60px 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            border-top: 1px solid rgba(193, 154, 107, 0.2);
+            color: #8b7355;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>トレーラーハウス居住1年間の実態調査</h1>
+            <p class="subtitle">56歳・離婚後の生活再建と本音</p>
+            <p class="tagline">1,000万円投資による住居選択の実態検証</p>
+            <a href="https://www.youtube.com/watch?v=Zv1t9FSUX7Y" class="video-link" target="_blank">
+                ▶ 【2chスレ】56歳1000万でトレーラーハウス購入、1年住んでみたら⋯嫁に追い出された末路
+            </a>
+        </div>
+
+        <!-- Section 1: Background -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-num">1</span>導入の背景と意思決定のプロセス</h2>
+            <p class="section-subtitle">年収700万円、56歳、突然の住居確保の必要性</p>
+
+            <div class="profile-grid">
+                <div class="profile-item">
+                    <div class="label">年齢</div>
+                    <div class="value">56歳</div>
+                </div>
+                <div class="profile-item">
+                    <div class="label">年収</div>
+                    <div class="value">700万円</div>
+                </div>
+                <div class="profile-item">
+                    <div class="label">保有資産</div>
+                    <div class="value">3,000万円</div>
+                </div>
+            </div>
+
+            <p style="color: #6b5d4f; margin-bottom: 30px; font-size: 0.95rem; line-height: 1.8;">
+                <strong style="color: #8b6f47;">導入動機：</strong>娘の独立を機に離婚し、急遽住居の確保が必要になった。実家の敷地内に新たな住居を求める中で、トレーラーハウスという選択肢に行き着く。3,000万円の資産を活用し、資産維持と経済効率を両立させる方法として検討。
+            </p>
+
+            <h3 style="font-size: 1.2rem; color: #8b6f47; margin-bottom: 20px; margin-top: 40px; font-weight: 600;">他の住居形態との比較検討</h3>
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <div class="icon">🏢</div>
+                    <h3>賃貸住宅</h3>
+                    <p>家賃を支払い続けても資産が残らない。生涯コストが高く、資産保有者にとって機会損失が大きい。</p>
+                </div>
+                <div class="comparison-card">
+                    <div class="icon">🏠</div>
+                    <h3>中古物件</h3>
+                    <p>修繕費・固定資産税・管理費などの負担が大きい。資産としては魅力的だが維持コストが継続。</p>
+                </div>
+                <div class="comparison-card">
+                    <div class="icon">📦</div>
+                    <h3>コンテナハウス・プレハブ</h3>
+                    <p>建築物扱いとなり、建築確認申請が必要。手続きが複雑で、実家敷地への設置に向かない。</p>
+                </div>
+            </div>
+
+            <div style="background: rgba(193, 154, 107, 0.1); border-left: 4px solid #c19a6b; border-radius: 8px; padding: 25px; margin-top: 30px;">
+                <h4 style="color: #8b6f47; margin-bottom: 15px; font-weight: 600;">🎯 トレーラーハウス採用の決定打</h4>
+                <ul style="list-style: none; color: #6b5d4f; font-size: 0.95rem;">
+                    <li style="padding: 8px 0;">✓ <strong style="color: #8b6f47;">法的メリット：</strong>車両扱いのため建築確認不要</li>
+                    <li style="padding: 8px 0;">✓ <strong style="color: #8b6f47;">土地活用：</strong>実家敷地の空きスペースに設置可能</li>
+                    <li style="padding: 8px 0;">✓ <strong style="color: #8b6f47;">税務メリット：</strong>固定資産税の軽減措置維持が可能</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 2: Costs -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-num">2</span>導入コストと設置プロセス</h2>
+            <p class="section-subtitle">1,000万円の初期投資から搬入・ライフラインの確保まで</p>
+
+            <div class="cost-section">
+                <div class="cost-grid">
+                    <div class="cost-card highlight">
+                        <div class="cost-label">初期費用（フルサイズ）</div>
+                        <div class="cost-amount">1,000万円</div>
+                        <div class="cost-desc">住居用トレーラーハウス本体</div>
+                    </div>
+                    <div class="cost-card">
+                        <div class="cost-label">ローン形態</div>
+                        <div class="cost-amount">フリーローン</div>
+                        <div class="cost-desc">4%以上の金利（住宅ローン不可、マイカーローン不可）</div>
+                    </div>
+                    <div class="cost-card">
+                        <div class="cost-label">月額ランニング</div>
+                        <div class="cost-amount">約2万円</div>
+                        <div class="cost-desc">都心近郊賃貸7万円と比較し大幅削減</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.2rem; color: #8b6f47; margin-bottom: 20px; margin-top: 40px; font-weight: 600;">搬入とライフラインの確保</h3>
+            
+            <div class="table-wrapper">
+                <table class="infrastructure-table">
+                    <thead>
+                        <tr>
+                            <th>項目</th>
+                            <th>仕様</th>
+                            <th>備考</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>搬入サイズ</strong></td>
+                            <td>全長11m・幅3.4m</td>
+                            <td>深夜に先導車付きで輸送。一般道が限定される</td>
+                        </tr>
+                        <tr>
+                            <td><strong>電気</strong></td>
+                            <td>電柱から引き込み</td>
+                            <td>取り外し可能であることが車両扱いの条件</td>
+                        </tr>
+                        <tr>
+                            <td><strong>水道</strong></td>
+                            <td>実家配管から分岐</td>
+                            <td>工具不要で取り外し可能な接続方式</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ガス</strong></td>
+                            <td>プロパンボンベ</td>
+                            <td>都市ガスの接続は固定と見なされリスク</td>
+                        </tr>
+                        <tr>
+                            <td><strong>下水</strong></td>
+                            <td>実家槽から分岐または貯蔵タンク</td>
+                            <td>取り外し可能な仮設性維持が必須</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: rgba(193, 154, 107, 0.08); border: 1px solid rgba(193, 154, 107, 0.2); border-radius: 8px; padding: 25px; margin-top: 30px;">
+                <p style="color: #6b5d4f; font-size: 0.9rem; line-height: 1.8;">
+                    <strong style="color: #8b6f47;">⚠️ 重要：</strong> すべてのインフラが「取り外し可能」であることが「車両扱い」を維持するための必須条件。固定的な接続は建築物扱いのリスクを高める。
+                </p>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 3: Equipment -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-num">3</span>設備と住居性能</h2>
+            <p class="section-subtitle">1LDK相当の設備を完備する実際の居住環境</p>
+
+            <h3 style="font-size: 1.2rem; color: #8b6f47; margin-bottom: 25px; margin-top: 0; font-weight: 600;">内部設備（1LDK相当）</h3>
+
+            <div class="performance-grid">
+                <div class="performance-card">
+                    <h3>🍳 キッチン・調理</h3>
+                    <div class="performance-item">
+                        <div class="perf-icon">◆</div>
+                        <div class="perf-text">IH2口コンロ、冷蔵庫、電子レンジ</div>
+                    </div>
+                </div>
+                <div class="performance-card">
+                    <h3>🚿 水回り・清潔</h3>
+                    <div class="performance-item">
+                        <div class="perf-icon">◆</div>
+                        <div class="perf-text">ウォシュレット付きトイレ、シャワー・浴槽完備</div>
+                    </div>
+                    <div class="performance-item">
+                        <div class="perf-icon">◆</div>
+                        <div class="perf-text">独立洗面台、ドラム式洗濯機</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.2rem; color: #8b6f47; margin-bottom: 25px; margin-top: 40px; font-weight: 600;">居住性の実態（メリット・デメリット）</h3>
+
+            <div class="performance-grid">
+                <div class="performance-card">
+                    <h3 style="color: #4caf50; border-bottom-color: #4caf50;">✓ メリット</h3>
+                    <div class="performance-item">
+                        <div class="perf-icon">✨</div>
+                        <div class="perf-text"><strong>清掃が簡単：</strong>10分で全体を掃除可能</div>
+                    </div>
+                    <div class="performance-item">
+                        <div class="perf-icon">❄️</div>
+                        <div class="perf-text"><strong>冷暖房効率：</strong>狭いため空調が効きやすい</div>
+                    </div>
+                    <div class="performance-item">
+                        <div class="perf-icon">🎯</div>
+                        <div class="perf-text"><strong>ミニマル生活：</strong>モノの最小化を強制</div>
+                    </div>
+                </div>
+                <div class="performance-card">
+                    <h3 style="color: #f44336; border-bottom-color: #f44336;">✗ デメリット</h3>
+                    <div class="performance-item">
+                        <div class="perf-icon">🔊</div>
+                        <div class="perf-text"><strong>洗濯時の振動：</strong>脱水時に「震度3相当」の揺れ発生</div>
+                    </div>
+                    <div class="performance-item">
+                        <div class="perf-icon">🌧️</div>
+                        <div class="perf-text"><strong>防音性能：</strong>雨音が非常に大きく会話困難</div>
+                    </div>
+                    <div class="performance-item">
+                        <div class="perf-icon">🌡️</div>
+                        <div class="perf-text"><strong>断熱不足：</strong>夏は高温、冬は床下から冷気</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 4: Legal Dilemma -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-num">4</span>「車両扱い」に伴う運用のジレンマ</h2>
+            <p class="section-subtitle">固定化できない、移動機能を失えない：法的制約の現実</p>
+
+            <div class="dilemma-section">
+                <div class="dilemma-item">
+                    <strong>🔩 固定の禁止</strong><br>
+                    ウッドデッキをビス固定したり、本体に加工を加えると「建築物」扱いされるリスク。見た目のカスタマイズが大きく制限される。
+                </div>
+                <div class="dilemma-item">
+                    <strong>🚚 仮設性の維持</strong><br>
+                    インフラ接続が「工具不要で取り外し可能」である必要があり、利便性と法的安全性のバランス取りが難しい。
+                </div>
+                <div class="dilemma-item">
+                    <strong>🛞 タイヤ保持</strong><br>
+                    移動機能を維持するためにタイヤを取り外せない。故障時の修理費が発生する可能性がある。
+                </div>
+                <div class="dilemma-item">
+                    <strong>⚡ 電気配線の制約</strong><br>
+                    永続的な結線が避けられ、定期的な接続状態の確認が必要。火災リスクとのトレードオフ。
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 5: Seasonal Challenges -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-num">5</span>四季のリアルと1年間の総括</h2>
+            <p class="section-subtitle">月々約2万円という経済効率と生活実態の乖離</p>
+
+            <div class="seasonal-grid">
+                <div class="seasonal-card">
+                    <div class="icon">☀️</div>
+                    <h4>夏の課題</h4>
+                    <p>直射日光で室内が温室化。金属製の外壁が熱を吸収し、内部温度が急上昇。冷房の負荷が大きくなり、電気代が増加する可能性がある。</p>
+                </div>
+                <div class="seasonal-card">
+                    <div class="icon">❄️</div>
+                    <h4>冬の課題</h4>
+                    <p>床からの冷気が厳しく、足元の冷感が強い。結露・カビのリスクが高まり、定期的な通風と除湿が必須。暖房費の増加。</p>
+                </div>
+                <div class="seasonal-card">
+                    <div class="icon">🌪️</div>
+                    <h4>台風への対応</h4>
+                    <p>ロープ固定など、持ち運び可能な対策は施せるが、本体自体の安定性に不安がある。強風時の不安感は拭えない。</p>
+                </div>
+                <div class="seasonal-card">
+                    <div class="icon">💰</div>
+                    <h4>経済的効果</h4>
+                    <p>月々のランニングコスト：約2万円。都心近郊賃貸（7万円前後）と比較し、毎月5万円の節約。年間60万円の経済効果が継続。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 6: Suitability -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-num">6</span>トレーラーハウスの適性判定</h2>
+            <p class="section-subtitle">万人向けではない：適性層と非適性層の明確な区分</p>
+
+            <div class="suitability-grid">
+                <div class="suitability-card suited">
+                    <h4>✓ 向いている人</h4>
+                    <ul class="suitability-list">
+                        <li>工夫する生活が好き・得意</li>
+                        <li>ミニマリスト的価値観を持つ</li>
+                        <li>1人時間を重視する単身者</li>
+                        <li>環境適応力が高い</li>
+                        <li>不便さをポジティブに捉える</li>
+                        <li>将来的に生活環境を変えたい シニア層</li>
+                        <li>「土地に縛られない身軽さ」を価値とする</li>
+                    </ul>
+                </div>
+                <div class="suitability-card not-suited">
+                    <h4>✗ 向いていない人</h4>
+                    <ul class="suitability-list">
+                        <li>一般住宅並みの快適性を求める</li>
+                        <li>寒さに弱い体質</li>
+                        <li>周囲の視線が気になる</li>
+                        <li>音に敏感・神経質</li>
+                        <li>家族との同居を考える</li>
+                        <li>定期的な大規模修繕を避けたい</li>
+                        <li>資産価値の上昇を期待する</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Conclusion -->
+        <div class="conclusion">
+            <h3>🏘️ 最終評価：トレーラーハウスの価値</h3>
+            <p>
+                トレーラーハウスは、<span class="highlight">「土地に縛られない身軽さ」を最大の武器</span>としている。3,000万円の資産保有者にとって、月々2万円のランニングコストで賃貸や購入と異なる選択肢を提供する。
+            </p>
+            <p>
+                <span class="highlight">1年間の居住検証から明らかになったのは、「経済効率と生活快適性は反比例する」という現実</span>である。しかし、この「不便さを工夫で乗り越える」プロセス自体に価値を見出す層にとっては、トレーラーハウスは有力な住居選択肢となり得る。
+            </p>
+            <p>
+                特に、<span class="highlight">将来的に生活環境を変えたいシニア層や、ミニマリスト的価値観を持つ単身者</span>にとっては、固定資産税の回避、柔軟な移動の可能性、継続的な経済効率というメリットが大きい。万人向けではないが、適切な層には非常に有効なソリューションとして機能する。
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 Trailer House Living Analysis | Real-Life One-Year Report</p>
+        </div>
+    </div>
+</body>
+</html>
