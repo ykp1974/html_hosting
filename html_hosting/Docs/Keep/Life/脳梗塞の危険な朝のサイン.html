@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>脳梗塞の朝のサインと予防法ガイド</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Yu Gothic', 'Meiryo', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+            padding: 20px;
+            line-height: 1.7;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 50%, #f87171 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 8s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+        }
+        
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header .subtitle {
+            font-size: 1.3em;
+            margin-top: 15px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .video-source {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+        
+        .video-source a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 2px solid rgba(255,255,255,0.5);
+            transition: border-color 0.3s;
+        }
+        
+        .video-source a:hover {
+            border-bottom-color: white;
+        }
+        
+        .content {
+            padding: 50px;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 2em;
+            color: #dc2626;
+            margin-bottom: 25px;
+            padding-bottom: 12px;
+            border-bottom: 4px solid #dc2626;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            border-left: 6px solid #dc2626;
+        }
+        
+        .executive-summary h2 {
+            font-size: 2em;
+            color: #dc2626;
+            margin-bottom: 20px;
+        }
+        
+        .stats-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .stats-box .stat {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #dc2626;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .critical-box {
+            background: #fee2e2;
+            border: 3px solid #dc2626;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+        
+        .critical-box h3 {
+            color: #dc2626;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .classification-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .classification-table th {
+            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-size: 1.1em;
+        }
+        
+        .classification-table td {
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+            vertical-align: top;
+        }
+        
+        .classification-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .classification-table td:first-child {
+            font-weight: bold;
+            color: #dc2626;
+            width: 25%;
+        }
+        
+        .timeline-section {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+        
+        .timeline-section h3 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .timeline {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            margin-top: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .timeline-item {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .timeline-item .time {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 15px;
+        }
+        
+        .timeline-item .treatment {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .warning-signs {
+            background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
+            padding: 40px;
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+        
+        .warning-signs h3 {
+            font-size: 2em;
+            color: #ea580c;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .signs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .sign-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-top: 5px solid #ea580c;
+            transition: transform 0.3s;
+        }
+        
+        .sign-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .sign-card .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .sign-card h4 {
+            font-size: 1.4em;
+            color: #ea580c;
+            margin-bottom: 15px;
+        }
+        
+        .sign-card ul {
+            list-style: none;
+        }
+        
+        .sign-card ul li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .sign-card ul li::before {
+            content: '⚠️';
+            position: absolute;
+            left: 0;
+            font-size: 1em;
+        }
+        
+        .prevention-section {
+            background: linear-gradient(135deg, #dcfce7 0%, #86efac 100%);
+            padding: 50px;
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+        
+        .prevention-section h3 {
+            font-size: 2em;
+            color: #16a34a;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .habits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .habit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid #16a34a;
+        }
+        
+        .habit-card .number {
+            background: linear-gradient(135deg, #16a34a 0%, #22c55e 100%);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4em;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .habit-card h4 {
+            font-size: 1.4em;
+            color: #16a34a;
+            margin-bottom: 15px;
+        }
+        
+        .habit-card .detail {
+            background: #f0fdf4;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.95em;
+        }
+        
+        .habit-card .detail strong {
+            color: #16a34a;
+        }
+        
+        .conclusion-section {
+            background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+            color: white;
+            padding: 50px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(124, 58, 237, 0.4);
+        }
+        
+        .conclusion-section h2 {
+            font-size: 2.2em;
+            margin-bottom: 25px;
+        }
+        
+        .conclusion-section .message {
+            font-size: 1.2em;
+            line-height: 1.9;
+            background: rgba(255,255,255,0.15);
+            padding: 30px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .emergency-box {
+            background: #fee2e2;
+            border: 4px solid #dc2626;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .emergency-box h3 {
+            color: #dc2626;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+        
+        .emergency-box .phone {
+            font-size: 4em;
+            font-weight: bold;
+            color: #dc2626;
+            display: block;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .timeline {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .signs-grid, .habits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚠️ 脳梗塞の危険な朝のサイン</h1>
+            <p class="subtitle">早期発見と予防が命を守る</p>
+            <div class="video-source">
+                <p style="margin-bottom: 10px;">📺 解説動画</p>
+                <a href="https://www.youtube.com/watch?v=Lu8XcioJbxI" target="_blank">
+                    【絶対に知っておいてほしい】脳梗塞の危険な朝のサイン、脳梗塞の予防法について解説（脳梗塞　脂質異常症）
+                </a>
+            </div>
+        </div>
+        
+        <div class="content">
+            <!-- エグゼクティブサマリー -->
+            <div class="executive-summary">
+                <h2>📊 重要なポイント</h2>
+                <p style="font-size: 1.1em; line-height: 1.8; margin-bottom: 20px;">
+                    脳梗塞は日本人の死因第4位であり、年間10万人以上が新たに発症する極めて重大な疾患です。特に<strong>「朝」</strong>の時間帯は、血圧の急上昇と睡眠中の脱水が重なるため、発症リスクが非常に高くなります。
+                </p>
+                
+                <div class="stats-box">
+                    <span class="stat">10万人以上</span>
+                    <p style="font-size: 1.1em;">年間新規発症者数</p>
+                </div>
+                
+                <div class="critical-box">
+                    <h3>🔴 脳梗塞の予後を決める要因</h3>
+                    <p style="font-size: 1.1em; line-height: 1.8;">
+                        脳梗塞の予後は、<strong style="font-size: 1.2em; color: #dc2626;">発症から治療開始までの時間</strong>に決定的に左右されます。時間が経過するほど選択肢は限定され、後遺症のリスクが高まります。
+                    </p>
+                </div>
+                
+                <div style="background: white; padding: 25px; border-radius: 12px; margin-top: 20px;">
+                    <h3 style="color: #dc2626; margin-bottom: 15px;">🎯 本資料の目的</h3>
+                    <ul style="list-style: none;">
+                        <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
+                            ✓ 見逃されやすい「朝の危険なサイン」を特定
+                        </li>
+                        <li style="padding: 10px 0; border-bottom: 1px solid #eee;">
+                            ✓ 科学的根拠に基づく8つの予防習慣を提示
+                        </li>
+                        <li style="padding: 10px 0;">
+                            ✓ 一過性脳虚血発作（TIA）など早期発見の重要性を啓発
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- セクション1: 脳梗塞の分類 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span>1️⃣</span> 脳梗塞の分類と特徴
+                </h2>
+                
+                <p style="font-size: 1.1em; margin-bottom: 25px;">
+                    脳梗塞はその発症メカニズムにより、主に以下の3つの種類に分類されます。
+                </p>
+                
+                <table class="classification-table">
+                    <thead>
+                        <tr>
+                            <th>種類</th>
+                            <th>特徴</th>
+                            <th>主な症状・リスク</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ラクナ梗塞</td>
+                            <td>脳の細い血管が詰まる</td>
+                            <td>脱力、しびれ、言語障害。無症状（無症候性）の場合もあるが、<strong>認知症の原因</strong>となる</td>
+                        </tr>
+                        <tr>
+                            <td>アテローム血栓性脳梗塞</td>
+                            <td>脳の太い血管が詰まる</td>
+                            <td>範囲が広く<strong>重症化しやすい</strong>。動脈硬化が主な要因</td>
+                        </tr>
+                        <tr>
+                            <td>心原性脳塞栓症</td>
+                            <td>心臓などの他部位でできた血栓が脳に飛んでくる</td>
+                            <td>太い血管を塞ぐため、<strong style="color: #dc2626;">最も重症化しやすい</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- セクション2: 治療における時間の重要性 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span>2️⃣</span> 治療における「時間」の重要性
+                </h2>
+                
+                <div class="timeline-section">
+                    <h3>⏱️ ゴールデンタイム</h3>
+                    <p style="text-align: center; font-size: 1.15em; margin-bottom: 20px;">
+                        脳梗塞は<strong>一刻も早い治療開始</strong>が後遺症の軽減に直結します
+                    </p>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <span class="time">4.5時間以内</span>
+                            <p class="treatment">tPA療法</p>
+                            <p style="font-size: 0.95em;">血栓溶解薬の注射</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <span class="time">24時間以内</span>
+                            <p class="treatment">血管内治療</p>
+                            <p style="font-size: 0.95em;">カテーテルによる<br>血栓の吸引・除去</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.2); padding: 25px; border-radius: 12px; margin-top: 30px;">
+                        <h4 style="font-size: 1.3em; margin-bottom: 15px; text-align: center;">⚠️ 重要な注意点</h4>
+                        <p style="font-size: 1.1em; text-align: center;">
+                            病院到着後の検査時間も考慮する必要があるため、<br>
+                            <strong style="font-size: 1.2em;">異変を感じたら直ちに受診することが不可欠</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- セクション3: 朝の危険なサイン -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span>3️⃣</span> 見逃してはならない「朝の危険なサイン」
+                </h2>
+                
+                <div class="warning-signs">
+                    <h3>🚨 これらの症状に要注意</h3>
+                    <p style="text-align: center; font-size: 1.1em; margin-bottom: 20px;">
+                        朝、活動を開始する際に以下のような症状が現れた場合、脳梗塞の疑いがあります
+                    </p>
+                    
+                    <div class="signs-grid">
+                        <div class="sign-card">
+                            <span class="icon">🚶</span>
+                            <h4>歩行障害</h4>
+                            <p style="margin-bottom: 15px; font-weight: bold;">思うように歩けない</p>
+                            <ul>
+                                <li>ふらつく</li>
+                                <li>片足だけ前に出ない</li>
+                                <li>足がもつれる</li>
+                                <li><strong>特に「片足だけ」のしびれや脱力は血流低下の強い兆候</strong></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="sign-card">
+                            <span class="icon">🤚</span>
+                            <h4>手指の震え・巧緻動作障害</h4>
+                            <p style="margin-bottom: 15px; font-weight: bold;">細かい動作ができない</p>
+                            <ul>
+                                <li>コップを持つ手が震える</li>
+                                <li>物を落としそうになる</li>
+                                <li>箸がうまく使えない</li>
+                                <li><strong>数分で治まる場合も一過性脳虚血発作（TIA）の可能性</strong></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="sign-card">
+                            <span class="icon">🪥</span>
+                            <h4>日常動作の違和感</h4>
+                            <p style="margin-bottom: 15px; font-weight: bold;">いつもの動作ができない</p>
+                            <ul>
+                                <li>歯磨きがいつも通りできない</li>
+                                <li>片側だけ磨き残す</li>
+                                <li>ボタンが留められない</li>
+                                <li>ファスナーの開閉が困難</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="sign-card">
+                            <span class="icon">😐</span>
+                            <h4>顔面の非対称</h4>
+                            <p style="margin-bottom: 15px; font-weight: bold;">顔の片側が垂れている</p>
+                            <ul>
+                                <li>片側の顔が垂れている</li>
+                                <li>口元が歪んでいる</li>
+                                <li>目の開きが左右で異なる</li>
+                                <li><strong>本人よりも家族が気づきやすい</strong></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="sign-card">
+                            <span class="icon">💬</span>
+                            <h4>言語障害</h4>
+                            <p style="margin-bottom: 15px; font-weight: bold;">ろれつが回らない</p>
+                            <ul>
+                                <li>会話中に言葉に詰まる</li>
+                                <li>「パ・タ・カ」と発音してみる</li>
+                                <li><strong>うまく言えない場合は高音障害の可能性</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="emergency-box" style="margin-top: 40px;">
+                        <h3>🚑 緊急時の対応</h3>
+                        <p style="font-size: 1.2em; margin-bottom: 10px;">これらのサインを感じたら</p>
+                        <span class="phone">119</span>
+                        <p style="font-size: 1.15em; color: #dc2626;">
+                            <strong>すぐに救急車を呼んでください</strong><br>
+                            <span style="font-size: 0.9em;">「数分で治まった」場合でも必ず医療機関を受診</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- セクション4: 8つの予防習慣 -->
+            <div class="section">
+                <h2 class="section-title">
+                    <span>4️⃣</span> 脳梗塞を予防するための8つの朝の習慣
+                </h2>
+                
+                <div class="prevention-section">
+                    <h3>✅ 毎朝実践すべき習慣</h3>
+                    
+                    <div class="habits-grid">
+                        <div class="habit-card">
+                            <div class="number">①</div>
+                            <h4>急に立ち上がらない</h4>
+                            <p>起床時は血圧が急上昇しやすい時間帯です</p>
+                            <div class="detail">
+                                <strong>推奨行動：</strong><br>
+                                • 布団の中で手足を動かす<br>
+                                • 深呼吸をする<br>
+                                • ゆっくり起き上がる
+                            </div>
+                        </div>
+                        
+                        <div class="habit-card">
+                            <div class="number">②</div>
+                            <h4>起床直後の水分補給</h4>
+                            <p>睡眠中に体重の約0.5%の水分が失われます</p>
+                            <div class="detail">
+                                <strong>推奨：</strong> 常温の水または白湯をコップ1杯<br>
+                                <strong>注意：</strong> カフェイン飲料や糖分の多いジュースは不適
+                            </div>
+                        </div>
+                        
+                        <div class="habit-card">
+                            <div class="number">③</div>
+                            <h4>軽いストレッチと深呼吸</h4>
+                            <p>朝6〜12時は心血管イベントが多い時間帯</p>
+                            <div class="detail">
+                                <strong>ストレッチ：</strong> 手足を伸ばす、足首を回す<br>
+                                <strong>深呼吸：</strong> 5秒吸って7秒吐く × 3〜5回
+                            </div>
+                        </div>
+                        
+                        <div class="habit-card">
+                            <div class="number">④</div>
+                            <h4>血圧の測定と記録</h4>
+                            <p>家庭血圧は脳卒中リスクとの関連が強い</p>
+                            <div class="detail">
+                                <strong>モーニングサージ：</strong> 朝の血圧が高いとリスク2倍以上<br>
+                                <strong>仮面高血圧：</strong> 病院では正常でも自宅で高いケース
+                            </div>
+                        </div>
+                        
+                        <div class="habit-card">
+                            <div class="number">⑤</div>
+                            <h4>朝食を抜かない</h4>
+                            <p>朝食欠食者は脳卒中死亡リスクが上昇</p>
+                            <div class="detail">
+                                <strong>推奨：</strong> バナナやヨーグルトなど簡単なもので良い<br>
+                                無理せず継続できる内容を選ぶ
+                            </div>
+                        </div>
+                        
+                        <div class="habit-card">
+                            <div class="number">⑥</div>
+                            <h4>デンタルフロスによる口腔ケア</h4>
+                            <p>歯周病菌は動脈硬化を促進します</p>
+                            <div class="detail">
+                                <strong>リスク：</strong> 歯周病がある人は脳卒中リスクが約1.3倍<br>
+                                <strong>対策：</strong> フロスでプラークを除去することが重要
+                            </div>
+                        </div>
+                        
+                        <div class="habit-card">
+                            <div class="number">⑦</div>
+                            <h4>豆乳の摂取</h4>
+                            <p>大豆イソフラボンがコレステロール改善に有効</p>
+                            <div class="detail">
+                                <strong>活用法：</strong><br>
+                                • コーヒーや紅茶に混ぜる<br>
+                                • 毎日の習慣として継続する
+                            </div>
+                        </div>
+                        
+                        <div class="habit-card">
+                            <div class="number">⑧</div>
+                            <h4>魚中心の食生活（EPAの摂取）</h4>
+                            <p>青魚に含まれるEPA・オメガ3が血栓形成を防ぐ</p>
+                            <div class="detail">
+                                <strong>効果：</strong> 多くの研究で脳卒中・心筋梗塞予防効果が実証<br>
+                                <strong>推奨：</strong> サバ、イワシ、サンマなどの青魚
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 結論 -->
+            <div class="conclusion-section">
+                <h2>🎯 結論</h2>
+                <div class="message">
+                    <p style="font-size: 1.3em; margin-bottom: 20px;">
+                        <strong>脳梗塞は、事前の予防習慣と<br>発症時の迅速な対応によって<br>リスクと被害を最小限に抑えることが可能</strong>
+                    </p>
+                    <p style="font-size: 1.15em; line-height: 2;">
+                        ✓ 朝の危険なサインを見逃さない<br>
+                        ✓ 8つの予防習慣を日常に取り入れる<br>
+                        ✓ 違和感を感じたら迷わず受診<br>
+                        ✓ 家族と情報を共有する
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
