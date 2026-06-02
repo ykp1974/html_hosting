@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoT防衛革命 - CLAD フレームワーク解説</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1729 100%);
+            color: #e4e4e7;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1700px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .header h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 15px;
+            background: linear-gradient(120deg, #ff006e 0%, #ff4081 50%, #ffb300 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #a1a1a8;
+            margin-bottom: 12px;
+            font-weight: 300;
+        }
+
+        .header .tagline {
+            font-size: 1rem;
+            color: #71717a;
+            margin-bottom: 35px;
+            font-style: italic;
+            letter-spacing: 0.5px;
+        }
+
+        .video-link {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #ff006e 0%, #ff4081 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 8px 24px rgba(255, 0, 110, 0.25);
+        }
+
+        .video-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(255, 0, 110, 0.4);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 120px;
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .section:nth-child(1) { animation-delay: 0.1s; }
+        .section:nth-child(2) { animation-delay: 0.2s; }
+        .section:nth-child(3) { animation-delay: 0.3s; }
+        .section:nth-child(4) { animation-delay: 0.4s; }
+        .section:nth-child(5) { animation-delay: 0.5s; }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #f4f4f5;
+            letter-spacing: -0.5px;
+        }
+
+        .section-num {
+            display: inline-block;
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #ff006e 0%, #ff4081 100%);
+            color: white;
+            border-radius: 50%;
+            line-height: 44px;
+            text-align: center;
+            font-weight: 700;
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: #a1a1a8;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* Problem Cards */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .problem-card {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.08) 0%, rgba(255, 64, 129, 0.08) 100%);
+            border: 1px solid rgba(255, 0, 110, 0.2);
+            border-radius: 10px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .problem-card:hover {
+            border-color: rgba(255, 0, 110, 0.5);
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.15) 0%, rgba(255, 64, 129, 0.15) 100%);
+            box-shadow: 0 12px 30px rgba(255, 0, 110, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .problem-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .problem-card h3 {
+            font-size: 1.2rem;
+            color: #ff9fbb;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .problem-card p {
+            font-size: 0.95rem;
+            color: #d4d4d8;
+            line-height: 1.7;
+        }
+
+        /* Technology Grid */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+            margin-bottom: 50px;
+        }
+
+        .tech-card {
+            background: linear-gradient(135deg, rgba(255, 179, 0, 0.08) 0%, rgba(255, 107, 0, 0.08) 100%);
+            border: 1px solid rgba(255, 179, 0, 0.2);
+            border-radius: 10px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .tech-card:hover {
+            border-color: rgba(255, 179, 0, 0.5);
+            background: linear-gradient(135deg, rgba(255, 179, 0, 0.15) 0%, rgba(255, 107, 0, 0.15) 100%);
+            box-shadow: 0 12px 30px rgba(255, 179, 0, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .tech-card h3 {
+            font-size: 1.3rem;
+            color: #ffc856;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .tech-feature {
+            background: rgba(0, 0, 0, 0.2);
+            border-left: 3px solid #ffb300;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: #d4d4d8;
+        }
+
+        .tech-feature strong {
+            color: #ffc856;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .tech-feature:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Performance Metrics */
+        .metrics-container {
+            background: linear-gradient(135deg, rgba(0, 200, 255, 0.08) 0%, rgba(0, 150, 200, 0.08) 100%);
+            border: 1px solid rgba(0, 200, 255, 0.2);
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .metric-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 200, 255, 0.2);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: rgba(0, 200, 255, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .metric-value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: #00d4ff;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .metric-label {
+            font-size: 0.95rem;
+            color: #d4d4d8;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .metric-desc {
+            font-size: 0.85rem;
+            color: #a1a1a8;
+            line-height: 1.5;
+        }
+
+        /* Performance Table */
+        .table-wrapper {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 200, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .performance-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .performance-table thead {
+            background: linear-gradient(90deg, rgba(0, 200, 255, 0.2) 0%, rgba(0, 150, 200, 0.2) 100%);
+        }
+
+        .performance-table th {
+            padding: 18px 20px;
+            text-align: left;
+            color: #00ffff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-bottom: 2px solid rgba(0, 200, 255, 0.3);
+        }
+
+        .performance-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid rgba(0, 200, 255, 0.1);
+            font-size: 0.9rem;
+            color: #d4d4d8;
+        }
+
+        .performance-table tr:hover {
+            background: rgba(0, 200, 255, 0.05);
+        }
+
+        .performance-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .metric-highlight {
+            color: #00ffff;
+            font-weight: 600;
+        }
+
+        /* Applications */
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .app-card {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.08) 0%, rgba(56, 142, 60, 0.08) 100%);
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            border-radius: 10px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .app-card:hover {
+            border-color: rgba(76, 175, 80, 0.5);
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.15) 0%, rgba(56, 142, 60, 0.15) 100%);
+            box-shadow: 0 12px 30px rgba(76, 175, 80, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .app-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .app-card h4 {
+            font-size: 1.15rem;
+            color: #81c784;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .app-card p {
+            font-size: 0.9rem;
+            color: #d4d4d8;
+            line-height: 1.6;
+        }
+
+        /* Conclusion */
+        .conclusion {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.1) 0%, rgba(255, 107, 0, 0.1) 100%);
+            border: 2px solid rgba(255, 0, 110, 0.3);
+            border-radius: 10px;
+            padding: 50px;
+            margin-top: 80px;
+            backdrop-filter: blur(10px);
+        }
+
+        .conclusion h3 {
+            font-size: 1.8rem;
+            color: #ff9fbb;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .conclusion p {
+            font-size: 1rem;
+            color: #d4d4d8;
+            line-height: 1.9;
+            margin-bottom: 20px;
+        }
+
+        .conclusion .highlight {
+            color: #ff006e;
+            font-weight: 600;
+        }
+
+        /* Architecture Diagram */
+        .architecture {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 179, 0, 0.2);
+            border-radius: 10px;
+            padding: 40px;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .architecture-title {
+            font-size: 1.1rem;
+            color: #ffc856;
+            font-weight: 600;
+            margin-bottom: 30px;
+        }
+
+        .architecture-diagram {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .arch-box {
+            background: linear-gradient(135deg, rgba(255, 179, 0, 0.15) 0%, rgba(255, 107, 0, 0.15) 100%);
+            border: 2px solid rgba(255, 179, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            color: #ffc856;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .performance-table {
+                font-size: 0.85rem;
+            }
+
+            .performance-table th,
+            .performance-table td {
+                padding: 12px;
+            }
+        }
+
+        /* Utility */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 110, 0.2), transparent);
+            margin: 60px 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0 20px;
+            border-top: 1px solid rgba(255, 0, 110, 0.2);
+            color: #71717a;
+            font-size: 0.85rem;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff006e 0%, #ff4081 100%);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>IoT防衛革命</h1>
+            <p class="subtitle">CLAD：クラスタラベル非依存連合学習フレームワーク</p>
+            <p class="tagline">プライバシー・効率・性能の三大トレードオフを同時に解決するAI防衛システム</p>
+            <a href="https://www.youtube.com/watch?v=rWXddQ8NFfI" class="video-link" target="_blank">
+                ▶ 【IoT防衛革命】80%が無防備でも守れる、AI自己防衛網がヤバすぎる
+            </a>
+        </div>
+
+        <!-- Section 1: Current Challenges -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-num">1</span>IoTセキュリティの現状課題</h2>
+            <p class="section-subtitle">監視カメラのハッキング、スマート家電の踏み台化：深刻化するサイバー攻撃</p>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <div class="icon">🖥️</div>
+                    <h3>中央集中型分析の限界</h3>
+                    <p>すべてのデータを中央サーバーに集めて分析する手法は、ユーザーのプライバシーを侵害するリスク、通信遅延、サーバーボトルネックを引き起こす根本的な問題がある。</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">🔀</div>
+                    <h3>機器の多様性（ヘテロジェニティ）</h3>
+                    <p>カメラとセンサーでは「正常な通信パターン」が全く異なる。単一モデルで管理すると両機器の精度が低下し、中途半端な性能しか発揮できない。</p>
+                </div>
+                <div class="problem-card">
+                    <div class="icon">🏷️</div>
+                    <h3>ラベル付きデータの不足</h3>
+                    <p>ラベル付けには多大なコストがかかるため、現実の環境では極めて少ない。従来システムは「ラベルあり」か「完全教師なし」の二者択一を迫られていた。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 2: Revolutionary Technologies -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-num">2</span>CLADを支える2つの革新技術</h2>
+            <p class="section-subtitle">連合学習をベースにした従来の壁を打破するアプローチ</p>
+
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>①クラスタ連合学習<br><span style="font-size: 0.8rem; color: #ffb300;">Clustered Federated Learning</span></h3>
+                    <div class="tech-feature">
+                        <strong>🎯 自動クラスタリング</strong>
+                        各機器が正常な通信を再現する際の「復元誤差」に基づき分類。手動設定は不要。機器を自動的にグループ化し、似た動作パターンごとにモデルを最適化。
+                    </div>
+                    <div class="tech-feature">
+                        <strong>📈 動的な進化</strong>
+                        学習が進むにつれてクラスタリング精度が向上し、より専門性の高いモデルが各グループに形成される。継続的に適応する学習システム。
+                    </div>
+                    <div class="tech-feature">
+                        <strong>⚡ 計算効率</strong>
+                        各グループの機器が独立して学習し、グループ間でモデルのみを共有。通信量と計算負荷を最小化。
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <h3>②デュアルモード・マイクロ<br>アーキテクチャ（DM2A）</h3>
+                    <div class="tech-feature">
+                        <strong>🔍 異常検知ブランチ</strong>
+                        ラベルなしデータから正常パターンの逸脱を検出。教師あり学習を必要としない自己学習型モデルが異常を識別。
+                    </div>
+                    <div class="tech-feature">
+                        <strong>🎲 攻撃分類ブランチ</strong>
+                        ラベルありデータで攻撃タイプを識別。限られたラベル付きデータから攻撃パターンを学習。
+                    </div>
+                    <div class="tech-feature">
+                        <strong>🔗 知識の共有</strong>
+                        同クラスタ内で、ラベルあり機器の知識をラベルなし機器も間接的に利用可能。知識の波及効果が発生。
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 3: Performance -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-num">3</span>性能評価と実証結果</h2>
+            <p class="section-subtitle">3つの大規模IoTデータセットを用いた実験で証明された高い効率性と精度</p>
+
+            <div class="metrics-container">
+                <p style="color: #a1a1a8; margin-bottom: 20px;"><strong>主要な数値実績：</strong> ラベルなし機器80%という過酷な条件下における成果</p>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-label">検知性能の向上</div>
+                        <div class="metric-value">+30%</div>
+                        <div class="metric-desc">従来手法比（ラベルなし機器80%環境）での性能向上を実現</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">通信コストの削減</div>
+                        <div class="metric-value">50%</div>
+                        <div class="metric-desc">ネットワーク帯域幅を半減させながら精度を維持</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">モデルの軽量性</div>
+                        <div class="metric-value">33,800</div>
+                        <div class="metric-desc">パラメータ数。スマホアプリより軽量で即座に導入可能</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="performance-table">
+                    <thead>
+                        <tr>
+                            <th>評価指標</th>
+                            <th>実績・効果</th>
+                            <th>意味</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>検知性能の向上</strong></td>
+                            <td><span class="metric-highlight">従来手法比 +30%</span></td>
+                            <td>ラベルなし機器80%という条件下でも高精度を実現</td>
+                        </tr>
+                        <tr>
+                            <td><strong>通信コスト削減</strong></td>
+                            <td><span class="metric-highlight">50%削減</span></td>
+                            <td>ネットワーク負荷を大幅軽減し、IoTデバイスのバッテリー消費も減少</td>
+                        </tr>
+                        <tr>
+                            <td><strong>モデルサイズ</strong></td>
+                            <td><span class="metric-highlight">33,800パラメータ</span></td>
+                            <td>超軽量設計により、エッジデバイスでの実行が可能</td>
+                        </tr>
+                        <tr>
+                            <td><strong>アルゴリズム柔軟性</strong></td>
+                            <td><span class="metric-highlight">非依存設計</span></td>
+                            <td>クラスタリング部分は別アルゴリズムに置換可能で拡張性が高い</td>
+                        </tr>
+                        <tr>
+                            <td><strong>課題：ノンIID環境</strong></td>
+                            <td><span class="metric-highlight">改善予定</span></td>
+                            <td>データ分布が極端に偏る場合の対応強化が今後の研究課題</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Section 4: Applications -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-num">4</span>社会実装への応用展望</h2>
+            <p class="section-subtitle">「自己防衛型ネットワーク」の構築が可能となる多様な分野</p>
+
+            <div class="applications-grid">
+                <div class="app-card">
+                    <div class="icon">🏠</div>
+                    <h4>スマートホーム</h4>
+                    <p>プライバシーを外部に出さず、防御策を共有可能。各家庭のセキュリティが独立しながら、脅威情報をコミュニティ単位で連携。</p>
+                </div>
+                <div class="app-card">
+                    <div class="icon">🏭</div>
+                    <h4>産業用IoT（IIoT）・スマートビル</h4>
+                    <p>専門家の負担軽減、新規機器の自動参加により運用コストを大幅削減。工場全体が自己学習する防衛ネットワークを形成。</p>
+                </div>
+                <div class="app-card">
+                    <div class="icon">🏥</div>
+                    <h4>医療機器（Medical IoT）</h4>
+                    <p>患者データを院内に保持したまま、脅威情報のみ共有。医療倫理と高度なセキュリティが両立するシステム。</p>
+                </div>
+                <div class="app-card">
+                    <div class="icon">🏙️</div>
+                    <h4>スマートシティ</h4>
+                    <p>都市インフラが連携し、サイバー攻撃に対処する「都市の免疫システム」を形成。信号、交通、電力系統が一体となった防御網。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Architecture -->
+        <div class="section">
+            <h2 class="section-title"><span class="section-num">5</span>CLAD アーキテクチャの構成</h2>
+            <p class="section-subtitle">エッジとクラウドが連携する分散防衛システム</p>
+
+            <div class="architecture">
+                <p class="architecture-title">📊 3層構成による最適な防衛設計</p>
+                <div class="architecture-diagram">
+                    <div class="arch-box">各IoT機器<br><br>自律的異常検知ブランチ + 攻撃分類ブランチ</div>
+                    <div class="arch-box" style="border-color: rgba(255, 179, 0, 0.5);">クラスタ連合学習層<br><br>同クラスタ内で<br>モデル更新共有</div>
+                    <div class="arch-box">脅威情報<br>データベース<br><br>プライバシー保護<br>攻撃パターン蓄積</div>
+                </div>
+                <p style="color: #a1a1a8; font-size: 0.9rem; margin-top: 25px;">
+                    各層が独立して動作しながら相互に連携。プライバシー侵害なしで高度なセキュリティを実現。
+                </p>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Conclusion -->
+        <div class="conclusion">
+            <h3>🛡️ 結論：IoT防衛の未来</h3>
+            <p>
+                CLADは、<span class="highlight">プライバシー・効率・性能というIoTセキュリティの三大トレードオフを同時に解決する</span>道筋を示しました。軽量で低コスト、既存インフラへの導入も容易であり、大企業から中小企業、個人宅まで幅広く普及する可能性を持っています。
+            </p>
+            <p>
+                <span class="highlight">ラベル付きデータが少ない現実世界</span>において、80%がラベルなしという過酷な条件下でも30%の性能向上を実現。従来のセキュリティシステムでは不可能だった「プライバシーを保護しながら高度な防衛を行う」という矛盾を解決しています。
+            </p>
+            <p>
+                今後は、極端なデータ偏りへの対応、悪意ある機器混入時の防御、さらなる大規模実証などの課題に取り組むことで、数年後には<span class="highlight">「見えない守護者」として社会に定着する</span>ことが期待されます。IoTセキュリティの未来は、分散型の自己防衛網へと移行していくでしょう。
+            </p>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 IoT Defense Revolution | CLAD Framework Analysis</p>
+        </div>
+    </div>
+</body>
+</html>
