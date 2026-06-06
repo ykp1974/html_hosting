@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宇宙戦略基金を通じた日本の宇宙産業変革 - インフォグラフィック</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #0a1128 0%, #1a2847 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        header {
+            background: linear-gradient(135deg, #0f1419 0%, #1a2540 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="30" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/><circle cx="50" cy="50" r="20" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/><circle cx="50" cy="50" r="10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></svg>');
+            opacity: 0.3;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 1.4em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 25px;
+        }
+
+        .video-link {
+            display: inline-block;
+            background: #ff6b35;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1em;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+        }
+
+        .video-link:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+        }
+
+        .video-link::before {
+            content: '▶';
+            margin-right: 10px;
+        }
+
+        .executive-summary {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 50px 40px;
+            border-left: 6px solid #ff6b35;
+        }
+
+        .executive-summary h2 {
+            color: #0f1419;
+            font-size: 2em;
+            margin-bottom: 25px;
+        }
+
+        .executive-summary p {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #ff6b35;
+        }
+
+        .key-point {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            font-size: 1.15em;
+            font-weight: 500;
+        }
+
+        section {
+            padding: 50px 40px;
+        }
+
+        section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        h2 {
+            color: #0f1419;
+            font-size: 2.2em;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #ff6b35;
+        }
+
+        h3 {
+            color: #ff6b35;
+            font-size: 1.6em;
+            margin: 30px 0 20px;
+        }
+
+        h4 {
+            color: #0f1419;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* 基金の規模 */
+        .fund-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .fund-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 5px solid #ff6b35;
+            transition: transform 0.3s;
+        }
+
+        .fund-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .fund-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .fund-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #ff6b35;
+            margin: 15px 0;
+        }
+
+        .fund-label {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* 運営体制 */
+        .governance-structure {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .hierarchy {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .hierarchy-level {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b35;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .hierarchy-level strong {
+            color: #ff6b35;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* 4つの重点分野 */
+        .focus-areas {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .area-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid #ff6b35;
+            transition: transform 0.3s;
+        }
+
+        .area-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .area-number {
+            display: inline-block;
+            background: #ff6b35;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            line-height: 50px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .area-card h4 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        /* 参入企業 */
+        .companies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .company-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-top: 5px solid #27ae60;
+        }
+
+        .company-card.traditional {
+            border-top-color: #3498db;
+        }
+
+        .company-name {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #0f1419;
+            margin-bottom: 15px;
+        }
+
+        .company-tech {
+            background: #f0f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 3px solid #ff6b35;
+        }
+
+        .company-tech strong {
+            color: #ff6b35;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* 公募フェーズ */
+        .procurement-phase {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .phase-timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .phase-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .phase-box h4 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        /* テーマテーブル */
+        .themes-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .themes-table thead {
+            background: linear-gradient(135deg, #0f1419 0%, #1a2540 100%);
+            color: white;
+        }
+
+        .themes-table th {
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .themes-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .themes-table tbody tr:hover {
+            background: #f5f7fa;
+        }
+
+        .themes-table tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        /* 注目テーマ */
+        .highlight-themes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .theme-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-left: 5px solid #ff6b35;
+        }
+
+        .theme-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .theme-card h4 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        /* 企業間連携 */
+        .collaboration-box {
+            background: linear-gradient(135deg, #f0fdf4 0%, #e6f7ed 100%);
+            border: 2px solid #27ae60;
+            border-radius: 15px;
+            padding: 40px;
+            margin: 30px 0;
+        }
+
+        .collaboration-box h4 {
+            color: #27ae60;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+        }
+
+        .collaboration-example {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #27ae60;
+            margin-bottom: 15px;
+        }
+
+        .collaboration-example strong {
+            color: #27ae60;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* 将来展望 */
+        .future-vision {
+            background: linear-gradient(135deg, #0f1419 0%, #1a2540 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+
+        .future-vision h3 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .future-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .future-point {
+            background: rgba(255,255,255,0.1);
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b35;
+        }
+
+        .future-point strong {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        /* 参入機会 */
+        .participation-box {
+            background: #fff9e6;
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .participation-box h4 {
+            color: #ff8c00;
+            margin-bottom: 15px;
+        }
+
+        .participation-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .participation-list li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #333;
+        }
+
+        .participation-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #ff6b35;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #0f1419;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1.1em;
+            }
+
+            section {
+                padding: 30px 20px;
+            }
+
+            .themes-table {
+                font-size: 0.9em;
+            }
+
+            .themes-table th,
+            .themes-table td {
+                padding: 12px;
+            }
+
+            .fund-value {
+                font-size: 1.8em;
+            }
+
+            .phase-timeline {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>宇宙戦略基金を通じた日本の宇宙産業変革</h1>
+            <p class="subtitle">1兆円規模の支援と民間参入の展望</p>
+            <a href="https://www.youtube.com/watch?v=Pcrj8LTWB54&list=WL&index=9&pp=iAQBsAgC" target="_blank" class="video-link">
+                【宇宙で次に伸びる分野は？】JAXA宇宙戦略基金・1兆円の政府支援 ／水再生や空気循環 生命維持のテクノロジー／小型民間ロケットの打ち上げ／宙畑編集長・中村友弥氏【PIVOT SCIENCE】
+            </a>
+        </header>
+
+        <div class="executive-summary">
+            <h2>エグゼクティブ・サマリー</h2>
+            <p>日本政府が創設した「宇宙戦略基金」は、今後10年間で1兆円規模の資金を投じ、日本の宇宙技術開発と産業基盤を抜本的に強化するための国家プロジェクトである。</p>
+            
+            <div class="highlight-box">
+                <p><strong>核心的特徴:</strong> 本基金は単なる研究開発への補助金ではなく、<strong>年間30本のロケット打ち上げ</strong>を目指すといった定量的目標を掲げる「産業政策」としての側面を強く持つ。</p>
+            </div>
+
+            <p>現在、宇宙産業はロケットや衛星開発といった従来の枠組みを超え、建設、素材、化学、通信、半導体など、非宇宙分野の企業にも広大な参入機会を提供している。</p>
+
+            <div class="key-point">
+                <strong>運営体制:</strong>
+                JAXA（宇宙航空研究開発機構）が基金の運営を担い、内閣府・経済産業省・文部科学省・総務省の4府省が技術テーマを策定。民間主導の技術開発と社会実装を加速させる。
+            </div>
+        </div>
+
+        <section>
+            <h2>1. 宇宙戦略基金の規模と枠組み</h2>
+
+            <h3>基金の基本構成</h3>
+            <div class="fund-overview">
+                <div class="fund-card">
+                    <div class="fund-icon">💰</div>
+                    <h4 style="color: #ff6b35; margin-top: 0;">総予算規模</h4>
+                    <div class="fund-value">1兆円</div>
+                    <p style="color: #666;">今後10年間</p>
+                </div>
+
+                <div class="fund-card">
+                    <div class="fund-icon">🚀</div>
+                    <h4 style="color: #ff6b35; margin-top: 0;">打ち上げ目標</h4>
+                    <div class="fund-value">年30本</div>
+                    <p style="color: #666;">民間ロケット</p>
+                </div>
+
+                <div class="fund-card">
+                    <div class="fund-icon">⏱️</div>
+                    <h4 style="color: #ff6b35; margin-top: 0;">支援期間</h4>
+                    <div class="fund-value">最大10年</div>
+                    <p style="color: #666;">長期的研究開発</p>
+                </div>
+
+                <div class="fund-card">
+                    <div class="fund-icon">🏢</div>
+                    <h4 style="color: #ff6b35; margin-top: 0;">管理機関</h4>
+                    <div class="fund-value">JAXA</div>
+                    <p style="color: #666;">運営と審査</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">運営と意思決定体制</h3>
+            <div class="governance-structure">
+                <div class="hierarchy">
+                    <div class="hierarchy-level">
+                        <strong>🏛️ 政策決定層</strong>
+                        内閣府・経済産業省・文部科学省・総務省の4府省が技術テーマと予算を決定
+                    </div>
+                    <div class="hierarchy-level">
+                        <strong>⚙️ 運営機関</strong>
+                        JAXA（宇宙航空研究開発機構）が基金の運営と審査を担当
+                    </div>
+                    <div class="hierarchy-level">
+                        <strong>🔬 対象企業</strong>
+                        民間企業、スタートアップ、研究機関が研究開発に参画
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">4つの重点開発分野</h3>
+            <div class="focus-areas">
+                <div class="area-card">
+                    <div class="area-number">1</div>
+                    <h4>輸送</h4>
+                    <p>民間ロケットの開発、高頻度打ち上げ技術の実証など。年30本の目標達成に向けた核心領域。</p>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-number">2</div>
+                    <h4>衛星</h4>
+                    <p>通信・地球観測衛星の開発、衛星用部品（コンポーネント）の高度化。多様な産業応用が可能。</p>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-number">3</div>
+                    <h4>探査</h4>
+                    <p>月面探査技術、およびそれに付随する技術開発。長期的な宇宙進出基盤の構築。</p>
+                </div>
+
+                <div class="area-card">
+                    <div class="area-number">4</div>
+                    <h4>共通基盤</h4>
+                    <p>上記各分野に共通して活用可能な基盤技術の開発。汎用性の高い技術への投資。</p>
+                </div>
+            </div>
+        </section>
+
+        <section style="background: #f8f9fa;">
+            <h2>2. 産業界の動向と非宇宙企業の参入</h2>
+            <p style="font-size: 1.15em; margin-bottom: 30px;">本基金の大きな特徴は、これまで宇宙産業と接点が少なかった「非宇宙企業」の参入を強力に促進している点。第1期の公募では、採択企業の約<strong>3割が非宇宙企業</strong>であった。</p>
+
+            <h3>主な参入企業と技術領域</h3>
+            <div class="companies-grid">
+                <div class="company-card traditional">
+                    <div class="company-name">🚗 トヨタ自動車</div>
+                    <div class="company-tech">
+                        <strong>技術領域:</strong>
+                        自動運転やモビリティ技術の応用
+                    </div>
+                    <p style="color: #666; font-size: 0.9em;">既存のモビリティ技術を宇宙環境に適用</p>
+                </div>
+
+                <div class="company-card traditional">
+                    <div class="company-name">📡 KDDI</div>
+                    <div class="company-tech">
+                        <strong>技術領域:</strong>
+                        通信インフラ技術の提供
+                    </div>
+                    <p style="color: #666; font-size: 0.9em;">衛星通信技術を中心に参画</p>
+                </div>
+
+                <div class="company-card traditional">
+                    <div class="company-name">❄️ ダイキン工業</div>
+                    <div class="company-tech">
+                        <strong>技術領域:</strong>
+                        空調・環境制御技術の活用
+                    </div>
+                    <p style="color: #666; font-size: 0.9em;">宇宙ステーション環境制御に応用</p>
+                </div>
+
+                <div class="company-card">
+                    <div class="company-name">💾 キオクシア</div>
+                    <div class="company-tech">
+                        <strong>技術領域:</strong>
+                        宇宙耐性SSD（ソリッドステートドライブ）開発
+                    </div>
+                    <p style="color: #666; font-size: 0.9em;">高放射線・極端な熱環境に対応</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">企業間連携とシナジー</h3>
+            <div class="collaboration-box">
+                <h4>🤝 産業エコシステムの構築</h4>
+                
+                <div class="collaboration-example">
+                    <strong>事例：エレベーションスペース × 低軌道船中</strong>
+                    <p>宇宙スタートアップの「エレベーションスペース」（大気圏再突入技術・物資回収）と、三井物産の子会社「低軌道船中」（商用宇宙ステーション関連）がMOU（基本合意書）を締結。</p>
+                </div>
+
+                <div class="collaboration-example">
+                    <strong>戦略的意義</strong>
+                    <p>海外の有力企業（SpaceXやRocket Labなど）が垂直統合モデルで成長する中、日本国内でも企業間連携を強化し、産業全体の土台を構築することが期待されている。</p>
+                </div>
+            </div>
+
+            <div class="participation-box">
+                <h4>🎯 非宇宙企業にとっての参入余地</h4>
+                <ul class="participation-list">
+                    <li>建設・インフラ：宇宙ステーション建設技術</li>
+                    <li>素材・化学：耐宇宙環境の新素材開発</li>
+                    <li>通信・半導体：衛星通信・データ処理</li>
+                    <li>環境・エネルギー：環境制御・再生技術</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>3. 公募フェーズの変遷と注目テーマ</h2>
+            <p style="font-size: 1.15em; margin-bottom: 30px;">公募は段階的に実施されており、回を追うごとにテーマの幅と採択数が増大している。</p>
+
+            <h3>各期の特徴</h3>
+            <div class="procurement-phase">
+                <div class="phase-timeline">
+                    <div class="phase-box">
+                        <h4>📌 第1期</h4>
+                        <p><strong>重点:</strong> 速やかに着手すべき技術開発と、民間への技術移転を重視。基礎となる技術を早期に確立。</p>
+                    </div>
+
+                    <div class="phase-box">
+                        <h4>📊 第2期</h4>
+                        <p><strong>重点:</strong> 採択件数が大幅に増加。衛星データの利活用など、多様な産業が参加可能なテーマを設定。</p>
+                    </div>
+
+                    <div class="phase-box">
+                        <h4>🚀 第3期</h4>
+                        <p><strong>重点:</strong> 2024年4月より順次公募。民間主導の打ち上げ実証や、基盤的な材料・生命維持技術に焦点。</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">第3期以降の重要テーマ</h3>
+            <div class="highlight-themes">
+                <div class="theme-card">
+                    <div class="theme-icon">🚀</div>
+                    <h4>民間ロケットの打ち上げ実証</h4>
+                    <p>特に小型ロケットによる高頻度打ち上げを支援。「目的地へ、行きたいタイミングで」打ち上げ可能な機動性の高い輸送サービスを実現。</p>
+                </div>
+
+                <div class="theme-card">
+                    <div class="theme-icon">🔨</div>
+                    <h4>構造・材料技術</h4>
+                    <p>より軽量で強靭な構造体や新素材の開発。ロケット性能向上の鍵となる領域。</p>
+                </div>
+
+                <div class="theme-card">
+                    <div class="theme-icon">💧</div>
+                    <h4>生命維持テクノロジー</h4>
+                    <p>人類の宇宙進出を見据えた水再生システムや空気循環技術。地上での自然災害対策にも応用可能。</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">4つの重点開発分野の詳細</h3>
+            <div style="overflow-x: auto;">
+                <table class="themes-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 20%;">分野</th>
+                            <th style="width: 40%;">主な開発内容</th>
+                            <th style="width: 40%;">期待される効果</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>輸送</strong></td>
+                            <td>民間ロケット開発、高頻度打ち上げ技術、小型ロケット商業化</td>
+                            <td>年30本の打ち上げ目標達成、低コスト化</td>
+                        </tr>
+                        <tr>
+                            <td><strong>衛星</strong></td>
+                            <td>通信衛星、地球観測衛星、部品の高度化</td>
+                            <td>衛星データ利活用の拡大、産業応用</td>
+                        </tr>
+                        <tr>
+                            <td><strong>探査</strong></td>
+                            <td>月面探査技術、ロボット、採掘技術</td>
+                            <td>月資源開発基盤の構築</td>
+                        </tr>
+                        <tr>
+                            <td><strong>共通基盤</strong></td>
+                            <td>材料技術、環境制御、通信システム</td>
+                            <td>全分野で活用可能な基盤強化</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section style="background: #f8f9fa;">
+            <h2>4. 今後の展望と産業化への道</h2>
+
+            <h3>重要なマイルストーン</h3>
+            <div class="future-vision">
+                <h3 style="color: white;">🎯 今後の焦点</h3>
+                <div class="future-points">
+                    <div class="future-point">
+                        <strong>2026年秋以降</strong>
+                        採択企業の成果発表が予定されている。実装レベルでの進捗確認が重要。
+                    </div>
+
+                    <div class="future-point">
+                        <strong>小型ロケットの商業化</strong>
+                        民間主導の打ち上げ実証が進み、商業ベースでの運用開始が期待される。
+                    </div>
+
+                    <div class="future-point">
+                        <strong>回収技術の実用化</strong>
+                        宇宙空間での製造・実験結果を地球に持ち帰る技術の確立が競争力を左右。
+                    </div>
+
+                    <div class="future-point">
+                        <strong>エコシステム形成</strong>
+                        企業間連携による具体的なビジネスモデルの創出が加速する。
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">政府支援の役割</h3>
+            <div class="highlight-box">
+                <p><strong>📊 長期資金供給の意義:</strong></p>
+                <p>失敗のリスクが伴う宇宙事業において、政府が10年という長期スパンで資金供給を行うことは、金融インフラを含めた産業エコシステム全体の信頼性向上に寄与し、民間投資を呼び込む呼び水となることが期待される。</p>
+            </div>
+
+            <h3 style="margin-top: 30px;">産業段階への転換</h3>
+            <div class="key-point">
+                <strong>🚀 段階的な転換:</strong><br>
+                宇宙戦略基金は、日本の宇宙産業を「研究開発の段階」から「自立した産業形成の段階」へと引き上げるための極めて重要な下支えとなっている。<br><br>
+                次は民間企業がこの基盤を活用して、持続可能なビジネスモデルを構築することが成功の鍵となる。
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 宇宙戦略基金を通じた日本の宇宙産業変革 - インフォグラフィック</p>
+        </footer>
+    </div>
+</body>
+</html>

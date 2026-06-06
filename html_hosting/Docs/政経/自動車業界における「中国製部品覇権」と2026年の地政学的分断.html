@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中国製部品覇権と2026年の地政学的分断</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&family=Noto+Sans+JP:wght@300;400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #c0392b;
+    --red-dark: #96281b;
+    --gold: #e6a817;
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --paper-dark: #ede7d9;
+    --gray: #5a5a5a;
+    --light: #faf7f2;
+    --blue: #1a3a5c;
+    --green: #1a5c3a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Sans JP', sans-serif;
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.5;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    border-top: 6px solid var(--red);
+    border-bottom: 2px solid var(--ink);
+    padding: 32px 0 24px;
+    margin-bottom: 8px;
+    position: relative;
+  }
+
+  .header-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--red);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--red);
+    opacity: 0.4;
+  }
+
+  h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 900;
+    line-height: 1.3;
+    letter-spacing: 0.02em;
+  }
+
+  h1 .accent {
+    color: var(--red);
+  }
+
+  .source-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 10px 16px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    font-size: 12px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.03em;
+    transition: background 0.2s;
+    border-radius: 2px;
+  }
+  .source-link:hover { background: var(--red); }
+  .source-link svg { flex-shrink: 0; }
+
+  /* ── SUMMARY BOX ── */
+  .summary {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 28px 32px;
+    margin: 28px 0;
+    border-left: 5px solid var(--gold);
+    position: relative;
+    overflow: hidden;
+  }
+  .summary::before {
+    content: 'EXECUTIVE SUMMARY';
+    position: absolute;
+    right: 24px;
+    top: 20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    opacity: 0.06;
+    letter-spacing: 2px;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .summary h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 3px;
+    font-size: 13px;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .summary p {
+    font-size: 13.5px;
+    line-height: 1.9;
+    color: #e5e0d6;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    margin: 36px 0;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px;
+    line-height: 1;
+    color: var(--paper-dark);
+    -webkit-text-stroke: 2px var(--ink);
+    flex-shrink: 0;
+    margin-top: -4px;
+  }
+
+  .section-title-wrap {}
+  .section-tag {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--red);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .section-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(16px, 2.5vw, 20px);
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid rgba(0,0,0,0.15);
+    margin: 8px 0 20px;
+  }
+
+  /* ── SHOCK BOX ── */
+  .shock-box {
+    background: var(--red);
+    color: white;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  .shock-icon {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px;
+    line-height: 1;
+    opacity: 0.9;
+    flex-shrink: 0;
+  }
+  .shock-content h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .shock-content p {
+    font-size: 12.5px;
+    opacity: 0.9;
+  }
+
+  /* ── STAT CARDS ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin: 20px 0;
+  }
+  .stat-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-top: 3px solid var(--ink);
+    padding: 16px;
+  }
+  .stat-card.red { border-top-color: var(--red); }
+  .stat-card.gold { border-top-color: var(--gold); }
+  .stat-card.blue { border-top-color: var(--blue); }
+  .stat-card.green { border-top-color: var(--green); }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 40px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-card.red .stat-num { color: var(--red); }
+  .stat-card.gold .stat-num { color: var(--gold); }
+  .stat-card.blue .stat-num { color: var(--blue); }
+  .stat-card.green .stat-num { color: var(--green); }
+  .stat-label {
+    font-size: 11.5px;
+    color: var(--gray);
+    line-height: 1.4;
+  }
+
+  /* ── TABLE ── */
+  .tech-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 13px;
+  }
+  .tech-table thead tr {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .tech-table th {
+    padding: 10px 14px;
+    text-align: left;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    font-size: 12px;
+    font-weight: 400;
+  }
+  .tech-table tbody tr {
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    transition: background 0.15s;
+  }
+  .tech-table tbody tr:nth-child(odd) { background: white; }
+  .tech-table tbody tr:hover { background: var(--paper-dark); }
+  .tech-table td {
+    padding: 10px 14px;
+    vertical-align: top;
+  }
+  .tech-table td:first-child {
+    font-weight: 700;
+    font-family: 'Noto Serif JP', serif;
+    white-space: nowrap;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+    margin: 2px 2px 2px 0;
+  }
+
+  /* ── AIDV CARD ── */
+  .aidv-card {
+    background: linear-gradient(135deg, #0d1b2a 0%, #1a3a5c 100%);
+    color: white;
+    padding: 28px 32px;
+    margin: 20px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .aidv-card::after {
+    content: 'AIDV';
+    position: absolute;
+    right: -10px;
+    bottom: -20px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 120px;
+    opacity: 0.07;
+    color: #fff;
+    letter-spacing: 4px;
+  }
+  .aidv-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: #7ab3e0;
+    margin-bottom: 8px;
+  }
+  .aidv-card .def {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14px;
+    color: #c5d8ea;
+    margin-bottom: 20px;
+    border-left: 3px solid #7ab3e0;
+    padding-left: 14px;
+  }
+  .aidv-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .aidv-feat {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 12px 16px;
+    border-radius: 2px;
+  }
+  .aidv-feat .feat-title {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    font-size: 11px;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .aidv-feat p {
+    font-size: 12px;
+    color: #c5d8ea;
+    line-height: 1.6;
+  }
+
+  /* ── DUAL MARKET ── */
+  .dual-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin: 20px 0;
+    border: 2px solid var(--ink);
+  }
+  @media (max-width: 600px) {
+    .dual-grid { grid-template-columns: 1fr; }
+  }
+  .dual-col {
+    padding: 22px 20px;
+  }
+  .dual-col.china {
+    background: var(--ink);
+    color: var(--paper);
+    border-right: 1px solid var(--paper-dark);
+  }
+  .dual-col.west {
+    background: var(--paper-dark);
+    color: var(--ink);
+  }
+  .dual-col h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .dual-col.china h3 { color: var(--gold); }
+  .dual-col.west h3 { color: var(--blue); }
+  .dual-sub {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+  }
+  .dual-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .dual-item::before {
+    content: '▸';
+    flex-shrink: 0;
+    margin-top: 2px;
+    font-size: 10px;
+  }
+  .dual-col.china .dual-item::before { color: var(--gold); }
+  .dual-col.west .dual-item::before { color: var(--blue); }
+  .dual-col.china .dual-item { color: #e5e0d6; }
+  .market-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 12px;
+  }
+  .mtag {
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+  }
+  .dual-col.china .mtag { background: rgba(255,255,255,0.12); color: #e5e0d6; }
+  .dual-col.west .mtag { background: rgba(0,0,0,0.1); color: var(--gray); }
+
+  /* ── REGULATION BOX ── */
+  .reg-box {
+    border: 2px solid var(--red);
+    padding: 20px 24px;
+    margin: 20px 0;
+    position: relative;
+  }
+  .reg-box::before {
+    content: '⚠ 規制施行';
+    position: absolute;
+    top: -12px;
+    left: 16px;
+    background: var(--paper);
+    padding: 0 8px;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    font-size: 13px;
+    color: var(--red);
+  }
+  .reg-date {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+  .reg-detail {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+
+  /* ── CONCLUSION ── */
+  .conclusion {
+    background: var(--paper-dark);
+    border-top: 4px solid var(--gold);
+    border-bottom: 4px solid var(--gold);
+    padding: 28px 32px;
+    margin: 36px 0;
+  }
+  .conclusion h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .choice-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  @media (max-width: 550px) { .choice-row { grid-template-columns: 1fr; } }
+  .choice-card {
+    background: white;
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 16px;
+  }
+  .choice-label {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    font-size: 11px;
+    margin-bottom: 6px;
+  }
+  .choice-card:first-child .choice-label { color: var(--red); }
+  .choice-card:last-child .choice-label { color: var(--blue); }
+  .choice-card p {
+    font-size: 12.5px;
+    color: var(--gray);
+    line-height: 1.6;
+  }
+
+  /* ── LEONI NOTE ── */
+  .leoni-note {
+    background: white;
+    border-left: 4px solid var(--gold);
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 12.5px;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+  .leoni-note strong {
+    color: var(--ink);
+    font-family: 'Noto Serif JP', serif;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid rgba(0,0,0,0.2);
+    padding-top: 16px;
+    font-size: 11px;
+    color: var(--gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-label">BRIEFING REPORT ／ 2026年 ／ 自動車産業</div>
+    <h1>自動車業界における<br><span class="accent">「中国製部品覇権」</span>と<br>2026年の地政学的分断</h1>
+
+    <a class="source-link" href="https://www.youtube.com/watch?v=sC8Hqttt-UY&list=WL&index=10" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      （2026年）中国製なしでは不動車。世界を支配する「部品覇権」の残酷な現実
+    </a>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary">
+    <h2>EXECUTIVE SUMMARY</h2>
+    <p>2026年現在、中国製部品を一切排除した場合、最新の自動車は<strong style="color:var(--gold)">走行不能</strong>に陥るほどの支配力が確立された。技術・コスト・スピードすべてで中国がリードする一方、米国の「デジタル鎖国」により、メーカーは<strong style="color:var(--gold)">二重構造の製品開発</strong>を余儀なくされている。100年に一度の劇変期—技術的依存と政治的リスクの板挟みが続く。</p>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section" style="animation-delay:0.1s">
+    <div class="section-header">
+      <div class="section-num">01</div>
+      <div class="section-title-wrap">
+        <span class="section-tag">JAPAN SUPPLIERS</span>
+        <div class="section-title">日系メーカーを襲う「Bショック」と系列の終焉</div>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <div class="shock-box">
+      <div class="shock-icon">⚡B<br>SHOCK</div>
+      <div class="shock-content">
+        <h3>トヨタ bZ3X 発の衝撃</h3>
+        <p>中国現地主導で開発されたEVで、部品の<strong>約9割</strong>を中国メーカーから採用。従来の系列サプライヤーの多くが受注を逃した。後継bZ7においても日系部品比率は<strong>約3割</strong>にとどまる。</p>
+      </div>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-card red">
+        <div class="stat-num">9割</div>
+        <div class="stat-label">bZ3X の中国製部品比率（推計）</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3割</div>
+        <div class="stat-label">bZ7 における日系部品比率</div>
+      </div>
+    </div>
+
+    <p style="font-size:13px;color:var(--gray);margin-top:8px;">日系サプライヤーが選外となる主因は価格だけではない。<strong>E/Eアーキテクチャ</strong>への対応力不足——従来の分散型ECUから、ドメイン・ゾーンによる集中型処理基盤への移行において、中国勢に大きく遅れをとっている。</p>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section" style="animation-delay:0.2s">
+    <div class="section-header">
+      <div class="section-num">02</div>
+      <div class="section-title-wrap">
+        <span class="section-tag">CHINA DOMINANCE</span>
+        <div class="section-title">中国メーカーが「部品覇権」を握る要因</div>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <table class="tech-table">
+      <thead>
+        <tr>
+          <th>領域</th>
+          <th>中国の強み</th>
+          <th>主要企業</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🔋 バッテリー</td>
+          <td>EVコストの約40%。LFP技術で数年先行</td>
+          <td><span class="badge">CATL</span><span class="badge">BYD</span></td>
+        </tr>
+        <tr>
+          <td>🏭 垂直統合</td>
+          <td>半導体からモーターまで自社一貫生産</td>
+          <td><span class="badge">BYD</span></td>
+        </tr>
+        <tr>
+          <td>⚡ 開発速度</td>
+          <td>欧米4年のサイクルをわずか1.5年で完了</td>
+          <td><span class="badge">全般</span></td>
+        </tr>
+        <tr>
+          <td>📱 スマートキャビン</td>
+          <td>「走るスマホ」UX・AIチップ・ソフトで牽引</td>
+          <td><span class="badge">Huawei</span><span class="badge">Xiaomi</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="leoni-note">
+      <strong>欧州への浸透事例：</strong> 2026年5月、中国のラックスシェア（Luxshare）がドイツ部品大手<strong>レオニ（Leoni）の株式75%を取得</strong>。伝統的な欧州ブランドの裏側にも中国資本が浸透する象徴的事例となった。
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section" style="animation-delay:0.3s">
+    <div class="section-header">
+      <div class="section-num">03</div>
+      <div class="section-title-wrap">
+        <span class="section-tag">NEXT GENERATION</span>
+        <div class="section-title">SDV から「AIDV」へ──次世代車両の定義</div>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <div class="aidv-card">
+      <h3>AI DEFINED VEHICLE（AIDV）</h3>
+      <p class="def">AIが車両の機能・走行特性・ユーザー体験のすべてを定義し、最適化する次世代の自動車概念。</p>
+      <div class="aidv-features">
+        <div class="aidv-feat">
+          <div class="feat-title">🧠 LEARNING</div>
+          <p>車両が知能を持ち、学習・適用・向上を繰り返す自律的な進化</p>
+        </div>
+        <div class="aidv-feat">
+          <div class="feat-title">❤️ EMOTION AI</div>
+          <p>運転者の感情・状況を先読みし、車内環境を動的に最適化</p>
+        </div>
+        <div class="aidv-feat">
+          <div class="feat-title">🚀 PLATFORM</div>
+          <p>XPengは空飛ぶ車・人型ロボットまで同じAIプラットフォームで稼働</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section" style="animation-delay:0.4s">
+    <div class="section-header">
+      <div class="section-num">04</div>
+      <div class="section-title-wrap">
+        <span class="section-tag">GEOPOLITICS 2026</span>
+        <div class="section-title">デジタル鎖国と市場の二極化</div>
+      </div>
+    </div>
+    <hr class="divider">
+
+    <div class="reg-box">
+      <div class="reg-date">2026年3月 ── 米国施行</div>
+      <div class="reg-detail">
+        中国製ソフトウェアを搭載した車両の<strong>全面禁止</strong>。対象は自動運転システム・通信システム・中国製ソフトが含まれるすべての車両。高性能かつ安価に製造できるが米国市場では販売不能という根本的ジレンマが発生。
+      </div>
+    </div>
+
+    <div class="dual-grid">
+      <div class="dual-col china">
+        <h3>チャイナ・エコシステム</h3>
+        <div class="dual-sub">CHINA / EMERGING MARKETS</div>
+        <div class="dual-item">中国製高性能部品・ソフトをフル活用</div>
+        <div class="dual-item">超高性能かつ低価格を実現</div>
+        <div class="dual-item">AIDV・最先端UXを搭載可能</div>
+        <div class="market-tags">
+          <span class="mtag">🇨🇳 中国</span>
+          <span class="mtag">中近東</span>
+          <span class="mtag">東南アジア</span>
+          <span class="mtag">南米</span>
+        </div>
+      </div>
+      <div class="dual-col west">
+        <h3>クリーン・サプライチェーン</h3>
+        <div class="dual-sub">US / EU / JAPAN</div>
+        <div class="dual-item">コスト増を覚悟で中国製部品・ソフトを排除</div>
+        <div class="dual-item">コンプライアンスと安全保障を最優先</div>
+        <div class="dual-item">機能面で劣後する可能性</div>
+        <div class="market-tags">
+          <span class="mtag">🇺🇸 米国</span>
+          <span class="mtag">🇪🇺 欧州</span>
+          <span class="mtag">🇯🇵 日本</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONCLUSION -->
+  <div class="conclusion">
+    <h2>結論と今後の展望</h2>
+    <p style="font-size:13.5px;color:var(--gray);">100年に一度の荒波——メーカーは同一ブランドで地域別に「超ハイテク機」と「コンプライアンス重視機」を作り分ける二重構造への適応が不可避。消費者も究極の選択を迫られる。</p>
+    <div class="choice-row">
+      <div class="choice-card">
+        <div class="choice-label">⚡ 技術的現実</div>
+        <p>中国のバッテリー・AI・開発スピードを取り込まなければ、世界市場での競争力を維持することは不可能に近い。</p>
+      </div>
+      <div class="choice-card">
+        <div class="choice-label">🛡 政治的現実</div>
+        <p>安全保障リスクから、中国依存からの脱却を求める圧力が増大。コスト増を受け入れてでもリスク排除が求められる。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <span>自動車業界ブリーフィング・レポート｜2026年</span>
+    <span>CHINA PARTS HEGEMONY &amp; GEOPOLITICAL BIFURCATION</span>
+  </div>
+
+</div>
+</body>
+</html>
