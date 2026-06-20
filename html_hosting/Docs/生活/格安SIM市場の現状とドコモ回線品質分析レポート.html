@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>格安SIM市場の現状とドコモ回線品質分析レポート</title>
+    <style>
+        :root {
+            --docomo-red: #d90429;
+            --mvno-blue: #0077b6;
+            --success-green: #2a9d8f;
+            --alert-amber: #f4a261;
+            --bg-light: #f8fafc;
+            --text-dark: #1e293b;
+        }
+
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; background: var(--bg-light); color: var(--text-dark); line-height: 1.6; padding: 20px; }
+        .container { max-width: 950px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        
+        header { text-align: center; border-bottom: 2px solid var(--mvno-blue); padding-bottom: 20px; margin-bottom: 30px; }
+        .source-box { background: #f1f5f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-size: 0.9rem; }
+        
+        .section-title { color: var(--mvno-blue); border-left: 5px solid var(--mvno-blue); padding-left: 15px; margin: 30px 0 15px; font-size: 1.4rem; font-weight: bold; }
+        
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; }
+        
+        .quality-alert { border: 2px solid var(--docomo-red); background: #fef2f2; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th { background: var(--mvno-blue); color: white; padding: 12px; }
+        td { padding: 12px; border: 1px solid #e2e8f0; }
+
+        .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .tag-win { background: var(--success-green); color: white; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>格安SIM市場の現状とドコモ回線品質に関する分析レポート</h1>
+        <div class="source-box">
+            動画タイトル：<a href="https://www.youtube.com/watch?v=VOFB3BuJkZw" target="_blank">【勝負時!】ドコモ回線の懸念とオススメ格安SIMの今を解説。</a>
+        </div>
+    </header>
+
+    <div class="section-title">市場のエグゼクティブ・サマリー</div>
+    <p>大手キャリア（MNO）の相次ぐ値上げにより、<strong>価格据え置きの格安SIM（MVNO）に再び追い風</strong>が吹いている。一方で、MVNOの主力である<strong>ドコモ回線の通信品質低下</strong>がユーザーの乗り換え判断に影響を与えており、品質とコスパのバランスが問われる「品質再編の時代」に突入した。</p>
+
+    <div class="section-title">1. ドコモ回線の品質低下問題</div>
+    <div class="quality-alert">
+        <h3>🚨 回線逼迫の実態と影響</h3>
+        <ul>
+            <li><strong>現状：</strong>IIJの決算やイオンモバイルの計測データで平日日中帯の速度低下が顕著。</li>
+            <li><strong>主な要因：</strong>ドコモ4G回線自体の混雑、MVNO側の帯域設計、ユーザー需要の急増。</li>
+            <li><strong>リスク：</strong>auやソフトバンク回線と比較した相対的な品質評価の下落。</li>
+        </ul>
+    </div>
+
+    <div class="section-title">2. 主要MVNOの戦略とポジショニング</div>
+    <div class="table-wrapper">
+        <table>
+            <tr><th>事業者名</th><th>独自戦略</th><th>現状の課題</th></tr>
+            <tr><td>IIJmio</td><td>SIMフリーセット販売最大手</td><td>ドコモ回線品質への対応</td></tr>
+            <tr><td>mineo</td><td>パケット放題Plus（低速無制限）</td><td>品質維持とコミュニティ維持</td></tr>
+            <tr><td>日本通信SIM</td><td>圧倒的低価格</td><td>ドコモ回線主体のリスク</td></tr>
+            <tr><td>イオンモバイル</td><td>対面サポート・店舗経済圏</td><td>店舗コストの採算性</td></tr>
+            <tr><td>J:COM</td><td>ケーブルTVとのセット割</td><td>市場の差別化</td></tr>
+        </table>
+    </div>
+
+    <div class="section-title">3. 満足度と市場の今後の展望</div>
+    <div class="grid-3">
+        <div class="card">
+            <h3>📈 ユーザー満足度</h3>
+            <ol>
+                <li>日本通信SIM（価格）</li>
+                <li>IIJmio</li>
+                <li>mineo</li>
+            </ol>
+            <p><small>※50代〜60代の固定費削減意識が高い層が主要ユーザー。</small></p>
+        </div>
+        <div class="card">
+            <h3>⚙️ 今後の差別化要因</h3>
+            <ul>
+                <li>ドコモ回線以外の選択肢（au/SB）の拡充</li>
+                <li>独自機能の強化（mineo等）</li>
+                <li>手厚い対面サポート（イオン等）</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>💡 結論</h3>
+            <p>価格競争一辺倒ではなく、<strong>「品質・サポート・独自性」</strong>を明確に打ち出せる事業者が、通信品質課題を乗り越えて生き残る。</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

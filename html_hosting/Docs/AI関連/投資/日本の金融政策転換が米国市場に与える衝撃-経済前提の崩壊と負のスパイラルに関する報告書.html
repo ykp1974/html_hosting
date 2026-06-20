@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本の金融政策転換が米国市場に与える衝撃</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Noto Sans JP', serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
+            color: #e0e0e0;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, rgba(255, 50, 50, 0.1) 0%, rgba(255, 215, 0, 0.1) 100%);
+            border-left: 6px solid #ff3232;
+            border-top: 1px solid #ffd700;
+            padding: 40px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            color: #ffd700;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .video-link {
+            background: rgba(255, 50, 50, 0.15);
+            border: 2px solid #ff3232;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 6px;
+            display: inline-block;
+        }
+
+        .video-link a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .video-link a:hover {
+            color: #ffd700;
+            text-decoration: underline;
+        }
+
+        .video-title {
+            color: #e0e0e0;
+            font-size: 0.95em;
+            margin-top: 8px;
+            font-style: italic;
+        }
+
+        /* Sections */
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 40px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section h2 {
+            color: #ffd700;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section h2::before {
+            content: '';
+            width: 6px;
+            height: 30px;
+            background: linear-gradient(180deg, #ffd700, #ff3232);
+            border-radius: 3px;
+        }
+
+        .section h3 {
+            color: #ffd700;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            color: #d0d0d0;
+            line-height: 1.9;
+        }
+
+        /* Executive Summary */
+        .summary-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.08) 0%, rgba(255, 50, 50, 0.08) 100%);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .summary-box p {
+            color: #e0e0e0;
+            margin-bottom: 12px;
+        }
+
+        /* System Diagram */
+        .diagram-container {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            border-radius: 8px;
+            padding: 30px;
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            overflow-x: auto;
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Table */
+        .spiral-table {
+            width: 100%;
+            margin: 30px 0;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 215, 0, 0.15);
+        }
+
+        .spiral-table thead {
+            background: rgba(255, 215, 0, 0.1);
+            border-bottom: 2px solid #ffd700;
+        }
+
+        .spiral-table th {
+            color: #ffd700;
+            padding: 18px;
+            text-align: left;
+            font-weight: bold;
+            border-right: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .spiral-table th:last-child {
+            border-right: none;
+        }
+
+        .spiral-table td {
+            padding: 16px 18px;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.08);
+            color: #d0d0d0;
+        }
+
+        .spiral-table tr:hover {
+            background: rgba(255, 215, 0, 0.04);
+        }
+
+        .stage-label {
+            color: #ff3232;
+            font-weight: bold;
+        }
+
+        /* Bullet Points */
+        .bullet-list {
+            margin: 20px 0 20px 20px;
+        }
+
+        .bullet-list li {
+            list-style: none;
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+            color: #d0d0d0;
+        }
+
+        .bullet-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #ffd700;
+            font-size: 1.2em;
+        }
+
+        /* Flow Diagram */
+        .flow-box {
+            background: rgba(255, 50, 50, 0.1);
+            border: 2px solid #ff3232;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .flow-box.positive {
+            background: rgba(100, 200, 100, 0.1);
+            border-color: #64c864;
+        }
+
+        .flow-box .arrow {
+            color: #ffd700;
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+
+        /* Key Points */
+        .key-point {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, rgba(255, 50, 50, 0.05) 100%);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #ffd700;
+        }
+
+        .key-point strong {
+            color: #ffd700;
+        }
+
+        /* Conclusion */
+        .conclusion-box {
+            background: linear-gradient(135deg, rgba(255, 50, 50, 0.15) 0%, rgba(255, 215, 0, 0.1) 100%);
+            border: 2px solid #ff3232;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+
+        .conclusion-box p {
+            color: #e0e0e0;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .section h2 {
+                font-size: 1.4em;
+            }
+
+            .spiral-table th,
+            .spiral-table td {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+        }
+
+        /* Animation */
+        .counter {
+            color: #ffd700;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>日本の金融政策転換が米国市場に与える衝撃</h1>
+            <p style="color: #d0d0d0; margin-bottom: 15px;">経済前提の崩壊と負のスパイラルに関する報告書</p>
+
+            <div class="video-link">
+                <a href="https://www.youtube.com/watch?v=o0RJhpX_vQI" target="_blank">
+                    ▶ YouTube動画を見る
+                </a>
+                <div class="video-title">【日本が米国に宣戦布告】米国は大パニック！！</div>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="section">
+            <h2>エグゼクティブ・サマリー</h2>
+
+            <div class="summary-box">
+                <p>本資料は、日本の金融政策の転換が米国経済および世界金融システムに及ぼす影響を分析したものです。</p>
+                <p style="margin-bottom: 0;">
+                    これまで世界最大の米国債保有国として米国の財政を支えてきた日本が、数十年にわたるデフレ脱却と利上げへと舵を切ったことで、米国の「借金誘導型」金融システムが根本から揺らぎ始めています。</p>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <h3>重要な指標</h3>
+                <div class="key-point">
+                    <p>📊 <strong>米国債利回りの上昇</strong><br>リーマンショック前の水準（5%）に到達</p>
+                </div>
+                <div class="key-point">
+                    <p>💱 <strong>資金の国内回帰</strong><br>日本国内の金利上昇による米国債需要の減少</p>
+                </div>
+                <div class="key-point">
+                    <p>⚠️ <strong>負のスパイラルのリスク</strong><br>利払いコスト増大 → さらなる借金の必要性</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Structure -->
+        <div class="section">
+            <h2>米国経済の根幹を支える「借金誘導型システム」の限界</h2>
+
+            <p>米国の繁栄と覇権は、絶え間ない借金によって維持される金融システムに依存しています。</p>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Box 1: 米国政府 -->
+                    <rect x="50" y="50" width="150" height="100" fill="rgba(255, 50, 50, 0.2)" stroke="#ff3232"
+                        stroke-width="2" rx="4" />
+                    <text x="125" y="85" text-anchor="middle" fill="#ffd700" font-weight="bold"
+                        font-size="14">米国政府</text>
+                    <text x="125" y="105" text-anchor="middle" fill="#e0e0e0" font-size="12">巨額の財政赤字</text>
+                    <text x="125" y="125" text-anchor="middle" fill="#e0e0e0" font-size="12">国債発行</text>
+
+                    <!-- Arrow 1 -->
+                    <path d="M 200 100 L 270 100" stroke="#ffd700" stroke-width="2" fill="none"
+                        marker-end="url(#arrowhead)" />
+                    <text x="235" y="95" text-anchor="middle" fill="#ffd700" font-size="11">資金調達</text>
+
+                    <!-- Box 2: 市場 -->
+                    <rect x="270" y="50" width="150" height="100" fill="rgba(100, 150, 255, 0.2)" stroke="#6496ff"
+                        stroke-width="2" rx="4" />
+                    <text x="345" y="85" text-anchor="middle" fill="#ffd700" font-weight="bold" font-size="14">市場</text>
+                    <text x="345" y="105" text-anchor="middle" fill="#e0e0e0" font-size="12">国債の売却</text>
+                    <text x="345" y="125" text-anchor="middle" fill="#e0e0e0" font-size="12">新規発行</text>
+
+                    <!-- Arrow 2 -->
+                    <path d="M 420 100 L 490 100" stroke="#ffd700" stroke-width="2" fill="none"
+                        marker-end="url(#arrowhead)" />
+                    <text x="455" y="95" text-anchor="middle" fill="#ffd700" font-size="11">購入</text>
+
+                    <!-- Box 3: 日本（従来） -->
+                    <rect x="490" y="50" width="150" height="100" fill="rgba(100, 200, 100, 0.2)" stroke="#64c864"
+                        stroke-width="2" rx="4" />
+                    <text x="565" y="85" text-anchor="middle" fill="#ffd700" font-weight="bold" font-size="14">日本</text>
+                    <text x="565" y="105" text-anchor="middle" fill="#e0e0e0" font-size="12">世界最大の</text>
+                    <text x="565" y="125" text-anchor="middle" fill="#e0e0e0" font-size="12">米国債保有国</text>
+
+                    <!-- Bottom Flow -->
+                    <text x="50" y="200" fill="#e0e0e0" font-size="12">この「自転車操業」を支えてきた：</text>
+
+                    <g>
+                        <rect x="50" y="220" width="130" height="60" fill="rgba(100, 200, 100, 0.15)" stroke="#64c864"
+                            stroke-width="1" rx="3" />
+                        <text x="115" y="245" text-anchor="middle" fill="#e0e0e0" font-size="11"
+                            font-weight="bold">政治的配慮</text>
+                        <text x="115" y="260" text-anchor="middle" fill="#e0e0e0" font-size="10">（戦後特有）</text>
+                        <text x="115" y="275" text-anchor="middle" fill="#64c864" font-size="10">✓</text>
+                    </g>
+
+                    <g>
+                        <rect x="200" y="220" width="130" height="60" fill="rgba(100, 200, 100, 0.15)" stroke="#64c864"
+                            stroke-width="1" rx="3" />
+                        <text x="265" y="245" text-anchor="middle" fill="#e0e0e0" font-size="11"
+                            font-weight="bold">低金利環境</text>
+                        <text x="265" y="260" text-anchor="middle" fill="#e0e0e0" font-size="10">による投資</text>
+                        <text x="265" y="275" text-anchor="middle" fill="#64c864" font-size="10">✓</text>
+                    </g>
+
+                    <g>
+                        <rect x="350" y="220" width="130" height="60" fill="rgba(255, 50, 50, 0.15)" stroke="#ff3232"
+                            stroke-width="2" rx="3" />
+                        <text x="415" y="245" text-anchor="middle" fill="#e0e0e0" font-size="11"
+                            font-weight="bold">しかし今は</text>
+                        <text x="415" y="260" text-anchor="middle" fill="#e0e0e0" font-size="10">金利上昇で</text>
+                        <text x="415" y="275" text-anchor="middle" fill="#ff3232" font-size="10">✗ 魅力が消滅</text>
+                    </g>
+
+                    <!-- Arrow marker definition -->
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#ffd700" />
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="key-point">
+                <p>⚡ <strong>前提の崩壊</strong><br>米国の30年債利回りが2007年以来の5%を超えたことは、金融システム全体の大前提が崩れ始めていることを示唆しています。</p>
+            </div>
+        </div>
+
+        <!-- Japan's Transformation -->
+        <div class="section">
+            <h2>日本の歴史的転換：デフレ脱却と金利上昇</h2>
+
+            <p>日銀による金融政策の変更は、世界的なマネーの流れを劇的に変容させています。</p>
+
+            <h3>金利の急上昇</h3>
+            <ul class="bullet-list">
+                <li>マイナス金利を終了し、政策金利を <span class="counter">0.75%から1%程度</span> まで引き上げ</li>
+                <li>10年物・30年物日本国債の利回りが <span class="counter">1990年代以来の高水準</span> に到達</li>
+            </ul>
+
+            <h3>インフレ圧力</h3>
+            <ul class="bullet-list">
+                <li>イラン情勢等の地政学的リスクに伴う <span class="counter">原油価格の高騰</span></li>
+                <li>エネルギーを輸入に頼る日本の物価が上昇</li>
+                <li>政府の支出増加による経済刺激策がさらなるインフレ圧力を生成</li>
+            </ul>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 投資家の判断フロー -->
+                    <text x="350" y="30" text-anchor="middle" fill="#ffd700" font-size="16"
+                        font-weight="bold">投資家の意識変化</text>
+
+                    <!-- Before -->
+                    <g>
+                        <rect x="30" y="60" width="280" height="160" fill="rgba(100, 200, 100, 0.1)" stroke="#64c864"
+                            stroke-width="2" rx="4" />
+                        <text x="170" y="85" text-anchor="middle" fill="#64c864" font-size="14"
+                            font-weight="bold">従来の判断</text>
+
+                        <text x="50" y="120" fill="#e0e0e0" font-size="12">✓ 日本の金利 低い</text>
+                        <text x="50" y="145" fill="#e0e0e0" font-size="12">✓ 米国債 高い利回り</text>
+                        <text x="50" y="170" fill="#e0e0e0" font-size="12">✓ 為替リスク 取る価値あり</text>
+                        <text x="50" y="195" fill="#64c864" font-size="13" font-weight="bold">→ 米国債購入</text>
+                    </g>
+
+                    <!-- Arrow -->
+                    <path d="M 320 140 L 380 140" stroke="#ffd700" stroke-width="3" fill="none"
+                        marker-end="url(#arrowhead2)" />
+
+                    <!-- After -->
+                    <g>
+                        <rect x="390" y="60" width="280" height="160" fill="rgba(255, 50, 50, 0.1)" stroke="#ff3232"
+                            stroke-width="2" rx="4" />
+                        <text x="530" y="85" text-anchor="middle" fill="#ff3232" font-size="14"
+                            font-weight="bold">現在の判断</text>
+
+                        <text x="410" y="120" fill="#e0e0e0" font-size="12">✗ 日本の金利 上昇</text>
+                        <text x="410" y="145" fill="#e0e0e0" font-size="12">✗ 米国債 必須ではない</text>
+                        <text x="410" y="170" fill="#e0e0e0" font-size="12">✗ 為替リスク 不要</text>
+                        <text x="410" y="195" fill="#ff3232" font-size="13" font-weight="bold">→ 資金を国内に回帰</text>
+                    </g>
+
+                    <!-- Arrow marker definition -->
+                    <defs>
+                        <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#ffd700" />
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Capital Repatriation -->
+        <div class="section">
+            <h2>資金の国内回帰と米国債市場への影響</h2>
+
+            <p>日本の投資家が資金を国内に戻す動きは、すでにデータとして現れています。</p>
+
+            <div class="flow-box">
+                <div class="arrow">→</div>
+                <div>
+                    <strong style="color: #64c864;">2024年3月</strong><br>
+                    日本の国債ファンドへの月間流入額が<span class="counter">過去最大</span>を記録
+                </div>
+            </div>
+
+            <div class="flow-box">
+                <div class="arrow">→</div>
+                <div>
+                    <strong style="color: #ff3232;">米国債入札</strong><br>
+                    需要の弱さが露呈 — 財務省は高い利回りを提供せざるを得ない状況に
+                </div>
+            </div>
+
+            <div class="flow-box">
+                <div class="arrow">→</div>
+                <div>
+                    <strong style="color: #ff3232;">市場センチメントの激変</strong><br>
+                    FRBの利下げ期待から転換 — 投資家が急速に慎重な姿勢へ
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 750 200" xmlns="http://www.w3.org/2000/svg">
+                    <text x="375" y="25" text-anchor="middle" fill="#ffd700" font-size="14"
+                        font-weight="bold">米国債市場への影響の連鎖</text>
+
+                    <!-- Block 1 -->
+                    <rect x="20" y="50" width="140" height="80" fill="rgba(255, 50, 50, 0.15)" stroke="#ff3232"
+                        stroke-width="2" rx="4" />
+                    <text x="90" y="75" text-anchor="middle" fill="#ffd700" font-weight="bold"
+                        font-size="12">日本からの</text>
+                    <text x="90" y="95" text-anchor="middle" fill="#ffd700" font-weight="bold"
+                        font-size="12">購入意欲減少</text>
+
+                    <!-- Arrow 1 -->
+                    <path d="M 160 90 L 210 90" stroke="#ffd700" stroke-width="2" fill="none"
+                        marker-end="url(#arrowhead3)" />
+
+                    <!-- Block 2 -->
+                    <rect x="210" y="50" width="140" height="80" fill="rgba(255, 50, 50, 0.15)" stroke="#ff3232"
+                        stroke-width="2" rx="4" />
+                    <text x="280" y="75" text-anchor="middle" fill="#ffd700" font-weight="bold"
+                        font-size="12">米国債需要</text>
+                    <text x="280" y="95" text-anchor="middle" fill="#ffd700" font-weight="bold" font-size="12">不足</text>
+
+                    <!-- Arrow 2 -->
+                    <path d="M 350 90 L 400 90" stroke="#ffd700" stroke-width="2" fill="none"
+                        marker-end="url(#arrowhead3)" />
+
+                    <!-- Block 3 -->
+                    <rect x="400" y="50" width="140" height="80" fill="rgba(255, 50, 50, 0.15)" stroke="#ff3232"
+                        stroke-width="2" rx="4" />
+                    <text x="470" y="75" text-anchor="middle" fill="#ffd700" font-weight="bold"
+                        font-size="12">米国債利回り</text>
+                    <text x="470" y="95" text-anchor="middle" fill="#ffd700" font-weight="bold" font-size="12">上昇</text>
+
+                    <!-- Arrow 3 -->
+                    <path d="M 540 90 L 590 90" stroke="#ffd700" stroke-width="2" fill="none"
+                        marker-end="url(#arrowhead3)" />
+
+                    <!-- Block 4 -->
+                    <rect x="590" y="50" width="140" height="80" fill="rgba(255, 50, 50, 0.15)" stroke="#ff3232"
+                        stroke-width="2" rx="4" />
+                    <text x="660" y="75" text-anchor="middle" fill="#ffd700" font-weight="bold"
+                        font-size="12">政策とは</text>
+                    <text x="660" y="95" text-anchor="middle" fill="#ffd700" font-weight="bold"
+                        font-size="12">無関係に高止まり</text>
+
+                    <!-- Bottom Warning -->
+                    <rect x="20" y="150" width="710" height="30" fill="rgba(255, 50, 50, 0.15)" stroke="#ff3232"
+                        stroke-width="1" rx="3" />
+                    <text x="375" y="170" text-anchor="middle" fill="#ff3232" font-weight="bold" font-size="12">⚠️
+                        FRBの政策が無効化される危険性</text>
+
+                    <!-- Arrow marker definition -->
+                    <defs>
+                        <marker id="arrowhead3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#ffd700" />
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Negative Spiral -->
+        <div class="section">
+            <h2>加速する「負のスパイラル」の脅威</h2>
+
+            <p style="margin-bottom: 20px;">米国は現在、国家レベルでの「借金依存症」による末期的な症状、すなわちネガティブスパイラルに直面しています。</p>
+
+            <h3 style="margin-top: 30px;">段階別の状況変化</h3>
+
+            <table class="spiral-table">
+                <thead>
+                    <tr>
+                        <th>段階</th>
+                        <th>状況の変化</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="stage-label">第1段階</td>
+                        <td>海外投資家（特に日本）の需要減退により、米国債利回りが上昇する。</td>
+                    </tr>
+                    <tr>
+                        <td class="stage-label">第2段階</td>
+                        <td>政府の借入れコスト（利払い）が増大。現在の利払い費は<span class="counter">年間1兆ドル</span>に達する。</td>
+                    </tr>
+                    <tr>
+                        <td class="stage-label">第3段階</td>
+                        <td>利払いコストの増大が財政赤字をさらに拡大させ、不足分を補うためにさらなる借金が必要となる。</td>
+                    </tr>
+                    <tr>
+                        <td class="stage-label">第4段階</td>
+                        <td>供給過多により金利がさらに上昇し、再び第1段階へと戻る。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="diagram-container">
+                <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                    <text x="300" y="25" text-anchor="middle" fill="#ffd700" font-size="16"
+                        font-weight="bold">負のスパイラル（無限ループ）</text>
+
+                    <!-- Center circle -->
+                    <circle cx="300" cy="300" r="120" fill="none" stroke="rgba(255, 50, 50, 0.2)" stroke-width="2"
+                        stroke-dasharray="5,5" />
+
+                    <!-- Stage 1 (Top) -->
+                    <g>
+                        <circle cx="300" cy="100" r="50" fill="rgba(255, 50, 50, 0.2)" stroke="#ff3232"
+                            stroke-width="2" />
+                        <text x="300" y="295" text-anchor="middle" fill="#ffd700" font-weight="bold">第1段階</text>
+                        <text x="300" y="315" text-anchor="middle" fill="#e0e0e0" font-size="11" text-anchor="middle">
+                            <tspan x="300" dy="0">海外投資家</tspan>
+                            <tspan x="300" dy="12">の需要減退</tspan>
+                        </text>
+                    </g>
+
+                    <!-- Arrow 1 Top-Right -->
+                    <path d="M 340 130 Q 420 200 450 270" stroke="#ff3232" stroke-width="3" fill="none"
+                        marker-end="url(#arrowRed)" />
+
+                    <!-- Stage 2 (Right) -->
+                    <g>
+                        <circle cx="500" cy="300" r="50" fill="rgba(255, 50, 50, 0.2)" stroke="#ff3232"
+                            stroke-width="2" />
+                        <text x="500" y="295" text-anchor="middle" fill="#ffd700" font-weight="bold">第2段階</text>
+                        <text x="500" y="315" text-anchor="middle" fill="#e0e0e0" font-size="11">米国債利回り</text>
+                        <text x="500" y="328" text-anchor="middle" fill="#e0e0e0" font-size="11">上昇</text>
+                    </g>
+
+                    <!-- Arrow 2 Right-Bottom -->
+                    <path d="M 470 340 Q 400 420 330 450" stroke="#ff3232" stroke-width="3" fill="none"
+                        marker-end="url(#arrowRed)" />
+
+                    <!-- Stage 3 (Bottom) -->
+                    <g>
+                        <circle cx="300" cy="500" r="50" fill="rgba(255, 50, 50, 0.2)" stroke="#ff3232"
+                            stroke-width="2" />
+                        <text x="300" y="495" text-anchor="middle" fill="#ffd700" font-weight="bold">第3段階</text>
+                        <text x="300" y="515" text-anchor="middle" fill="#e0e0e0" font-size="11">利払いコスト</text>
+                        <text x="300" y="528" text-anchor="middle" fill="#e0e0e0" font-size="11">増大 → 借金増加</text>
+                    </g>
+
+                    <!-- Arrow 3 Bottom-Left -->
+                    <path d="M 260 470 Q 180 420 150 340" stroke="#ff3232" stroke-width="3" fill="none"
+                        marker-end="url(#arrowRed)" />
+
+                    <!-- Stage 4 (Left) -->
+                    <g>
+                        <circle cx="100" cy="300" r="50" fill="rgba(255, 50, 50, 0.2)" stroke="#ff3232"
+                            stroke-width="2" />
+                        <text x="100" y="295" text-anchor="middle" fill="#ffd700" font-weight="bold">第4段階</text>
+                        <text x="100" y="315" text-anchor="middle" fill="#e0e0e0" font-size="11">供給過多</text>
+                        <text x="100" y="328" text-anchor="middle" fill="#e0e0e0" font-size="11">金利上昇</text>
+                    </g>
+
+                    <!-- Arrow 4 Left-Top (back to Stage 1) -->
+                    <path d="M 130 260 Q 200 180 260 130" stroke="#ff3232" stroke-width="3" fill="none"
+                        marker-end="url(#arrowRed)" />
+
+                    <!-- Center warning -->
+                    <text x="300" y="300" text-anchor="middle" fill="#ff3232" font-weight="bold" font-size="14">∞</text>
+                    <text x="300" y="320" text-anchor="middle" fill="#ff3232" font-size="12"
+                        font-weight="bold">無限ループ</text>
+
+                    <!-- Arrow marker definition -->
+                    <defs>
+                        <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#ff3232" />
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="key-point"
+                style="margin-top: 30px; background: linear-gradient(135deg, rgba(255, 50, 50, 0.2) 0%, rgba(255, 50, 50, 0.1) 100%); border-left: 6px solid #ff3232;">
+                <p style="font-size: 1.1em;">🚨 <strong>制御不能な大混乱（金融ストレス）のリスク</strong></p>
+                <p style="margin-top: 10px;">たとえFRBが利下げを行おうとしても、市場実勢金利が上昇し続けるという制御不能な事態が生じる危険性があります。</p>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="section">
+            <h2>結論と今後の展望</h2>
+
+            <p>日本が米国債への投資から方向転換を行うことは、単なる投資戦略の変更ではなく、世界金融システムの歴史的な転換点となる可能性が高いです。</p>
+
+            <div class="conclusion-box">
+                <h3 style="color: #ffd700; margin-bottom: 20px;">米国が直面する3つの構造的課題</h3>
+
+                <p>
+                    <strong style="color: #ffd700;">1. ドルの弱体化</strong><br>
+                    ドルは依然として基軸通貨ですが、その信頼と安定性は絶望的なまでに弱体化しています。
+                </p>
+
+                <p style="margin-top: 20px;">
+                    <strong style="color: #ffd700;">2. 波及効果の加速</strong><br>
+                    借金依存度の高いシステムにおいて、借入れコストの上昇は、ウォール街から実体経済、そして世界全体へと急速に金融ストレスを拡散させます。
+                </p>
+
+                <p style="margin-top: 20px;">
+                    <strong style="color: #ffd700;">3. 米国の「特権」の喪失</strong><br>
+                    最大の貸し手である日本が「従順な買い手」から「自国優先の投資家」へと変貌を遂げたことで、米国が享受してきた特権による資金調達モデルは崩壊の危機に瀕しています。
+                </p>
+            </div>
+
+            <div class="key-point"
+                style="margin-top: 30px; border-left-color: #ff3232; background: linear-gradient(135deg, rgba(255, 50, 50, 0.15) 0%, rgba(255, 215, 0, 0.08) 100%);">
+                <p style="font-size: 1.1em; color: #ff6b6b;">⚡ <strong>歴史的転換点</strong></p>
+                <p style="margin-top: 10px; color: #e0e0e0;">
+                    数十年続いた「米国の繁栄を支えるシステム」が、日本の金融政策転換によって根本から揺らぎ始めています。この転換が世界経済に及ぼす影響は、今後数年で明らかになるでしょう。</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>⚠️ 本資料は複雑な経済メカニズムを図解したものです。実際の市場動向は多くの要因に左右されます。</p>
+            <p style="margin-top: 10px;">動画出典：<a href="https://www.youtube.com/watch?v=o0RJhpX_vQI"
+                    style="color: #ffd700; text-decoration: none;">【日本が米国に宣戦布告】米国は大パニック！！</a></p>
+        </div>
+    </div>
+</body>
+
+</html>

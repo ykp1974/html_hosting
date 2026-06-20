@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --primary-navy: #1e3a8a;
+            --accent-gold: #b45309;
+            --bg-light: #f8fafc;
+            --text-dark: #1e293b;
+            --border-color: #cbd5e1;
+        }
+        body { font-family: sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-light); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1, h2 { color: var(--primary-navy); }
+        .source-link { display: block; margin: 20px 0; padding: 15px; background: #eff6ff; border-left: 5px solid var(--primary-navy); text-decoration: none; color: var(--primary-navy); font-weight: bold; }
+        .misconception-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 20px 0; }
+        .card { padding: 20px; border: 1px solid var(--border-color); border-radius: 8px; }
+        .card h3 { color: var(--accent-gold); margin-top: 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; border: 1px solid var(--border-color); text-align: left; }
+        th { background: #f1f5f9; }
+        .checklist { background: #fffbeb; padding: 20px; border-radius: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>投資信託とETFの本質：理解と実践のガイド</h1>
+    
+    <a href="https://www.youtube.com/watch?v=C1Lpc1nOarw" class="source-link" target="_blank">
+        動画参照：投資信託とETFの違いを徹底解説！
+    </a>
+
+    <h2>1. 初心者が陥る5つの誤解</h2>
+    <div class="misconception-grid">
+        <div class="card">
+            <h3>① 基準価格の低さは買い時ではない</h3>
+            <p>1万円は単なるスタート値。価格差は運用期間と累積パフォーマンスの反映であり、高いほど実績があると言えます。</p>
+        </div>
+        <div class="card">
+            <h3>② 当日約定できない場合がある</h3>
+            <p>海外株系ファンドは時差により翌日以降の約定となるため、ピンポイントな価格指定での売買は困難です。</p>
+        </div>
+        <div class="card">
+            <h3>③ 信託報酬は日割り計算</h3>
+            <p>年1回徴収ではなく、基準価格から毎日差し引かれています。実績はコスト控除後の数値です。</p>
+        </div>
+        <div class="card">
+            <h3>④ 投資信託とETFは別物</h3>
+            <p>自由度や積立方法など、運用特性が大きく異なります。</p>
+        </div>
+        <div class="card">
+            <h3>⑤ 手数料の安さ＝良い商品ではない</h3>
+            <p>運用実績が伴わない場合や、純資産が少なすぎて償還されるリスクにも注意が必要です。</p>
+        </div>
+    </div>
+
+    <h2>2. 投資信託 vs ETF 比較表</h2>
+    <div class="table-wrapper">
+        <table>
+            <tr><th>比較項目</th><th>投資信託</th><th>ETF（上場投資信託）</th></tr>
+            <tr><td>取引方法</td><td>1日1回の基準価格</td><td>リアルタイム市場取引</td></tr>
+            <tr><td>購入単位</td><td>金額指定（100円〜）</td><td>口数単位（株と同様）</td></tr>
+            <tr><td>自動積立</td><td>容易（証券会社設定）</td><td>基本的に不可</td></tr>
+            <tr><td>NISA対応</td><td>両枠対応</td><td>成長投資枠のみ</td></tr>
+        </table>
+    </div>
+
+    <h2>3. アクティブファンド選定 3つの重要指標</h2>
+    <div class="checklist">
+        <ul>
+            <li><strong>預かり資産残高：</strong> 純資産総額が大きいことは投資家からの信頼の証明。</li>
+            <li><strong>長期運用実績：</strong> 20年〜50年という長いトラックレコードこそが実力の証。</li>
+            <li><strong>投資哲学と会社の格：</strong> 一貫した運用方針があり、相場に流されない姿勢か。</li>
+        </ul>
+    </div>
+
+    <h2>結論：スタイル別使い分け</h2>
+    <p><strong>手間をかけない資産形成：</strong> 投資信託の「自動積立」が最適。<br>
+       <strong>柔軟な取引と自由度：</strong> リアルタイム性を重視するなら「ETF」。</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>長期投資の要諦と注目銘柄分析</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+            color: #2c3e50;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1450px;
+            margin: 0 auto;
+            padding: 50px 30px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e5a4a 0%, #2d8659 100%);
+            color: white;
+            padding: 50px 40px;
+            margin-bottom: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(30, 90, 74, 0.2);
+            animation: slideDown 0.7s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .video-link {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 18px 24px;
+            border-radius: 8px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+
+        .video-link a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .video-link a:hover {
+            transform: translateX(5px);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        .video-title {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.95em;
+            margin-top: 8px;
+            opacity: 0.9;
+        }
+
+        /* Sections */
+        .section {
+            background: white;
+            border: 1px solid #e0e7f1;
+            padding: 45px;
+            margin-bottom: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section h2 {
+            color: #1e5a4a;
+            font-size: 2em;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 700;
+        }
+
+        .section h2::before {
+            content: '';
+            width: 6px;
+            height: 35px;
+            background: linear-gradient(180deg, #2d8659, #1e5a4a);
+            border-radius: 3px;
+        }
+
+        .section h3 {
+            color: #2d8659;
+            font-size: 1.5em;
+            margin: 30px 0 18px 0;
+            font-weight: 600;
+        }
+
+        .section p {
+            margin-bottom: 18px;
+            color: #4a5568;
+            line-height: 1.9;
+        }
+
+        .section strong {
+            color: #1e5a4a;
+            font-weight: 600;
+        }
+
+        /* Philosophy Box */
+        .philosophy-box {
+            background: linear-gradient(135deg, rgba(45, 134, 89, 0.08) 0%, rgba(30, 90, 74, 0.06) 100%);
+            border-left: 5px solid #2d8659;
+            border-radius: 8px;
+            padding: 28px;
+            margin: 30px 0;
+            border-top: 1px solid rgba(45, 134, 89, 0.2);
+        }
+
+        .philosophy-box p {
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin-bottom: 0;
+            line-height: 1.8;
+        }
+
+        .philosophy-quote {
+            color: #1e5a4a;
+            font-weight: 700;
+            font-style: italic;
+            margin: 15px 0;
+            padding-left: 20px;
+            border-left: 3px solid #2d8659;
+        }
+
+        /* Table */
+        .criteria-table {
+            width: 100%;
+            margin: 30px 0;
+            border-collapse: collapse;
+            background: white;
+            border: 1px solid #e0e7f1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .criteria-table thead {
+            background: linear-gradient(135deg, #1e5a4a 0%, #2d8659 100%);
+        }
+
+        .criteria-table th {
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .criteria-table th:last-child {
+            border-right: none;
+        }
+
+        .criteria-table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #e0e7f1;
+            color: #4a5568;
+        }
+
+        .criteria-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .criteria-table tr:hover {
+            background: #f8fafb;
+        }
+
+        .index-number {
+            color: #2d8659;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        /* Stock Grid */
+        .stock-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .stock-card {
+            background: white;
+            border: 2px solid #e0e7f1;
+            border-radius: 10px;
+            padding: 28px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stock-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #2d8659, #4baf85);
+        }
+
+        .stock-card:hover {
+            box-shadow: 0 12px 35px rgba(45, 134, 89, 0.15);
+            transform: translateY(-8px);
+            border-color: #2d8659;
+        }
+
+        .stock-card.bullish::before {
+            background: linear-gradient(90deg, #2d8659, #4baf85);
+        }
+
+        .stock-card.bearish::before {
+            background: linear-gradient(90deg, #e8a414, #f5c742);
+        }
+
+        .stock-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e7f1;
+        }
+
+        .stock-code {
+            color: #1e5a4a;
+            font-weight: 700;
+            font-size: 1.3em;
+        }
+
+        .stock-name {
+            color: #4a5568;
+            font-size: 0.95em;
+        }
+
+        .stock-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .badge-bullish {
+            background: rgba(45, 134, 89, 0.15);
+            color: #2d8659;
+        }
+
+        .badge-bearish {
+            background: rgba(232, 164, 20, 0.15);
+            color: #d97706;
+        }
+
+        .stock-content p {
+            margin-bottom: 12px;
+            color: #4a5568;
+            font-size: 0.95em;
+            line-height: 1.7;
+        }
+
+        .stock-content strong {
+            color: #1e5a4a;
+        }
+
+        .stock-point {
+            background: rgba(45, 134, 89, 0.05);
+            border-left: 3px solid #2d8659;
+            padding: 12px 15px;
+            margin: 12px 0;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        /* Comparison Section */
+        .comparison-diagram {
+            background: linear-gradient(135deg, #f8fafb 0%, #e8eef5 100%);
+            border-radius: 10px;
+            padding: 40px;
+            margin: 30px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .comparison-side {
+            padding: 30px;
+            border-radius: 8px;
+            background: white;
+            border: 2px solid #e0e7f1;
+        }
+
+        .comparison-side h4 {
+            font-size: 1.3em;
+            color: #1e5a4a;
+            margin-bottom: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .comparison-side.bullish h4 {
+            color: #2d8659;
+        }
+
+        .comparison-side.bearish h4 {
+            color: #d97706;
+        }
+
+        .comparison-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e7f1;
+            font-size: 0.95em;
+            color: #4a5568;
+        }
+
+        .comparison-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .comparison-label {
+            color: #1e5a4a;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Investment Principles */
+        .principle-box {
+            background: linear-gradient(135deg, rgba(45, 134, 89, 0.1) 0%, rgba(30, 90, 74, 0.08) 100%);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #2d8659;
+        }
+
+        .principle-box h4 {
+            color: #1e5a4a;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .principle-box p {
+            color: #4a5568;
+            margin-bottom: 0;
+            font-size: 0.95em;
+        }
+
+        /* Key Insight */
+        .insight-box {
+            background: linear-gradient(135deg, #2d8659 0%, #1e5a4a 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 35px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(45, 134, 89, 0.2);
+        }
+
+        .insight-box h3 {
+            color: #fff;
+            margin-top: 0;
+        }
+
+        .insight-box p {
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 0;
+        }
+
+        /* Bullet Lists */
+        .bullet-list {
+            margin: 20px 0 20px 0;
+        }
+
+        .bullet-list li {
+            list-style: none;
+            margin-bottom: 15px;
+            padding-left: 28px;
+            position: relative;
+            color: #4a5568;
+            line-height: 1.7;
+        }
+
+        .bullet-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #2d8659;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        /* Timeline / Investment Mindset */
+        .mindset-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .mindset-card {
+            background: white;
+            border: 2px solid #e0e7f1;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .mindset-card:hover {
+            border-color: #2d8659;
+            box-shadow: 0 8px 20px rgba(45, 134, 89, 0.1);
+        }
+
+        .mindset-icon {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+
+        .mindset-card h4 {
+            color: #1e5a4a;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .mindset-card p {
+            color: #4a5568;
+            font-size: 0.95em;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 35px;
+            color: #7a8998;
+            font-size: 0.95em;
+            margin-top: 60px;
+            border-top: 2px solid #e0e7f1;
+        }
+
+        .footer a {
+            color: #2d8659;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 15px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .section h2 {
+                font-size: 1.5em;
+            }
+
+            .stock-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-diagram {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 25px;
+            }
+
+            .criteria-table th, .criteria-table td {
+                padding: 12px;
+                font-size: 0.9em;
+            }
+        }
+
+        /* Stagger Animation */
+        .section:nth-child(n+2) {
+            animation-delay: 0.1s;
+        }
+
+        .section:nth-child(n+3) {
+            animation-delay: 0.2s;
+        }
+
+        .section:nth-child(n+4) {
+            animation-delay: 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>長期投資の要諦と注目銘柄分析</h1>
+            <p>バフェット流投資戦略に基づく考察</p>
+            <p style="font-size: 1em; opacity: 0.85; margin-bottom: 0;">著名な投資アドバイザーおよびマーケットアナリストの分析に基づく、長期投資の本質的哲学と現在の市場環境における日本株の具体的分析</p>
+            
+            <div class="video-link" style="margin-top: 25px;">
+                <a href="https://www.youtube.com/watch?v=QesiO9R-tvE" target="_blank">
+                    ▶ YouTube動画を見る
+                </a>
+                <div class="video-title">【バフェットに学ぶ逆張り投資】木野内栄治×つばめ投資顧問 栫井駿介</div>
+            </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="section">
+            <h2>エグゼクティブ・サマリー</h2>
+            
+            <div class="philosophy-box">
+                <p style="color: #1e5a4a;">長期投資の本質は、次のウォーレン・バフェット氏の哲学に集約されます：</p>
+                <div class="philosophy-quote">
+                    「素晴らしい企業を適切な価格で買い、その企業が素晴らしい限り持ち続ける」
+                </div>
+                <p>日々の株価変動をノイズとして排除し、企業が生み出す本質的な価値と利益に着目することが重要です。</p>
+            </div>
+
+            <h3>本分析の構成</h3>
+            <p>本資料では、長期的な成長が見込まれる企業を選別するための<strong>5つの定量的・定性的指標</strong>を提示します。これらの基準を満たす具体的な銘柄として以下を特定しました：</p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px;">
+                <div class="principle-box">
+                    <h4>📈 順張り銘柄</h4>
+                    <p style="margin-bottom: 0;">大波に乗る成長企業</p>
+                    <ul style="margin: 12px 0 0 0; padding-left: 20px;">
+                        <li style="padding-left: 0; color: #2d8659; font-weight: 500;">東京エレクトロン</li>
+                        <li style="padding-left: 0; color: #2d8659; font-weight: 500;">伊藤忠商事</li>
+                        <li style="padding-left: 0; color: #2d8659; font-weight: 500;">ファーストリテイリング</li>
+                    </ul>
+                </div>
+
+                <div class="principle-box" style="border-left-color: #e8a414; background: linear-gradient(135deg, rgba(232, 164, 20, 0.1) 0%, rgba(215, 133, 3, 0.08) 100%);">
+                    <h4>💎 逆張り銘柄</h4>
+                    <p style="margin-bottom: 0;">本質的価値を見直すべき銘柄</p>
+                    <ul style="margin: 12px 0 0 0; padding-left: 20px;">
+                        <li style="padding-left: 0; color: #d97706; font-weight: 500;">ラクス</li>
+                        <li style="padding-left: 0; color: #d97706; font-weight: 500;">モノタロウ</li>
+                        <li style="padding-left: 0; color: #d97706; font-weight: 500;">住友林業</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Philosophy -->
+        <div class="section">
+            <h2>長期投資における基本哲学と選定基準</h2>
+            
+            <p>長期投資を成功させるためには、<strong>最低5年以上の期間</strong>を見据える必要があります。これは、企業の業績が株価に適切に反映されるまでに時間を要するためです。</p>
+
+            <h3>銘柄選定の5つの重要ポイント</h3>
+            <p>優れた長期投資対象を識別するために、以下の5つの指標が定義されています：</p>
+
+            <table class="criteria-table">
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">指標</th>
+                        <th style="width: 85%;">内容・重要性</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="index-number">1.</span> EPSの継続成長</td>
+                        <td>既に成長実績がある企業を選ぶことで、投資の確実性を高める。過去の成長が将来の成長を示唆する重要な指標。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="index-number">2.</span> 高水準のROE</td>
+                        <td>再投資による成長効率を示す。15%以上が理想的で、複利効果の源泉となる。企業が資本をいかに効率的に活用しているかの証。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="index-number">3.</span> 潤沢なフリーキャッシュフロー</td>
+                        <td>会計上の利益とは異なり、現金流は企業価値の実態を示す。配当や新規投資の源泉となり、企業の真の健全性を表す。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="index-number">4.</span> 独自の勝ち筋（経済の堀）</td>
+                        <td>他社が模倣できない強み。高いリターンを維持できる構造的要因。ブランド力、技術力、ネットワーク効果など多様な形態。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="index-number">5.</span> 長期潮流（メガトレンド）</td>
+                        <td>AI、インフラ老朽化、人口動態など、時代の流れに合致していること。短期的な相場と無関係に、確実に需要が生まれる領域。</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="insight-box" style="margin-top: 35px;">
+                <p>💡 <strong>5つの指標すべてを満たす企業は、長期投資の最適候補です。これらの指標の組み合わせにより、成長性と安定性の両立が実現されます。</strong></p>
+            </div>
+        </div>
+
+        <!-- Bullish Stocks -->
+        <div class="section">
+            <h2>「順張り」アプローチ：大波に乗る主要3銘柄</h2>
+            
+            <p>長期的な潮流が極めて強く、既に高い評価を得ているが、さらなる成長が期待できる銘柄群です。これらは確実なトレンドの恩恵を直接受ける企業です。</p>
+
+            <div class="stock-grid">
+                <!-- Stock 1: Tokyo Electron -->
+                <div class="stock-card bullish">
+                    <div class="stock-header">
+                        <div>
+                            <div class="stock-code">8035</div>
+                            <div class="stock-name">東京エレクトロン</div>
+                        </div>
+                        <span class="stock-badge badge-bullish">順張り</span>
+                    </div>
+                    <div class="stock-content">
+                        <div class="stock-point">
+                            <strong>投資意義</strong><br>
+                            半導体製造装置における圧倒的技術力。先端半導体の製造に不可欠で強固な「経済の堀」を構築。
+                        </div>
+                        
+                        <p><strong>市場環境</strong><br>
+                        AI革命というコンドラチェフの波の恩恵を直接受ける。データセンター投資や先端チップ製造の急速な拡大により、同社の装置への需要は増加し続けるでしょう。</p>
+                        
+                        <p><strong>戦略的視点</strong><br>
+                        ボラティリティが高いため、高値追いは避け、TSMC設備投資動向などの調整局面でのエントリーが有効。市場が不安になった時が買い場です。</p>
+                    </div>
+                </div>
+
+                <!-- Stock 2: Itochu -->
+                <div class="stock-card bullish">
+                    <div class="stock-header">
+                        <div>
+                            <div class="stock-code">8001</div>
+                            <div class="stock-name">伊藤忠商事</div>
+                        </div>
+                        <span class="stock-badge badge-bullish">順張り</span>
+                    </div>
+                    <div class="stock-content">
+                        <div class="stock-point">
+                            <strong>投資意義</strong><br>
+                            他商社が資源に強い中、同社は消費者に近い「川下」に強み。景気変動の影響を受けにくい。
+                        </div>
+                        
+                        <p><strong>独自の強み</strong><br>
+                        徹底したM&A戦略と再生能力。ROE15%を維持しており、資本効率の高さが実証されています。アパレル、食品など生活密着型事業で安定収益を確保。</p>
+                        
+                        <p><strong>将来性</strong><br>
+                        今後は資源分野への注力も示唆され、さらなる成長余地があります。多角化戦略により、リスク分散と機会創出を両立。</p>
+                    </div>
+                </div>
+
+                <!-- Stock 3: Fast Retailing -->
+                <div class="stock-card bullish">
+                    <div class="stock-header">
+                        <div>
+                            <div class="stock-code">9983</div>
+                            <div class="stock-name">ファーストリテイリング</div>
+                        </div>
+                        <span class="stock-badge badge-bullish">順張り</span>
+                    </div>
+                    <div class="stock-content">
+                        <div class="stock-point">
+                            <strong>投資意義</strong><br>
+                            「ライフウェア」という独自地位を確立。欧米市場での急成長が新たなエンジン。
+                        </div>
+                        
+                        <p><strong>構造的優位性</strong><br>
+                        圧倒的規模と予算により、最高峰デザイナー起用と低価格を両立させるビジネスモデル。他社との差別化が明確。</p>
+                        
+                        <p><strong>留意点</strong><br>
+                        株価評価は常に高いが、日経平均下落に連動した押し目が買い場。高い期待値を織り込んでいるため、調整局面での買い付けが重要。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bearish Stocks -->
+        <div class="section">
+            <h2>「逆張り」アプローチ：本質的価値を見直すべき3銘柄</h2>
+            
+            <p>短期的な要因で売られているが、長期的なファンダメンタルズは揺るぎない銘柄群です。市場の悲観的な見方とは別に、強固な事業基盤が存在します。</p>
+
+            <div class="stock-grid">
+                <!-- Stock 4: Rakus -->
+                <div class="stock-card bearish">
+                    <div class="stock-header">
+                        <div>
+                            <div class="stock-code">3923</div>
+                            <div class="stock-name">ラクス</div>
+                        </div>
+                        <span class="stock-badge badge-bearish">逆張り</span>
+                    </div>
+                    <div class="stock-content">
+                        <div class="stock-point">
+                            <strong>投資意義</strong><br>
+                            中小企業向けSaaSのリーダー。AIは代替ではなく統合の味方となる可能性。
+                        </div>
+                        
+                        <p><strong>強み</strong><br>
+                        高いスイッチングコスト。一度導入されると、システムは企業の業務に深く統合され、乗り換えコストが大きくなります。</p>
+                        
+                        <p><strong>成長シナリオ</strong><br>
+                        周辺ソフトの買収によるプラットフォーム化が進展。単一ソフトから統合ソリューションへの転換により、顧客あたりの売上が増加する好循環。</p>
+                    </div>
+                </div>
+
+                <!-- Stock 5: Monotaro -->
+                <div class="stock-card bearish">
+                    <div class="stock-header">
+                        <div>
+                            <div class="stock-code">3064</div>
+                            <div class="stock-name">モノタロウ</div>
+                        </div>
+                        <span class="stock-badge badge-bearish">逆張り</span>
+                    </div>
+                    <div class="stock-content">
+                        <div class="stock-point">
+                            <strong>投資意義</strong><br>
+                            現場資材のB2B版Amazon。継続購入による自走式成長モデル。
+                        </div>
+                        
+                        <p><strong>マクロ背景</strong><br>
+                        インフラ老朽化による修繕需要増加。人手不足によるEC調達の拡大。日本の潮流として、工場や現場の自動化と効率化が急速に進みます。</p>
+                        
+                        <p><strong>現状</strong><br>
+                        MSCI除外など需給要因で調整中ですが、顧客売上は右肩上がり。短期的な株式需給と企業の実力は乖離しており、回復局面で大きなリターンが期待できます。</p>
+                    </div>
+                </div>
+
+                <!-- Stock 6: Sumitomo Forestry -->
+                <div class="stock-card bearish">
+                    <div class="stock-header">
+                        <div>
+                            <div class="stock-code">1911</div>
+                            <div class="stock-name">住友林業</div>
+                        </div>
+                        <span class="stock-badge badge-bearish">逆張り</span>
+                    </div>
+                    <div class="stock-content">
+                        <div class="stock-point">
+                            <strong>投資意義</strong><br>
+                            米国住宅市場で成功し、米国が収益の柱。住宅不足が長期需要を支える。
+                        </div>
+                        
+                        <p><strong>逆張りの根拠</strong><br>
+                        高金利懸念で売られていますが、人口動態や政策が追い風。米国の住宅不足は構造的で、短期的な金利変動より長期的に重要です。</p>
+                        
+                        <p><strong>戦略</strong><br>
+                        配当を受け取りつつ、金利低下や政策変化を待つ「仕込んで忘れる」投資。忍耐強い投資家への報酬が用意されています。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Section -->
+        <div class="section">
+            <h2>順張り vs 逆張り：投資戦略の比較</h2>
+            
+            <div class="comparison-diagram">
+                <div class="comparison-side bullish">
+                    <h4>📈 順張り銘柄の特性</h4>
+                    
+                    <div class="comparison-item">
+                        <span class="comparison-label">市場評価</span>
+                        高い評価がすでに織り込まれている
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">成長トレンド</span>
+                        明確で確実、見通しが容易
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">買い場</span>
+                        調整局面・市場パニック時
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">リスク</span>
+                        期待値が高いため失望売り
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">推奨投資家</span>
+                        トレンドに確信を持つ投資家
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">投資タイミング</span>
+                        強気相場の初期～中盤
+                    </div>
+                </div>
+
+                <div class="comparison-side bearish">
+                    <h4>💎 逆張り銘柄の特性</h4>
+                    
+                    <div class="comparison-item">
+                        <span class="comparison-label">市場評価</span>
+                        実力より低く評価されている
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">成長トレンド</span>
+                        短期的には不透明だが中長期は確実
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">買い場</span>
+                        悲観的な市場心理の時期
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">リスク</span>
+                        市場心理の改善待ち（時間コスト）
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">推奨投資家</span>
+                        本質的価値を見抜く投資家
+                    </div>
+                    <div class="comparison-item">
+                        <span class="comparison-label">投資タイミング</span>
+                        弱気相場や調整局面
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Mindset -->
+        <div class="section">
+            <h2>総括：投資タイミングと心理的障壁</h2>
+            
+            <p>長期投資における最大の課題は、<strong>株価下落時の心理的恐怖</strong>です。知識と確信があっても、実際の下落局面では多くの投資家が損切りや売却に陥ります。しかし、これはバフェット流長期投資の本質と矛盾しています。</p>
+
+            <h3>長期投資を成功させるための3つの原則</h3>
+
+            <div class="mindset-grid">
+                <div class="mindset-card">
+                    <div class="mindset-icon">🎯</div>
+                    <h4>確信を持つ企業への集中</h4>
+                    <p>5つの基準を満たす企業であれば、下落は「買い場」に過ぎない。企業の実力は変わっていないのに、価格は下がる。これは投資家にとって有利な状況です。</p>
+                </div>
+
+                <div class="mindset-card">
+                    <div class="mindset-icon">📊</div>
+                    <h4>段階的な買い付け</h4>
+                    <p>底値を見極めることは不可能。下落に合わせて分散して買うことが有効。「ドルコスト平均法」により、感情的な判断を排除できます。</p>
+                </div>
+
+                <div class="mindset-card">
+                    <div class="mindset-icon">💡</div>
+                    <h4>逆説的な好機</h4>
+                    <p>市場全体が悲観に沈む時こそ、長期リターンを最大化する最良の機会。他の投資家が逃げる時に買える投資家が、最終的に勝利します。</p>
+                </div>
+            </div>
+
+            <div class="philosophy-box" style="margin-top: 35px;">
+                <p><strong style="color: #1e5a4a;">バフェットの名言：</strong></p>
+                <div class="philosophy-quote">
+                    「他者が貪欲な時に恐怖心を持ち、他者が恐怖心を持つ時に貪欲になる」
+                </div>
+                <p>これは単なる格言ではなく、市場心理を活用した戦略的投資の本質を表しています。</p>
+            </div>
+
+            <h3 style="margin-top: 40px;">心理的障壁の克服方法</h3>
+
+            <ul class="bullet-list">
+                <li><strong>企業分析に時間をかける：</strong> 5つの指標を徹底的に分析すれば、短期的な株価下落に動揺しません。</li>
+                <li><strong>長期ポートフォリオの構築：</strong> 複数の優良企業に分散投資することで、個別銘柄のボラティリティを吸収できます。</li>
+                <li><strong>定期的な見直し：</strong> 毎年の業績発表で企業の状態を確認し、基本方針が変わっていないか確認します。</li>
+                <li><strong>感情的な売却の排除：</strong> 事前に「売却基準」を定めておき、それまでは絶対に売らないルール化します。</li>
+            </ul>
+        </div>
+
+        <!-- Final Conclusion -->
+        <div class="section">
+            <h2>最終的な投資判断</h2>
+            
+            <div class="insight-box">
+                <h3>本資料で挙げた6銘柄の総評</h3>
+                <p>これらの銘柄は、いずれも強力な事業基盤と長期潮流への合致を示しており、適切な価格水準でのポートフォリオ組み入れを検討する価値があります。</p>
+                <p style="margin-top: 15px;"><strong>順張り3銘柄</strong>は確実な成長トレンドの恩恵を直接受ける企業で、調整局面での買い付けが効果的です。<strong>逆張り3銘柄</strong>は市場心理が改善された時に大きなリターンをもたらす可能性を持っています。</p>
+                <p style="margin-top: 15px;">投資の成功は、銘柄選びと同等かそれ以上に「タイミング」と「心理的な忍耐」が重要です。本資料の分析を参考に、自身の投資目的と許容度に応じた最適なポートフォリオを構築してください。</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>⚠️ 本資料は教育目的で作成された分析資料です。実際の投資判断は自己責任で、必要に応じて専門家にご相談ください。</p>
+            <p style="margin-top: 15px;">動画出典：<a href="https://www.youtube.com/watch?v=QesiO9R-tvE" target="_blank">【バフェットに学ぶ逆張り投資】木野内栄治×つばめ投資顧問 栫井駿介 - YouTube</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">過去の成績は将来の成績を保証しません。投資にはリスクが伴います。</p>
+        </div>
+    </div>
+</body>
+</html>

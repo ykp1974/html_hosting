@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        :root {
+            --zen-navy: #1e293b;
+            --soft-gold: #b45309;
+            --bg-calm: #f8fafc;
+            --text-dark: #334155;
+            --card-white: #ffffff;
+        }
+        body { font-family: sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-calm); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: var(--card-white); padding: 40px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: var(--zen-navy); border-bottom: 2px solid var(--zen-navy); padding-bottom: 10px; }
+        .source-box { margin: 20px 0; padding: 15px; background: #f1f5f9; border-left: 5px solid var(--zen-navy); }
+        
+        .section { margin: 30px 0; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border: 1px solid #e2e8f0; text-align: left; }
+        th { background: var(--zen-navy); color: white; }
+        
+        .routine-grid { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+        .routine-item { background: #fef3c7; padding: 10px 20px; border-radius: 20px; font-weight: bold; border: 1px solid var(--soft-gold); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>59歳・独身・友達ゼロ：最高の休日と幸福論</h1>
+    
+    <div class="source-box">
+        <strong>参照動画：</strong><br>
+        <a href="https://www.youtube.com/watch?v=oMjLIWvtU_U" target="_blank">【2ch】友達は必要か？59歳友達0人独身男の最高の休日の過ごし方【ゆっくり解説】</a>
+    </div>
+
+    <div class="section">
+        <h2>幸福の構造：期待値のコントロール</h2>
+        <p>幸福の閾値を「日常の平穏」まで下げることで、外部比較から脱却するメンタルモデルです。</p>
+        <div class="grid-2">
+            <div class="card">
+                <h3>比較の放棄</h3>
+                <p>「SNSや世間との比較で幸せになれるはずがない」という前提に立ち、他人のペースに巻き込まれることを拒絶。</p>
+            </div>
+            <div class="card">
+                <h3>低ハードル幸福</h3>
+                <p>「昼飯がうまければ勝ち」「半額シール」といった微細な成功体験を「優勝」と定義し、達成感を得続ける。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>対比：独身 vs 既婚・社交層</h2>
+        <table>
+            <tr><th>項目</th><th>独身・友人ゼロ</th><th>既婚・社交層</th></tr>
+            <tr><td>時間の主導権</td><td>100%自分</td><td>行事・家族サービスに拘束</td></tr>
+            <tr><td>精神的疲労</td><td>ゼロ（休息の完全確保）</td><td>家族の機嫌伺いなどが必要</td></tr>
+            <tr><td>経済的支出</td><td>自分の健康・趣味に全振り</td><td>交際費・行事費が嵩む</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>最高の休日を構成するルーティン</h2>
+        <div class="routine-grid">
+            <div class="routine-item">スーパーハシゴ</div>
+            <div class="routine-item">深夜のコンビニ</div>
+            <div class="routine-item">昭和歌謡鑑賞</div>
+            <div class="routine-item">銭湯・サウナ</div>
+            <div class="routine-item">電気毛布で昼寝</div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>加齢による「敵」の変化</h2>
+        <div class="card" style="border-left: 5px solid var(--accent-red, #dc2626);">
+            <h3>孤独 <span style="font-size: 0.8em; color: gray;">から</span> 健康不安・腰痛</h3>
+            <p>59歳のリアル。寂しさよりも「インフルエンザや腰痛で動けなくなること」こそが最大の恐怖であり、休日の活動も「健康維持（＝無事終了）」を目的に調整されている。</p>
+        </div>
+    </div>
+
+    <div class="section" style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
+        <h2>結論</h2>
+        <p>幸福とは、キラキラしたイベントではなく、<strong>「誰にも邪魔されず、無理をせず、自分の機嫌を自分で取りながら、心身ともに平穏に一日を終えること」</strong>である。</p>
+    </div>
+</div>
+
+</body>
+</html>
