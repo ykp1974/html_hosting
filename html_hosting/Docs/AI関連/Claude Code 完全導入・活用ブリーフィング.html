@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Claude Code 完全導入・活用ブリーフィング</title>
+    <style>
+        :root {
+            --claude-purple: #7c3aed;
+            --tech-cyan: #06b6d4;
+            --bg-gray: #f8fafc;
+            --text-dark: #1e293b;
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-gray); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        h1 { color: var(--claude-purple); border-bottom: 3px solid var(--claude-purple); padding-bottom: 10px; }
+        .source-link { display: block; margin: 20px 0; padding: 15px; background: #f5f3ff; border-left: 5px solid var(--claude-purple); text-decoration: none; color: var(--claude-purple); font-weight: bold; }
+        
+        .section { margin: 30px 0; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; }
+        .card h3 { color: var(--claude-purple); margin-top: 0; }
+        
+        .personalize-box { background: #eff6ff; padding: 20px; border-radius: 8px; border: 1px solid #bfdbfe; margin: 20px 0; }
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+        .tag { background: var(--tech-cyan); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Claude Code 完全導入・活用ブリーフィング</h1>
+    
+    <a href="https://www.youtube.com/watch?v=DkClEbyXyq4" class="source-link" target="_blank">
+        動画参照：【神回！】『Claude Code』完全入門マニュアル！【初心者でも絶対に理解できる！ 】
+    </a>
+
+    <div class="section">
+        <h2>AIエージェント：究極の新人部下</h2>
+        <p>Claude Codeは単なるAIチャットではなく、PC操作やコード実行を自律的に行う「AIエージェント」です。適切な設定により、請求書処理からアプリ開発までを数分で完遂します。</p>
+    </div>
+
+    <div class="section">
+        <h2>環境構築：VS Codeへの統合</h2>
+        <ol>
+            <li><strong>VS Codeインストール：</strong>日本語化拡張機能を導入。</li>
+            <li><strong>公式プラグイン：</strong>拡張機能ストアから「Claude（Anthropic製）」をインストール。</li>
+            <li><strong>プロジェクト紐付け：</strong>作業フォルダを作成し、APIアカウントでログイン。</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>運用の最適化：頭脳と慎重さの調整</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>モデルの選択</h3>
+                <p><strong>Sonnet：</strong>バランス型（普段使い）<br><strong>Opus：</strong>難解ロジック用（高コスト）</p>
+            </div>
+            <div class="card">
+                <h3>動作モード</h3>
+                <p><strong>Ask：</strong>許可確認重視<br><strong>Edit：</strong>自動編集バランス型<br><strong>Plan：</strong>実行前計画提示</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>AIを「育てる」2つのMDファイル</h2>
+        <div class="personalize-box">
+            <h3>1. Claude.md（自己紹介カード）</h3>
+            <p>全セッションの「契約書」。自分の役割、好み、削除禁止等の安全ルールを記述するグローバル設定。</p>
+            <h3>2. スキル（業務マニュアル）</h3>
+            <p>成功した作業手順を保存し、「上書き保存」を繰り返すことでマニュアルをLv.アップ（強化）させる。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>高度な機能とリスク管理</h2>
+        <div class="tech-tags">
+            <span class="tag">サブエージェント（専門家呼び出し）</span>
+            <span class="tag">MCP（Googleツール連携）</span>
+            <span class="tag">GitHub Codespaces（仮想環境運用）</span>
+        </div>
+        <p style="margin-top: 20px;"><strong>セキュリティ：</strong>APIキーは絶対にチャット欄へ貼らないこと。`.env`ファイル管理を徹底。</p>
+    </div>
+
+    <div class="section" style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
+        <h2>結論</h2>
+        <p>初期状態は未熟でも、正しい「指示書」と「マニュアル」を与え続けることで、Claudeは個人の限界を超える生産性を発揮する最高のパートナーへと進化します。</p>
+    </div>
+</div>
+
+</body>
+</html>
