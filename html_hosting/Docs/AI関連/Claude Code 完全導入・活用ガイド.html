@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Claude Code 完全導入・活用ガイド</title>
+    <style>
+        :root {
+            --purple-main: #7c3aed;
+            --cyan-accent: #06b6d4;
+            --bg-body: #f8fafc;
+            --text-dark: #1e293b;
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-body); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: var(--purple-main); border-bottom: 3px solid var(--purple-main); padding-bottom: 10px; }
+        .source-link { display: block; margin: 20px 0; padding: 15px; background: #f5f3ff; border-left: 5px solid var(--purple-main); text-decoration: none; color: var(--purple-main); font-weight: bold; }
+        
+        .section { margin: 30px 0; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; }
+        .card h3 { color: var(--purple-main); margin-top: 0; }
+        
+        .growth-box { background: #f0fdfa; padding: 20px; border-radius: 8px; border: 1px solid #ccfbf1; margin-top: 20px; }
+        .step-num { color: var(--cyan-accent); font-weight: bold; font-size: 1.2rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Claude Code 完全導入・活用ブリーフィング</h1>
+    
+    <a href="https://www.youtube.com/watch?v=DkClEbyXyq4" class="source-link" target="_blank">
+        動画参照：【神回！】『Claude Code』完全入門マニュアル！【初心者でも絶対に理解できる！ 】
+    </a>
+
+    <div class="section">
+        <h2>AIエージェントとは？</h2>
+        <p>単なる質問回答AIではなく、<strong>コンピュータを操作して実務を遂行する</strong>「新人エリート部下」です。ファイル整理、アプリ構築、リサーチを自律的にこなします。</p>
+    </div>
+
+    <div class="section">
+        <h2>運用モードの使い分け（安全性 vs 効率性）</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>Askモード</h3>
+                <p>全操作に確認を求める「安全重視」。初心者に推奨。</p>
+            </div>
+            <div class="card">
+                <h3>Editモード</h3>
+                <p>通常操作は自動化し、危険操作のみ確認。バランス重視。</p>
+            </div>
+            <div class="card">
+                <h3>Planモード</h3>
+                <p>実行前に作業計画を提示。論理的作業に最適。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>「部下」を育てる2つの管理ファイル</h2>
+        <div class="growth-box">
+            <p><span class="step-num">01. Claude.md (自己紹介カード)</span><br>
+            AIへの「契約書」。ユーザーの役割や好みの回答スタイル、絶対守らせたい安全ルール（削除禁止等）を記述。</p>
+            <p><span class="step-num">02. スキル (業務マニュアル)</span><br>
+            成功した作業手順を保存し、フィードバックで上書き強化。「今の手順をスキルにして」と指示することでマニュアルが進化。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>高度な拡張性</h2>
+        <ul>
+            <li><strong>サブエージェント：</strong>専門家AI（リサーチャー、ライター等）を組織的に召喚して並行作業。</li>
+            <li><strong>MCP：</strong>Gmailやカレンダーと連携し、外部ツールをAIが自律操作。</li>
+        </ul>
+    </div>
+
+    <div class="section" style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
+        <h2>導入の推奨手順</h2>
+        <ol>
+            <li>VS Codeを導入し、公式Claudeプラグインをインストール。</li>
+            <li>プロジェクトフォルダを作成してアカウント連携。</li>
+            <li>まずは簡単なファイル整理から「スキル」作りを試す。</li>
+            <li><strong>重要：</strong>APIキーは`.env`ファイル等で厳重管理し、仮想環境(Codespaces等)も検討する。</li>
+        </ol>
+    </div>
+
+    <div class="section">
+        <h2>結論</h2>
+        <p>Claude Codeは、正しい指示書とマニュアルを与え続けることで、個人の限界を超えた生産性を発揮するパートナーに成長します。まずはVS Codeへの導入から始めてみてください。</p>
+    </div>
+</div>
+
+</body>
+</html>
