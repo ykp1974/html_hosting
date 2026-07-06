@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Aurora Linux 導入・活用ガイド</title>
+    <style>
+        :root {
+            --aurora-purple: #8b5cf6;
+            --linux-blue: #0ea5e9;
+            --bg-smoke: #f8fafc;
+            --text-dark: #1e293b;
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-smoke); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: var(--aurora-purple); border-bottom: 3px solid var(--aurora-purple); padding-bottom: 10px; }
+        .source-link { display: block; margin: 20px 0; padding: 15px; background: #f5f3ff; border-left: 5px solid var(--aurora-purple); text-decoration: none; color: var(--aurora-purple); font-weight: bold; }
+        
+        .section { margin: 30px 0; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; }
+        .card h3 { color: var(--aurora-purple); margin-top: 0; }
+        
+        .features-box { background: #f1f5f9; padding: 20px; border-radius: 8px; }
+        .key-tag { display: inline-block; background: var(--linux-blue); color: white; padding: 4px 12px; border-radius: 16px; font-size: 0.85rem; margin-right: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Aurora Linux 導入・活用ブリーフィング</h1>
+    
+    <a href="https://www.youtube.com/watch?v=IEY64Stlkp4" class="source-link" target="_blank">
+        動画参照：最強の安定感！新OS『Aurora』のインストールから日本語化まで徹底解説
+    </a>
+
+    <div class="section">
+        <h2>Aurora Linux とは？</h2>
+        <p>FedoraベースにKDE Plasma環境を統合した、<strong>「最強の安定感」</strong>を追求する次世代Linux OSです。システム基幹部分が変更不可（Immutable）な設計で、堅牢性が非常に高いのが特徴です。</p>
+    </div>
+
+    <div class="section">
+        <h2>主要スペックと特徴</h2>
+        <div class="features-box">
+            <span class="key-tag">Immutable設計</span>
+            <span class="key-tag">KDE Plasma環境</span>
+            <span class="key-tag">日本語入力(Mozc)対応</span>
+            <p><strong>ソフトウェア管理：</strong>堅牢性維持のため、コマンドラインよりも「ソフトウェアセンター（GUI）」経由でのインストールが強く推奨されます。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>運用のための推奨最適化</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>快適な設定</h3>
+                <ul>
+                    <li>電源設定：スリープ・自動消灯・ロックをOFFに変更</li>
+                    <li>起動：自動ログイン有効化でパスワード省略可能</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>独自ツール</h3>
+                <p>ゲームパッドへのキー割当ソフトが標準搭載されており、ゲーム環境としても実用的。メモリは約2.4GBを使用するため、ある程度のスペックが望ましい。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>導入のステップ</h2>
+        <ol>
+            <li>公式サイトからISOイメージを入手。</li>
+            <li>Rufus等でUSB起動メディアを作成。</li>
+            <li>インストーラーから「ディスク全体」をクリーンインストール。</li>
+            <li>初期セットアップにてFcitx5を設定し日本語入力を完備。</li>
+        </ol>
+    </div>
+
+    <div class="section" style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
+        <h2>結論</h2>
+        <p>Aurora Linuxは、安定したデスクトップ環境を求めるユーザーにとって非常に有力な選択肢です。堅牢な構造と使いやすいGUIの融合は、Fedora譲りのモダンなLinuxライフを実現します。</p>
+    </div>
+</div>
+
+</body>
+</html>
