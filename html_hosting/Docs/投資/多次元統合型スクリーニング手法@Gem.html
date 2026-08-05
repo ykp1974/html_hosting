@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>次世代日本株スクリーニング戦略</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #F8FAFC;
+            color: #1E293B;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #4F46E5 0%, #06B6D4 100%);
+        }
+        .card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+        }
+        .flow-node {
+            border: 2px solid #E2E8F0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background: white;
+            position: relative;
+            z-index: 10;
+        }
+        .flow-line {
+            width: 2px;
+            height: 24px;
+            background-color: #CBD5E1;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <span class="font-bold text-xl text-indigo-600">SmartScanner JP</span>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+                <a href="#context" class="hover:text-indigo-600">市場背景</a>
+                <a href="#framework" class="hover:text-indigo-600">4次元フレームワーク</a>
+                <a href="#strategy" class="hover:text-indigo-600">投資戦略</a>
+                <a href="#system" class="hover:text-indigo-600">システム構成</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="gradient-bg text-white py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-3xl md:text-5xl font-bold mb-6">日本株式市場における<br>多次元統合型スクリーニング</h1>
+            <p class="text-lg opacity-90 leading-relaxed">
+                東証の構造改革とシステム自動化に基づく、新しい投資パラダイム。
+                PBR1倍割れ是正と資本効率向上を捉え、持続的な超過リターンを目指す革新的手法。
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-12 space-y-24">
+        <section id="context" class="space-y-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">なぜ今、手法の転換が必要なのか</h2>
+                <p class="text-slate-600">
+                    従来のPER/PBRのみに頼った手法は、業績停滞銘柄を拾う「バリュートラップ」のリスクを抱えています。
+                    東証の要請により、企業には「資本効率の是正」という強力な外圧がかかっており、投資家にはその質を見極める多角的な視点が求められています。
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="card">
+                    <h3 class="text-lg font-bold mb-4 text-slate-800">スクリーニング重点指標のシフト</h3>
+                    <div class="chart-container">
+                        <canvas id="shiftChart"></canvas>
+                    </div>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4 p-4 bg-white rounded-lg border-l-4 border-amber-500 shadow-sm">
+                        <div class="text-2xl mt-1">⚠️</div>
+                        <div>
+                            <h4 class="font-bold">旧来の課題：バリュートラップ</h4>
+                            <p class="text-sm text-slate-600">単なる低PBR銘柄は、成長性の欠如や資本効率の悪さを反映しているに過ぎない場合があります。</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 bg-white rounded-lg border-l-4 border-indigo-500 shadow-sm">
+                        <div class="text-2xl mt-1">🚀</div>
+                        <div>
+                            <h4 class="font-bold">新時代の鍵：資本効率改善</h4>
+                            <p class="text-sm text-slate-600">東証の要請により、高ROE維持・増配・自社株買いといった株主還元が、株価反転の強力なトリガーとなります。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="framework" class="space-y-12">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">4次元統合型フレームワーク</h2>
+                <p class="text-slate-600">
+                    「ガバナンス」「業績」「需給」「テクニカル」の4つの評価軸を統合。
+                    単一点での評価ではなく、立体的なデータ解析により、確度の高い銘柄選定を実現します。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="card border-t-4 border-indigo-500">
+                    <span class="text-xs font-bold text-indigo-500 uppercase">Dimension 1</span>
+                    <h3 class="text-lg font-bold mt-2">資本効率・統治</h3>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                        <li>• ROE ≥ 10%</li>
+                        <li>• PBR ≤ 1.5倍</li>
+                        <li>• F-Score ≥ 7点</li>
+                        <li>• DOE（株主資本配当率）</li>
+                    </ul>
+                </div>
+                <div class="card border-t-4 border-cyan-500">
+                    <span class="text-xs font-bold text-cyan-500 uppercase">Dimension 2</span>
+                    <h3 class="text-lg font-bold mt-2">業績モメンタム</h3>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                        <li>• EPS 5年CAGR > 0</li>
+                        <li>• 営業CF > 当期純利益</li>
+                        <li>• 収益の継続性</li>
+                        <li>• 利益の「質」の検証</li>
+                    </ul>
+                </div>
+                <div class="card border-t-4 border-amber-500">
+                    <span class="text-xs font-bold text-amber-500 uppercase">Dimension 3</span>
+                    <h3 class="text-lg font-bold mt-2">市場需給構造</h3>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                        <li>• 信用倍率の低下傾向</li>
+                        <li>• 信用買残の減少</li>
+                        <li>• 評価損益率 -15%〜-20%</li>
+                        <li>• 需給の「しこり」排除</li>
+                    </ul>
+                </div>
+                <div class="card border-t-4 border-emerald-500">
+                    <span class="text-xs font-bold text-emerald-500 uppercase">Dimension 4</span>
+                    <h3 class="text-lg font-bold mt-2">テクニカル</h3>
+                    <ul class="mt-4 space-y-2 text-sm text-slate-600">
+                        <li>• 200日移動平均線上抜け</li>
+                        <li>• Bollinger -3σ + 下髭</li>
+                        <li>• カップウィズハンドル</li>
+                        <li>• 最適なエントリー特定</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h3 class="text-xl font-bold mb-4">統合評価の視覚化</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                            右記のチャートは、ある優良銘柄のスコアリング例です。
+                            特定の軸だけでなく、すべての次元で高い基準を満たす「バランス」を重視します。
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-indigo-100 text-indigo-700 text-xs font-bold rounded-full">高資本効率</span>
+                            <span class="px-3 py-1 bg-cyan-100 text-cyan-700 text-xs font-bold rounded-full">安定成長</span>
+                            <span class="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-bold rounded-full">好需給</span>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="strategy" class="space-y-12">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">デュアル適格性スコアリング</h2>
+                <p class="text-slate-600">
+                    スイングトレードにおける最大の懸念「塩漬け」を合理的に回避。
+                    下落時に長期保有へ移行できるか、それとも即座に損切りすべきかをシステムが判定します。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-start">
+                <div class="flex flex-col">
+                    <div class="flow-node border-indigo-600 shadow-md">
+                        <h4 class="font-bold text-indigo-600">エントリー</h4>
+                        <p class="text-xs mt-1 text-slate-500">4次元スクリーニング通過銘柄でスイング開始</p>
+                    </div>
+                    <div class="flow-line"></div>
+                    <div class="flow-node">
+                        <h4 class="font-bold">株価変動</h4>
+                        <div class="mt-2 grid grid-cols-2 gap-2 text-[10px]">
+                            <div class="bg-emerald-50 text-emerald-700 p-1 text-center">上昇↑</div>
+                            <div class="bg-rose-50 text-rose-700 p-1 text-center">下落↓</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden md:flex items-center justify-center pt-16">
+                    <div class="h-0.5 w-full bg-slate-200 relative">
+                        <div class="absolute right-0 -top-1 border-t-4 border-b-4 border-l-4 border-transparent border-l-slate-200"></div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+                        <h4 class="font-bold text-emerald-800 flex items-center gap-2">
+                            <span>✅</span> 利益確定
+                        </h4>
+                        <p class="text-xs text-emerald-700 mt-1">目標価格到達。当初の計画通りスイング完結。</p>
+                    </div>
+                    <div class="p-4 bg-white border-2 border-dashed border-amber-400 rounded-lg">
+                        <h4 class="font-bold text-amber-800">長期適格性(LongTerm_Eligible)</h4>
+                        <p class="text-[10px] text-slate-500 mt-1 italic">ROE 10% & F-Score 7 & Growth > 0</p>
+                        <div class="mt-3 flex gap-2">
+                            <div class="flex-1 text-center p-2 bg-indigo-600 text-white text-[10px] rounded font-bold">YES: 合理的長期保有</div>
+                            <div class="flex-1 text-center p-2 bg-rose-600 text-white text-[10px] rounded font-bold">NO: 機械的損切り</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="system" class="space-y-8">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold text-slate-900 mb-4">自動化システムの技術基盤</h2>
+                <p class="text-slate-600">
+                    セキュリティと利便性を両立。ポート開放なしの静的ホスティング連携により、
+                    場所を選ばず最新の銘柄解析結果を安全に閲覧可能です。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-0 border border-slate-200 rounded-2xl overflow-hidden shadow-lg">
+                <div class="p-8 bg-slate-800 text-white">
+                    <div class="w-10 h-10 bg-indigo-500 rounded-lg mb-4 flex items-center justify-center font-bold">1</div>
+                    <h3 class="font-bold text-lg mb-2">Data Backend</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Linux Server上でPythonが定時実行。J-Quants / yfinanceから構造化データを取得し、
+                        複雑な計算処理（CAGR、移動平均等）を行いJSON出力。
+                    </p>
+                </div>
+                <div class="p-8 bg-slate-700 text-white border-y md:border-y-0 md:border-x border-slate-600">
+                    <div class="w-10 h-10 bg-cyan-500 rounded-lg mb-4 flex items-center justify-center font-bold">2</div>
+                    <h3 class="font-bold text-lg mb-2">Sync & Build</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        GitHubプライベートリポジトリへの自動コミット。Cloudflare Pagesが変更を検知し、
+                        ダッシュボードを自動ビルド・更新。
+                    </p>
+                </div>
+                <div class="p-8 bg-slate-800 text-white">
+                    <div class="w-10 h-10 bg-amber-500 rounded-lg mb-4 flex items-center justify-center font-bold">3</div>
+                    <h3 class="font-bold text-lg mb-2">Safe Access</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Cloudflare Accessによる認証。モバイルWebブラウザからセキュアにアクセス。
+                        ポート開放不要のプル型同期を実現。
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 px-4 mt-24">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-sm">
+            <div class="flex flex-col items-center md:items-start">
+                <span class="font-bold text-white text-lg">SmartScanner JP</span>
+                <p class="mt-2">多次元統合型スクリーニング手法に関する提言</p>
+            </div>
+            <div class="text-center md:text-right">
+                <p>© 2024 Investment Strategy Analysis. All Rights Reserved.</p>
+                <p class="mt-1 text-xs">※投資の最終決定はご自身の判断で行ってください。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Label Wrapping Utility
+        function wrapLabel(label) {
+            if (typeof label !== 'string') return label;
+            if (label.length <= 16) return label;
+            const words = label.split(/(\s|、|・)/);
+            const lines = [];
+            let currentLine = "";
+            words.forEach(word => {
+                if ((currentLine + word).length > 16) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine += word;
+                }
+            });
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // Common Tooltip Config
+        const tooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // Shift Chart Implementation
+        const ctxShift = document.getElementById('shiftChart').getContext('2d');
+        new Chart(ctxShift, {
+            type: 'bar',
+            data: {
+                labels: [
+                    wrapLabel('単一指標（PER/PBR）'),
+                    wrapLabel('資本効率・ROE要請'),
+                    wrapLabel('業績の質・現金創出'),
+                    wrapLabel('市場需給（信用残）')
+                ],
+                datasets: [
+                    {
+                        label: '従来手法の重要度',
+                        data: [90, 30, 20, 10],
+                        backgroundColor: 'rgba(148, 163, 184, 0.5)',
+                        borderColor: '#94A3B8',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '統合型手法の重要度',
+                        data: [40, 95, 85, 75],
+                        backgroundColor: 'rgba(79, 70, 229, 0.8)',
+                        borderColor: '#4F46E5',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    tooltip: tooltipConfig,
+                    legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } }
+                },
+                scales: {
+                    y: { beginAtZero: true, max: 100, title: { display: true, text: '重要度 (%)', font: { size: 10 } } },
+                    x: { ticks: { font: { size: 10 } } }
+                }
+            }
+        });
+
+        // Radar Chart Implementation
+        const ctxRadar = document.getElementById('radarChart').getContext('2d');
+        new Chart(ctxRadar, {
+            type: 'radar',
+            data: {
+                labels: [
+                    wrapLabel('資本効率 (ROE/PBR)'),
+                    wrapLabel('業績成長 (EPS CAGR)'),
+                    wrapLabel('収益の質 (CF対比)'),
+                    wrapLabel('市場需給 (信用倍率)'),
+                    wrapLabel('テクニカル (トレンド)'),
+                    wrapLabel('財務健全 (F-Score)')
+                ],
+                datasets: [{
+                    label: '銘柄スコアリング例',
+                    data: [85, 70, 90, 80, 65, 95],
+                    fill: true,
+                    backgroundColor: 'rgba(6, 182, 212, 0.2)',
+                    borderColor: '#06B6D4',
+                    pointBackgroundColor: '#06B6D4',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#06B6D4'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    tooltip: tooltipConfig,
+                    legend: { display: false }
+                },
+                scales: {
+                    r: {
+                        angleLines: { display: true },
+                        suggestedMin: 0,
+                        suggestedMax: 100,
+                        ticks: { display: false }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
