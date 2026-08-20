@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Claude Code パワーユーザー向け運用ガイド</title>
+    <style>
+        :root {
+            --claude-orange: #f97316;
+            --terminal-bg: #0f172a;
+            --bg-smoke: #f8fafc;
+            --text-dark: #1e293b;
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-smoke); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: var(--terminal-bg); border-bottom: 3px solid var(--claude-orange); padding-bottom: 10px; }
+        
+        .section { margin: 30px 0; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; }
+        .card h3 { color: var(--claude-orange); margin-top: 0; }
+        
+        .highlight-box { background: #fff7ed; border-left: 5px solid var(--claude-orange); padding: 20px; border-radius: 8px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Claude Code：高度な機能とパワーユーザー向け運用ガイド</h1>
+
+    <div class="section">
+        <h2>エグゼクティブ・サマリー</h2>
+        <p>Claude Codeは、単なるコード補完を超え、ファイル記述やバグ修正を自律的に行う<strong>「エージェント型」AIアシスタント</strong>です。既存の開発ワークフロー（IDE、ターミナル、SSH）を崩さずに統合できるのが最大の強みです。</p>
+    </div>
+
+    <div class="section">
+        <h2>1. CLAUDE.md によるコンテキスト階層管理</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>階層構造の活用</h3>
+                <p>「エンタープライズ」「グローバル」「プロジェクト」「ネストされたディレクトリ」単位で、コーディング規約やビルドコマンドを自動読み込み。</p>
+            </div>
+            <div class="card">
+                <h3>オンザフライの記憶操作</h3>
+                <p>作業中に誤りがあれば <code>#</code> を入力して修正を指示するだけで、AIが自動的に <code>CLAUDE.md</code> へ内容を反映して記憶します。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. エージェント的ワークフローの極意</h2>
+        <div class="highlight-box">
+            <h3>🚀 効率を最大化する3つの手法</h3>
+            <ul>
+                <li><strong>計画モードの徹底：</strong>「コードを書く前にまず計画を立てて承認を得て」と指示し、期待との乖離を防ぐ。</li>
+                <li><strong>自己フィードバック（反復）：</strong>ユニットテストや、Puppeteer等による視覚的フィードバック（スクリーンショット）をAIに与え、2〜3回の反復でUIを完璧に仕上げる。</li>
+                <li><strong>一気通貫コマンド：</strong><code>commit push PR</code> の指示だけで、git履歴を学習したAIが適切なコミット・ブランチ作成・PR発行まで完結。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. 拡張性とパワーユーザーの並列運用</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>Unix的活用 & MCP統合</h3>
+                <p><code>-p</code> フラグによるパイプライン連携（<code>git status</code> からのJSON処理など）や、共有 <code>mcp.json</code> によるブラウザ操作等のツール拡張。</p>
+            </div>
+            <div class="card">
+                <h3>Git Worktreeによる並列セッション</h3>
+                <p>SSH / T-Maxを用いた複数ターミナルでの同時並行、およびGit Worktreeで異なるチェックアウトを隔離し、複数機能を同時に開発。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
+        <h2>結論</h2>
+        <p>Claude Codeを単なるチャットボットとしてではなく、<strong>自律型エージェントおよびパイプラインの構成要素</strong>として使いこなすことで、開発スピードを数倍に高めることが可能です。</p>
+    </div>
+</div>
+
+</body>
+</html>
