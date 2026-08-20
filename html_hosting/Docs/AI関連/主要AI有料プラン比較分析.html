@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>主要AI有料プラン比較分析</title>
+    <style>
+        :root {
+            --bg-smoke: #f8fafc;
+            --text-dark: #1e293b;
+            --chatgpt-green: #10a37f;
+            --claude-orange: #f97316;
+            --gemini-purple: #8b5cf6;
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-smoke); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: var(--text-dark); border-bottom: 3px solid #64748b; padding-bottom: 10px; }
+        .source-link { display: block; margin: 20px 0; padding: 15px; background: #f1f5f9; border-left: 5px solid #64748b; text-decoration: none; color: #334155; font-weight: bold; }
+        
+        .section { margin: 30px 0; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; }
+        
+        .table-compare { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .table-compare th, .table-compare td { padding: 12px; border: 1px solid #e2e8f0; text-align: center; }
+        .table-compare th { background: #f1f5f9; }
+        
+        .highlight { background: #f8fafc; padding: 20px; border-radius: 8px; border-left: 5px solid var(--gemini-purple); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>主要AI有料プラン比較：ChatGPT・Claude・Gemini</h1>
+    
+    <a href="https://www.youtube.com/watch?v=5kWulKmBMjc" class="source-link" target="_blank">
+        動画参照：【2026年版】月3000円ならどれ選ぶ？ChatGPT・Claude・Gemini、全部使った僕のガチ評価。
+    </a>
+
+    <div class="section">
+        <h2>ビジュアル生成とUIの比較</h2>
+        <table class="table-compare">
+            <tr>
+                <th>サービス</th>
+                <th>画像生成</th>
+                <th>動画生成</th>
+                <th>特徴</th>
+            </tr>
+            <tr>
+                <td style="color:var(--chatgpt-green); font-weight:bold;">ChatGPT</td>
+                <td>◎ 最強</td>
+                <td>×</td>
+                <td>UIが洗練され、日常の雑談から高度な編集まで万能。</td>
+            </tr>
+            <tr>
+                <td style="color:var(--claude-orange); font-weight:bold;">Claude</td>
+                <td>×</td>
+                <td>×</td>
+                <td>表現豊かなライティング能力とファイル操作に特化。</td>
+            </tr>
+            <tr>
+                <td style="color:var(--gemini-purple); font-weight:bold;">Gemini</td>
+                <td>◯</td>
+                <td>◎ 唯一</td>
+                <td>動画生成とGoogle連携・特典によるコスパが圧倒的。</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>ユーザー別：最適な選び方</h2>
+        <div class="grid-3">
+            <div class="card" style="border-top: 4px solid var(--claude-orange);">
+                <h3>Claude Pro</h3>
+                <p><strong>「書く」と「編集」のプロへ。</strong>人間らしい美しい文章作成や、ローカルファイルを用いたナレッジ構築・自律処理を求める人向け。</p>
+            </div>
+            <div class="card" style="border-top: 4px solid var(--chatgpt-green);">
+                <h3>ChatGPT Plus</h3>
+                <p><strong>「直感と創造」のプロへ。</strong>ストレスのないUI、最高品質の画像生成、エンジニアリングなどの高度作業を重視する人向け。</p>
+            </div>
+            <div class="card" style="border-top: 4px solid var(--gemini-purple);">
+                <h3>Gemini (AI Pro)</h3>
+                <p><strong>「コスパとエコシステム」のプロへ。</strong>5TBストレージやYouTube広告カット等の特典をフル活用し、Googleサービスを自動化したい人向け。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section highlight">
+        <h2>重要な注意点：上限設定の違い</h2>
+        <p><strong>Claudeは制限到達で完全停止：</strong>使用枠を使い切ると、リセットまでチャット自体が止まる。対してChatGPTとGeminiは、制限到達後も「軽量モデルへ切り替えて継続可能」な設計。</p>
+    </div>
+
+    <div class="section">
+        <h2>結論</h2>
+        <p>単なるチャット機能を超え、今は<strong>「どの独自特典を使いこなすか」</strong>の勝負です。自身のメイン環境（Google連携を重視するか、PCでの自律タスクを重視するか）に合わせて賢く選択してください。</p>
+    </div>
+</div>
+
+</body>
+</html>
