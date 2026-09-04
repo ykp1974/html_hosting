@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, Circle } from 'lucide-react';
 
-// .env に設定したGASのURLを読み込む
 const GAS_URL = import.meta.env.VITE_GAS_API_URL;
 
 export default function HtmlViewer() {
@@ -10,31 +9,31 @@ export default function HtmlViewer() {
   const file = params.get('file');
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
-  const [isSyncing, setIsSyncing] = useState(false); // オプショナル: 同期中かどうかの状態
 
   useEffect(() => {
     if (!file) return;
 
-    // 1. まずローカルストレージから即座に復元（UIのチラつき防止）
+    // 1. ローカルストレージから即座に復元
     try {
       const stored = localStorage.getItem('html-viewer-status');
       if (stored) {
         const status = JSON.parse(stored);
-        setIsChecked(!!status[file]);
+        const val = status[file];
+        setIsChecked(val === true || val === 'TRUE' || val === 'true');
       }
     } catch (e) {
       console.error('Fetch status error:', e);
     }
 
-    // 2. バックグラウンドでGASから最新の同期データを取得
+    // 2. バックグラウンドでGASから最新データを取得
     if (GAS_URL) {
-      fetch(GAS_URL)
+      const fetchUrl = GAS_URL.includes('?') ? `${GAS_URL}&t=${Date.now()}` : `${GAS_URL}?t=${Date.now()}`;
+      fetch(fetchUrl)
         .then(res => res.json())
         .then(data => {
-          // 取得した最新データでローカルストレージを上書き同期
           localStorage.setItem('html-viewer-status', JSON.stringify(data));
-          // 現在開いているファイルの既読状態を再設定
-          setIsChecked(!!data[file]);
+          const val = data[file];
+          setIsChecked(val === true || val === 'TRUE' || val === 'true');
         })
         .catch(err => console.error('GAS fetch error:', err));
     }
@@ -44,7 +43,7 @@ export default function HtmlViewer() {
     if (!file) return;
     const newState = !isChecked;
 
-    // 1. オプティミスティックUI更新（先に画面とローカルを更新してサクサク動かす）
+    // 1. オプティミスティックUI更新
     setIsChecked(newState);
     try {
       const stored = localStorage.getItem('html-viewer-status');
@@ -53,17 +52,13 @@ export default function HtmlViewer() {
       localStorage.setItem('html-viewer-status', JSON.stringify(status));
     } catch (e) {
       console.error(e);
-      setIsChecked(!newState); // エラー時は元に戻す
+      setIsChecked(!newState);
       return;
     }
 
-    // 2. GASへPOSTしてスプレッドシートを更新
+    // 2. GASへPOST
     if (GAS_URL) {
-      setIsSyncing(true);
       try {
-        // 【重要】GAS特有のCORSエラー（プリフライトリクエスト失敗）を回避するため、
-        // application/json ではなく text/plain を指定して送信します。
-        // GAS側の JSON.parse(e.postData.contents) で問題なく解釈されます。
         await fetch(GAS_URL, {
           method: 'POST',
           headers: {
@@ -76,8 +71,6 @@ export default function HtmlViewer() {
         });
       } catch (err) {
         console.error('GAS post error:', err);
-      } finally {
-        setIsSyncing(false);
       }
     }
   };
@@ -106,11 +99,10 @@ export default function HtmlViewer() {
         </h1>
         <button
           onClick={toggleCheck}
-          disabled={isSyncing} // POST中は連打防止
           className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${isChecked
               ? 'bg-green-100 text-green-700 hover:bg-green-200'
               : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'
-            } ${isSyncing ? 'opacity-70 cursor-not-allowed' : ''}`}
+            }`}
         >
           {isChecked ? <CheckCircle2 className="w-5 h-5" /> : <Circle className="w-5 h-5" />}
           {isChecked ? 'Marked as Read' : 'Mark as Read'}

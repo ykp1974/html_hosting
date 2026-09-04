@@ -5,6 +5,9 @@ import HtmlViewer from './components/HtmlViewer';
 
 type StatusMap = Record<string, boolean>;
 
+// .env に設定したGASのURLを読み込む
+const GAS_URL = import.meta.env.VITE_GAS_API_URL;
+
 function FileList() {
   const [files, setFiles] = useState<string[]>([]);
   const [status, setStatus] = useState<StatusMap>({});
@@ -14,15 +17,11 @@ function FileList() {
   // 【2. データの取得】
   const fetchFiles = async () => {
     try {
-      // 1. 静的ビルド用: scripts/generate-file-list.mjs で生成された files.json を優先的に試行
-      // Netlify などの本番環境（静的ホスティング）ではこちらがメインのデータソースになります
       const res = await fetch('/files.json');
       if (res.ok) {
         const data = await res.json();
         setFiles(data);
       } else {
-        // 2. 開発環境用: files.json がない場合、Vite の開発サーバーミドルウェア API を使用
-        // ローカル開発時にリアルタイムでファイルをスキャンする場合のフォールバックです
         const resApi = await fetch('/api/files');
         const dataApi = await resApi.json();
         setFiles(dataApi);
@@ -32,40 +31,57 @@ function FileList() {
     }
   };
 
-  // 【2. データの取得（続き）】ブラウザに保存された既読の状態を読み込む
-  const fetchStatus = () => {
+  // 【2. データの取得（続き）】既読状態の読み込み（ローカル先行 ＋ GASで裏側同期）
+  const fetchStatus = async () => {
+    // 1. ローカルストレージから即座に復元（UIのチラつき防止）
     try {
       const stored = localStorage.getItem('html-viewer-status');
       if (stored) {
         setStatus(JSON.parse(stored));
       }
     } catch (e) {
-      console.error('Fetch status error:', e);
+      console.error('Local status fetch error:', e);
+    }
+
+    // 2. バックグラウンドでGASから最新の同期データを取得
+    if (GAS_URL) {
+      try {
+        // 【対策1】キャッシュを強制回避
+        const fetchUrl = GAS_URL.includes('?') ? `${GAS_URL}&t=${Date.now()}` : `${GAS_URL}?t=${Date.now()}`;
+        const res = await fetch(fetchUrl);
+        const data = await res.json();
+
+        // 【対策2】全データをループして厳密な真偽値に変換（正規化）
+        const normalizedData: StatusMap = {};
+        for (const key in data) {
+          normalizedData[key] = data[key] === true || data[key] === 'TRUE' || data[key] === 'true';
+        }
+
+        // 取得した最新データでStateとローカルストレージを上書き同期
+        setStatus(normalizedData);
+        localStorage.setItem('html-viewer-status', JSON.stringify(normalizedData));
+      } catch (err) {
+        console.error('GAS fetch error:', err);
+      }
     }
   };
 
-  // 【1. 初期化処理】コンポーネントがマウントされた際に一度だけ実行
+  // 【1. 初期化処理】
   useEffect(() => {
-    // サーバーからファイル一覧を取得
     setLoading(true);
     fetchFiles().finally(() => setLoading(false));
-    // ブラウザから既読状態を取得
     fetchStatus();
   }, []);
 
-  // 【1.5. スクロール復元処理】ファイル一覧が表示された直後に実行
+  // 【1.5. スクロール復元処理】
   useEffect(() => {
     if (files.length > 0 && !loading) {
       const lastFile = sessionStorage.getItem('last-viewed-file');
       if (lastFile) {
-        // DOMのレンダリング完了を待つために少し遅延させる
         const timer = setTimeout(() => {
           const element = document.getElementById(lastFile);
           if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            // 同じページで何度もスクロールしないよう、一度スクロールしたらクリアするか検討
-            // ここではユーザーが「戻った時」だけ機能させたいので、そのままでも良いが
-            // 気になる場合は sessionStorage.removeItem('last-viewed-file') する
           }
         }, 300);
         return () => clearTimeout(timer);
@@ -73,48 +89,59 @@ function FileList() {
     }
   }, [files, loading]);
 
-  const toggleCheck = (file: string, currentState: boolean) => {
+  // 【更新処理】リストからのチェック切り替え時
+  const toggleCheck = async (file: string, currentState: boolean) => {
     const newState = !currentState;
     const newStatus = { ...status, [file]: newState };
+
+    // 1. オプティミスティックUI更新（先に画面とローカルを更新）
     setStatus(newStatus);
     localStorage.setItem('html-viewer-status', JSON.stringify(newStatus));
+
+    // 2. GASへPOSTしてスプレッドシートを更新
+    if (GAS_URL) {
+      try {
+        await fetch(GAS_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain',
+          },
+          body: JSON.stringify({
+            filePath: file,
+            isRead: newState
+          })
+        });
+      } catch (err) {
+        console.error('GAS post error:', err);
+        // エラー時は画面を元に戻す処理を入れることも可能ですが、
+        // リスト操作のサクサク感を優先し、ここではログ出力のみとします
+      }
+    }
   };
 
   // 【3. データの加工】検索クエリに基づいたファイルのフィルタリング
-  // useMemo を使うことで、ファイル一覧や検索文字が変わらない限り計算を使い回し（キャッシュ）します
   const filteredFiles = useMemo(() => {
-    // 検索窓が空の場合は全ファイルを返す
     if (!searchQuery.trim()) return files;
-
-    // 大文字小文字を区別せずに検索するため、小文字に変換して比較
     const lowerQ = searchQuery.toLowerCase();
     return files.filter(f => f.toLowerCase().includes(lowerQ));
   }, [files, searchQuery]);
 
-  // 【3. データの加工（続き）】表示用にファイルをディレクトリ（フォルダ）ごとにグループ化する処理
+  // 【3. データの加工（続き）】ディレクトリごとにグループ化
   const filesByDir = useMemo(() => {
     return filteredFiles.reduce((acc, file) => {
-      // パスを '/' で分割してフォルダ階層を特定
       const parts = file.split('/');
-      // フォルダパスを取得（最後のファイル名以外）。階層がない場合は 'Root' に分類
       const dir = parts.length > 1 ? parts.slice(0, -1).join('/') : 'Root';
-      // まだそのフォルダのリストがなければ初期化
       if (!acc[dir]) acc[dir] = [];
-      // 該当するフォルダのリストにファイルを追加
       acc[dir].push(file);
       return acc;
     }, {} as Record<string, string[]>);
   }, [filteredFiles]);
 
-  // 既読の合計数と進捗率の計算
   const readCount = Object.values(status).filter(Boolean).length;
-  // 【4. 最終的な表示データの準備完了】
   const progress = files.length > 0 ? Math.round((readCount / files.length) * 100) : 0;
 
-  // フォルダ名の表示用クリーンアップ（例: Docs/AI関連 -> AI関連）
   const formatDirName = (dir: string) => {
     if (dir === 'Root') return 'Top';
-    // 先頭の Docs/ を削除し、/ を > に置換して見やすく
     return dir.replace(/^Docs\//, '').replace(/\//g, ' > ');
   };
 
@@ -129,7 +156,7 @@ function FileList() {
     );
   }
 
-  // 【5. レンダリング（表示）】加工されたデータに基づいたHTMLの生成
+  // 【5. レンダリング（表示）】
   return (
     <div className="max-w-6xl mx-auto p-6 md:p-8 animate-in fade-in duration-500">
       <header className="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -171,7 +198,6 @@ function FileList() {
         />
       </div>
 
-      {/* クイックジャンプ機能：フォルダが2つ以上ある場合のみ表示 */}
       {Object.keys(filesByDir).length > 1 && (
         <nav className="mb-10 flex flex-wrap gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100 shadow-inner">
           <span className="w-full text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-1">
@@ -185,7 +211,6 @@ function FileList() {
                 href={`#${dir}`}
                 className="px-4 py-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-300 hover:shadow-sm transition-all text-sm font-medium"
               >
-                {/* 表示名の調整 */}
                 {formatDirName(dir)}
               </a>
             ))}
@@ -209,48 +234,48 @@ function FileList() {
                     {dirFiles.length} {dirFiles.length === 1 ? 'file' : 'files'}
                   </span>
                 </h2>
-              <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {dirFiles.map(file => {
-                  const isChecked = !!status[file];
-                  const fileName = file.split('/').pop() || file;
-                  return (
-                    <div
-                      key={file}
-                      id={file}
-                      className={`relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 transform hover:-translate-y-1 ${isChecked
-                        ? 'bg-green-50/60 border-green-200 outline outline-1 outline-green-200 shadow-sm'
-                        : 'bg-white border-slate-200 hover:border-indigo-300 shadow-sm hover:shadow-md'
-                        }`}
-                    >
-                      <Link
-                        to={`/view?file=${encodeURIComponent(file)}`}
-                        onClick={() => sessionStorage.setItem('last-viewed-file', file)}
-                        className="flex items-center gap-3 flex-1 min-w-0"
+                <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                  {dirFiles.map(file => {
+                    const isChecked = !!status[file];
+                    const fileName = file.split('/').pop() || file;
+                    return (
+                      <div
+                        key={file}
+                        id={file}
+                        className={`relative flex items-center justify-between p-4 rounded-xl border transition-all duration-300 transform hover:-translate-y-1 ${isChecked
+                          ? 'bg-green-50/60 border-green-200 outline outline-1 outline-green-200 shadow-sm'
+                          : 'bg-white border-slate-200 hover:border-indigo-300 shadow-sm hover:shadow-md'
+                          }`}
                       >
-                        <div className={`p-2 rounded-lg ${isChecked ? 'bg-green-100' : 'bg-indigo-50'}`}>
-                          <FileText className={`w-5 h-5 flex-shrink-0 ${isChecked ? 'text-green-600' : 'text-indigo-600'}`} />
-                        </div>
-                        <span className={`truncate font-medium text-sm md:text-base ${isChecked ? 'text-slate-400 line-through' : 'text-slate-700'}`}>
-                          {fileName.replace(/\.html$/, '')}
-                        </span>
-                      </Link>
-                      <button
-                        onClick={() => toggleCheck(file, isChecked)}
-                        className="ml-2 p-2 focus:outline-none rounded-full hover:bg-white/80 transition-colors group/btn"
-                        title={isChecked ? "Mark as unread" : "Mark as read"}
-                      >
-                        {isChecked ? (
-                          <CheckCircle2 className="w-6 h-6 text-green-500 group-hover/btn:scale-110 transition-transform" />
-                        ) : (
-                          <Circle className="w-6 h-6 text-slate-300 group-hover/btn:text-indigo-400 group-hover/btn:scale-110 transition-transform" />
-                        )}
-                      </button>
-                    </div>
-                  );
-                })}
+                        <Link
+                          to={`/view?file=${encodeURIComponent(file)}`}
+                          onClick={() => sessionStorage.setItem('last-viewed-file', file)}
+                          className="flex items-center gap-3 flex-1 min-w-0"
+                        >
+                          <div className={`p-2 rounded-lg ${isChecked ? 'bg-green-100' : 'bg-indigo-50'}`}>
+                            <FileText className={`w-5 h-5 flex-shrink-0 ${isChecked ? 'text-green-600' : 'text-indigo-600'}`} />
+                          </div>
+                          <span className={`truncate font-medium text-sm md:text-base ${isChecked ? 'text-slate-400 line-through' : 'text-slate-700'}`}>
+                            {fileName.replace(/\.html$/, '')}
+                          </span>
+                        </Link>
+                        <button
+                          onClick={() => toggleCheck(file, isChecked)}
+                          className="ml-2 p-2 focus:outline-none rounded-full hover:bg-white/80 transition-colors group/btn"
+                          title={isChecked ? "Mark as unread" : "Mark as read"}
+                        >
+                          {isChecked ? (
+                            <CheckCircle2 className="w-6 h-6 text-green-500 group-hover/btn:scale-110 transition-transform" />
+                          ) : (
+                            <Circle className="w-6 h-6 text-slate-300 group-hover/btn:text-indigo-400 group-hover/btn:scale-110 transition-transform" />
+                          )}
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
       )}
     </div>
