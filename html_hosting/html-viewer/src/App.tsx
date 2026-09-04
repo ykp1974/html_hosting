@@ -224,7 +224,14 @@ function FileList() {
       ) : (
         <div className="space-y-8">
           {Object.entries(filesByDir)
-            .sort(([a], [b]) => a.localeCompare(b))
+            .sort(([a], [b]) => {
+              // Keepフォルダが絡む場合のソート順を制御
+              const isAKeep = a.toLowerCase().includes('keep');
+              const isBKeep = b.toLowerCase().includes('keep');
+              if (isAKeep && !isBKeep) return 1;  // aがKeepなら後ろへ
+              if (!isAKeep && isBKeep) return -1; // bがKeepなら後ろへ
+              return a.localeCompare(b);         // 通常のアルファベット順
+            })
             .map(([dir, dirFiles]) => (
               <div key={dir} id={dir} className="glass-panel p-6 shadow-sm hover:shadow-md transition-shadow group scroll-mt-6">
                 <h2 className="text-xl font-semibold text-slate-800 flex items-center gap-3 mb-6 border-b border-slate-100 pb-3">
