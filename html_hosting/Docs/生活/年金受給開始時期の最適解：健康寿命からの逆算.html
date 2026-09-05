@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>年金受給開始時期の最適解：健康寿命からの逆算</title>
+    <style>
+        :root {
+            --pension-blue: #1e40af;
+            --alert-red: #dc2626;
+            --gold-accent: #d97706;
+            --bg-smoke: #f8fafc;
+            --text-dark: #1e293b;
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-smoke); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: var(--pension-blue); border-bottom: 3px solid var(--pension-blue); padding-bottom: 10px; margin-bottom: 10px; }
+        .source-link { display: block; margin: 15px 0 30px 0; padding: 15px; background: #eff6ff; border-left: 5px solid var(--pension-blue); text-decoration: none; color: var(--pension-blue); font-weight: bold; }
+        
+        .section { margin: 30px 0; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; }
+        .card h3 { color: var(--pension-blue); margin-top: 0; }
+        
+        .rule-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .rule-table th, .rule-table td { padding: 12px; border: 1px solid #e2e8f0; text-align: left; }
+        .rule-table th { background: #f1f5f9; }
+        
+        .warning-box { background: #fef2f2; border: 1px solid #fecaca; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .warning-box h3 { color: var(--alert-red); margin-top: 0; }
+        
+        .optimal-box { background: #fffbeb; border: 1px solid #fde68a; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .optimal-box h3 { color: var(--gold-accent); margin-top: 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>年金受給開始時期の最適解：健康寿命と経済的損失・利得の分析</h1>
+    
+    <a href="https://president.jp/articles/-/118211" class="source-link" target="_blank">
+        元記事参照：66歳でも70歳でも75歳でもない…元市役所職員が"健康寿命"から逆算した｢年金受給開始の最適解｣
+    </a>
+
+    <div class="section">
+        <h2>年金受給の基本ルール（増減率）</h2>
+        <table class="rule-table">
+            <tr>
+                <th>受給タイプ</th>
+                <th>期間</th>
+                <th>増減率</th>
+                <th>特徴</th>
+            </tr>
+            <tr>
+                <td><strong>繰り上げ受給</strong></td>
+                <td>60歳〜64歳</td>
+                <td style="color: var(--alert-red);">1ヶ月につき -0.4%<br>（最大 -24%）</td>
+                <td>受給額が生涯減額される。障害年金の請求権喪失リスクあり。</td>
+            </tr>
+            <tr>
+                <td><strong>原則受給</strong></td>
+                <td>65歳</td>
+                <td>基準（±0%）</td>
+                <td>標準的な受給開始年齢。</td>
+            </tr>
+            <tr>
+                <td><strong>繰り下げ受給</strong></td>
+                <td>66歳〜75歳</td>
+                <td style="color: var(--pension-blue);">1ヶ月につき +0.7%<br>（最大 +84%）</td>
+                <td>受給時期を遅らせることで、生涯受け取る月額が増加する。</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section warning-box">
+        <h3>繰り上げ受給に潜む3つの落とし穴</h3>
+        <ul>
+            <li><strong>損益分岐点（80歳10ヶ月）：</strong>60歳で受給すると、この年齢を超えた長生き分だけ受給総額で損をする。</li>
+            <li><strong>障害年金の請求権喪失：</strong>繰り上げ請求後に病気や怪我を負っても、障害年金が請求できなくなる。</li>
+            <li><strong>遺族年金への制約：</strong>老後の生活設計において選択の自由度が狭まる。</li>
+        </ul>
+    </div>
+
+    <div class="section optimal-box">
+        <h3>「健康寿命」から逆算する最適解</h3>
+        <p>日本人の平均的な健康寿命（自立して生活できる期間）は男性約72歳、女性約75歳です。<strong>70歳や75歳まで大幅に繰り下げると、最もアクティブにお金を使える60代後半の資金が不足する</strong>「宝の持ち腐れ」リスクが生じます。</p>
+        <p>したがって、身体が最も動く黄金の活動期にお金を有効に使える<strong>「65歳受給開始」</strong>、あるいは状況に応じた<strong>「66〜67歳への微小な繰り下げ」</strong>が最も合理的で悔いの残らない選択となります。</p>
+    </div>
+
+    <div class="section" style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
+        <h2>結論</h2>
+        <p>年金の受給開始時期は単なる「マネーゲーム」ではありません。<strong>「健康寿命とお金の価値のピークを一致させること」</strong>こそが、人生全体の幸福度を最大化する鍵となります。</p>
+    </div>
+</div>
+
+</body>
+</html>
