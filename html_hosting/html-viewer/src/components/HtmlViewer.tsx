@@ -100,8 +100,8 @@ export default function HtmlViewer() {
         <button
           onClick={toggleCheck}
           className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${isChecked
-              ? 'bg-green-100 text-green-700 hover:bg-green-200'
-              : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'
+            ? 'bg-green-100 text-green-700 hover:bg-green-200'
+            : 'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'
             }`}
         >
           {isChecked ? <CheckCircle2 className="w-5 h-5" /> : <Circle className="w-5 h-5" />}

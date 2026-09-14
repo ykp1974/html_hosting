@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>株式投資AIエージェント：システム改善・高度化提案</title>
+    <style>
+        :root {
+            --primary-blue: #0284c7;
+            --accent-green: #10b981;
+            --bg-smoke: #f8fafc;
+            --text-dark: #1e293b;
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-smoke); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: var(--text-dark); border-bottom: 3px solid var(--primary-blue); padding-bottom: 10px; }
+        
+        .section { margin: 30px 0; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; }
+        .card h3 { color: var(--primary-blue); margin-top: 0; }
+        
+        .flow-box { background: #f1f5f9; padding: 20px; border-radius: 8px; font-family: monospace; white-space: pre-wrap; margin: 15px 0; font-size: 0.9rem; }
+        .step-list { padding-left: 20px; }
+        .step-list li { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>株式投資AIエージェント・スクリーニング＆売買シミュレーション改善提案</h1>
+
+    <div class="section">
+        <h2>1. システム構成の進化ロードマップ</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>Phase 1：現状の構成（手動トリガー）</h3>
+                <p>フロントエンドの手動操作を起点に、GASやスプレッドシートの関数でデータ取得と記録を行う構成。</p>
+                <div class="flow-box">[ React UI ] ──> [ GAS / スプレッドシート ]
+     │                    ▲
+   (手動実行)         (IMPORTXML等)</div>
+            </div>
+            <div class="card" style="border-top: 4px solid var(--accent-green);">
+                <h3>Phase 2：目指す構成（完全自動化）</h3>
+                <p>GitHub ActionsとPythonにより、データ取得からチャート分析、通知までを完全自動化し、スプレッドシートをDBとして活用。</p>
+                <div class="flow-box">[ GitHub Actions (Python) ]
+     ├─(データ取得 & 判定)─> [ スプレッドシート ]
+     ├─(条件合致)─────> [ LINE / Discord ]
+     └───────────────> [ React UI (閲覧) ]</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>2. 省力化（自動化・運用負荷軽減）の改善案</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>① IMPORTXML / Scraping 依存からの脱却</h3>
+                <p><strong>Python一括処理化：</strong><code>yfinance</code>や<code>jquants-api-client</code>を用いてPython側で一括データ取得。スプレッドシートには数式ではなく計算済みの数値を書き込み、軽量なストレージとして運用。</p>
+            </div>
+            <div class="card">
+                <h3>② GitHub Actionsによる定期実行</h3>
+                <p><strong>完全自動監視：</strong>市場クローズ後や信用残更新のタイミングでバッチ処理を自動実行。条件合致時はLINE NotifyやDiscord Webhookへ即座に通知。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>3. 精度向上（スクリーニング・検証高度化）の改善案</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>① テクニカル分析のPython移行</h3>
+                <p><code>pandas-ta</code>や<code>TA-Lib</code>を活用し、チャート形状判定（ダブルボトム、ボリンジャーバンド等）を高度化。株式分割等にも対応し判定誤差を削減。</p>
+            </div>
+            <div class="card">
+                <h3>② 売買シミュレーションの高度化</h3>
+                <p>手数料・信用金利・スリッページの考慮に加え、利確・損切り価格や保有上限日数をログ保存し、日足データと照合して勝敗（PnL）を自動確定。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" style="background: #f8fafc; padding: 20px; border-radius: 8px;">
+        <h2>4. 次に手を付ける具体的な実装ステップ</h2>
+        <ol class="step-list">
+            <li><strong>データ取得ロジックのPython化 (`main_task.py` 改修)：</strong><code>yfinance</code>等で一括取得・判定した結果をGASのWeb APIへPOSTする仕組みの構築。</li>
+            <li><strong>LINE / Discord 通知の連携：</strong>条件抽出銘柄の自動通知処理の追加。</li>
+            <li><strong>GitHub Actions ワークフローの設定：</strong>定期実行ジョブ（`.github/workflows/`）を定義し、放置運用体制を確立。</li>
+        </ol>
+    </div>
+</div>
+
+</body>
+</html>
