@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI性能を最大化する指示出しの新常識：コンテキストとハーネス・エンジニアリング</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      margin: 0;
+      padding: 24px;
+    }
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .infographic {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .title-block {
+      text-align: left;
+      margin-bottom: 24px;
+      border-left: 4px solid #38bdf8;
+      padding-left: 16px;
+    }
+    .title-block h1 {
+      font-size: 1.8rem;
+      margin: 0 0 8px;
+    }
+    .title-block h2 {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #9ca3af;
+      margin: 0 0 12px;
+    }
+    .tagline {
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .card {
+      background: #111827;
+      border-radius: 12px;
+      padding: 14px 16px;
+      border: 1px solid #1f2937;
+    }
+    .card h3 {
+      font-size: 0.95rem;
+      margin: 0 0 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #e5e7eb;
+    }
+    .pill {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #1f2937;
+      color: #9ca3af;
+      margin-left: 4px;
+    }
+    .card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+    .card ul li {
+      margin-bottom: 4px;
+      position: relative;
+      padding-left: 14px;
+    }
+    .card ul li::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #38bdf8;
+      font-size: 0.9rem;
+    }
+    .section-title {
+      font-size: 1rem;
+      margin: 24px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #e5e7eb;
+    }
+    .section-title span.icon {
+      font-size: 1.2rem;
+    }
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      font-size: 0.8rem;
+    }
+    .timeline-item {
+      background: #020617;
+      border-radius: 10px;
+      padding: 10px 12px;
+      border: 1px dashed #1f2937;
+    }
+    .timeline-item h4 {
+      margin: 0 0 4px;
+      font-size: 0.8rem;
+      color: #e5e7eb;
+    }
+    .timeline-item .label {
+      font-size: 0.7rem;
+      color: #9ca3af;
+      margin-bottom: 4px;
+    }
+    .highlight {
+      color: #22c55e;
+      font-weight: 600;
+    }
+    .danger {
+      color: #f97316;
+      font-weight: 600;
+    }
+    .matrix {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      font-size: 0.8rem;
+    }
+    .matrix-cell {
+      background: #020617;
+      border-radius: 10px;
+      padding: 10px 12px;
+      border: 1px solid #1f2937;
+    }
+    .matrix-cell h4 {
+      margin: 0 0 4px;
+      font-size: 0.8rem;
+    }
+    .footer-note {
+      margin-top: 24px;
+      font-size: 0.75rem;
+      color: #6b7280;
+    }
+    @media (max-width: 900px) {
+      .grid,
+      .timeline,
+      .matrix {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="infographic">
+    <!-- タイトル & リンク -->
+    <div class="title-block">
+      <h1>AI性能を最大化する指示出しの新常識</h1>
+      <h2>コンテキストとハーネス・エンジニアリングで「業務を最後まで終わらせる」AI運用へ</h2>
+      <div class="tagline">
+        動画リンク：
+        <a href="https://www.youtube.com/watch?v=nzhjwCyqXpE" target="_blank" rel="noopener">
+          【新常識】AIの性能が爆上がりするプロンプト・指示だしの基礎を徹底的に解説！
+        </a>
+      </div>
+    </div>
+
+    <!-- 1. エグゼクティブ・サマリー -->
+    <div class="grid">
+      <div class="card">
+        <h3>🧠 東大生以上の知能と「動かないAI」問題 <span class="pill">課題</span></h3>
+        <ul>
+          <li>AIは高知能化しているのに「期待通りに動かない」と感じるユーザーが多数。</li>
+          <li>原因はユーザーのスキル不足ではなく、指示出しの作法の変化に未対応なこと。</li>
+          <li>従来のプロンプト記述に固執すると、AIの性能を十分に引き出せない。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📚 新パラダイム：コンテキスト＆ハーネス <span class="pill">120%性能</span></h3>
+        <ul>
+          <li>文章テクニック中心の「プロンプト・エンジニアリング」からの脱却。</li>
+          <li>情報環境を設計する「コンテキスト・エンジニアリング」。</li>
+          <li>職場環境とルールを設計する「ハーネス・エンジニアリング」へ拡張。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🎯 ゴールは「業務完了」 <span class="pill">目的</span></h3>
+        <ul>
+          <li>目的は「良い回答」ではなく「仕事を最後まで安全に終わらせること」。</li>
+          <li>AIに自律的な修正ループとセルフリカバリーを組み込む発想が必須。</li>
+          <li>1枚のルールメモを育てることで、生産性を爆発的に高められる。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 2. 従来型プロンプトの限界 -->
+    <div class="section-title">
+      <span class="icon">✏️</span>従来型プロンプトの限界とAIの思考メカニズム
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3>😶 曖昧な指示の限界</h3>
+        <ul>
+          <li>「いい感じにやっておいて」という曖昧指示は人間同様AIにも通用しない。</li>
+          <li>出力形式・ターゲット・構造を明示すると精度は大幅に向上。</li>
+          <li>ただし、複雑な「魔法の呪文集」への依存は時代遅れになりつつある。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🧩 AIが嘘をつく理由（ハルシネーション）</h3>
+        <ul>
+          <li>AIは社内独自データや人間しか知らない前提を勝手に把握できない。</li>
+          <li>本質は「次に来る最も確率の高い言葉」を予測する超高精度変換。</li>
+          <li>情報が足りないと「わかりません」と言わず、確率的推測で空白を埋めてしまう。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📊 アウトプット品質を決めるもの</h3>
+        <ul>
+          <li>AIの回答の質は「何を見せたか（情報の質と量）」でほぼ一意に決まる。</li>
+          <li>プロンプトの言い回しより、渡すコンテキスト設計が決定的に重要。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 3. コンテキスト・エンジニアリング -->
+    <div class="section-title">
+      <span class="icon">🗂</span>第1の革新：コンテキスト・エンジニアリング（作業机の設計）
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="label">概念</div>
+        <h4>🪑 「作業机の上に何を載せるか」を設計</h4>
+        <p>
+          プロンプト文を磨くのではなく、AIが作業する机に載せる情報を設計するアプローチ。
+          コンテキストウィンドウ（机の広さ）にはトークン数の上限がある。
+        </p>
+      </div>
+      <div class="timeline-item">
+        <div class="label">5大情報アセット</div>
+        <h4>📁 指示書・背景・メモ・参考資料・ツール設定</h4>
+        <p>
+          1. 指示書：役割・ルール<br />
+          2. 背景：目的・前提条件<br />
+          3. メモ：既決事項<br />
+          4. 参考資料：商品データ・マニュアル等<br />
+          5. ツール設定：外部ツールの利用条件
+        </p>
+      </div>
+      <div class="timeline-item">
+        <div class="label">リスクと対策</div>
+        <h4>⚠️ コンテキストのあふれ・中弛み・セキュリティ</h4>
+        <p>
+          ・長会話で古い前提が消えるコンテキストウィンドウの限界。<br />
+          ・長文中央の情報を思い出しづらくなる「Lost in the Middle」。<br />
+          ・社内ルール遵守・学習オフ・マスキングで安全に共有。<br />
+          ・知識は外部プロジェクト/Notebookに整理し、タスクごとに新チャットを立ち上げる。
+        </p>
+      </div>
+    </div>
+
+    <!-- 4. ハーネス・エンジニアリング -->
+    <div class="section-title">
+      <span class="icon">🏗</span>第2の革新：ハーネス・エンジニアリング（働く環境とルール）
+    </div>
+    <div class="grid">
+      <div class="card">
+        <h3>🪢 ハーネスの定義と背景</h3>
+        <ul>
+          <li>コンテキストだけでは「確認・修正」まで含む実務ループは完了しない。</li>
+          <li>ハーネス＝安全帯・制御用具。AIが働く職場全体と運用の仕組みの設計。</li>
+          <li>2026年にMitchell Hashimoto氏が提唱し、OpenAI・Anthropicが普及を後押し。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🛡 ガードレールと会社ルールの固定化</h3>
+        <ul>
+          <li>仕事の手順・利用可能な道具・進捗メモ・権限・ダブルチェック・エラー対応を構造化。</li>
+          <li>AIの暴走を防ぐ安全装置＝ガードレール。</li>
+          <li>会社独自の運用ルールはWebにはないため、人間が環境として定義する必要がある。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>📄 ルールファイルによる仕組み化（agent.md）</h3>
+        <ul>
+          <li>作業フォルダーに`agent.md` / `claude.md`を置き、指示・ルールを集約。</li>
+          <li>AIエージェントは作業開始時にこのファイルを読み込み、自ら環境を構成。</li>
+          <li>「新人への引き継ぎ書」をAI用に書くイメージで運用する。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5. agent.mdとセルフリカバリー -->
+    <div class="section-title">
+      <span class="icon">⚙️</span>実践：agent.mdによる業務自動化とセルフリカバリー
+    </div>
+    <div class="matrix">
+      <div class="matrix-cell">
+        <h4>📑 ルールファイルに含めるべき4要素</h4>
+        <p>
+          1. 仕事の手順：業務ステップを具体的に記述。<br />
+          2. 一次情報の指定：数字・事実を参照すべき資料名。<br />
+          3. 禁止事項：外部共有禁止・フォーマット制約など。<br />
+          4. 記録場所：進捗・ログを書き残すメモファイル。
+        </p>
+      </div>
+      <div class="matrix-cell">
+        <h4>📂 10社分提案書作成の自律プロセス</h4>
+        <p>
+          ・顧客リストを1社ずつ調査し、業種別に提案方針を自律立案。<br />
+          ・1社完了ごとに`progress.txt`へ記録し、翌日「5社目から再開」が可能。<br />
+          ・会社情報が見つからない場合も停止せず、別キーワードで再検索。<br />
+          ・敬称ミスを発見したら`agent.md`に1行追記し、同じミスを永久防止。
+        </p>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top: 16px;">
+      <div class="card">
+        <h3>📈 ハーネス改善がもたらす成果</h3>
+        <ul>
+          <li>モデル本体を変えず、ハーネスだけ改善してLangChainテストスコアが52.8%→66.5%に向上。</li>
+          <li>OpenAIでは、人間がコードを書かずに100万行規模ソフトウェアを構築した事例も。</li>
+          <li>「仕組みの設計」がAI性能を120%以上引き出す鍵になる。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>🧭 プロンプト・コンテキスト・ハーネスの連続性</h3>
+        <ul>
+          <li>プロンプト：単一指示文のブラッシュアップ。</li>
+          <li>コンテキスト：作業机（情報環境）の設計。</li>
+          <li>ハーネス：職場（ルール・手順・監視）の構築。</li>
+          <li>すべては「AIに何を見せて、どう働かせるか」という設計範囲の拡張に過ぎない。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 6. 結論 -->
+    <div class="section-title">
+      <span class="icon">🎯</span>結論：プロンプト職人から「業務委譲の設計者」へ
+    </div>
+    <div class="card">
+      <h3>🚀 明日から変えるべきこと</h3>
+      <ul>
+        <li>魔法のプロンプト集を増やすより、「1枚のルールメモ」を育てることに時間を使う。</li>
+        <li>AIに任せたい業務の手順・一次情報・禁止事項・記録場所を明文化してファイル化。</li>
+        <li>目的は「良い回答」ではなく「業務を無事に終わらせること」であると再定義する。</li>
+        <li>コンテキストとハーネスを設計することで、AIを真の「自律的な同僚」に変えていく。</li>
+      </ul>
+    </div>
+
+    <div class="footer-note">
+      ※本インフォグラフィックは、コンテキスト・エンジニアリングとハーネス・エンジニアリングの概念をもとに、
+      実務でAIの性能を最大化するための指示出しの新常識を要約したブリーフィング用レイアウトです。
+    </div>
+  </div>
+</body>
+</html>
