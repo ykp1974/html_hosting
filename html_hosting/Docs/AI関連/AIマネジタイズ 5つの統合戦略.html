@@ -1,0 +1,560 @@
+```
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIマネジタイズ 5つの統合戦略</title>
+<style>
+:root{
+  --bg:#07111f; --panel:#0d1b2d; --panel2:#10253d;
+  --text:#f3f8ff; --muted:#9eb1c7; --line:rgba(255,255,255,.1);
+  --cyan:#45d9ff; --blue:#6685ff; --purple:#ad7cff;
+  --green:#43e3a4; --orange:#ffb84d; --pink:#ff7090;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;color:var(--text);background:
+  radial-gradient(circle at 10% 0%,rgba(69,217,255,.13),transparent 28%),
+  radial-gradient(circle at 90% 12%,rgba(173,124,255,.14),transparent 30%),
+  var(--bg);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Kaku Gothic ProN",
+  "Yu Gothic",Meiryo,sans-serif;line-height:1.7;
+}
+.container{width:min(1180px,calc(100% - 32px));margin:auto}
+header{text-align:center;padding:64px 0 38px}
+.badge{
+  display:inline-block;padding:6px 14px;border:1px solid rgba(69,217,255,.35);
+  border-radius:999px;color:var(--cyan);font-size:.78rem;font-weight:800;
+  letter-spacing:.12em;background:rgba(69,217,255,.06)
+}
+h1{
+  margin:18px auto 12px;max-width:950px;font-size:clamp(2.3rem,6vw,5rem);
+  line-height:1.04;letter-spacing:-.05em;
+  background:linear-gradient(100deg,#fff,#77e7ff 48%,#c29cff);
+  -webkit-background-clip:text;background-clip:text;color:transparent
+}
+.lead{max-width:780px;margin:auto;color:var(--muted);font-size:1.08rem}
+.video{
+  display:block;max-width:850px;margin:26px auto 0;padding:16px 20px;
+  color:#e9fbff;text-decoration:none;font-weight:700;text-align:left;
+  border:1px solid rgba(69,217,255,.3);border-radius:15px;
+  background:linear-gradient(135deg,rgba(69,217,255,.11),rgba(102,133,255,.09));
+  transition:.2s
+}
+.video:hover{transform:translateY(-2px);border-color:var(--cyan)}
+section{margin:34px 0}
+.section-title{
+  display:flex;align-items:center;gap:12px;margin:0 0 18px;font-size:1.65rem
+}
+.section-title:before{
+  content:"";width:5px;height:30px;border-radius:5px;
+  background:linear-gradient(var(--cyan),var(--purple))
+}
+.card{
+  background:linear-gradient(145deg,rgba(16,37,61,.96),rgba(9,25,42,.96));
+  border:1px solid var(--line);border-radius:20px;padding:24px;
+  box-shadow:0 20px 60px rgba(0,0,0,.25)
+}
+.hero{
+  display:grid;grid-template-columns:1.25fr .75fr;gap:18px
+}
+.big{font-size:clamp(1.35rem,2.5vw,2rem);line-height:1.45;font-weight:800}
+.cyan{color:var(--cyan)}.purple{color:var(--purple)}
+.green{color:var(--green)}.orange{color:var(--orange)}
+.muted{color:var(--muted)}
+.numbers{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px
+}
+.number{min-height:145px;display:flex;flex-direction:column;justify-content:space-between}
+.num{font-size:2.5rem;font-weight:900;color:var(--cyan);line-height:1}
+.number:nth-child(2) .num{color:var(--purple)}
+.number:nth-child(3) .num{color:var(--green)}
+.small{font-size:.8rem;color:#72869b}
+.strategy-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:12px
+}
+.strategy{
+  position:relative;overflow:hidden;padding:22px 18px;min-height:235px
+}
+.strategy:before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:var(--cyan)
+}
+.strategy:nth-child(2):before{background:var(--purple)}
+.strategy:nth-child(3):before{background:var(--green)}
+.strategy:nth-child(4):before{background:var(--orange)}
+.strategy:nth-child(5):before{background:var(--pink)}
+.strategy .icon{font-size:2rem}
+.strategy h3{font-size:1rem;margin:10px 0 7px}
+.strategy p{font-size:.82rem;color:var(--muted);margin:0}
+.tag{
+  display:inline-block;margin-top:14px;padding:4px 8px;border-radius:7px;
+  font-size:.7rem;background:rgba(255,255,255,.06);color:#d8e7f6
+}
+.process{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:18px
+}
+.step{
+  position:relative;padding:20px;background:#0a1a2c;border:1px solid var(--line)
+}
+.step:first-child{border-radius:14px 0 0 14px}
+.step:last-child{border-radius:0 14px 14px 0}
+.step .n{font-size:1.7rem;font-weight:900;color:var(--cyan)}
+.step strong{display:block}
+.step span{font-size:.82rem;color:var(--muted)}
+.arrows{text-align:center;color:var(--cyan);font-size:1.5rem}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.value-list{display:grid;gap:10px}
+.value{
+  padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.035);
+  border-left:3px solid var(--cyan)
+}
+.value strong{display:block}.value span{font-size:.84rem;color:var(--muted)}
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px}
+table{width:100%;min-width:850px;border-collapse:collapse;background:rgba(8,22,38,.8)}
+th,td{padding:14px 15px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:#10253d;color:#dff1ff;font-size:.82rem}
+td{color:#bfccdb;font-size:.86rem}
+tr:last-child td{border-bottom:0}
+.model{
+  display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:center;gap:12px
+}
+.node{
+  min-height:130px;padding:20px;text-align:center;border-radius:16px;
+  border:1px solid var(--line);background:#091a2c
+}
+.node strong{display:block;font-size:1.05rem;margin-bottom:7px}
+.node small{color:var(--muted)}
+.arrow{font-size:1.8rem;color:var(--cyan)}
+.recurring{
+  margin-top:18px;padding:22px;border-radius:16px;
+  background:linear-gradient(135deg,rgba(69,217,255,.08),rgba(173,124,255,.08));
+  border:1px solid rgba(69,217,255,.2)
+}
+.recurring h3{margin-top:0}
+.loop{
+  display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap
+}
+.circle{
+  width:100px;height:100px;border:3px dashed var(--purple);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900
+}
+.center-text{color:var(--muted);max-width:650px}
+.focus{
+  padding:34px;text-align:center;border-radius:22px;
+  background:
+    radial-gradient(circle at center,rgba(69,217,255,.13),transparent 50%),
+    linear-gradient(145deg,#10253d,#0a192b);
+  border:1px solid rgba(69,217,255,.22)
+}
+.focus h2{font-size:clamp(1.7rem,4vw,3rem);margin:12px 0}
+.focus .one{font-size:1.15rem;color:#fff;font-weight:750}
+.footer{padding:25px 0 35px;color:#70869d;text-align:center;font-size:.76rem}
+@media(max-width:950px){
+  .strategy-grid{grid-template-columns:repeat(2,1fr)}
+  .hero,.twocol{grid-template-columns:1fr}
+  .numbers{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .container{width:calc(100% - 20px)}
+  header{padding-top:40px}
+  .strategy-grid{grid-template-columns:1fr}
+  .process{grid-template-columns:1fr}
+  .step:first-child,.step:last-child{border-radius:0}
+  .model{grid-template-columns:1fr}
+  .arrow{transform:rotate(90deg);justify-self:center}
+}
+</style>
+</head>
+
+<body>
+<main class="container">
+
+<header>
+  <span class="badge">AI BUSINESS MONETIZATION</span>
+  <h1>AIを活用した<br>5つの統合マネジタイズ戦略</h1>
+  <p class="lead">
+    AIを「作業効率化ツール」ではなく、
+    サービス提供・集客・コンテンツ・教育・営業の
+    <strong>ビジネスエンジン</strong>として組み込む。
+  </p>
+
+  <a class="video"
+     href="https://www.youtube.com/watch?v=OV6TpMNSXFk"
+     target="_blank"
+     rel="noopener noreferrer">
+    These 5 Ways to Use AI Will Make You $1M (Anyone Can Start)
+  </a>
+</header>
+
+<section>
+  <h2 class="section-title">01 — まず押さえる全体像</h2>
+
+  <div class="hero">
+    <div class="card">
+      <div class="big">
+        AIの価値は「自分の仕事を速くする」だけではない。<br>
+        <span class="cyan">他社の成果をAIで生み出し、その仕組み自体を商品化する</span>
+        ことで、収益モデルへ変換できる。
+      </div>
+      <p class="muted">
+        本資料では、Dan Martell氏の実戦フレームワークをもとに、
+        AIを中心とした5つのマネタイズモデルを整理。
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="muted">共通する収益設計</div>
+      <div style="font-size:1.8rem;font-weight:900;margin:10px 0">
+        初期売上
+        <span class="cyan">＋</span>
+        継続収益
+      </div>
+      <p class="muted" style="margin-bottom:0">
+        制作・導入費だけで終わらず、
+        保守・更新・コミュニティ・継続支援などへ接続する。
+      </p>
+    </div>
+  </div>
+
+  <div class="numbers">
+    <div class="card number">
+      <div class="num">5</div>
+      <div>
+        <strong>統合戦略</strong>
+        <div class="muted">サービス・コンテンツ・Web・教育・ネットワーク</div>
+      </div>
+    </div>
+    <div class="card number">
+      <div class="num">AI</div>
+      <div>
+        <strong>共通エンジン</strong>
+        <div class="muted">生成・分析・自動化・パーソナライズ</div>
+      </div>
+    </div>
+    <div class="card number">
+      <div class="num">1</div>
+      <div>
+        <strong>最重要原則</strong>
+        <div class="muted">すべてを同時にやらず、1領域へ集中</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">02 — 5つのマネジタイズ戦略</h2>
+
+  <div class="strategy-grid">
+    <div class="card strategy">
+      <div class="icon">🧠</div>
+      <h3>① パーソナライズ型<br>GPTエコシステム</h3>
+      <p>経営者ごとの業務・口調・目標を分析し、GPT・プロンプト・SOP・プロジェクト環境を構築。</p>
+      <span class="tag">初期構築＋月額保守</span>
+    </div>
+
+    <div class="card strategy">
+      <div class="icon">♻️</div>
+      <h3>② コンテンツ<br>マルチ展開</h3>
+      <p>長尺動画・PodcastをAIで分解し、ショート動画、SNS投稿、カルーセルなどへ再利用。</p>
+      <span class="tag">受託費＋レベニューシェア</span>
+    </div>
+
+    <div class="card strategy">
+      <div class="icon">🌐</div>
+      <h3>③ AI<br>ウェブサイトスタジオ</h3>
+      <p>ノーコードAIを活用し、WebサイトやLPを制作。更新・メール自動化まで継続支援。</p>
+      <span class="tag">制作費＋月額保守</span>
+    </div>
+
+    <div class="card strategy">
+      <div class="icon">🎓</div>
+      <h3>④ AIワークショップ<br>・教育</h3>
+      <p>自分の経験や成果をAIでカリキュラム化し、講座・研修・動画教材として販売。</p>
+      <span class="tag">講座＋コミュニティ</span>
+    </div>
+
+    <div class="card strategy">
+      <div class="icon">🔎</div>
+      <h3>⑤ 隠れた<br>ネットワーク発掘</h3>
+      <p>メール・SNSの既存ネットワークをAI分析し、顧客・投資家・メディア・提携先候補を発見。</p>
+      <span class="tag">自社売上の拡大</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">03 — 戦略① GPTエコシステムの構築フロー</h2>
+
+  <div class="card">
+    <div class="process">
+      <div class="step">
+        <div class="n">01</div>
+        <strong>Context</strong>
+        <span>業務・嗜好・目標・口調などをインテーク</span>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <strong>Assets</strong>
+        <span>マスタープロンプト・GPT・プロジェクトを設計</span>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <strong>SOP</strong>
+        <span>日常業務で使えるプレイブックを自動作成</span>
+      </div>
+      <div class="step">
+        <div class="n">04</div>
+        <strong>Deploy</strong>
+        <span>AI環境へ配置・ラベル付け・運用開始</span>
+      </div>
+    </div>
+
+    <div class="recurring">
+      <h3 class="cyan">↻ その後：月額メンテナンスへ</h3>
+      <div class="loop">
+        <div class="circle">AI<br>環境</div>
+        <div class="center-text">
+          AIは継続的にアップデートされるため、
+          プロンプト、GPT、SOP、環境設定を定期的に更新する
+          <strong style="color:#fff">「運用保守」</strong>を継続課金化できる。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">04 — コンテンツを「1 → N」に変換する</h2>
+
+  <div class="card">
+    <div class="model">
+      <div class="node">
+        <strong>長尺コンテンツ</strong>
+        <small>YouTube / Podcast<br>既存アーカイブ</small>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node">
+        <strong class="purple">AIで抽出・再構成</strong>
+        <small>文字起こし<br>高反応ポイントを発見</small>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node">
+        <strong class="green">複数フォーマット</strong>
+        <small>Shorts / SNS / カルーセル<br>投稿文など</small>
+      </div>
+    </div>
+
+    <div class="twocol" style="margin-top:18px">
+      <div class="value">
+        <strong>PSL = Point / Story / Lesson</strong>
+        <span>長尺コンテンツから「主張・ストーリー・学び」を抽出し、短尺向けに再構成。</span>
+      </div>
+      <div class="value">
+        <strong>狙う顧客</strong>
+        <span>長尺コンテンツは大量に持っているが、SNS・短尺展開ができていない企業。</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">05 — AIでWeb制作をサービス化</h2>
+
+  <div class="twocol">
+    <div class="card">
+      <h3 class="green">AI Website Studio</h3>
+      <div class="value-list">
+        <div class="value">
+          <strong>① Intake</strong>
+          <span>ブランド、目的、文章トーンを収集</span>
+        </div>
+        <div class="value">
+          <strong>② Generate</strong>
+          <span>情報をプロンプト化し、AI Webツールでサイト生成</span>
+        </div>
+        <div class="value">
+          <strong>③ Feedback</strong>
+          <span>顧客フィードバックをAIへ返して修正</span>
+        </div>
+        <div class="value">
+          <strong>④ Maintain</strong>
+          <span>更新、LP、メール自動化などを継続支援</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="orange">収益ポイントを増やす</h3>
+      <p class="muted">
+        「Webサイトを作って納品」で終わらせず、
+        運用フェーズまでサービス範囲を広げる。
+      </p>
+
+      <div style="display:grid;gap:10px">
+        <div class="value"><strong>制作費</strong><span>サイト・LPの初期構築</span></div>
+        <div class="value"><strong>月額保守</strong><span>更新・改善・追加制作</span></div>
+        <div class="value"><strong>自動化支援</strong><span>AIメールなどの業務自動化</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">06 — 「経験」を教育ビジネスへ変換</h2>
+
+  <div class="card">
+    <div class="process">
+      <div class="step">
+        <div class="n">01</div>
+        <strong>Interview</strong>
+        <span>AIに初心者役をさせ、自分の経験を掘り起こす</span>
+      </div>
+      <div class="step">
+        <div class="n">02</div>
+        <strong>Curriculum</strong>
+        <span>レッスン・アウトライン・モデルを生成</span>
+      </div>
+      <div class="step">
+        <div class="n">03</div>
+        <strong>Practice</strong>
+        <span>対象者に合わせたケーススタディを作成</span>
+      </div>
+      <div class="step">
+        <div class="n">04</div>
+        <strong>Package</strong>
+        <span>4MAT構造などで体系化し、動画・講座化</span>
+      </div>
+    </div>
+
+    <div class="focus" style="margin-top:20px">
+      <div class="badge">KEY IDEA</div>
+      <div class="one" style="margin-top:14px">
+        「完全な専門家」でなくてもいい。
+      </div>
+      <h2>対象者より<span class="cyan">数歩先</span>のガイドになる。</h2>
+      <p class="muted" style="max-width:700px;margin:auto">
+        自分が実際に経験した課題、失敗、成果を整理し、
+        AIの力で再現可能な学習体験へ変換する。
+      </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">07 — 眠っている人脈を「機会」に変える</h2>
+
+  <div class="card">
+    <div class="model">
+      <div class="node">
+        <strong>既存データ</strong>
+        <small>Email<br>LinkedIn / Instagram / X</small>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node">
+        <strong class="purple">AI分析</strong>
+        <small>属性・関係性・投稿<br>公開情報などを整理</small>
+      </div>
+      <div class="arrow">→</div>
+      <div class="node">
+        <strong class="green">Opportunity</strong>
+        <small>顧客 / 投資家 / メディア<br>提携候補</small>
+      </div>
+    </div>
+
+    <div class="twocol" style="margin-top:18px">
+      <div class="value">
+        <strong>条件検索</strong>
+        <span>「特定地域のポッドキャスト関係者」「特定業界の担当者」などを抽出。</span>
+      </div>
+      <div class="value">
+        <strong>動的スニペット</strong>
+        <span>相手との関係性や文脈に合わせたアプローチ文をAIで生成。</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2 class="section-title">08 — 5戦略を比較する</h2>
+
+  <div class="card">
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>戦略</th>
+            <th>主な顧客</th>
+            <th>提供価値</th>
+            <th>主なツール</th>
+            <th>収益構造</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>① GPTエコシステム</strong></td>
+            <td>経営者・企業</td>
+            <td>GPT / プロンプト / SOP</td>
+            <td>ChatGPT / Claude / Gemini</td>
+            <td>構築費＋月額保守</td>
+          </tr>
+          <tr>
+            <td><strong>② コンテンツ展開</strong></td>
+            <td>コンテンツ保有企業</td>
+            <td>短尺・SNSへの再利用</td>
+            <td>ChatGPT / 文字起こし</td>
+            <td>月額受託・レベニューシェア</td>
+          </tr>
+          <tr>
+            <td><strong>③ Web Studio</strong></td>
+            <td>新規事業主・企業</td>
+            <td>Web / LP / 自動化</td>
+            <td>Lovable / Framer等</td>
+            <td>制作費＋月額保守</td>
+          </tr>
+          <tr>
+            <td><strong>④ Workshop</strong></td>
+            <td>学習者・企業</td>
+            <td>講座・研修・動画教材</td>
+            <td>ChatGPT</td>
+            <td>受講料・コミュニティ</td>
+          </tr>
+          <tr>
+            <td><strong>⑤ Network Finder</strong></td>
+            <td>事業展開者</td>
+            <td>顧客・提携・メディア発掘</td>
+            <td>Social Suite / AI分析</td>
+            <td>自社売上の拡大</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="focus">
+    <span class="badge">MASTER ONE</span>
+    <h2>5つ全部をやらない。</h2>
+    <div class="one">
+      <span class="cyan">「1つ選ぶ → 集中する → 熟達する」</span>
+    </div>
+    <p class="muted" style="max-width:760px;margin:16px auto 0">
+      複数の可能性があるからこそ、最初からすべてを追いかけない。
+      1つのモデルでAIによる価値提供の仕組みを磨き、
+      独自性と再現性を高めることが重要な実行原則。
+    </p>
+  </div>
+</section>
+
+<footer>
+  本インフォグラフィックは、提供されたブリーフィング・ドキュメントの内容を
+  視覚的に整理・再構成したものです。本文中の人物名、サービス名、収益例、
+  フレームワーク等は原文の記載に基づいています。
+</footer>
+
+</main>
+</body>
+</html>
+```
