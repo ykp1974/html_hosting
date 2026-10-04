@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Claude Codeの概要と非エンジニア向け活用法に関するブリーフィング文書</title>
+    <style>
+        :root {
+            --claude-coral: #cc785c;
+            --claude-dark: #2d3748;
+            --bg-smoke: #fcfbfa;
+            --text-dark: #1e293b;
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-smoke); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: var(--claude-dark); border-bottom: 3px solid var(--claude-coral); padding-bottom: 10px; }
+        .source-link { display: block; margin: 20px 0; padding: 15px; background: #faf5f2; border-left: 5px solid var(--claude-coral); text-decoration: none; color: #a85a40; font-weight: bold; }
+        
+        .section { margin: 30px 0; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; }
+        .card h3 { color: var(--claude-coral); margin-top: 0; }
+        
+        .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; margin-top: 15px; }
+        .tips-card { background: #faf5f2; border: 1px solid #f2e6e0; padding: 15px; border-radius: 6px; }
+        .tips-card h4 { margin-top: 0; color: var(--claude-dark); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Claude Codeの概要と非エンジニア向け活用法に関するブリーフィング文書</h1>
+    
+    <a href="https://www.youtube.com/watch?v=ahzwOeo01hE" class="source-link" target="_blank">
+        動画参照：知識不要】Claude Codeはすべての人が使うべきAIです
+    </a>
+
+    <div class="section">
+        <h2>1. エグゼクティブ・サマリー</h2>
+        <p>Anthropic社が提供する「Claude Code」は、プログラミング知識が一切ない非エンジニアであっても、対話のみで業務自動化ツールやダッシュボードなどの「自分専用の武器」を構築できる革新的なAIエージェントです。Anthropic社の企業価値急膨張とともに導入が爆発的に進んでおり、その基本概要と非エンジニアが失敗しないための「5つの開発のコツ」を解説します。</p>
+    </div>
+
+    <div class="section grid-2">
+        <div class="card">
+            <h3>2. 基本概要と通常版Claudeとの違い</h3>
+            <p>内部のAIモデル自体は通常のClaudeと同一。違いは以下の2点：</p>
+            <ul>
+                <li><strong>システムプロンプトの搭載：</strong>コード作成に最適化された裏側の指示書が内蔵されている。</li>
+                <li><strong>ファイル・PC操作権限：</strong>画面上の応答だけでなく、PC内のファイルを直接書き換えて動作チェックが可能。</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>3. 作れるものと限界（活用指針）</h3>
+            <p><strong>目指すべき領域：</strong>自社の複雑な事情（在庫、売上、常連客の好み等）に100%フィットした「自分専用の業務自動化ツール」や「店舗運営ダッシュボード」。<br><strong>限界領域：</strong>大規模プラットフォーム、商用SaaS、リッチなゲームなど（セキュリティや法律の壁）。</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. AI時代のプログラミング コツ5選</h2>
+        <div class="tips-grid">
+            <div class="tips-card">
+                <h4>コツ1：グリルミースキル</h4>
+                <p><code>/grillme</code>を実行してAIに質問攻めにさせ、要件を具体化。難解な用語は「新卒社会人でも分かるように」と指示。</p>
+            </div>
+            <div class="tips-card">
+                <h4>コツ2：見た目から作る</h4>
+                <p>裏側のデータ処理の前に、画面の配置や色など「表側の見た目」を先行して確定し、軸のブレを防ぐ。</p>
+            </div>
+            <div class="tips-card">
+                <h4>コツ3：プランモードの活用</h4>
+                <p>自動実装させず「プランモード」で計画を立てる。「プロのUI/UXデザイナーとしてモダンな開発で計画を」と指示。</p>
+            </div>
+            <div class="tips-card">
+                <h4>コツ4：サブエージェントレビュー</h4>
+                <p>独立した別のAIにコードを客観的に監査させ、構造的欠陥や考慮漏れを指摘させる。必要時はアスキーアートで図解指示。</p>
+            </div>
+            <div class="tips-card" style="grid-column: 1 / -1;">
+                <h4>コツ5：節目で記憶（コンテキスト）をリセットする</h4>
+                <p>やり取りが長くなり容量が30%〜40%に達すると精度が低下するため、引き継ぎメモを作成してコピーし、<code>/clear</code>で記憶をリセットして再開する。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
+        <h2>5. 結論とまとめ</h2>
+        <p>コード記述自体はAIが行う「おまけ」に過ぎません。真に重要なのは<strong>「自分が何をつくりたいのかを言葉にして伝える力」</strong>です。紹介したコツを徹底することで、非エンジニアであっても日々の煩雑なルーティン業務を全自動化する強力な自作ツールを手に入れることができます。</p>
+    </div>
+</div>
+
+</body>
+</html>
