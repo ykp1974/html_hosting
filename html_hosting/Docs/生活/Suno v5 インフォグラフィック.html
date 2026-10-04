@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Suno v5 インフォグラフィック</title>
+<style>
+:root{--bg:#f6f4fb;--card:#fff;--ink:#1c1b2e;--sub:#5d5b75;--line:#e4e0f0;--a:#7c3aed;--b:#ec4899;--c:#0ea5e9;--ok:#16a34a;--warn:#d97706;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14121f;--card:#1f1c30;--ink:#f1eefc;--sub:#a9a5c4;--line:#322e4a}}
+:root[data-theme="dark"]{--bg:#14121f;--card:#1f1c30;--ink:#f1eefc;--sub:#a9a5c4;--line:#322e4a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:'Hiragino Sans','Yu Gothic','Meiryo',sans-serif;line-height:1.7}
+.wrap{max-width:1000px;margin:0 auto;padding:16px}
+header{background:linear-gradient(135deg,var(--a),var(--b));color:#fff;border-radius:20px;padding:36px 24px;text-align:center}
+h1{font-size:clamp(1.5rem,5vw,2.3rem);line-height:1.3}
+header p{opacity:.9;margin:8px 0 18px}
+.link{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);color:#fff;text-decoration:none;padding:10px 20px;border-radius:30px;font-weight:600}
+h2{font-size:1.4rem;margin:36px 0 14px;padding-left:12px;border-left:5px solid var(--a)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.pillar{text-align:center}
+.pillar .ic{font-size:2rem}
+.pillar b{display:block;font-size:1.1rem;margin:4px 0}
+.pillar span,.sub{color:var(--sub);font-size:.92rem}
+.stat{text-align:center;background:linear-gradient(135deg,var(--a),var(--c));color:#fff;border:0}
+.stat big{display:block;font-size:2rem;font-weight:800}
+.shift{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.shift .card{flex:1;min-width:200px}
+.arrow{font-size:1.8rem;color:var(--a)}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;color:#fff;background:var(--a);border-radius:20px;padding:1px 10px;margin-bottom:6px}
+ul{padding-left:1.2em}
+li{margin:3px 0}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:520px}
+th{background:var(--a);color:#fff;text-align:left;padding:10px}
+td{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}
+.meter{height:12px;border-radius:8px;background:var(--line);margin:8px 0;overflow:hidden}
+.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--c),var(--b))}
+.vs{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.good{border-top:5px solid var(--ok)}.weak{border-top:5px solid var(--warn)}
+.concl{margin-top:36px;background:linear-gradient(135deg,#1c1b2e,#3b2a6b);color:#fff;border-radius:20px;padding:30px 22px;text-align:center}
+.concl h2{border:0;padding:0;margin:0 0 10px}
+@media (max-width:600px){.arrow{transform:rotate(90deg);width:100%;text-align:center}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>🎵 音楽生成AI「Suno v5」</h1>
+<p>機能特性と実用性のブリーフィング</p>
+<a class="link" href="https://www.youtube.com/watch?v=yPB414GsMso" target="_blank" rel="noopener">🎥 「もうAI音楽って笑えない」Suno v5の衝撃</a>
+</header>
+
+<h2>💡 エグゼクティブ・サマリー</h2>
+<div class="grid">
+<div class="card pillar"><div class="ic">🎧</div><b>卓越した音質</b><span>スタジオ品質を目指した出力</span></div>
+<div class="card pillar"><div class="ic">🎤</div><b>人間的なボーカル</b><span>息遣い・ビブラートまで再現</span></div>
+<div class="card pillar"><div class="ic">🎛️</div><b>高度なユーザー制御</b><span>詳細パラメータで意図通りに</span></div>
+</div>
+<div class="shift">
+<div class="card"><span class="tag" style="background:var(--sub)">従来</span><br>興味本位で試す娯楽ツール／「生成して終わり」</div>
+<div class="arrow">➜</div>
+<div class="card"><span class="tag">v5</span><br>MIDI出力＋最大12ステムで、DTMと融合する<b>「ハイブリッド制作」</b>へ</div>
+</div>
+
+<h2>📊 数字で見るv5</h2>
+<div class="grid">
+<div class="card stat"><big>8分</big>最大曲長</div>
+<div class="card stat"><big>12</big>ステム（パート別音声）</div>
+<div class="card stat"><big>50</big>全ステム取得のクレジット／回</div>
+<div class="card stat"><big>約1.5分</big>1曲スケッチの生成時間</div>
+</div>
+
+<h2>🚀 主要機能と技術的進化</h2>
+<div class="grid">
+<div class="card"><b>🔊 音質・周波数特性</b><ul><li>ノイズ大幅低減</li><li>高・中・低音域のバランスと厚みあるミックス</li><li>ロスレスDL対応、最大8分の長尺生成</li></ul></div>
+<div class="card"><b>🎤 ボーカル表現</b><ul><li>感情の深み、息遣い、ビブラート、音域制御が向上</li><li>男性／女性ボーカルを事前に固定指定可能</li></ul></div>
+<div class="card"><b>🧩 ステム＆MIDI出力</b><ul><li>ボーカル・ベース・ドラム等を最大12パートで書き出し</li><li>メロディをMIDI化し、DAWで特定フレーズのみ打ち直し可能</li></ul></div>
+<div class="card"><b>🎼 ジャンル対応力</b><ul><li>ジャズフュージョン、ディープハウス、フューチャーファンク、シティポップ等のニッチジャンルの構造理解が向上</li></ul></div>
+</div>
+
+<h2>🎛️ ユーザー制御パラメータ</h2>
+<div class="card scroll">
+<table>
+<thead><tr><th>機能</th><th>概要・特徴</th></tr></thead>
+<tbody>
+<tr><td><b>Write Full Song</b><br><span class="sub">歌詞自動生成</span></td><td>「自転車について」など簡単な入力で、Aメロ・Bメロ・サビ・リフレイン構成の歌詞を自動出力</td></tr>
+<tr><td><b>Exclude Style</b><br><span class="sub">スタイルの除外</span></td><td>排除したい要素を指定（例：ディストーションギター除外、シンセ除外で生音風に）</td></tr>
+<tr><td><b>Weirdness</b><br><span class="sub">奇抜さフェーダー</span></td><td>標準50%。100%では秩序が崩れ、アヴァンギャルドなノイズ／アンビエント／AIのハルシネーションに変化。通常は<b>50%前後</b>が推奨</td></tr>
+<tr><td><b>Style Influence</b><br><span class="sub">プロンプト忠実度</span></td><td>指定した指示文・スタイルをどれだけ忠実に再現するかを制御</td></tr>
+</tbody>
+</table>
+</div>
+<div class="card" style="margin-top:12px">
+<b>Weirdness の目安</b>
+<div class="meter"><i style="width:50%"></i></div>
+<div class="sub" style="display:flex;justify-content:space-between"><span>0% 秩序的</span><span>50% 標準（推奨）</span><span>100% 前衛・崩壊</span></div>
+</div>
+
+<h2>⚖️ 得意領域と技術的限界</h2>
+<div class="vs">
+<div class="card good">
+<b>✅ エレクトロニック・電子音系</b>
+<p class="sub">フューチャーファンク／シティポップ／K-POP風</p>
+<ul><li>ノイズなしで、印象的なベースライン・メロディ・フィルイン・ブレイクを一発生成</li><li>シンセや打ち込みドラムと相性が良く、AI特有の処理感が馴染む</li><li>そのまま実戦投入可能なレベル</li></ul>
+</div>
+<div class="card weak">
+<b>⚠️ 生音・レトロロック系</b>
+<p class="sub">70年代ピアノロック／シンガーソングライター風</p>
+<ul><li>ドラムの打ち込み感、ボーカルのケロケロ感、MIDIっぽいチープさが露呈しやすい</li><li>ただし構成・メロディ・楽器編成のスケッチ提示精度は高評価</li></ul>
+</div>
+</div>
+
+<h2>💼 運用コストと実務での位置付け</h2>
+<div class="grid">
+<div class="card"><b>💳 クレジット消費</b><p class="sub">全ステム取得に1回50クレジット。本格的なハイブリッド制作には相応のコストが必要。</p></div>
+<div class="card"><b>🛠️ 実務での活用</b><ul><li>アイデア出し</li><li>ベースライン・パーツ素材の採取</li><li>叩き台の作成</li></ul></div>
+</div>
+
+<div class="concl">
+<h2>🎯 結論</h2>
+<p>Suno v5は「生成して終わり」の限界を破り、MIDIとステムで<b>人間の制作フローに直接組み込めるツール</b>へ。<br>AIが素材とインスピレーションを出し、人間がDAWで仕上げるスタイルが、今後の新たな標準になる可能性を示している。</p>
+</div>
+</div>
+</body>
+</html>

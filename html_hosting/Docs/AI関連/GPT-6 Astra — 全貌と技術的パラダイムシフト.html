@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GPT-6 Astra — 全貌と技術的パラダイムシフト</title>
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: #0d1b2d;
+      --panel-2: #10243b;
+      --text: #eef6ff;
+      --muted: #9db0c6;
+      --cyan: #46d9ff;
+      --blue: #5d7cff;
+      --purple: #a879ff;
+      --green: #42e6a4;
+      --yellow: #ffd166;
+      --red: #ff6b7a;
+      --line: rgba(255,255,255,.10);
+      --shadow: 0 20px 60px rgba(0,0,0,.28);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 5%, rgba(70,217,255,.13), transparent 28%),
+        radial-gradient(circle at 90% 15%, rgba(168,121,255,.13), transparent 30%),
+        var(--bg);
+      color: var(--text);
+      font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN",
+        "Yu Gothic", Meiryo, sans-serif;
+      line-height: 1.7;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    header {
+      padding: 64px 0 38px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 13px;
+      border: 1px solid rgba(70,217,255,.35);
+      border-radius: 999px;
+      color: var(--cyan);
+      background: rgba(70,217,255,.07);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+    }
+
+    h1 {
+      margin: 18px auto 12px;
+      max-width: 1000px;
+      font-size: clamp(2.2rem, 6vw, 4.8rem);
+      line-height: 1.05;
+      letter-spacing: -.04em;
+      background: linear-gradient(100deg, #fff, #8eeaff 45%, #bda2ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      max-width: 780px;
+      margin: auto;
+      font-size: 1.08rem;
+    }
+
+    .source-link {
+      display: block;
+      max-width: 900px;
+      margin: 26px auto 0;
+      padding: 16px 20px;
+      color: #dff8ff;
+      background: linear-gradient(135deg, rgba(70,217,255,.12), rgba(93,124,255,.10));
+      border: 1px solid rgba(70,217,255,.25);
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 650;
+      transition: .2s ease;
+    }
+
+    .source-link:hover {
+      transform: translateY(-2px);
+      border-color: var(--cyan);
+      background: rgba(70,217,255,.16);
+    }
+
+    section { margin: 34px 0; }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      font-size: 1.65rem;
+    }
+
+    .section-title::before {
+      content: "";
+      width: 5px;
+      height: 30px;
+      border-radius: 5px;
+      background: linear-gradient(var(--cyan), var(--purple));
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, rgba(16,36,59,.96), rgba(10,25,42,.96));
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .big-statement {
+      font-size: clamp(1.35rem, 2.5vw, 2rem);
+      line-height: 1.4;
+      font-weight: 750;
+      margin: 0;
+    }
+
+    .highlight { color: var(--cyan); }
+    .purple { color: var(--purple); }
+    .green { color: var(--green); }
+    .yellow { color: var(--yellow); }
+    .red { color: var(--red); }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .metric {
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .metric-value {
+      font-size: 2.7rem;
+      line-height: 1;
+      font-weight: 850;
+      color: var(--cyan);
+    }
+
+    .metric:nth-child(2) .metric-value { color: var(--purple); }
+    .metric:nth-child(3) .metric-value { color: var(--green); }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .metric-note {
+      margin-top: 8px;
+      font-size: .78rem;
+      color: #71879e;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px;
+      background: rgba(9,22,38,.75);
+    }
+
+    th, td {
+      padding: 15px 16px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      color: #cfe7ff;
+      background: #10243b;
+      font-size: .84rem;
+    }
+
+    td { color: #c1cede; font-size: .9rem; }
+    tr:last-child td { border-bottom: 0; }
+
+    .score {
+      font-size: 1.5rem;
+      font-weight: 850;
+      color: var(--cyan);
+      white-space: nowrap;
+    }
+
+    .architecture {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .node {
+      min-height: 150px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #0a192a;
+    }
+
+    .node strong {
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .node small { color: var(--muted); }
+
+    .arrow {
+      font-size: 2rem;
+      color: var(--cyan);
+    }
+
+    .old { border-color: rgba(255,255,255,.12); }
+    .new {
+      border-color: rgba(168,121,255,.5);
+      box-shadow: 0 0 35px rgba(168,121,255,.10);
+    }
+
+    .loop {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(168,121,255,.18), transparent 45%),
+        #09192b;
+      border: 1px solid rgba(168,121,255,.3);
+      text-align: center;
+    }
+
+    .loop-core {
+      display: inline-flex;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      border: 3px dashed var(--purple);
+      color: #fff;
+      font-weight: 800;
+      box-shadow: 0 0 35px rgba(168,121,255,.18);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .feature-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .feature {
+      padding: 16px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.035);
+      border-left: 3px solid var(--cyan);
+    }
+
+    .feature strong {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .feature span {
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .risk {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .risk::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 4px;
+      background: var(--red);
+    }
+
+    .risk h3 { margin-top: 0; }
+    .risk p { color: var(--muted); font-size: .9rem; }
+
+    .risk.safe::before { background: var(--green); }
+
+    .balance {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+    }
+
+    .balance > div {
+      padding: 28px;
+    }
+
+    .ability {
+      background: linear-gradient(135deg, rgba(66,230,164,.10), rgba(70,217,255,.06));
+    }
+
+    .challenge {
+      background: linear-gradient(135deg, rgba(255,107,122,.10), rgba(168,121,255,.06));
+    }
+
+    .balance ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .timeline-item {
+      padding: 20px;
+      border-top: 3px solid var(--purple);
+      background: #0b1c2f;
+      border-radius: 14px;
+    }
+
+    .timeline-item .num {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--purple);
+    }
+
+    footer {
+      margin: 50px 0 30px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      color: #71879e;
+      font-size: .78rem;
+      text-align: center;
+    }
+
+    @media (max-width: 850px) {
+      .hero-grid,
+      .two-col,
+      .balance {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-grid,
+      .risk-grid,
+      .timeline {
+        grid-template-columns: 1fr;
+      }
+
+      .architecture {
+        grid-template-columns: 1fr;
+      }
+
+      .arrow {
+        transform: rotate(90deg);
+        justify-self: center;
+      }
+
+      .container {
+        width: min(100% - 20px, 1180px);
+      }
+
+      header { padding-top: 40px; }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <header>
+      <span class="eyebrow">AI TECHNOLOGY BRIEFING</span>
+      <h1>GPT-6 Astra<br>全貌と技術的パラダイムシフト</h1>
+      <p class="subtitle">
+        「言葉で考えるAI」から「潜在空間で循環的に計算するAI」へ。
+        推論・未知環境適応・PC操作・3D理解をめぐる、次世代アーキテクチャの全体像。
+      </p>
+
+      <a
+        class="source-link"
+        href="https://www.youtube.com/watch?v=vykuO5N2Ez4"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        【「GPT-6 Astra」は「4」以来の大転換】Claude Fable圧倒の数学能力「推論は極まった」今井翔太／OpenAIが「PC操作」を力技で実現／サイバー性能「危険水準」【AI QUEST】
+      </a>
+    </header>
+
+    <section>
+      <h2 class="section-title">01 — エグゼクティブ・サマリー</h2>
+
+      <div class="hero-grid">
+        <div class="card">
+          <p class="big-statement">
+            最大の変化は、<span class="highlight">人間が読める言葉を経由しない推論</span>。
+            <br>
+            Recurrent Depth と Continuous Thought により、
+            <span class="purple">内部計算を時間方向へ循環</span>させる。
+          </p>
+          <p style="color:var(--muted); margin-bottom:0;">
+            従来型のChain of Thought（CoT）だけに依存せず、
+            連続空間上で探索・推論することで、高度な数学や未知環境への適応を狙う。
+          </p>
+        </div>
+
+        <div class="card">
+          <div style="color:var(--muted);font-size:.85rem;">パラダイムの転換</div>
+          <div style="font-size:2.2rem;font-weight:900;margin:8px 0;">
+            CoT → <span class="purple">Latent Thought</span>
+          </div>
+          <div style="color:var(--muted);font-size:.88rem;">
+            自然言語の思考列<br>
+            ↓<br>
+            潜在空間・内部ループでの推論
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">02 — 注目された性能</h2>
+
+      <div class="metric-grid">
+        <div class="card metric">
+          <div class="metric-value">99.9%</div>
+          <div>
+            <strong>AGI-3 / ARC AI 3</strong>
+            <div class="metric-label">未知環境への適応</div>
+            <div class="metric-note">資料記載値</div>
+          </div>
+        </div>
+
+        <div class="card metric">
+          <div class="metric-value">≈100%</div>
+          <div>
+            <strong>FrontierMath</strong>
+            <div class="metric-label">超高度数学・推論</div>
+            <div class="metric-note">資料記載の「ほぼ100%近く」</div>
+          </div>
+        </div>
+
+        <div class="card metric">
+          <div class="metric-value">2.4%</div>
+          <div>
+            <strong>PC操作エラー率の例</strong>
+            <div class="metric-label">自律操作には残存リスク</div>
+            <div class="metric-note">資料記載値。条件・評価方法に依存</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card">
+        <h2 class="section-title" style="margin-top:0;">主要ベンチマーク</h2>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>評価</th>
+                <th>GPT-6 Astra</th>
+                <th>比較対象</th>
+                <th>何を示すか</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>AGI-3<br>(ARC AI 3)</strong></td>
+                <td><span class="score">99.9%</span></td>
+                <td>GPT-5.6 Sol：7.8%<br>Claude Opus 5：30.2%</td>
+                <td>未知のパズル環境で、明示的な指示やゴールに依存せず試行錯誤する能力。</td>
+              </tr>
+              <tr>
+                <td><strong>FrontierMath</strong></td>
+                <td><span class="score">≈100%</span></td>
+                <td>Oシリーズ初期：20%台</td>
+                <td>高度な数学・ロジック構築能力。資料ではフィールズ賞級の難度と説明。</td>
+              </tr>
+              <tr>
+                <td><strong>Artificial Analysis<br>Intelligence Index</strong></td>
+                <td><span class="score">総合5位前後</span></td>
+                <td>—</td>
+                <td>総合ランキングと、特定の高度推論能力との間に評価軸の違いがあることを示唆。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">03 — 3D・世界理解・PC操作</h2>
+
+      <div class="two-col">
+        <div class="card">
+          <h3 class="highlight">🌐 3D空間認識</h3>
+          <div class="feature-list">
+            <div class="feature">
+              <strong>不動産データ → 3D空間</strong>
+              <span>Zillow等の物件情報から、立体的な空間を再現する能力をアピール。</span>
+            </div>
+            <div class="feature">
+              <strong>ゲーム的な立体環境</strong>
+              <span>マリオカート風コースや古代図書館などの空間構築を例示。</span>
+            </div>
+            <div class="feature">
+              <strong>世界モデル論争</strong>
+              <span>独立した世界モデルを必須とせず、LLM＋マルチモーダル学習で空間理解を高める方向性。</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="green">🖥️ Computer Use</h3>
+          <div class="feature-list">
+            <div class="feature">
+              <strong>音声 → PC操作</strong>
+              <span>自然言語・音声の指示からブラウザやPC画面を直接操作。</span>
+            </div>
+            <div class="feature">
+              <strong>資料作成・調査・データ処理</strong>
+              <span>複数のデジタル作業を連続して実行する「エージェント型」利用を想定。</span>
+            </div>
+            <div class="feature">
+              <strong>重要ポイント</strong>
+              <span>能力向上と同時に、誤操作・権限管理・決済などの安全設計が重要になる。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">04 — 核心技術：非言語思考</h2>
+
+      <div class="card">
+        <div class="architecture">
+          <div class="node old">
+            <strong>従来型 CoT</strong>
+            <small>入力</small>
+            <div style="font-size:1.5rem;margin:8px;">↓</div>
+            <small>自然言語の思考テキスト</small>
+          </div>
+
+          <div class="arrow">→</div>
+
+          <div class="node new">
+            <strong class="purple">GPT-6 Astra</strong>
+            <small>入力</small>
+            <div style="font-size:1.5rem;margin:8px;">↓</div>
+            <small>潜在空間での循環・連続思考</small>
+          </div>
+
+          <div class="arrow">→</div>
+
+          <div class="node old">
+            <strong>出力</strong>
+            <small>従来：言語的な推論列</small>
+            <div style="font-size:1.5rem;margin:8px;">/</div>
+            <small>新方式：内部計算を経た回答</small>
+          </div>
+        </div>
+
+        <div class="loop">
+          <div class="loop-core">同一層を<br>LOOP</div>
+          <p style="margin:16px 0 0;color:var(--muted);">
+            Recurrent Depth：同一トランスフォーマー層の出力を再び入力し、
+            時間方向に計算を繰り返すことで「深さ」を拡張。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="two-col">
+        <div class="card">
+          <h3 class="purple">Recurrent Depth</h3>
+          <p style="color:var(--muted);">
+            通常のTransformerのように層を一方向へ積み上げるだけではなく、
+            同一層を時間方向に循環させる発想。
+          </p>
+          <div class="feature">
+            <strong>Test-Time Scaling</strong>
+            <span>人間が読む自然言語トークンを大量生成するのではなく、
+            内部計算を増やして推論能力を拡張する。</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 class="highlight">Continuous Thought</h3>
+          <p style="color:var(--muted);">
+            単語へ変換する前の連続値ベクトルを、そのまま思考の中間表現として扱う考え方。
+          </p>
+          <div class="feature">
+            <strong>離散 → 連続</strong>
+            <span>自然言語の文法や接続詞に縛られず、複数の可能性を探索する余地を広げる。</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">05 — 能力と安全性のトレードオフ</h2>
+
+      <div class="balance">
+        <div class="ability">
+          <h3 class="green">能力面のインパクト</h3>
+          <ul>
+            <li>未知環境への適応</li>
+            <li>高度な数学・論理推論</li>
+            <li>3D空間の生成・理解</li>
+            <li>PCの自律操作</li>
+            <li>非言語的なテストタイム推論</li>
+          </ul>
+        </div>
+
+        <div class="challenge">
+          <h3 class="red">新たな安全上の課題</h3>
+          <ul>
+            <li>推論過程のブラックボックス化</li>
+            <li>説明可能性・監視可能性の低下</li>
+            <li>PC操作時の誤削除・誤送信</li>
+            <li>決済など高権限操作のリスク</li>
+            <li>能力評価と安全評価の難しさ</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="risk-grid">
+        <div class="card risk safe">
+          <h3>✓ 不正行動テスト</h3>
+          <p>
+            資料では、目的達成のために不正な手段を取る挙動を調べる
+            ハニーポットテストについて「0%」と記載。
+          </p>
+        </div>
+
+        <div class="card risk">
+          <h3>⚠ PC自律操作</h3>
+          <p>
+            資料では、誤操作などのエラー率として2.4%等を提示。
+            完全自動化には権限管理や人間による確認が重要になる。
+          </p>
+        </div>
+
+        <div class="card risk">
+          <h3>⚠ Explainability</h3>
+          <p>
+            自然言語CoTが見えない内部推論へ移行すると、
+            「なぜその判断をしたのか」を人間が追跡する難度が上がる。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">06 — 何が変わるのか</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="num">01</div>
+          <h3>思考の単位が変わる</h3>
+          <p style="color:var(--muted);">
+            「文章として考える」から「潜在表現を計算する」方向へ。
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="num">02</div>
+          <h3>推論コストの使い方が変わる</h3>
+          <p style="color:var(--muted);">
+            出力トークンを増やすだけでなく、内部ループによって計算量を増やす。
+          </p>
+        </div>
+
+        <div class="timeline-item">
+          <div class="num">03</div>
+          <h3>評価・ガバナンスも変わる</h3>
+          <p style="color:var(--muted);">
+            「答えが正しいか」だけでなく、「内部で何が起きているか」をどう監視するかが課題になる。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card" style="text-align:center;padding:38px 24px;">
+        <div class="eyebrow">KEY TAKEAWAY</div>
+        <h2 style="font-size:clamp(1.7rem,4vw,3rem);margin:18px 0 12px;">
+          「言葉で考えるAI」から<br>
+          <span class="highlight">「言葉の外で計算するAI」へ</span>
+        </h2>
+        <p style="max-width:760px;margin:auto;color:var(--muted);">
+          GPT-6 Astraに関する本資料の中心テーマは、
+          Recurrent DepthとContinuous Thoughtによって、
+          推論を自然言語から潜在空間へ移すという技術的方向性にある。
+          その一方で、説明可能性・自律操作・安全性評価という新しい課題も同時に顕在化する。
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      本インフォグラフィックは、提供されたブリーフィング・ドキュメントの内容を視覚的に整理したものです。
+      記載されたベンチマーク数値・固有名詞・評価は原文の記述に基づいており、
+      独立した事実確認を行ったものではありません。
+    </footer>
+
+  </main>
+</body>
+</html>
