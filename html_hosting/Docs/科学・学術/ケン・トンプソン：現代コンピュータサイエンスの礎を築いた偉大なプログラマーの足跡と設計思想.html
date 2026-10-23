@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ケン・トンプソン：現代コンピュータサイエンスの礎を築いた偉大なプログラマーの足跡と設計思想</title>
+    <style>
+        :root {
+            --cs-blue: #0284c7;
+            --cs-dark: #1e293b;
+            --bg-smoke: #f8fafc;
+            --text-dark: #1e293b;
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-smoke); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: var(--cs-dark); border-bottom: 3px solid var(--cs-blue); padding-bottom: 10px; }
+        .source-link { display: block; margin: 20px 0; padding: 15px; background: #eff6ff; border-left: 5px solid var(--cs-blue); text-decoration: none; color: #1d4ed8; font-weight: bold; }
+        
+        .section { margin: 30px 0; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px; background: #fff; }
+        .card h3 { color: var(--cs-blue); margin-top: 0; }
+        
+        .history-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; margin-top: 15px; }
+        .history-card { background: #f8fafc; border: 1px solid #e2e8f0; padding: 15px; border-radius: 6px; }
+        .history-card h4 { margin-top: 0; color: var(--cs-dark); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>ケン・トンプソン：現代コンピュータサイエンスの礎を築いた偉大なプログラマーの足跡と設計思想</h1>
+    
+    <a href="https://www.youtube.com/watch?v=x9URSzYuwDE" class="source-link" target="_blank">
+        動画参照：【歴史】Unix、grep、UTF-8、Go言語を作った男。ケン・トンプソン物語。
+    </a>
+
+    <div class="section">
+        <h2>1. エグゼクティブ・サマリー</h2>
+        <p>現代のITインフラ（UNIX、Linux、macOS、C言語、Go言語、grep、UTF-8）の原流を辿ると、一人の天才プログラマーに到達します。それが<strong>ケン・トンプソン（Ken Thompson）</strong>です。「自分が使いやすい最高の道具を自分で作る」「無駄な複雑さを排除し、徹底的にシンプルを保つ」という現代コンピュータサイエンスの設計思想を形作った彼の足跡を振り返ります。</p>
+    </div>
+
+    <div class="section grid-2">
+        <div class="card">
+            <h3>2. 生い立ちと合理主義の萌芽</h3>
+            <ul>
+                <li><strong>モノづくりの原点：</strong>転勤族の少年時代、行く先々で玩具を置き去りにされたため自らゼロからモノを制作。</li>
+                <li><strong>二進数の追求：</strong>学校の宿題をすべて二進数で解いて提出。「面倒を減らすためにシステム自体を変える」原点に。</li>
+                <li><strong>UCバークレー：</strong>深夜のコンピュータセンターを占有し、プログラミングの中毒的魅力に没頭。</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>3. ベル研究所と「Unix」の誕生</h3>
+            <ul>
+                <li><strong>Multicsの挫折：</strong>巨大で複雑化したMultics計画の失敗を受け、ベル研究所は撤退。</li>
+                <li><strong>PDP-7での反逆：</strong>宇宙旅行ゲームを動かすため、小型ミニコンで数週間のうちにOSの原初形（Unix）を単独開発。</li>
+                <li><strong>Unix哲学：</strong>「1つのことだけをうまくやる」「小さな道具を組み合わせる」「パイプ処理」。</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>4. 数々の革命的発明と歴史的業績</h2>
+        <div class="history-grid">
+            <div class="history-card">
+                <h4>正規表現と「grep」</h4>
+                <p>エディタ改良の過程で有限オートマトン理論をテキスト検索に応用し、正規表現および「grep」コマンドを生み出す。</p>
+            </div>
+            <div class="history-card">
+                <h4>C言語と移植性</h4>
+                <p>B言語の限界を超え、デニス・リッチーと共にC言語を開発。OSをC言語で書き直し、高い移植性により世界標準へ。</p>
+            </div>
+            <div class="history-card">
+                <h4>UTF-8の発案</h4>
+                <p>多国籍文字コードの混乱を解決するため、食堂の紙ナプキンの上で「UTF-8」の仕組みを書き上げ一晩で実装。</p>
+            </div>
+            <div class="history-card">
+                <h4>Go言語の開発</h4>
+                <p>Google参画後、複雑化するC++に反発。ロブ・パイクらと「1時間で覚えられる言語」としてGo言語（Golang）を設計。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" style="background: #f1f5f9; padding: 20px; border-radius: 8px;">
+        <h2>5. 結論：ケン・トンプソンの設計哲学</h2>
+        <p>ケン・トンプソンが半世紀以上にわたってITインフラに残した影響の根底にあるのは、**「徹底的なシンプルさの追求」**と**「現場の課題を自らの手で直ちに解決する実用主義」**です。彼が生み出した道具と哲学は、今なお世界中のソフトウェア開発の基盤として息づいています。</p>
+    </div>
+</div>
+
+</body>
+</html>

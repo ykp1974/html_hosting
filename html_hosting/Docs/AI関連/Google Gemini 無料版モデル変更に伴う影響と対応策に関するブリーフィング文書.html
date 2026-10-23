@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Google Gemini 無料版モデル変更に伴う影響と対応策に関するブリーフィング文書</title>
+    <style>
+        :root {
+            --gemini-blue: #1a73e8;
+            --gemini-dark: #202124;
+            --bg-smoke: #f8f9fa;
+            --text-dark: #3c4043;
+        }
+        body { font-family: 'Helvetica Neue', Arial, sans-serif; line-height: 1.6; color: var(--text-dark); background: var(--bg-smoke); padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1 { color: var(--gemini-dark); border-bottom: 3px solid var(--gemini-blue); padding-bottom: 10px; font-size: 22px; }
+        .source-link { display: block; margin: 20px 0; padding: 15px; background: #e8f0fe; border-left: 5px solid var(--gemini-blue); text-decoration: none; color: #1967d2; font-weight: bold; }
+        
+        .section { margin: 30px 0; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
+        .card { padding: 20px; border: 1px solid #dadce0; border-radius: 8px; background: #fff; }
+        .card h3 { color: var(--gemini-blue); margin-top: 0; }
+        
+        .impact-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
+        .impact-table th, .impact-table td { padding: 12px; border: 1px solid #dadce0; text-align: left; }
+        .impact-table th { background: #f1f3f4; }
+
+        .step-box { background: #e6f4ea; border: 1px solid #ceead6; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .step-box h3 { color: #137333; margin-top: 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Google Gemini 無料版モデル変更に伴う影響と対応策に関するブリーフィング文書</h1>
+    
+    <a href="https://www.youtube.com/watch?v=OYf9VX9S1EY" class="source-link" target="_blank">
+        動画参照：Gemini無料版の制限が変わる｜10月9日からFlash-Liteのみ。使えるモデルと上限、今やる準備
+    </a>
+
+    <div class="section">
+        <h2>1. エグゼクティブ・サマリー</h2>
+        <p>Googleは、AIサービス「Gemini」のプラン別利用モデルの見直しを発表しました。2026年10月9日より、有料プラン未加入の個人アカウントの無料版で選択できるモデルが、最も軽量な<strong>「Gemini Flash-Lite」1種類のみ</strong>に限定されます。事前準備を行わない場合、業務上の混乱が生じる懸念があり、本ドキュメントでは影響範囲と具体的な3ステップ対応策を整理します。</p>
+    </div>
+
+    <div class="section grid-2">
+        <div class="card">
+            <h2>2. 変更の概要と仕様</h2>
+            <ul>
+                <li><strong>適用開始：</strong>2026年10月9日より適用。</li>
+                <li><strong>無料版の制限：</strong>利用可能モデルが「Flash-Lite」のみに一本化。</li>
+                <li><strong>有料プランの差別化：</strong>Flashは「AI+」以上、Proは「AI Pro」以上で利用可能。</li>
+                <li><strong>利用上限の回復：</strong>制限は5時間ごとに回復。標準に対しAI+は2倍、AI Proは4倍の上限を設定。</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>3. ターゲット層別の事前準備</h2>
+            <p><strong>【今すぐ確認・テストすべき層】</strong><br>
+            - 無料版を日常業務に活用している個人ユーザー<br>
+            - Proモデルを一時利用・検証してきたユーザー<br>
+            - チームに無料版の利用を推奨した担当者<br><br>
+            <strong>【当面対応不要な層】</strong><br>
+            - 上位有料プラン契約者 / Google Workspace契約アカウントのみの利用者</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>立場別の業務への影響とリスク分析</h2>
+        <table class="impact-table">
+            <tr>
+                <th>対象・立場</th>
+                <th>主な影響と懸念点</th>
+                <th>求められる判断・アクション</th>
+            </tr>
+            <tr>
+                <td><strong>1人社長・個人事業主</strong></td>
+                <td>業務精度の低下に伴う作業遅延リスク</td>
+                <td>有料プランへ投資すべき業務と、無料（Flash-Lite）で足りる業務の明確な切り分け。</td>
+            </tr>
+            <tr>
+                <td><strong>資料作成担当者</strong></td>
+                <td>長文資料の読み込みや高度要約の精度低下</td>
+                <td>長大な資料の読み込みタスクを有料AIや別環境へ回す判断。</td>
+            </tr>
+            <tr>
+                <td><strong>マーケティング担当</strong></td>
+                <td>投稿文や下書き作成の表現力変化</td>
+                <td>軽いモデルで日常の投稿文作成が足りるかの事前テスト。</td>
+            </tr>
+            <tr>
+                <td><strong>社内IT・推進担当</strong></td>
+                <td>社員からの「回答が変わった」等の問い合わせ</td>
+                <td>無料版を業務利用している社員への事前周知とガイドライン共有。</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="section step-box">
+        <h3>4. Flash-Lite環境における「3つの実践対応手順」</h3>
+        <ul>
+            <li><strong>ステップ1（アカウント確認）：</strong>Gemini画面のモデル名から現在選択可能なモデルやアカウント（個人用かWorkspaceか）を確認。</li>
+            <li><strong>ステップ2（事前テストと業務仕分け）：</strong>モデルを「Flash-Lite」へ手動切り替えし、日常的プロンプトを送信。「十分こなせる仕事」と「有料プラン等へ回す仕事」を5分程度で仕分け。</li>
+            <li><strong>ステップ3（プロンプトの分割・修正）：</strong>「3行で要約して」→「次に要点を表にして」のように1ステップずつ段階的に依頼し、情報量や処理工程を減らして回答の崩れを防止。</li>
+        </ul>
+    </div>
+
+    <div class="section" style="background: #f1f3f4; padding: 20px; border-radius: 8px;">
+        <h2>5. 結論と推奨アクション</h2>
+        <p>10月9日以降の無料版は「Flash-Lite」専用環境となるため、あらかじめ自身の日常業務が同モデルで運用可能かをテストしておくことが重要です。プロンプトの段階的分割を取り入れつつ、高度な処理が必要な業務については有料プランの導入や他ツールの併用を検討しましょう。</p>
+    </div>
+</div>
+
+</body>
+</html>
