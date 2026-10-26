@@ -23,7 +23,7 @@ function main() {
     console.log(`処理中: ${item.title} (${item.url})`);
     try {
       // 成功時は generate-summary 側が processed.json に記録する
-      console.log(`  -> ${runNode('generate-summary.mjs', [item.url]).trim()}`);
+      console.log(`  -> ${runNode('generate-summary.mjs', [item.url, `--title=${item.title}`]).trim()}`);
     } catch (err) {
       // 失敗した動画は記録されないため、次回の実行で再試行される
       console.error(`  失敗: ${item.url}`);

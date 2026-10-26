@@ -23,6 +23,8 @@ const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 // 使い方: node scripts/generate-summary.mjs <YouTube URL> [--no-record]
 const videoUrl = process.argv.slice(2).find((a) => !a.startsWith('--'));
 const noRecord = process.argv.includes('--no-record');
+// 動画の元タイトル（任意）。--title=... で渡す
+const videoTitle = process.argv.find((a) => a.startsWith('--title='))?.slice('--title='.length) ?? '';
 
 if (!apiKey || !videoUrl) {
   console.error('GEMINI_API_KEY と YouTube URL（第1引数）が必要です。');
@@ -54,7 +56,9 @@ function buildPrompt(categories, sampleHtml) {
 ## 条件
 - 動画の内容を、エグゼクティブ・サマリー、主要な論点（見出しごと）、結論・今後の注目点の順に整理する。
 - 動画で語られていない推測や、一般知識による補足を事実として混ぜない。
-- 日本語で書く。固有名詞・数値は動画の通りに正確に記載する。
+- 日本語で書く。固有名詞・年・日付・数値は動画の通りに正確に記載し、記憶や推測で補わない。${
+    videoTitle ? `\n- 動画の元タイトルは「${videoTitle}」。title はこの元タイトルと矛盾させない（年なども元タイトルに合わせる）。` : ''
+  }
 - HTMLは <!DOCTYPE html> から </html> までの単体ファイルとし、CSSは <style> に埋め込む。外部ライブラリ・外部画像は使わない。
 - 冒頭付近に、動画へのリンク（${videoUrl}）を target="_blank" 付きで入れる。
 - デザイン・構造は下記の見本HTMLに合わせる（配色は内容に合わせて変えてよい）。
@@ -88,13 +92,23 @@ async function callGemini(prompt) {
       mediaResolution: 'MEDIA_RESOLUTION_LOW',
     },
   };
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) {
-    throw new Error(`Gemini API error ${res.status}: ${await res.text()}`);
+  // 一時的な混雑（429/5xx）は待ってから再試行する
+  const maxAttempts = 4;
+  let res;
+  for (let attempt = 1; ; attempt++) {
+    res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
+      body: JSON.stringify(body),
+    });
+    if (res.ok) break;
+    const retryable = res.status === 429 || res.status >= 500;
+    if (!retryable || attempt === maxAttempts) {
+      throw new Error(`Gemini API error ${res.status}: ${await res.text()}`);
+    }
+    const waitSec = 30 * attempt;
+    console.error(`Gemini ${res.status}。${waitSec}秒後に再試行します（${attempt}/${maxAttempts - 1}）`);
+    await new Promise((r) => setTimeout(r, waitSec * 1000));
   }
   const data = await res.json();
   const text = data.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('');
