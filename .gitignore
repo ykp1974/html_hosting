@@ -5,3 +5,4 @@ dist/
 tmp.mmd
 ts_errors.txt
 html-viewer/node_modules/
+.env
