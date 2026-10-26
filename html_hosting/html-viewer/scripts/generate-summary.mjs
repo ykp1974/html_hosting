@@ -128,7 +128,12 @@ async function main() {
     const category = categories.includes(result.category) ? result.category : fallbackCategory;
     const outDir = path.join(docsDir, category);
     fs.mkdirSync(outDir, { recursive: true });
-    const outPath = path.join(outDir, `${toSafeFileName(result.title)}.html`);
+    // 同名ファイルがあれば上書きせず連番を付ける
+    const baseName = toSafeFileName(result.title);
+    let outPath = path.join(outDir, `${baseName}.html`);
+    for (let n = 2; fs.existsSync(outPath); n++) {
+      outPath = path.join(outDir, `${baseName}_${n}.html`);
+    }
     fs.writeFileSync(outPath, result.html, 'utf-8');
 
     if (!noRecord) {

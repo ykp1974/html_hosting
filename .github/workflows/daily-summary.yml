@@ -1,0 +1,52 @@
+name: daily-summary
+
+on:
+  schedule:
+    - cron: '0 20 * * *' # 毎日 05:00 JST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-summary
+  cancel-in-progress: false
+
+jobs:
+  summarize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # 失敗した動画があっても、成功分は次のステップでコミットする
+      - name: 未処理の動画を要約してHTMLを生成
+        id: run
+        working-directory: html_hosting/html-viewer
+        continue-on-error: true
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PLAYLIST_ID: ${{ vars.PLAYLIST_ID }}
+        run: node scripts/run-daily.mjs
+
+      - name: 生成物をコミットしてpush
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add html_hosting/Docs html_hosting/automation/processed.json
+          if git diff --cached --quiet; then
+            echo "変更なし"
+          else
+            git commit -m "$(date -u +%Y%m%d)@Actions 要約HTML自動生成"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push
+          fi
+
+      - name: 失敗があればジョブを失敗扱いにする
+        if: steps.run.outcome == 'failure'
+        run: exit 1
