@@ -155,6 +155,8 @@ async function main() {
         videoId,
         url: videoUrl,
         file: path.relative(rootDir, outPath).replace(/\\/g, '/'),
+        sourceTitle: videoTitle || '',
+        htmlTitle: result.title || '',
         processedAt: new Date().toISOString(),
       });
     }

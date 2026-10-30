@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自動化ログ</title>
+<style>
+:root{
+  --bg:#0f172a;--panel:#1e293b;--text:#e2e8f0;
+  --muted:#94a3b8;--accent:#38bdf8;--accent2:#818cf8;
+  --line:rgba(255,255,255,.1);--green:#22c55e;--amber:#f59e0b;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;padding:32px 16px;
+  background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",
+    "Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+  font-size:.88rem;line-height:1.7;
+}
+.wrap{max-width:1100px;margin:auto}
+h1{font-size:1.4rem;margin:0 0 4px;color:#fff}
+.sub{color:var(--muted);margin:0 0 28px;font-size:.8rem}
+.cards{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+  gap:12px;margin-bottom:32px;
+}
+.card{
+  background:var(--panel);border:1px solid var(--line);
+  border-radius:12px;padding:16px 20px;
+}
+.card .lbl{font-size:.72rem;color:var(--muted);margin-bottom:4px}
+.card .val{font-size:1.5rem;font-weight:700;color:#fff;line-height:1.2}
+.card .val.ok{color:var(--green)}.card .val.warn{color:var(--amber)}
+.card .val.sm{font-size:1rem}
+h2{
+  font-size:.95rem;margin:28px 0 10px;color:var(--accent);
+  border-bottom:1px solid var(--line);padding-bottom:6px;
+}
+table{width:100%;border-collapse:collapse}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.72rem;color:var(--muted);font-weight:600;white-space:nowrap}
+tr:hover td{background:rgba(255,255,255,.02)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.yt-btn{
+  color:var(--muted);border:1px solid var(--line);
+  padding:1px 7px;border-radius:4px;font-size:.75rem;
+  white-space:nowrap;
+}
+.yt-btn:hover{border-color:var(--muted);text-decoration:none}
+.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.warn{color:var(--amber)}.ok{color:var(--green)}
+.muted{color:var(--muted)}.small{font-size:.8rem}
+.src-title{color:var(--muted);font-size:.82rem;max-width:240px}
+.footer{font-size:.75rem;color:var(--muted);margin-top:24px;text-align:right}
+@media(max-width:640px){
+  .cards{grid-template-columns:1fr 1fr}
+  .src-title{display:none}
+  th:nth-child(2),td:nth-child(2){display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>自動化ログ</h1>
+  <p class="sub">YouTube「後で見る」リストの自動サマリ稼働状況</p>
+
+  <div class="cards">
+    <div class="card">
+      <div class="lbl">最終実行（JST）</div>
+      <div class="val sm">—</div>
+    </div>
+    <div class="card">
+      <div class="lbl">最終ステータス</div>
+      <div class="val ">未実行</div>
+    </div>
+    <div class="card">
+      <div class="lbl">累計処理済み</div>
+      <div class="val">13</div>
+    </div>
+    <div class="card">
+      <div class="lbl">前回処理本数</div>
+      <div class="val">—</div>
+    </div>
+    <div class="card">
+      <div class="lbl">前回未処理残</div>
+      <div class="val ">—</div>
+    </div>
+  </div>
+
+  <h2>実行履歴（直近10回）</h2>
+  <table>
+    <thead><tr>
+      <th>実行日時（JST）</th>
+      <th class="num">未処理残</th>
+      <th class="num">成功</th>
+      <th class="num">失敗</th>
+      <th>失敗URL</th>
+    </tr></thead>
+    <tbody><tr><td colspan="5" class="muted">データなし</td></tr></tbody>
+  </table>
+
+  <h2>最近のサマリ（直近30件・新しい順）</h2>
+  <table>
+    <thead><tr>
+      <th>処理日時（JST）</th>
+      <th>YouTube元タイトル</th>
+      <th>HTMLタイトル</th>
+      <th>カテゴリ</th>
+      <th></th>
+    </tr></thead>
+    <tbody>
+      <tr>
+        <td class="muted small">2026/10/30 08:53</td>
+        <td class="src-title">—</td>
+        <td><a href="../AI関連/アンソロピック上場目論見書分析：AIビジネスの光と影.html" target="_blank">アンソロピック上場目論見書分析：AIビジネスの光と影</a></td>
+        <td class="muted">AI関連</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=MnYh-hmkHSQ" target="_blank" class="yt-btn">YT</a></td>
+      </tr>
+      <tr>
+        <td class="muted small">2026/10/30 08:53</td>
+        <td class="src-title">—</td>
+        <td><a href="../AI関連/【AI面接の裏側】就活生は知らないAI面接の真実｜メリット・デメリットを徹底解説.html" target="_blank">【AI面接の裏側】就活生は知らないAI面接の真実｜メリット・デメリットを徹底解説</a></td>
+        <td class="muted">AI関連</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=qDJovsB_ZcM" target="_blank" class="yt-btn">YT</a></td>
+      </tr>
+      <tr>
+        <td class="muted small">2026/10/29 08:58</td>
+        <td class="src-title">—</td>
+        <td><a href="../投資/米中間選挙が招く波乱シナリオ？株価下落リスクとAI相場の行方、注目の日本株を解説.html" target="_blank">米中間選挙が招く波乱シナリオ？株価下落リスクとAI相場の行方、注目の日本株を解説</a></td>
+        <td class="muted">投資</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=X40xAu-N0LY" target="_blank" class="yt-btn">YT</a></td>
+      </tr>
+      <tr>
+        <td class="muted small">2026/10/28 08:42</td>
+        <td class="src-title">—</td>
+        <td><a href="../政経/イーロン・マスクの「出生促進主義」と私生活：進化心理学からの考察.html" target="_blank">イーロン・マスクの「出生促進主義」と私生活：進化心理学からの考察</a></td>
+        <td class="muted">政経</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=beRb8wHMoiw" target="_blank" class="yt-btn">YT</a></td>
+      </tr>
+      <tr>
+        <td class="muted small">2026/10/28 08:41</td>
+        <td class="src-title">—</td>
+        <td><a href="../生活/毎日が楽しくなる習慣：ガルちゃんまとめ.html" target="_blank">毎日が楽しくなる習慣：ガルちゃんまとめ</a></td>
+        <td class="muted">生活</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=juZqzj81xX8" target="_blank" class="yt-btn">YT</a></td>
+      </tr>
+      <tr>
+        <td class="muted small">2026/10/27 08:46</td>
+        <td class="src-title">—</td>
+        <td><a href="../投資/2026年のAI関連市場と投資戦略.html" target="_blank">2026年のAI関連市場と投資戦略</a></td>
+        <td class="muted">投資</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=a2flYobjsjs" target="_blank" class="yt-btn">YT</a></td>
+      </tr>
+      <tr>
+        <td class="muted small">2026/10/27 08:45</td>
+        <td class="src-title">—</td>
+        <td><a href="../生活/車に長く乗り続ける賢い選択.html" target="_blank">車に長く乗り続ける賢い選択</a></td>
+        <td class="muted">生活</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=HlJS9vasE6Q" target="_blank" class="yt-btn">YT</a></td>
+      </tr>
+      <tr>
+        <td class="muted small">2026/10/27 08:44</td>
+        <td class="src-title">—</td>
+        <td><a href="../AI関連/AIで稼ぐ7つの実証済み方法（経験不要）.html" target="_blank">AIで稼ぐ7つの実証済み方法（経験不要）</a></td>
+        <td class="muted">AI関連</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=hriu0irRcpE" target="_blank" class="yt-btn">YT</a></td>
+      </tr>
+      <tr>
+        <td class="muted small">2026/10/27 08:44</td>
+        <td class="src-title">—</td>
+        <td><a href="../AI関連/この秋、AIが別物に。今、自分が本当に使っているAIを全部話します - 2026 AUTUMN UPDATE.html" target="_blank">この秋、AIが別物に。今、自分が本当に使っているAIを全部話します - 2026 AUTUMN UPDATE</a></td>
+        <td class="muted">AI関連</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=mqWtYJ_aR4o" target="_blank" class="yt-btn">YT</a></td>
+      </tr>
+      <tr>
+        <td class="muted small">2026/10/27 08:42</td>
+        <td class="src-title">—</td>
+        <td><a href="../AI関連/中国系AI「ARTEX」がもたらすサイバー攻撃の脅威と日本の課題.html" target="_blank">中国系AI「ARTEX」がもたらすサイバー攻撃の脅威と日本の課題</a></td>
+        <td class="muted">AI関連</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=JIQvXq2xZ-8" target="_blank" class="yt-btn">YT</a></td>
+      </tr>
+      <tr>
+        <td class="muted small">2026/10/27 08:41</td>
+        <td class="src-title">—</td>
+        <td><a href="../AI関連/「頭のOS」を書き換える：AI時代の思考法アップデート20選.html" target="_blank">「頭のOS」を書き換える：AI時代の思考法アップデート20選</a></td>
+        <td class="muted">AI関連</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=wqC9q07WXc4" target="_blank" class="yt-btn">YT</a></td>
+      </tr>
+      <tr>
+        <td class="muted small">2026/10/26 17:15</td>
+        <td class="src-title">—</td>
+        <td><a href="../生活/深夜の非通知ワンギリから高額請求詐欺まで.html" target="_blank">深夜の非通知ワンギリから高額請求詐欺まで</a></td>
+        <td class="muted">生活</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=shJBv1Qv0oQ" target="_blank" class="yt-btn">YT</a></td>
+      </tr>
+      <tr>
+        <td class="muted small">2026/10/26 17:01</td>
+        <td class="src-title">—</td>
+        <td><a href="../AI以外/2023年ブラックフライデーDTMセール厳選30選.html" target="_blank">2023年ブラックフライデーDTMセール厳選30選</a></td>
+        <td class="muted">AI以外</td>
+        <td class="small"><a href="https://www.youtube.com/watch?v=iKnFX2hEe0k" target="_blank" class="yt-btn">YT</a></td>
+      </tr></tbody>
+  </table>
+
+  <p class="footer">ページ生成: 2026/10/30 17:04</p>
+</div>
+</body>
+</html>
