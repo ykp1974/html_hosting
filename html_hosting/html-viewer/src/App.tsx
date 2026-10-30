@@ -298,9 +298,12 @@ function FileList() {
                 <h2 className="text-xl font-semibold text-slate-800 flex items-center gap-3 mb-6 border-b border-slate-100 pb-3">
                   <FolderOpen className="w-6 h-6 text-indigo-500 group-hover:text-indigo-600 transition-colors" />
                   {formatDirName(dir)}
-                  <span className="ml-auto text-sm font-medium bg-slate-100 text-slate-500 px-3 py-1 rounded-full">
-                    {dirFiles.length} {dirFiles.length === 1 ? 'file' : 'files'}
-                  </span>
+                  <div className="ml-auto flex items-center gap-3">
+                    <a href="#" className="text-xs text-slate-400 hover:text-indigo-500 transition-colors font-normal">↑ Top</a>
+                    <span className="text-sm font-medium bg-slate-100 text-slate-500 px-3 py-1 rounded-full">
+                      {dirFiles.length} {dirFiles.length === 1 ? 'file' : 'files'}
+                    </span>
+                  </div>
                 </h2>
                 <div className="grid gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                   {dirFiles.map(file => {
