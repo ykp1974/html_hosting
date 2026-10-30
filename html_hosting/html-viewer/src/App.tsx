@@ -1,9 +1,18 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
-import { CheckCircle2, Circle, FileText, FolderOpen, LayoutTemplate, Search } from 'lucide-react';
+import { CheckCircle2, Circle, FileText, FolderOpen, LayoutTemplate, Search, Zap } from 'lucide-react';
 import HtmlViewer from './components/HtmlViewer';
 
 type StatusMap = Record<string, boolean>;
+
+type ProcessedEntry = {
+  videoId: string;
+  url: string;
+  file: string;
+  sourceTitle?: string;
+  htmlTitle?: string;
+  processedAt?: string;
+};
 
 // .env に設定したGASのURLを読み込む
 const GAS_URL = import.meta.env.VITE_GAS_API_URL;
@@ -13,6 +22,7 @@ function FileList() {
   const [status, setStatus] = useState<StatusMap>({});
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [recentSummaries, setRecentSummaries] = useState<ProcessedEntry[]>([]);
 
   // 【2. データの取得】
   const fetchFiles = async () => {
@@ -71,6 +81,16 @@ function FileList() {
     setLoading(true);
     fetchFiles().finally(() => setLoading(false));
     fetchStatus();
+
+    fetch('/automation/processed.json')
+      .then(res => res.ok ? res.json() : [])
+      .then((data: ProcessedEntry[]) => {
+        const recent = [...data]
+          .sort((a, b) => (b.processedAt ?? '').localeCompare(a.processedAt ?? ''))
+          .slice(0, 3);
+        setRecentSummaries(recent);
+      })
+      .catch(() => {});
   }, []);
 
   // 【1.5. スクロール復元処理】
@@ -186,6 +206,47 @@ function FileList() {
           </div>
         </div>
       </header>
+
+      {recentSummaries.length > 0 && (
+        <section className="mb-10">
+          <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+            <Zap className="w-4 h-4 text-indigo-400" />
+            最近追加されたサマリ
+          </h2>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {recentSummaries.map((entry) => {
+              const title = entry.htmlTitle || entry.file.split('/').pop()?.replace(/\.html$/, '') || '';
+              const category = entry.file.split('/')[1] || '';
+              const date = entry.processedAt
+                ? new Date(entry.processedAt).toLocaleDateString('ja-JP', { month: 'short', day: 'numeric' })
+                : '';
+              return (
+                <div key={entry.videoId} className="glass-panel p-4 hover:shadow-md transition-shadow flex flex-col">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full truncate">{category}</span>
+                    <span className="text-xs text-slate-400 ml-auto whitespace-nowrap">{date}</span>
+                  </div>
+                  <Link
+                    to={`/view?file=${encodeURIComponent(entry.file)}`}
+                    onClick={() => sessionStorage.setItem('last-viewed-file', entry.file)}
+                    className="block text-sm font-medium text-slate-700 hover:text-indigo-600 line-clamp-3 leading-snug mb-3 flex-1"
+                  >
+                    {title}
+                  </Link>
+                  <a
+                    href={entry.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-xs text-slate-400 hover:text-slate-600 border border-slate-200 rounded px-2 py-1 transition-colors self-start"
+                  >
+                    YouTube ↗
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       <div className="mb-8 relative">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
