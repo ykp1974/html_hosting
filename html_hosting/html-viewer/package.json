@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node scripts/generate-file-list.mjs && vite",
-    "build": "node scripts/generate-file-list.mjs && tsc -b && vite build && mkdir -p dist/Docs && cp -r ../Docs/* dist/Docs/",
+    "build": "node scripts/generate-file-list.mjs && tsc -b && vite build && mkdir -p dist/Docs && cp -r ../Docs/* dist/Docs/ && mkdir -p dist/automation && cp ../automation/processed.json dist/automation/processed.json",
     "lint": "eslint .",
     "preview": "vite preview"
   },
