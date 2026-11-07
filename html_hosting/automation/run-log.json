@@ -47,5 +47,12 @@
     "processed": 0,
     "failed": 0,
     "failures": []
+  },
+  {
+    "runAt": "2026-11-07T00:01:52.165Z",
+    "pending": 0,
+    "processed": 0,
+    "failed": 0,
+    "failures": []
   }
 ]
