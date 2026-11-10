@@ -7,7 +7,7 @@ const rootDir = path.resolve(__dirname, '../../'); // html_hosting folder
 const docsDir = path.join(rootDir, 'Docs');
 const processedFile = path.join(rootDir, 'automation/processed.json');
 // デザイン見本として毎回プロンプトに入れる既存HTML
-const sampleFile = path.join(docsDir, 'AI関連/[デザインサンプル]AIマネジタイズ 5つの統合戦略.html');
+const sampleFile = path.join(docsDir, 'Keep/Useful/Windows高速化とストレージ最適化 分析報告書.html');
 // カテゴリ候補から除外するフォルダ（手動管理用）
 const excludedCategories = new Set(['Keep', 'etc', 'not-yet']);
 const fallbackCategory = 'not-yet';
@@ -58,15 +58,13 @@ ${isYouTube ? '添付の動画を視聴し' : `次のURLの記事を読み（${v
 ## 条件
 - ${kind}の内容を、エグゼクティブ・サマリー、主要な論点（見出しごと）、結論・今後の注目点の順に整理する。
 - ${kind}に書かれて（語られて）いない推測や、一般知識による補足を事実として混ぜない。
-- 日本語で書く。固有名詞・年・日付・数値は${kind}の通りに正確に記載し、記憶や推測で補わない。${
-    videoTitle ? `\n- ${kind}の元タイトルは「${videoTitle}」。title はこの元タイトルと矛盾させない（年なども元タイトルに合わせる）。` : ''
-  }
+- 日本語で書く。固有名詞・年・日付・数値は${kind}の通りに正確に記載し、記憶や推測で補わない。${videoTitle ? `\n- ${kind}の元タイトルは「${videoTitle}」。title はこの元タイトルと矛盾させない（年なども元タイトルに合わせる）。` : ''
+    }
 - HTMLは <!DOCTYPE html> から </html> までの単体ファイルとし、CSSは <style> に埋め込む。外部ライブラリ・外部画像は使わない。
 - 冒頭付近に、${kind}へのリンク（${videoUrl}）を target="_blank" 付きで入れる。
 - デザイン・構造は下記の見本HTMLに合わせる（配色は内容に合わせて変えてよい）。
 - category は次の候補から最も適切なものを1つだけ選ぶ: ${categories.join('、')}
-- title は内容を表す日本語の題名（ファイル名にも使うので40文字程度まで）。${
-    isYouTube
+- title は内容を表す日本語の題名（ファイル名にも使うので40文字程度まで）。${isYouTube
       ? ''
       : `
 - 記事を読み込めなかった場合（有料・ログイン必須・取得失敗など）は、内容を推測せず、1行目に「ERROR: 理由」とだけ出力する。
@@ -76,7 +74,7 @@ CATEGORY: （カテゴリ名）
 TITLE: （題名）
 ===HTML===
 （HTML全文）`
-  }
+    }
 
 ## デザイン見本HTML
 ${sampleHtml}`;
@@ -98,29 +96,29 @@ async function callGemini(prompt) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
   const body = isYouTube
     ? {
-        contents: [
-          { parts: [{ fileData: { fileUri: videoUrl, mimeType: 'video/mp4' } }, { text: prompt }] },
-        ],
-        generationConfig: {
-          responseMimeType: 'application/json',
-          responseSchema: {
-            type: 'OBJECT',
-            properties: {
-              category: { type: 'STRING' },
-              title: { type: 'STRING' },
-              html: { type: 'STRING' },
-            },
-            required: ['category', 'title', 'html'],
+      contents: [
+        { parts: [{ fileData: { fileUri: videoUrl, mimeType: 'video/mp4' } }, { text: prompt }] },
+      ],
+      generationConfig: {
+        responseMimeType: 'application/json',
+        responseSchema: {
+          type: 'OBJECT',
+          properties: {
+            category: { type: 'STRING' },
+            title: { type: 'STRING' },
+            html: { type: 'STRING' },
           },
-          // 長尺動画のトークン消費を抑える
-          mediaResolution: 'MEDIA_RESOLUTION_LOW',
+          required: ['category', 'title', 'html'],
         },
-      }
+        // 長尺動画のトークン消費を抑える
+        mediaResolution: 'MEDIA_RESOLUTION_LOW',
+      },
+    }
     : {
-        // URL Context はJSON出力指定と併用できないため、区切り形式で受け取る
-        contents: [{ parts: [{ text: prompt }] }],
-        tools: [{ url_context: {} }],
-      };
+      // URL Context はJSON出力指定と併用できないため、区切り形式で受け取る
+      contents: [{ parts: [{ text: prompt }] }],
+      tools: [{ url_context: {} }],
+    };
   // 一時的な混雑（429/5xx）は待ってから再試行する
   const maxAttempts = 4;
   let res;
@@ -149,6 +147,10 @@ async function callGemini(prompt) {
 
   // 記事は、URLを実際に取得できたことを確認してから結果を採用する
   const statuses = data.candidates?.[0]?.urlContextMetadata?.urlMetadata ?? [];
+  if (statuses.some((u) => u.urlRetrievalStatus === 'URL_RETRIEVAL_STATUS_PAYWALL')) {
+    // 有料記事は対象外（再試行しない）
+    throw Object.assign(new Error('有料記事（ペイウォール）のため取得できません'), { code: 'PAYWALL' });
+  }
   if (!statuses.some((u) => u.urlRetrievalStatus === 'URL_RETRIEVAL_STATUS_SUCCESS')) {
     throw new Error(`記事URLを取得できませんでした: ${JSON.stringify(statuses)}`);
   }
@@ -199,7 +201,8 @@ async function main() {
     console.log(outPath);
   } catch (err) {
     console.error('Error generating summary:', err);
-    process.exit(1);
+    // 終了コード3：有料記事（呼び出し元が「対象外」として扱う）
+    process.exit(err.code === 'PAYWALL' ? 3 : 1);
   }
 }
 

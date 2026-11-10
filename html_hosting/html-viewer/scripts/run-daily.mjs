@@ -93,6 +93,12 @@ async function main() {
       await markArticle(item.url, '済');
       articleDone++;
     } catch (err) {
+      if (err.status === 3) {
+        // 有料記事は再試行しても読めないため、対象外にして失敗扱いにもしない
+        console.log(`  対象外（有料記事）: ${item.url}`);
+        await markArticle(item.url, '対象外', '有料記事（ペイウォール）');
+        continue;
+      }
       // 失敗は試行回数つきでシートに残り、上限までは翌日以降に再試行される
       console.error(`  失敗: ${item.url}`);
       failed.push(item.url);

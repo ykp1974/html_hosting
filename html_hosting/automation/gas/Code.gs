@@ -155,8 +155,8 @@ function listPending() {
 function mark(postData) {
   checkToken(postData.token);
   const url = normalizeUrl(postData.url || '');
-  if (postData.status !== '済' && postData.status !== '失敗') {
-    throw new Error('statusは「済」か「失敗」です');
+  if (!['済', '失敗', '対象外'].includes(postData.status)) {
+    throw new Error('statusは「済」「失敗」「対象外」のいずれかです');
   }
   const sheet = getQueueSheet();
   const data = sheet.getDataRange().getValues();
