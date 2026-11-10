@@ -75,5 +75,14 @@
     "processed": 2,
     "failed": 0,
     "failures": []
+  },
+  {
+    "runAt": "2026-11-10T08:47:23.167Z",
+    "pending": 1,
+    "processed": 0,
+    "failed": 1,
+    "failures": [
+      "https://jbpress.ismedia.jp/articles/-/97893"
+    ]
   }
 ]
