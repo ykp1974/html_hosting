@@ -32,7 +32,8 @@ async function main() {
       console.error('Docs directory not found!');
       process.exit(1);
     }
-    const files = await scanDocs(docsDir);
+    // OSによる走査順の違いで、毎回差分が出ないように並べ替える
+    const files = (await scanDocs(docsDir)).sort();
     await fsPromises.writeFile(outputFile, JSON.stringify(files, null, 2), 'utf-8');
     console.log(`Successfully generated ${outputFile} with ${files.length} files.`);
   } catch (err) {
