@@ -20,14 +20,15 @@ if (fs.existsSync(envFile)) process.loadEnvFile(envFile);
 const apiKey = process.env.GEMINI_API_KEY;
 const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
 
-// 使い方: node scripts/generate-summary.mjs <YouTube URL> [--no-record]
+// 使い方: node scripts/generate-summary.mjs <YouTube URLまたは記事URL> [--no-record] [--title=元タイトル]
 const videoUrl = process.argv.slice(2).find((a) => !a.startsWith('--'));
+const isYouTube = /^https?:\/\/(www\.|m\.)?(youtube\.com|youtu\.be)\//i.test(videoUrl ?? '');
 const noRecord = process.argv.includes('--no-record');
 // 動画の元タイトル（任意）。--title=... で渡す
 const videoTitle = process.argv.find((a) => a.startsWith('--title='))?.slice('--title='.length) ?? '';
 
 if (!apiKey || !videoUrl) {
-  console.error('GEMINI_API_KEY と YouTube URL（第1引数）が必要です。');
+  console.error('GEMINI_API_KEY と URL（第1引数）が必要です。');
   process.exit(1);
 }
 
@@ -50,48 +51,76 @@ function toSafeFileName(title) {
 }
 
 function buildPrompt(categories, sampleHtml) {
-  return `あなたは動画の内容を分析し、読みやすい日本語の概要説明資料（単体HTML）を作成する編集者です。
-添付の動画を視聴し、次の条件で出力してください。
+  const kind = isYouTube ? '動画' : '記事';
+  return `あなたは${kind}の内容を分析し、読みやすい日本語の概要説明資料（単体HTML）を作成する編集者です。
+${isYouTube ? '添付の動画を視聴し' : `次のURLの記事を読み（${videoUrl}）`}、次の条件で出力してください。
 
 ## 条件
-- 動画の内容を、エグゼクティブ・サマリー、主要な論点（見出しごと）、結論・今後の注目点の順に整理する。
-- 動画で語られていない推測や、一般知識による補足を事実として混ぜない。
-- 日本語で書く。固有名詞・年・日付・数値は動画の通りに正確に記載し、記憶や推測で補わない。${
-    videoTitle ? `\n- 動画の元タイトルは「${videoTitle}」。title はこの元タイトルと矛盾させない（年なども元タイトルに合わせる）。` : ''
+- ${kind}の内容を、エグゼクティブ・サマリー、主要な論点（見出しごと）、結論・今後の注目点の順に整理する。
+- ${kind}に書かれて（語られて）いない推測や、一般知識による補足を事実として混ぜない。
+- 日本語で書く。固有名詞・年・日付・数値は${kind}の通りに正確に記載し、記憶や推測で補わない。${
+    videoTitle ? `\n- ${kind}の元タイトルは「${videoTitle}」。title はこの元タイトルと矛盾させない（年なども元タイトルに合わせる）。` : ''
   }
 - HTMLは <!DOCTYPE html> から </html> までの単体ファイルとし、CSSは <style> に埋め込む。外部ライブラリ・外部画像は使わない。
-- 冒頭付近に、動画へのリンク（${videoUrl}）を target="_blank" 付きで入れる。
+- 冒頭付近に、${kind}へのリンク（${videoUrl}）を target="_blank" 付きで入れる。
 - デザイン・構造は下記の見本HTMLに合わせる（配色は内容に合わせて変えてよい）。
 - category は次の候補から最も適切なものを1つだけ選ぶ: ${categories.join('、')}
-- title は内容を表す日本語の題名（ファイル名にも使うので40文字程度まで）。
+- title は内容を表す日本語の題名（ファイル名にも使うので40文字程度まで）。${
+    isYouTube
+      ? ''
+      : `
+- 記事を読み込めなかった場合（有料・ログイン必須・取得失敗など）は、内容を推測せず、1行目に「ERROR: 理由」とだけ出力する。
+
+## 出力形式（この形式を厳守。JSONや説明文は付けない）
+CATEGORY: （カテゴリ名）
+TITLE: （題名）
+===HTML===
+（HTML全文）`
+  }
 
 ## デザイン見本HTML
 ${sampleHtml}`;
 }
 
+// 記事向けの出力（CATEGORY/TITLE/===HTML===）を分解する
+function parseArticleOutput(text) {
+  const trimmed = text.trim();
+  if (/^ERROR:/i.test(trimmed)) {
+    throw new Error(`記事を読み込めませんでした: ${trimmed.split('\n')[0]}`);
+  }
+  const m = trimmed.match(/^CATEGORY:\s*(.+)\r?\nTITLE:\s*(.+)\r?\n===HTML===\r?\n([\s\S]+)$/);
+  if (!m) throw new Error(`出力形式が不正です: ${trimmed.slice(0, 200)}`);
+  const html = m[3].replace(/^```(?:html)?\s*\n/, '').replace(/\n```\s*$/, '');
+  return { category: m[1].trim(), title: m[2].trim(), html };
+}
+
 async function callGemini(prompt) {
   const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
-  const body = {
-    contents: [
-      {
-        parts: [{ fileData: { fileUri: videoUrl, mimeType: 'video/mp4' } }, { text: prompt }],
-      },
-    ],
-    generationConfig: {
-      responseMimeType: 'application/json',
-      responseSchema: {
-        type: 'OBJECT',
-        properties: {
-          category: { type: 'STRING' },
-          title: { type: 'STRING' },
-          html: { type: 'STRING' },
+  const body = isYouTube
+    ? {
+        contents: [
+          { parts: [{ fileData: { fileUri: videoUrl, mimeType: 'video/mp4' } }, { text: prompt }] },
+        ],
+        generationConfig: {
+          responseMimeType: 'application/json',
+          responseSchema: {
+            type: 'OBJECT',
+            properties: {
+              category: { type: 'STRING' },
+              title: { type: 'STRING' },
+              html: { type: 'STRING' },
+            },
+            required: ['category', 'title', 'html'],
+          },
+          // 長尺動画のトークン消費を抑える
+          mediaResolution: 'MEDIA_RESOLUTION_LOW',
         },
-        required: ['category', 'title', 'html'],
-      },
-      // 長尺動画のトークン消費を抑える
-      mediaResolution: 'MEDIA_RESOLUTION_LOW',
-    },
-  };
+      }
+    : {
+        // URL Context はJSON出力指定と併用できないため、区切り形式で受け取る
+        contents: [{ parts: [{ text: prompt }] }],
+        tools: [{ url_context: {} }],
+      };
   // 一時的な混雑（429/5xx）は待ってから再試行する
   const maxAttempts = 4;
   let res;
@@ -116,7 +145,14 @@ async function callGemini(prompt) {
     throw new Error(`Gemini の応答が空です: ${JSON.stringify(data).slice(0, 500)}`);
   }
   console.error(`トークン使用量: ${JSON.stringify(data.usageMetadata)}`);
-  return JSON.parse(text);
+  if (isYouTube) return JSON.parse(text);
+
+  // 記事は、URLを実際に取得できたことを確認してから結果を採用する
+  const statuses = data.candidates?.[0]?.urlContextMetadata?.urlMetadata ?? [];
+  if (!statuses.some((u) => u.urlRetrievalStatus === 'URL_RETRIEVAL_STATUS_SUCCESS')) {
+    throw new Error(`記事URLを取得できませんでした: ${JSON.stringify(statuses)}`);
+  }
+  return parseArticleOutput(text);
 }
 
 function recordProcessed(entry) {
@@ -127,12 +163,12 @@ function recordProcessed(entry) {
 
 async function main() {
   try {
-    const videoId = extractVideoId(videoUrl);
-    if (!videoId) throw new Error(`動画IDを取得できません: ${videoUrl}`);
+    const videoId = isYouTube ? extractVideoId(videoUrl) : null;
+    if (isYouTube && !videoId) throw new Error(`動画IDを取得できません: ${videoUrl}`);
 
     const categories = listCategories();
     const sampleHtml = fs.readFileSync(sampleFile, 'utf-8');
-    console.error(`モデル: ${model} / 動画: ${videoId} / カテゴリ候補: ${categories.join(', ')}`);
+    console.error(`モデル: ${model} / 対象: ${videoId ?? videoUrl} / カテゴリ候補: ${categories.join(', ')}`);
 
     const result = await callGemini(buildPrompt(categories, sampleHtml));
     if (!/<html[\s>]/i.test(result.html)) {
