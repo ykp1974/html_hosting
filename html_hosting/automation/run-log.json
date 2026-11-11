@@ -84,5 +84,14 @@
     "failures": [
       "https://jbpress.ismedia.jp/articles/-/97893"
     ]
+  },
+  {
+    "runAt": "2026-11-11T00:30:11.508Z",
+    "pending": 2,
+    "processed": 0,
+    "failed": 1,
+    "failures": [
+      "https://www.sponichi.co.jp/soccer/yomimono/column/kaneko/kiji/20261105s000023CF115000c.html"
+    ]
   }
 ]
