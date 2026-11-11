@@ -93,5 +93,12 @@
     "failures": [
       "https://www.sponichi.co.jp/soccer/yomimono/column/kaneko/kiji/20261105s000023CF115000c.html"
     ]
+  },
+  {
+    "runAt": "2026-11-11T02:29:51.485Z",
+    "pending": 0,
+    "processed": 0,
+    "failed": 0,
+    "failures": []
   }
 ]
