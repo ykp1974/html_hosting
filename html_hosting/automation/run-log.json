@@ -114,5 +114,16 @@
     "processed": 0,
     "failed": 0,
     "failures": []
+  },
+  {
+    "runAt": "2026-11-14T00:49:36.391Z",
+    "pending": 3,
+    "processed": 0,
+    "failed": 3,
+    "failures": [
+      "https://news.yahoo.co.jp/articles/e6641ccde024dcaa063df1fe942bde22bf984b0e",
+      "https://wirelesswire.jp/2026/11/94903/",
+      "https://note.com/gyokuto15/n/n0caab084cade"
+    ]
   }
 ]
