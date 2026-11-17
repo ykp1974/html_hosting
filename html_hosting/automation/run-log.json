@@ -146,5 +146,12 @@
       "https://news.yahoo.co.jp/articles/e6641ccde024dcaa063df1fe942bde22bf984b0e",
       "https://wirelesswire.jp/2026/11/94903/"
     ]
+  },
+  {
+    "runAt": "2026-11-17T02:50:59.136Z",
+    "pending": 0,
+    "processed": 0,
+    "failed": 0,
+    "failures": []
   }
 ]
