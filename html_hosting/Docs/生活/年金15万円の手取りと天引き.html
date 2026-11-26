@@ -76,7 +76,10 @@ ol.check{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:r
 ol.check li{counter-increment:c;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px 10px 44px;position:relative;font-size:.92rem}
 ol.check li::before{content:counter(c);position:absolute;left:12px;top:10px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:.78rem;font-weight:700;display:grid;place-items:center}
 ul.plain{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;font-size:.92rem}
-footer{font-size:.8rem;color:var(--muted)}
+footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+footer a{color:var(--accent);word-break:break-all}
+.source{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:.9rem;display:flex;flex-direction:column;gap:2px}
+.source a{color:var(--accent);word-break:break-all}
 @media (max-width:480px){.timeline{grid-template-columns:1fr}.legend div{grid-template-columns:14px 1fr auto}.legend em{display:none}}
 </style>
 </head>
@@ -173,6 +176,8 @@ footer{font-size:.8rem;color:var(--muted)}
       <div class="card"><h3>NISAの分配金再投資</h3><span class="v">残枠 222万円</span><p>分配金を再投資すると、その年の年間投資枠を使います。例：18万円を再投資すると成長投資枠の残りは222万円です。</p></div>
     </div>
   </section>
+
+  <div class="source"><strong>出典</strong><a href="https://news.yahoo.co.jp/articles/1d86c2c0b761570478ed2e6d49f8058da975a327" target="_blank" rel="noopener noreferrer">Yahoo!ニュース 元記事（月15万円の公的年金受給者の手取りと天引き）</a></div>
 
   <footer>前提：65歳以上75歳未満、単身、扶養家族なし、前年収入も年180万円、前年払社会保険料は約14.9万円。金額は試算で、実際の額は自治体の決定によります。</footer>
 </main>
