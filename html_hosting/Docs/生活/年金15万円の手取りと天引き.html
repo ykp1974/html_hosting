@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>年金15万円の手取りと天引き</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@700&display=swap" rel="stylesheet">
+<style>
+/* Layout: single reading column; summary tiles first, then breakdown bar, tables, schedule, checklist. */
+:root{
+  --bg:#f4f6f5; --surface:#ffffff; --ink:#1c2a27; --muted:#5b6b67; --line:#d9e0dd;
+  --accent:#0e6b5c; --accent-soft:#dff0ec;
+  --c-resident:#d98a2b; --c-care:#0e6b5c; --c-health:#3b6ea5;
+  --warn:#b4531a; --warn-soft:#fbeadf;
+  --font-display:"Zen Maru Gothic","Noto Sans JP",sans-serif;
+  --font-body:"Noto Sans JP",system-ui,-apple-system,"Hiragino Sans",Meiryo,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#101816; --surface:#18231f; --ink:#e6efec; --muted:#9db0aa; --line:#2b3b36;
+    --accent:#4fc2ac; --accent-soft:#1b3a34;
+    --c-resident:#e8a54f; --c-care:#4fc2ac; --c-health:#7aa8dd;
+    --warn:#f0a070; --warn-soft:#3a2518; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#101816; --surface:#18231f; --ink:#e6efec; --muted:#9db0aa; --line:#2b3b36;
+  --accent:#4fc2ac; --accent-soft:#1b3a34;
+  --c-resident:#e8a54f; --c-care:#4fc2ac; --c-health:#7aa8dd;
+  --warn:#f0a070; --warn-soft:#3a2518; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);line-height:1.75;font-size:16px}
+main{max-width:860px;margin:0 auto;padding:32px 16px 64px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;line-height:1.35;margin:0}
+h1{font-size:clamp(1.5rem,4.5vw,2.1rem)}
+h2{font-size:1.25rem;padding-bottom:8px;border-bottom:2px solid var(--accent)}
+h3{font-size:1rem}
+p{margin:0}
+.lead{color:var(--muted);font-size:.95rem;max-width:65ch}
+section{display:flex;flex-direction:column;gap:14px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:2px}
+.tile .label{font-size:.8rem;color:var(--muted)}
+.tile .num{font-family:var(--font-display);font-size:1.7rem;font-variant-numeric:tabular-nums;line-height:1.3}
+.tile .sub{font-size:.8rem;color:var(--muted)}
+.tile.main{background:var(--accent-soft);border-color:var(--accent)}
+.tile.main .num{color:var(--accent)}
+.bar{display:flex;height:34px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.bar span{display:block;height:100%}
+.legend{display:flex;flex-direction:column;gap:8px}
+.legend div{display:grid;grid-template-columns:14px 1fr auto auto;gap:10px;align-items:center;font-size:.92rem}
+.legend i{width:14px;height:14px;border-radius:3px;display:block}
+.legend b,.legend em{font-variant-numeric:tabular-nums;font-style:normal;text-align:right}
+.legend em{color:var(--muted);min-width:3.5em}
+.scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.9rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--accent-soft);font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+th.n{text-align:right}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--accent);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;font-size:.92rem}
+.card .v{font-family:var(--font-display);font-size:1.15rem;font-variant-numeric:tabular-nums}
+.card p{color:var(--muted)}
+.timeline{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.phase{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;font-size:.92rem}
+.phase .m{font-family:var(--font-display);font-size:1.05rem}
+.phase.real{border-color:var(--warn);background:var(--warn-soft)}
+.note{background:var(--warn-soft);border-left:5px solid var(--warn);border-radius:8px;padding:12px 14px;font-size:.92rem}
+ol.check{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;counter-reset:c}
+ol.check li{counter-increment:c;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:10px 12px 10px 44px;position:relative;font-size:.92rem}
+ol.check li::before{content:counter(c);position:absolute;left:12px;top:10px;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--bg);font-size:.78rem;font-weight:700;display:grid;place-items:center}
+ul.plain{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;font-size:.92rem}
+footer{font-size:.8rem;color:var(--muted)}
+@media (max-width:480px){.timeline{grid-template-columns:1fr}.legend div{grid-template-columns:14px 1fr auto}.legend em{display:none}}
+</style>
+</head>
+<body>
+<main>
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <h1>月15万円の年金、手取りはいくら？</h1>
+    <p class="lead">65歳以上・単身・公的年金のみ（年180万円）で東京都新宿区に住む場合の、2026年度（令和8年度）の天引き額と手取りの試算です。</p>
+  </header>
+
+  <section aria-labelledby="s1">
+    <h2 id="s1">結果のまとめ</h2>
+    <div class="tiles">
+      <div class="tile"><span class="label">年金額（額面）</span><span class="num">180万円</span><span class="sub">月15万円・年6回支給</span></div>
+      <div class="tile"><span class="label">天引き合計（年）</span><span class="num">約16.37万円</span><span class="sub">額面の約9.1%</span></div>
+      <div class="tile main"><span class="label">手取り（年）</span><span class="num">約163.63万円</span><span class="sub">月換算で約13.6万円</span></div>
+      <div class="tile"><span class="label">12/15支給分の振込額</span><span class="num">約27.27万円</span><span class="sub">額面30万円 − 天引き約2.73万円</span></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="s2">
+    <h2 id="s2">天引きの内訳（年額）</h2>
+    <div class="bar" role="img" aria-label="天引き年額の内訳：介護保険料53%、国民健康保険料38%、住民税9%">
+      <span style="width:53.2%;background:var(--c-care)"></span>
+      <span style="width:37.9%;background:var(--c-health)"></span>
+      <span style="width:8.9%;background:var(--c-resident)"></span>
+    </div>
+    <div class="legend">
+      <div><i style="background:var(--c-care)"></i><span>介護保険料</span><b>87,120円</b><em>53%</em></div>
+      <div><i style="background:var(--c-health)"></i><span>国民健康保険料</span><b>約62,100円</b><em>38%</em></div>
+      <div><i style="background:var(--c-resident)"></i><span>住民税（森林環境税込）</span><b>約14,500円</b><em>9%</em></div>
+      <div><i style="background:var(--muted)"></i><span>所得税（復興特別所得税込）</span><b>0円</b><em>0%</em></div>
+    </div>
+    <div class="scroll">
+      <table>
+        <thead><tr><th>項目</th><th class="n">1回あたり</th><th class="n">年額</th><th>ポイント</th></tr></thead>
+        <tbody>
+          <tr><td>所得税</td><td class="n">0円</td><td class="n">0円</td><td>基礎控除等により非課税</td></tr>
+          <tr><td>住民税</td><td class="n">約2,400円</td><td class="n">約14,500円</td><td>均等割＋所得割</td></tr>
+          <tr><td>介護保険料</td><td class="n">14,520円</td><td class="n">87,120円</td><td>新宿区第6段階（基準額×1.1）</td></tr>
+          <tr><td>国民健康保険料</td><td class="n">約10,300円</td><td class="n">約62,100円</td><td>所得割28,566円＋軽減後均等割</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="s3">
+    <h2 id="s3">なぜその金額になるのか</h2>
+    <div class="cards">
+      <div class="card"><h3>所得税</h3><span class="v">0円</span><p>令和8年度改正で、源泉徴収されない年金額の基準が205万円未満から214万円未満に上がりました。180万円はその範囲内です。</p></div>
+      <div class="card"><h3>住民税</h3><span class="v">年約1.45万円</span><p>東京23区の65歳単身者の非課税限度は年金収入155万円。180万円は超えるため課税されます。</p></div>
+      <div class="card"><h3>介護保険料</h3><span class="v">年8.71万円</span><p>基準額は年7.92万円（月6,600円）。住民税課税で合計所得125万円未満のため、第6段階の1.1倍です。</p></div>
+      <div class="card"><h3>国民健康保険料</h3><span class="v">年約6.21万円</span><p>所得割と均等割の合計。2026年度から子ども・子育て支援金分が加わります。65歳以上のため介護分は含みません。</p></div>
+    </div>
+    <p class="lead">所得の計算：年金180万円 − 公的年金等控除110万円 ＝ 雑所得70万円。</p>
+  </section>
+
+  <section aria-labelledby="s4">
+    <h2 id="s4">天引きの条件</h2>
+    <ul class="plain">
+      <li>年間の年金受給額が18万円以上で、特別徴収の対象になります。</li>
+      <li>住民税・介護保険料・国民健康保険料は65歳以上が対象です。75歳以上は後期高齢者医療保険料に切り替わります。</li>
+      <li>国保料と介護保険料の合計が1回の年金額の2分の1を超える場合は天引きされず、納付書や口座振替で納めます。</li>
+    </ul>
+  </section>
+
+  <section aria-labelledby="s5">
+    <h2 id="s5">振込額が途中で変わる理由</h2>
+    <div class="timeline">
+      <div class="phase"><span class="m">4月・6月・8月</span><strong>仮徴収</strong><span>前年度の天引き額を基準にします。</span></div>
+      <div class="phase real"><span class="m">10月・12月・2月</span><strong>本徴収</strong><span>当年度の確定額から仮徴収分を引いた残りを3等分します。</span></div>
+    </div>
+    <div class="note">前年度より保険料や住民税が上がると、10月以降の天引きが増えて手取りが減ります。12/15の振込額は本徴収期にあたり、原則として10月支給分と同水準です。</div>
+  </section>
+
+  <section aria-labelledby="s6">
+    <h2 id="s6">年金振込通知書で確認すること</h2>
+    <p class="lead">毎年6月（振込額に変更があったときも）に日本年金機構から届きます。紛失したときは「ねんきんネット」でPDF保存・印刷ができます。</p>
+    <ol class="check">
+      <li>年金支払額（天引き前・1回分）</li>
+      <li>介護保険料額</li>
+      <li>国民健康保険料（税）または後期高齢者医療保険料</li>
+      <li>所得税額・復興特別所得税額</li>
+      <li>個人住民税額・森林環境税額</li>
+      <li>控除後の振込額</li>
+    </ol>
+    <p class="lead">見直しの周期：介護保険料は3年ごと（2026年度は第9期の最終年度）、国民健康保険料は毎年度、住民税は前年の所得で毎年計算し直されます。</p>
+  </section>
+
+  <section aria-labelledby="s7">
+    <h2 id="s7">参考：年金生活の周辺データ</h2>
+    <div class="cards">
+      <div class="card"><h3>車の法定費用（年額）</h3><span class="v">普通車 52,080円</span><span class="v">軽自動車 23,430円</span><p>税金・自賠責保険・重量税の合計。国民年金満額の約0.7か月分と約0.3か月分に当たります。</p></div>
+      <div class="card"><h3>NISAの分配金再投資</h3><span class="v">残枠 222万円</span><p>分配金を再投資すると、その年の年間投資枠を使います。例：18万円を再投資すると成長投資枠の残りは222万円です。</p></div>
+    </div>
+  </section>
+
+  <footer>前提：65歳以上75歳未満、単身、扶養家族なし、前年収入も年180万円、前年払社会保険料は約14.9万円。金額は試算で、実際の額は自治体の決定によります。</footer>
+</main>
+</body>
+</html>
