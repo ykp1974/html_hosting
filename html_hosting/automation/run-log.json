@@ -223,5 +223,12 @@
     "processed": 1,
     "failed": 0,
     "failures": []
+  },
+  {
+    "runAt": "2026-11-28T02:34:14.479Z",
+    "pending": 5,
+    "processed": 5,
+    "failed": 0,
+    "failures": []
   }
 ]
